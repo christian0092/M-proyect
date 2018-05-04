@@ -10,6 +10,7 @@ import { PageRegistroComponent } from './page-registro/page-registro.component';
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { HomeComponent } from './home/home.component';
 import { ContactoComponent } from './contacto/contacto.component';
+import { EventosComponent } from './eventos/eventos.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ContactoComponent } from './contacto/contacto.component';
     PageRegistroComponent,
     NosotrosComponent,
     HomeComponent,
-    ContactoComponent
+    ContactoComponent,
+    EventosComponent
   ],
   imports: [
     routes,

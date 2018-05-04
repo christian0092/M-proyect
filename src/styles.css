@@ -1,12 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
-.footer{
+/*#footer{
   position: absolute;
   bottom: 0px;
   width: 100%;
+  color:white;
 }
-
+*/
 
 #main{
   position:relative;
-  top:35px;
+  top:50px;
 }
