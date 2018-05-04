@@ -3,3 +3,10 @@
 position: absolute;
 bottom: 0px;
 width: 100%;}
+
+
+#main{
+  position:relative;
+  top:35px;
+
+}
