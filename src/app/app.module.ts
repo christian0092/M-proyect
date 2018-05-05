@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routes } from './app.routes';
+import { FormsModule} from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -12,6 +14,10 @@ import { HomeComponent } from './home/home.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { EventosComponent } from './eventos/eventos.component';
 
+import { LoginService } from './services/login.service';
+import { LoginComponent } from './login/login.component';
+import { ModalLoginComponent } from './login/modal-login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,13 +27,17 @@ import { EventosComponent } from './eventos/eventos.component';
     NosotrosComponent,
     HomeComponent,
     ContactoComponent,
-    EventosComponent
+    EventosComponent,
+    LoginComponent,
+    ModalLoginComponent
   ],
   imports: [
     routes,
+    FormsModule,
+    HttpModule,
     BrowserModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
