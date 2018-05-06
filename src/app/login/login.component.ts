@@ -8,18 +8,17 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  nivel;
+  data;
   constructor(private loginService:LoginService) { }
 
   ngOnInit() {
   }
 
   login(datos){
-    this.nivel=this.loginService.getLogin(datos);/*.subscribe(*/
-      /*data => {
+    this.loginService.getLogin(datos).subscribe(
+      data => {
        console.log(data);
-       this.grupos=this.grupoService.getGrupos();
       },
-      error =>  console.log(<any>error));*/
+      error =>  console.log(<any>error));
   }
 }
