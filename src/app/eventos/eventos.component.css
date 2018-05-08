@@ -1,0 +1,27 @@
+.div-img{
+    position: relative;
+    height: 210px;
+    margin-top: 30px;
+    color:black;
+    text-shadow: 1px 1px 2px black;
+}
+.img_redonda{
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    z-index: 1;
+    max-width: 100%;
+    /*filter: grayscale(100%);
+    -webkit-filter: grayscale(100%);
+    transition:filter 0.4s;
+    -webkit-transition:-webkit-filter 1s;*/
+}
+.text_imagen{
+  position: relative;
+  text-align: center;
+  color:black;
+  text-shadow: 1px 1px 2px black;
+}
