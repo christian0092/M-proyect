@@ -1,0 +1,28 @@
+.div1{
+  border:1px solid red;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  position: absolute;
+}
+.div2{
+  border:1px solid green;
+  background-color: green;
+  width: 200px;
+  height: 200px;
+  z-index: 1;
+  position:absolute;
+  top:5;
+}
+
+.container:hover .div2{
+
+    transform:translate(0px,90px);
+    -ms-transform:translate(0px,90px);
+    -moz-transform:translate(0px,90px);
+    -webkit-transform:translate(0px,90px);
+    -o-transform:translate(0px,90px);
+
+
+
+ }

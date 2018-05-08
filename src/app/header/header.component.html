@@ -1,20 +1,27 @@
-@import "bootstrap-social.less";
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation" style="padding:0;border:white">
-    <div class="container" style="padding:0;border:white">
-        <img src="assets/img/logo.png" >
+<!--@import "bootstrap-social.less";-->
 
-        <div class="collapse navbar-collapse" id="exCollapsingNavbar">
-            <ul class="nav navbar-nav">
-                <li class="nav-item"><a [routerLink]="['/home']" class="nav-link">Home</a></li>
-                <li class="nav-item"><a [routerLink]="['/nosotros']"  class="nav-link">Porqué elegirnos?</a></li>
-                <li class="nav-item"><a [routerLink]="['/eventos']"  class="nav-link">Comencemos a organizarlo</a></li>
-            </ul>
-            <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+<nav class="navbar navbar-expand-lg navbar-dark" style="position:fixed;width:100%;">
+  <a class="navbar-brand" href="#"><img src="./assets/icon/logo5.png"/></a>
 
-                <app-login></app-login>
-            </ul>
-        </div>
-    </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      <ul class="nav navbar-nav" >
+          <li class="nav-item"><a [routerLink]="['/home']" class="nav-link">Home</a></li>
+          <li class="nav-item"><a [routerLink]="['/nosotros']"  class="nav-link">Porqué elegirnos?</a></li>
+          <li class="nav-item"><a [routerLink]="['/eventos']"  class="nav-link">Comencemos a organizarlo</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
+          <app-login></app-login>
+      </ul>
+
+    </ul>
+  </div>
 </nav>
 
 <app-modal-login></app-modal-login>
