@@ -27,9 +27,9 @@ html, body {
     position:relative;
     width:100%;
     clear:left;
-  float:left;
-
-  padding:0px;
+    float:left;
+    padding:0px;
+    height: auto;
 }
 .container{
 text-shadow: 2px 2px 5px black;
@@ -52,4 +52,5 @@ z-index: 100;
   text-align: center;
   text-shadow: 2px 2px 5px black;
   color:white;
+  min-width: 800px;
 }
