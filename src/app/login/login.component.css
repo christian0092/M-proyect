@@ -1,0 +1,13 @@
+.botonlogin {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+.botonlogin:hover, .botonlogin:focus,.botonlogin.active, .botonlogin.dropdown-toggle:focus{
+    background-color: white; /* Green */
+    color: #4CAF50;
+}
+.botonlogin:active{
+	background-color: white; /* Green */
+    color: #4CAF50;
+	border: 2px double #4CAF50;
+}
