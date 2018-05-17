@@ -9,8 +9,8 @@
 }
 #diagonal_centro{
   background-color:  #0a5686;
-  -webkit-clip-path: polygon(60% 28%, 100% 0, 100% 100%, 50% 100%, 0 100%, 0 0);
-  clip-path: polygon(60% 28%, 100% 0, 100% 100%, 50% 100%, 0 100%, 0 0);
+  -webkit-clip-path: polygon(12% 10%, 100% 0, 100% 100%, 72% 88%, 0 100%, 0 0);
+  clip-path: polygon(12% 10%, 100% 0, 100% 100%, 72% 88%, 0 100%, 0 0);
 }
 ::-webkit-scrollbar {
       width: 13px;
@@ -29,6 +29,7 @@
 }
 html, body {
   height: 100%;
+
 }
 #main{
   position:absolute;
@@ -36,6 +37,7 @@ html, body {
   height:100%;
   top:60px;
   padding: 0px;
+    /*font-family: Quicksand;*/
   /*width: 100%;
 min-height: 100%;
 height: auto !important;
