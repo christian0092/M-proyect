@@ -1,0 +1,20 @@
+.registroRemarca2{
+background-color:yellow;
+}
+.registroRemarca::placeholder,.registroRemarca2::placeholder,.registroRemarca3::placeholder{
+color:black;
+}
+.registroRemarca{
+background-color:green;
+}
+.registroRemarca3{
+background-color:orange;
+}
+.botonSeleccionModal {
+background-color:#0a5686;
+color:white;
+}
+.botonSeleccionModal:focus, .botonSeleccionModal.active,.botonSeleccionModal:click,.botonSeleccionModal:not{
+background-color:white;
+color:#0a5686;
+}
