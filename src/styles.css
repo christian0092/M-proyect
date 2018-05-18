@@ -76,7 +76,8 @@ z-index: 100;
   text-align: center;
   text-shadow: 2px 2px 5px black;
   color:white;
-
+font-family: 'Fjalla One', sans-serif;
+font-weight:lighter;
   animation: fadein 3s;
   -moz-animation: fadein 3s;
   -webkit-animation: fadein 3s;

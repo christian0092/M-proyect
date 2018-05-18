@@ -26,4 +26,8 @@ nav.navbar {
   font-size: 17px;
   font-weight: bold;
     text-shadow: 2px 2px 8px black;
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
 }
