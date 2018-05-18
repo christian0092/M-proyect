@@ -5,4 +5,25 @@ nav.navbar {
 
 .nav-item{
   background-color: #0a5686;
+  color:white;
+}
+.nav-brand{
+  margin:0;
+  padding:0;
+  margin-right:30px;
+}
+.nav li a {
+ color:white;
+ text-decoration:none;
+ padding: 3px;
+ display:block;
+ height: 100%;
+ border: none;
+ font-size: 16px;
+/*text-align: center;*/
+}
+.nav li a:hover {
+  font-size: 17px;
+  font-weight: bold;
+    text-shadow: 2px 2px 8px black;
 }

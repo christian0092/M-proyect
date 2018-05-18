@@ -12,14 +12,14 @@
   -moz-animation: fadein 3s;
   -webkit-animation: fadein 3s;
   -o-animation: fadein 3s;
-
+  font-family: 'Fjalla One', sans-serif;
   top:80px;
-  margin-bottom: 60px;
+  margin-bottom: 80px;
   position:relative;
-  font-size: 50px;
+  font-size: 60px;
   text-align: center;
-  text-shadow: 2px 2px 5px black;
-  color:white;
+  text-shadow: 2px 2px 8px black;
+  color:WHITE;
 }
 #cajas{
   text-align: center;
@@ -44,6 +44,7 @@
   height: 170px;
   color:white;
   font-size: 35px;
+    font-family: 'Fjalla One', sans-serif;
 }
 .carousel-item p{
   position:relative;
@@ -87,149 +88,4 @@
     to {
         opacity: 1;
     }
-}
-
-
-
-
-
-
-
-#titulo_marquee{
-  font-size: 30px;
-
-
-}
-/*#img_marquee{
-    width: 300px;
-    padding-bottom: 5px;
-    border-bottom: 5px solid red;
-}*/
-.marquee {
-  /*border: 1px solid #444;
-  border-radius: 5px;*/
-  height: 150px;
-  /*margin: 0 auto;*/
-  margin-top: 20px;
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-}
-/* cada párrafo */
-.marquee p {
-
-
-  background: rgba(40, 80, 130,0.4);
-/*background: rgba(60, 60, 60,0.4);*/
-
-
-  color: #FFF;
-  font-family: Tahoma, Arial, sans-serif;
-  height: 100%;
-  line-height: 50px;
-  margin: 0;
-  position: absolute;
-  text-align: center;
-  width: 100%;
-  -moz-transform:translateX(100%);
-  -webkit-transform:translateX(100%);
-  transform:translateX(100%);
-
-}
-
-.marqueeH p:nth-child(1) {
-  -moz-animation: left-one 10s ease infinite;
-  -webkit-animation: left-one 10s ease infinite;
-  animation: left-one 10s ease infinite;
-}
-@-moz-keyframes left-one {
-  0%{-moz-transform:translateX(100%);}
-  5% {-moz-transform:translateX(100%);}
-  10% {-moz-transform:translateX(0);}
-  15% {-moz-transform:translateX(0);}
-  100%{-moz-transform:translateX(-100%);}
-}
-@-webkit-keyframes left-one {
-  0% {-webkit-transform:translateX(100%);}
-  5% {-webkit-transform:translateX(100%);}
-  10% {-webkit-transform:translateX(0);}
-  15% {-webkit-transform:translateX(0);}
-  100%{-webkit-transform:translateX(-100%);}
-}
-
-.marqueeH p:nth-child(2) {
-  -moz-animation: left-two 10s ease infinite;
-  -webkit-animation: left-two 10s ease infinite;
-  animation: left-two 10s ease infinite;
-}
-@-moz-keyframes left-two {
-  0% {-moz-transform:translateX(100%);}
-  25% {-moz-transform:translateX(100%);}
-  30% {-moz-transform:translateX(0);}
-  35% {-moz-transform:translateX(0);}
-  100%{-moz-transform:translateX(-100%);}
-}
-@-webkit-keyframes left-two {
-  0% {-webkit-transform:translateX(100%);}
-  25% {-webkit-transform:translateX(100%);}
-  30% {-webkit-transform:translateX(0);}
-  35% {-webkit-transform:translateX(0);}
-  100%{-webkit-transform:translateX(-100%);}
-}
-.marqueeH p:nth-child(3) {
-  -moz-animation: left-three 10s ease infinite;
-  -webkit-animation: left-three 10s ease infinite;
-  animation: left-three 10s ease infinite;
-}
-@-moz-keyframes left-three {
-  0% {-moz-transform:translateX(100%);}
-  45% {-moz-transform:translateX(100%);}
-  50% {-moz-transform:translateX(0);}
-  55% {-moz-transform:translateX(0);}
-  100%{-moz-transform:translateX(-100%);}
-}
-@-webkit-keyframes left-three {
-  0% {-webkit-transform:translateX(100%);}
-  45% {-webkit-transform:translateX(100%);}
-  50% {-webkit-transform:translateX(0);}
-  55% {-webkit-transform:translateX(0);}
-  100%{-webkit-transform:translateX(-100%);}
-}
-.marqueeH p:nth-child(4) {
-  -moz-animation: left-four 10s ease infinite;
-  -webkit-animation: left-four 10s ease infinite;
-  animation: left-four 10s ease infinite;
-}
-@-moz-keyframes left-four {
-  0% {-moz-transform:translateX(100%);}
-  65% {-moz-transform:translateX(100%);}
-  70% {-moz-transform:translateX(0);}
-  75% {-moz-transform:translateX(0);}
-  100%{-moz-transform:translateX(-100%);}
-}
-@-webkit-keyframes left-four {
-  0% {-webkit-transform:translateX(100%);}
-  65% {-webkit-transform:translateX(100%);}
-  70% {-webkit-transform:translateX(0);}
-  75% {-webkit-transform:translateX(0);}
-  100%{-webkit-transform:translateX(-100%);}
-}
-.marqueeH p:nth-child(5) {
-  -moz-animation: left-five 10s ease infinite;
-  -webkit-animation: left-five 10s ease infinite;
-  animation: left-five 10s ease infinite;
-}
-@-moz-keyframes left-five {
-  0% {-moz-transform:translateX(100%);}
-  80% {-moz-transform:translateX(100%);}
-  85% {-moz-transform:translateX(0);}
-  87% {-moz-transform:translateX(0);}
-  100%{-moz-transform:translateX(-100%);}
-}
-@-webkit-keyframes left-five {
-  0% {-webkit-transform:translateX(100%);}
-  80% {-webkit-transform:translateX(100%);}
-  85% {-webkit-transform:translateX(0);}
-  87% {-webkit-transform:translateX(0);}
-  100%{-webkit-transform:translateX(-100%);}
 }
