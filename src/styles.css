@@ -67,14 +67,13 @@ z-index: 100;
 
 .text_superior{
   top:30px;
-  margin-bottom: 100px;
-  width:800px;
+  margin-bottom: 140px;
+  /*width:800px;
   left: 50%;
-  margin-left:-400px;
+  margin-left:-400px;*/
   position:relative;
   font-size: 30px;
   text-align: center;
   text-shadow: 2px 2px 5px black;
   color:white;
-  min-width: 800px;
 }

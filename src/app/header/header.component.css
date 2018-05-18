@@ -1,4 +1,8 @@
 nav.navbar {
     background-color: #0a5686;
-    height:60px;
+    height:auto;
+}
+
+.nav-item{
+  background-color: #0a5686;
 }
