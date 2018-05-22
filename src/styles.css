@@ -1,3 +1,19 @@
+.fa {
+  padding: 0px;
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  /*margin: 5px 2px;*/
+  color: black;
+  background: none;
+  /*border:1px solid black;*/
+  width:30px;
+  margin:0px;
+
+}
+#icon-input{
+  padding:0px;
+}
 #diagonal{
   -webkit-clip-path: polygon(50% 0%, 100% 0, 100% 100%, 85% 85%, 0 80%, 0 0);
   clip-path: polygon(50% 0%, 100% 0, 100% 100%, 85% 85%, 0 80%, 0 0);
@@ -115,3 +131,11 @@ font-weight:lighter;
         opacity: 1;
     }
 }
+.form-control{
+  margin-bottom: 10px;
+  /*margin:0px;
+  border:solid green 2px;*/
+}
+/*.form-row{
+  padding:0;
+}*/

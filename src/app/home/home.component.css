@@ -36,24 +36,25 @@
   font-size: 30px;
   text-shadow: 2px 2px 5px black;
 }
-.carousel{
+/*.carousel{
   height: 190px;
-}
+}*/
 .carousel-item{
   text-align:center;
-  height: 170px;
+  padding:20px;
+  /*height: 170px;*/
   color:white;
-  font-size: 35px;
+  font-size: 45px;
     font-family: 'Fjalla One', sans-serif;
 }
-.carousel-item p{
+/*.carousel-item p{
   position:relative;
     height: 140px;
     top:50%;
     margin-top: -70px;
-}
+}*/
 .carousel-inner{
-  height: 190px;
+  /*height: 190px;*/
 }
 
 
