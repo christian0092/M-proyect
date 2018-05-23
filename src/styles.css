@@ -4,12 +4,18 @@
   text-align: center;
   text-decoration: none;
   /*margin: 5px 2px;*/
-  color: black;
+  color: #375a86;
   background: none;
   /*border:1px solid black;*/
   width:30px;
   margin:0px;
 
+}
+.form-row legend{
+  color: #375a86;
+}
+.modal-header{
+  color:#375a86;
 }
 #icon-input{
   padding:0px;
@@ -136,6 +142,3 @@ font-weight:lighter;
   /*margin:0px;
   border:solid green 2px;*/
 }
-/*.form-row{
-  padding:0;
-}*/

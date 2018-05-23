@@ -20,20 +20,22 @@
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <div class="modal-header">
-        <h3>Registro</h3>
+        <h3>Registro de Usuario</h3>
         <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
       </div>
       <div class="modal-body">
         <form>
-          <div class="btn-group btn-group-toggle " id="botonSeleccionModal" data-toggle="buttons">
-            <label class="btn btn-secondary botonSeleccionModal " (click)="activarRegistoPersona()">
+          <div class="btn-group btn-group-toggle " id="botones_cabecera" data-toggle="buttons">
+            <label class="btn btn-secondary botonSeleccionModal" (click)="activarRegistoPersona()">
               <input id="toggle_persona" type="radio" name="options" id="option2" autocomplete="off"> Persona
             </label>
-            <label class="btn btn-secondary botonSeleccionModal"(click)="activarRegistoEmpresa()">
+            <label class="btn btn-secondary botonSeleccionModal" (click)="activarRegistoEmpresa()">
               <input type="radio" name="options" id="option3" autocomplete="off"> Empresa
             </label>
           </div>
-          <div *ngIf="registroPersona" class="form-row">
+
+          <div *ngIf="registroPersona" class="form-group">
+
             <div class="col">
               <input type="text" class="form-control registroRemarca" id="nombreDeUsuario" name="nombreDeUsuario" placeholder="Nombre de usuario" ngModel>
               <input type="email" class="form-control registroRemarca3" id="email" name="email" placeholder="Email" ngModel>
@@ -61,46 +63,71 @@
               <input type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>
               <input type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>
             </div>
-          </div><div *ngIf="registroEmpresa" id="registro_empresa" class="form-row" >
-          <div class="col">
-            <input type="text" class="form-control registroRemarca" id="nombreDeUsuario" name="nombreDeUsuario" placeholder="Nombre de usuario" ngModel>
-            <input type="email" class="form-control registroRemarca3" id="email" name="email" placeholder="Email" ngModel>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de organizacion o empresa" ngModel>
-            <div class="form-row"><div id="icon"><img src="assets/icon/whatsapp.png" /></div>
-          <input type="text" class="form-control" style='width:91%' id="paisCaracteristicaMovil" name="paisCaracteristicaMovil" placeholder="#Pais#Caracteristica#Movil" ngModel></div>              <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" ngModel>
-          <input type="text" class="form-control" id="calleYNumero" name="calleYNumero" placeholder="Calle y Numero" ngModel>
-          <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal" ngModel>
-          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Pais" ngModel>
-          <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" ngModel>
-          <input type="text" class="form-control" id="pisoYDepartamento" name="pisoYDepartamento" placeholder="Piso y departamento" ngModel>
-        </div>
-        <div class="col">
-          <input type="password" class="form-control registroRemarca2" id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
-          <input type="password" class="form-control registroRemarca2" id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
-          <input type="text" class="form-control" id="nombreDeContacto" name="nombreDeContacto" placeholder="Nombre de contacto designado" ngModel>
-          <div class="form-row">
-            <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
-            <input type="text" class="form-control" style='width:85%' id="paisCaracteristicaMovil" name="paisCaracteristicaMovil" placeholder="#Pais#Caracteristica#Movil" ngModel>
+
+
           </div>
-  
+
+
+
+        <div *ngIf="registroEmpresa" id="registro_empresa" class="form-group" >
+
 
         <div class="form-row">
-          <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
-          <input type="text" class="form-control" style='width:85%' id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" ngModel>
+          <div class="col">
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
+          </div>
+          <div class="col">
+            <input type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
+            <input type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
+          </div>
+
         </div>
         <div class="form-row">
-            <a class="btn-lg" style="padding:0px"><span class="fa fa-twitter"></span></a>
-          <input type="text" class="form-control" style='width:85%' id="usuarioTwitter" name="usuarioTwitter" placeholder="Twitter" ngModel>
+            <legend>Organizacion o Empresa</legend>
         </div>
         <div class="form-row">
-            <a class="btn-lg" style="padding:0px"><span class="fa fa-instagram"></span></a>
-          <input type="text" class="form-control" style='width:85%' id="usuarioInstagram" name="usuarioInstagram" placeholder="Instagram" ngModel>
+          <div class="col">
+            <!--  <input type="text" class="form-control registroRemarca" id="nombreDeUsuario" name="nombreDeUsuario" placeholder="Nombre de usuario" ngModel>-->
+            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de organizacion o empresa" ngModel>
+            <div class="form-row">
+              <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="paisCaracteristicaMovil" name="paisCaracteristicaMovil" placeholder="#Pais#Caracteristica#Movil" ngModel>
+            </div>
+            <input type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>
+            <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" ngModel>
+            <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" ngModel>
+            <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal" ngModel>
+            <input type="text" class="form-control" id="calleYNumero" name="calleYNumero" placeholder="Calle y Numero" ngModel>
+            <input type="text" class="form-control" id="pisoYDepartamento" name="pisoYDepartamento" placeholder="Piso y departamento" ngModel>
+          </div>
+          <div class="col">
+
+            <div class="form-row">
+              <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" ngModel>
+            </div>
+            <div class="form-row">
+                <a class="btn-lg" style="padding:0px"><span class="fa fa-twitter"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="usuarioTwitter" name="usuarioTwitter" placeholder="Twitter" ngModel>
+            </div>
+            <div class="form-row">
+                <a class="btn-lg" style="padding:0px"><span class="fa fa-instagram"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="usuarioInstagram" name="usuarioInstagram" placeholder="Instagram" ngModel>
+            </div>
+            <div class="form-row">
+                <a class="btn-lg" style="padding:0px"><span class="fa fa-youtube"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="usuarioYoutube" name="usuarioYoutube" placeholder="Youtube" ngModel>
+          </div>
+          <legend>Contacto</legend>
+          <input type="text" class="form-control" id="nombreDeContacto" name="nombreDeContacto" placeholder="Nombre de contacto designado" ngModel>
+            <div class="form-row">
+              <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
+              <input type="text" class="form-control" style='width:91%' id="paisCaracteristicaMovil" name="paisCaracteristicaMovil" placeholder="#Pais#Caracteristica#Movil" ngModel>
+            </div>
         </div>
-        <div class="form-row">
-            <a class="btn-lg" style="padding:0px"><span class="fa fa-youtube"></span></a>
-          <input type="text" class="form-control" style='width:85%' id="usuarioYoutube" name="usuarioYoutube" placeholder="Youtube" ngModel>
-      </div>
     </div>
+
+
   </div>
 </form>
 <!-- <div class="col-md-12 col-md-offset-1">

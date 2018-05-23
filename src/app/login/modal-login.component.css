@@ -1,4 +1,4 @@
-.registroRemarca2{
+/*.registroRemarca2{
 background-color:yellow;
 }
 .registroRemarca::placeholder,.registroRemarca2::placeholder,.registroRemarca3::placeholder{
@@ -9,10 +9,14 @@ background-color:green;
 }
 .registroRemarca3{
 background-color:orange;
+}*/
+#botones_cabecera{
+  margin-bottom: 10px;
 }
 .botonSeleccionModal {
 background-color:#0a5686;
 color:white;
+margin-bottom: 10px;
 }
 .botonSeleccionModal:focus, .botonSeleccionModal.active,.botonSeleccionModal:click,.botonSeleccionModal:not{
 background-color:white;
