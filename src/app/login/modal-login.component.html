@@ -36,35 +36,58 @@
 
           <div *ngIf="registroPersona" class="form-group">
 
+            <div class="form-row">
+              <div class="col">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
+              </div>
+              <div class="col">
+                <input type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
+                <input type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
+              </div>
+
+            </div>
+            <div class="form-row">
+                <legend>Datos Personales</legend>
+            </div>
+            <div class="form-row">
             <div class="col">
-              <input type="text" class="form-control registroRemarca" id="nombreDeUsuario" name="nombreDeUsuario" placeholder="Nombre de usuario" ngModel>
-              <input type="email" class="form-control registroRemarca3" id="email" name="email" placeholder="Email" ngModel>
+
               <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" ngModel>
-              <input type="text" class="form-control" id="fechaDeNacimiento" name="fechaDeNacimiento" placeholder="Fecha de nacimiento" ngModel>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Email" ngModel>
-              <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular" ngModel>
-              <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" ngModel>
-              <label for="exampleFormControlSelect1">Estudios</label>
+              <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" ngModel>
+              <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" ngModel>
+              <input type="text" onfocus="(this.type='date')"  id="date" class="form-control" id="fechaDeNacimiento" name="fechaDeNacimiento" placeholder="Fecha de nacimiento" ngModel>
+
+              <input type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>
+
               <select class="form-control" id="exampleFormControlSelect1">
-                <option>Robo de trabajos con LC</option>
+                <option disabled selected="selected">Estudios</option>
+                <option >Robo de trabajos con LC</option>
                 <option>Aprendiendo ingles con JM</option>
                 <option>Avanzado o no, todo es lo mismo con SR</option>
               </select>
-              <label for="exampleFormControlTextarea1">Intereses</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              <div class="textarea">
+                <label for="exampleFormControlTextarea1" >Intereses</label>
+                <textarea  class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+              </div>
+
             </div>
             <div class="col">
-              <input type="password" class="form-control registroRemarca2" id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
-              <input type="password" class="form-control registroRemarca2" id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
-              <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" ngModel>
-              <input type="text" class="form-control" id="dni" name="dni" placeholder="DNI" ngModel>
-              <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono" ngModel>
-              <input type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad" ngModel>
+              <div class="form-row">
+                <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
+                <input type="text" class="form-control" style='width:91%' id="paisCaracteristicaMovil" name="paisCaracteristicaMovil" placeholder="#Pais#Caracteristica#Movil" ngModel>
+              </div>
               <input type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>
-              <input type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>
+              <input type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" ngModel>
+              <input type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad" ngModel>
+              <input type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal" ngModel>
+              <input type="text" class="form-control" id="calleYNumero" name="calleYNumero" placeholder="Calle y Numero" ngModel>
+              <input type="text" class="form-control" id="pisoYDepartamento" name="pisoYDepartamento" placeholder="Piso y departamento" ngModel>
+
+
+
             </div>
 
-
+          </div>
           </div>
 
 
@@ -130,38 +153,10 @@
 
   </div>
 </form>
-<!-- <div class="col-md-12 col-md-offset-1">
-  <div class="well well bs-component">
-    <form class="form-horizontal" >
-      <fieldset>
-        <div class="form-group">
-          <label for="thumbnail" class="col-xs-2 control-label">Nombre</label>
-          <div class="col-xs-2 col-md-4" >
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" ngModel>
-          </div>
-          <label for="imagelink" class="col-lg-1 control-label">Apellido</label>
-          <div class="col-xs-3 col-md-4">
-            <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" ngModel>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="title" class="col-lg-1 control-label">Email</label>
-          <div class="col-xs-3 col-md-4">
-            <input type="text" class="form-control" id="email" name="email" placeholder="Email" ngModel>
-          </div>
-          <label for="title" class="col-lg-1 control-label">Password</label>
-          <div class="col-xs-3 col-md-4">
-            <input type="text" class="form-control" id="email" name="email" placeholder="Email" ngModel>
-          </div>
-        </div>
-      </fieldset>
-    </form>
-  </div>
-</div>  -->
 </div>
 <div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button class="btn btn-primary">Save changes</button>
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+  <button class="btn btn-primary">Guardar</button>
 </div>
 </div>
 </div>

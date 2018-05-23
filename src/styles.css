@@ -11,6 +11,10 @@
   margin:0px;
 
 }
+.textarea label{
+  margin-left:5px;
+  margin-bottom: 0px;
+}
 .form-row legend{
   color: #375a86;
 }
