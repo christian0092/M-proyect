@@ -17,6 +17,7 @@ import { EventosComponent } from './eventos/eventos.component';
 import { LoginService } from './services/login.service';
 import { LoginComponent } from './login/login.component';
 import { ModalLoginComponent } from './login/modal-login.component';
+import { FormatosComponent } from './formatos/formatos.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ModalLoginComponent } from './login/modal-login.component';
     ContactoComponent,
     EventosComponent,
     LoginComponent,
-    ModalLoginComponent
+    ModalLoginComponent,
+    FormatosComponent
   ],
   imports: [
     routes,
