@@ -1,1 +1,12 @@
-
+.test{
+    height:50px;
+    width:200px;
+    padding: 15px;
+}
+.letras{
+	padding: 50px;
+}
+.paddingtest{
+	padding-left: 50px;
+	padding-right: 50px;
+}
