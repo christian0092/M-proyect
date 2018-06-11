@@ -40,6 +40,48 @@
 		</div>
 	</div>
 
+	<div class="contenido" id="diagonal_centro">
+		<div class="container"  style="">
+			<div class="titulo_divisor">
+					<div class="titulo_texto_divisor"><h2>AGENDA</h2></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="contenido" style="margin-top:20px">
+		<div class="container" >
+			<div class="row" *ngFor="let listaAgenda of agenda">
+				<div class="col-md-2" >
+
+				</div>
+				<div class="col-md-1" >
+					<div>
+						{{listaAgenda.hora_inicio}} a {{listaAgenda.hora_fin}}
+					</div>
+				</div>
+				<div class="col-md-3" >
+					<div>
+							{{listaAgenda.nombre_formato}}
+					</div>
+					<div>
+						{{listaAgenda.descripcion_formato}}
+					</div>
+				</div>
+				<div class="col-md-4" >
+					<div>
+						{{listaAgenda.nombre}}
+					</div>
+					<div>
+						{{listaAgenda.descripcion}}
+					</div>
+				</div>
+				<div class="col-md-2" >
+
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!--
 	<div class="contenido" >
 		<div class="container" >
@@ -116,16 +158,22 @@
 		</div>
 	</div>
 -->
-
-<div class="contenido">
+<div class="contenido" id="diagonal_centro">
+	<div class="container"  style="">
+		<div class="titulo_divisor">
+				<div class="titulo_texto_divisor"><h2>PARTNERS</h2></div>
+		</div>
+	</div>
+</div>
+<div class="contenido" style="margin-top:35px">
   <div class="container">
     <div class="row" >
 			<div  class="col-lg">
 				<marquee onmouseout="this.start()" onmouseover="this.stop()">
 					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/asebal.png" style="height:50px"></a>
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/pat.png" style="height:50px"></a>
+					<a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat.png" style="height:50px"></a>
 					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/auditores.jpg" style="height:50px"></a>
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/habidom.jpg" style="height:50px"></a>
+					<a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" style="height:50px"></a>
 					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/bsp.jpg" style="height:50px"></a>
 					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/cota.jpg" style="height:50px"></a>
 				</marquee>
@@ -135,12 +183,12 @@
 	</div>
 </div>
 
-	<div class="contenido" >
+	<div class="contenido" style="margin-top:20px">
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-10">
 					<h1>Quiere ser Partner del evento?</h1>
-					<p>Redacción de una referencia de lo que podría ganar al exhibirse en nuestro evento</p>
+					<p>Desde antes hasta después del evento le ofrecemos las mejores oportunidades de mostrar su marca. Comencemos.</p>
 				</div>
 				<div class="col-md-2">
 					<!--<button type="button" class="btn btn-primary" id="boton_grande">Ser partner</button>-->

@@ -20,6 +20,8 @@ import { LoginComponent } from './login/login.component';
 import { ModalLoginComponent } from './login/modal-login.component';
 import { FormatosComponent } from './formatos/formatos.component';
 import { LogoutComponent } from './login/logout.component';
+import { PerfilComponent } from './perfil/perfil.component';
+import { ModalCoffeeComponent } from './perfil/modal-coffee.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { LogoutComponent } from './login/logout.component';
     LoginComponent,
     ModalLoginComponent,
     FormatosComponent,
-    LogoutComponent
+    LogoutComponent,
+    PerfilComponent,
+    ModalCoffeeComponent
   ],
   imports: [
     routes,
