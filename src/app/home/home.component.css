@@ -7,7 +7,7 @@
 }
 
 .text_superior_grande{
-
+  text-shadow: 2px 2px 5px black;
   animation: fadein 3s;
   -moz-animation: fadein 3s;
   -webkit-animation: fadein 3s;
@@ -21,7 +21,7 @@
   text-shadow: 2px 2px 8px black;
   color:WHITE;
 }
-#cajas{
+/*#cajas{
   text-align: center;
   margin-bottom: 20px;
   text-shadow: 1px 1px 2px black;
@@ -35,7 +35,7 @@
   position:relative;
   font-size: 30px;
   text-shadow: 2px 2px 5px black;
-}
+}*/
 /*.carousel{
   height: 190px;
 }*/
@@ -45,7 +45,8 @@
   /*height: 170px;*/
   color:white;
   font-size: 45px;
-    font-family: 'Fjalla One', sans-serif;
+  font-family: 'Fjalla One', sans-serif;
+  text-shadow: 2px 2px 5px black;
 }
 /*.carousel-item p{
   position:relative;
@@ -121,7 +122,7 @@
             box-shadow:0 0 30px rgba(0,0,0,0.8);
  }
 .imagen_evento{
-  width:400px;
+  /*width:400px;*/
   margin:10px;
   border:2px solid white;
   -webkit-box-shadow:0 0 30px rgba(0,0,0,0.8);
@@ -130,7 +131,8 @@
 
 }
 .imagen_evento img{
-  max-width: 100%;
-  max-height: 100%;
+  /*max-width: 100%;
+  max-height: 100%;*/
+  width:100%;
 
 }

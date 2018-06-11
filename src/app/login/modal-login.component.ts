@@ -21,7 +21,6 @@ export class ModalLoginComponent implements OnInit {
    activarRegistoEmpresa():void{
   	this.registroPersona=false;
   	this.registroEmpresa=true;
-  	console.log("algo hice");
 
   }
 

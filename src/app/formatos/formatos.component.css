@@ -38,3 +38,8 @@
   text-shadow: 1px 1px 1px black;
   margin-top: 25px;
 }
+#boton_grande{
+    height:50px;
+    width:100%;
+    margin-top:10px
+}

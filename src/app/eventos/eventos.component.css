@@ -1,10 +1,83 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
-.test{
-    height:50px;
-    width:200px;
-    padding: 15px;
+.fa {
+  padding: 0px;
+  font-size: 33px;
+  text-align: center;
+  text-decoration: none;
+  /*margin: 5px 2px;*/
+  color: #2057a2;
+  background: none;
+  /*border:1px solid black;*/
+  width:37px;
+  margin:0px;
+
 }
-/* written by riliwan balogun http://www.facebook.com/riliwan.rabo*/
+#boton_grande{
+    height:50px;
+    width:100%;
+    margin-top:10px
+}
+.titulo p{
+  font-size: 18px;
+  text-align: justify;
+  margin-top: 15px;
+}
+.titulo h2{
+  margin-top: 15px; color: #2057a2;
+}
+.titulo h6{
+  margin-top: 15px;  color: #2057a2;
+}
+#imagen_logo{
+  width:100%;
+  border:2px solid white;
+  -webkit-box-shadow:0 0 30px rgba(0,0,0,0.8);
+  -moz-box-shadow:0 0 30px rgba(0,0,0,0.8);
+  box-shadow:0 0 30px rgba(0,0,0,0.8);
+  margin-top: 10px;
+}
+
+.img_redonda{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    z-index: 1;
+    max-width: 100%;
+
+        transform:scale(1);
+        -ms-transform:scale(1);
+        -moz-transform:scale(1);
+        -webkit-transform:scale(1);
+        -o-transform:scale(1);
+        -webkit-transition: all 500ms ease-in-out;
+        -moz-transition: all 500ms ease-in-out;
+        -ms-transition: all 500ms ease-in-out;
+        -o-transition: all 500ms ease-in-out;
+
+}
+.text_imagen{
+  position: relative;
+  text-align: center;
+  float:right;
+  color:black;
+  text-shadow: 1px 1px 1px black;
+  width:50%;
+  margin-top:20px;
+  font-size: 16px;
+}
+.imagen{
+  position: relative;
+  float:left;
+  width:50%;
+  margin-top:10px;
+}
+
+
+
+
+
 .board{
     width: 75%;
 margin: 60px auto;
@@ -144,7 +217,7 @@ li.active span.round-tabs.five{
     border: 5px solid transparent;
     border-bottom-color: #ddd;
     transition:0.1s ease-in-out;
-    
+
 }
 .nav-tabs > li.active:after {
     content: " ";
@@ -155,7 +228,7 @@ li.active span.round-tabs.five{
     bottom: 0px;
     border: 10px solid transparent;
     border-bottom-color: #ddd;
-    
+
 }
 .nav-tabs > li a{
    width: 70px;
@@ -197,7 +270,7 @@ padding-top: 50px;
 
 
 @media( max-width : 585px ){
-    
+
     .board {
 width: 90%;
 height:auto !important;

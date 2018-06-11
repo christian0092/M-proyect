@@ -15,9 +15,11 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { EventosComponent } from './eventos/eventos.component';
 
 import { LoginService } from './services/login.service';
+import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import { ModalLoginComponent } from './login/modal-login.component';
 import { FormatosComponent } from './formatos/formatos.component';
+import { LogoutComponent } from './login/logout.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { FormatosComponent } from './formatos/formatos.component';
     EventosComponent,
     LoginComponent,
     ModalLoginComponent,
-    FormatosComponent
+    FormatosComponent,
+    LogoutComponent
   ],
   imports: [
     routes,
@@ -39,7 +42,7 @@ import { FormatosComponent } from './formatos/formatos.component';
     HttpModule,
     BrowserModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
