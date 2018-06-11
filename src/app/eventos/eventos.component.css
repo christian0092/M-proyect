@@ -4,7 +4,8 @@
   text-align: center;
   text-decoration: none;
   /*margin: 5px 2px;*/
-  color: #2057a2;
+  /*color: #2057a2;*/
+  color:#d20707;
   background: none;
   /*border:1px solid black;*/
   width:37px;
@@ -29,7 +30,17 @@
   color:white;
 }
 
-
+#agenda_descripcion{
+  font-size: 16px;
+}
+#agenda_titulo{
+  font-size: 20px;
+  color: #2057a2;
+}
+#agenda_horario{
+  font-size: 18px;
+  color: #2057a2;
+}
 .titulo p{
   font-size: 18px;
   text-align: justify;
@@ -87,6 +98,7 @@
   width:50%;
   margin-top:10px;
 }
+
 
 
 

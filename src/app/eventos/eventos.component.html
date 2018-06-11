@@ -16,14 +16,6 @@
 						 la jornada plantea opciones Conference, Workshop y Summit con el objetivo de brindarle al Asistente
 						 la mejor experiencia de presentación.
 					</p>
-					<!--<div class="row" style="margin:3px">
-						<div id="icon"><img src="assets/icon/facebook.png" /></div>
-						<div id="icon"><img src="assets/icon/instagram.png" /></div>
-						<div id="icon"><img src="assets/icon/whatsapp.png" /></div>
-						<div id="icon"><img src="assets/icon/youtube.png" /></div>
-						<div id="icon"><img src="assets/icon/twitter.png" /></div>
-
-					</div>-->
 					<div class="row">
 						<div id="icon"><span class="fa fa-facebook"></span></div>
 						<div id="icon"><span class="fa fa-instagram"></span></div>
@@ -34,7 +26,7 @@
 					</div>
 				</div>
 				<div class="col-md-2"  >
-					<!--<button type="button" class="btn btn-primary" id="boton_grande">Participar</button>-->
+					<button type="button" class="btn btn-primary" id="boton_grande">Participar</button>
 				</div>
 			</div>
 		</div>
@@ -47,36 +39,61 @@
 			</div>
 		</div>
 	</div>
-
+<!--
 	<div class="contenido" style="margin-top:20px">
 		<div class="container" >
-			<div class="row" *ngFor="let listaAgenda of agenda">
-				<div class="col-md-2" >
+			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
+				<div class="col-md-3">
 
 				</div>
-				<div class="col-md-1" >
-					<div>
-						{{listaAgenda.hora_inicio}} a {{listaAgenda.hora_fin}}
-					</div>
-				</div>
-				<div class="col-md-3" >
-					<div>
-							{{listaAgenda.nombre_formato}}
-					</div>
-					<div>
-						{{listaAgenda.descripcion_formato}}
+				<div class="col-md-2">
+					<div id="agenda_horario">
+						{{listaAgenda.hora_inicio}} hs
 					</div>
 				</div>
 				<div class="col-md-4" >
-					<div>
+					<div id="agenda_titulo">
+							{{listaAgenda.nombre_formato}}
+					</div>
+					<div id="agenda_descripcion">
+						{{listaAgenda.descripcion_formato}}
+					</div>
+				</div>
+				<div class="col-md-3" >
+
+				</div>
+
+			</div>
+		</div>
+	</div>-->
+
+	<div class="contenido" style="margin-top:20px">
+		<div class="container" >
+			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
+
+				<div class="col-md-2">
+					<div id="agenda_horario">
+						{{listaAgenda.hora_inicio}} hs
+					</div>
+				</div>
+				<div class="col-md-4" >
+					<div id="agenda_titulo">
+							{{listaAgenda.nombre_formato}}
+					</div>
+					<div id="agenda_descripcion">
+						{{listaAgenda.descripcion_formato}}
+					</div>
+				</div>
+				<div class="col-md-5" >
+					<div  id="agenda_titulo">
 						{{listaAgenda.nombre}}
 					</div>
-					<div>
+					<div id="agenda_descripcion">
 						{{listaAgenda.descripcion}}
 					</div>
 				</div>
-				<div class="col-md-2" >
-
+				<div class="col-md-1" >
+						<button type="button" class="btn btn-primary" id="boton_grande">Ver</button>
 				</div>
 			</div>
 		</div>
@@ -165,17 +182,17 @@
 		</div>
 	</div>
 </div>
-<div class="contenido" style="margin-top:35px">
+<div class="contenido" style="margin-top:45px">
   <div class="container">
     <div class="row" >
 			<div  class="col-lg">
 				<marquee onmouseout="this.start()" onmouseover="this.stop()">
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/asebal.png" style="height:50px"></a>
-					<a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat.png" style="height:50px"></a>
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/auditores.jpg" style="height:50px"></a>
-					<a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" style="height:50px"></a>
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/bsp.jpg" style="height:50px"></a>
-					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/cota.jpg" style="height:50px"></a>
+					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/asebal.png" style="height:60px"></a>
+					<a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat.png" style="height:60px"></a>
+					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/auditores.jpg" style="height:60px"></a>
+					<a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" style="height:60px"></a>
+					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/bsp.jpg" style="height:60px"></a>
+					<a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/cota.jpg" style="height:60px"></a>
 				</marquee>
 
 			</div>
@@ -183,7 +200,7 @@
 	</div>
 </div>
 
-	<div class="contenido" style="margin-top:20px">
+	<div class="contenido" style="margin-top:30px">
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-10">
@@ -191,7 +208,7 @@
 					<p>Desde antes hasta después del evento le ofrecemos las mejores oportunidades de mostrar su marca. Comencemos.</p>
 				</div>
 				<div class="col-md-2">
-					<!--<button type="button" class="btn btn-primary" id="boton_grande">Ser partner</button>-->
+					<button type="button" class="btn btn-primary" id="boton_grande">Ser partner</button>
 				</div>
 			</div>
 

@@ -129,6 +129,8 @@
   -moz-box-shadow:0 0 30px rgba(0,0,0,0.8);
   box-shadow:0 0 30px rgba(0,0,0,0.8);
 
+  width:100%;
+
 }
 .imagen_evento img{
   /*max-width: 100%;
