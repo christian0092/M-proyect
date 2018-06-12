@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { routes } from './app.routes';
 import { FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -15,13 +16,15 @@ import { ContactoComponent } from './contacto/contacto.component';
 import { EventosComponent } from './eventos/eventos.component';
 
 import { LoginService } from './services/login.service';
-import { AuthService } from './services/auth.service';
-import { LoginComponent } from './login/login.component';
-import { ModalLoginComponent } from './login/modal-login.component';
+import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
-import { LogoutComponent } from './login/logout.component';
+import { LogoutComponent } from './login/login/logout.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ModalCoffeeComponent } from './perfil/modal-coffee.component';
+import { RegisterComponent } from './login/register/register.component';
+import { RegisterEmpresaComponent } from './login/register/register-empresa/register-empresa.component';
+import { RegisterPersonaComponent } from './login/register/register-persona/register-persona.component';
+import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -34,19 +37,23 @@ import { ModalCoffeeComponent } from './perfil/modal-coffee.component';
     ContactoComponent,
     EventosComponent,
     LoginComponent,
-    ModalLoginComponent,
     FormatosComponent,
     LogoutComponent,
     PerfilComponent,
-    ModalCoffeeComponent
+    ModalCoffeeComponent,
+    RegisterComponent,
+    RegisterEmpresaComponent,
+    RegisterPersonaComponent,
+    ResetPasswordComponent
   ],
   imports: [
     routes,
     FormsModule,
     HttpModule,
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule
   ],
-  providers: [LoginService,AuthService],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

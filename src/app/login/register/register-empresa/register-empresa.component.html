@@ -1,0 +1,91 @@
+<form [formGroup]="formulario_empresa">  
+  <div class="form-row">
+    <div class="col">
+      <input formControlName="email" type="email" class="form-control" placeholder="Email">
+      <div class="alert alert-danger" *ngIf="isFieldValid('email')">* Este campo es requerido</div>
+    </div>
+    <div class="col">
+      <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
+      <div class="alert alert-danger" *ngIf="isFieldValid('password')">* Este campo es requerido</div>
+      <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Repite contraseña">
+      <div class="alert alert-danger" *ngIf="isFieldValid('password_confirmation')">* Este campo es requerido</div>
+      <div class="alert alert-danger" *ngIf="this.formulario_empresa.controls['password_confirmation'].value != this.formulario_empresa.controls['password'].value && isFieldValid('password') && isFieldValid('password_confirmation')">* Las contraseñas no coinciden</div>
+    </div>
+  </div>
+
+  <div class="form-row">
+      <legend>Organizacion o Empresa</legend>
+  </div>
+
+  <div class="form-row">
+    <div class="col">        
+      <input type="text" class="form-control" formControlName="name" placeholder="Nombre de organizacion o empresa" >
+      <div class="alert alert-danger" *ngIf="isFieldValid('name')">* Este campo es requerido</div>
+      <div class="form-row">
+        <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
+        <input type="text" class="form-control" style='width:91%' formControlName="phone" placeholder="#Pais#Caracteristica#Movil" >
+        <div class="alert alert-danger" *ngIf="isFieldValid('phone')">* Este campo es requerido</div>
+      </div>
+      <input formControlName="country_id" type="text" class="form-control" placeholder="Pais" >
+      <div class="alert alert-danger" *ngIf="isFieldValid('country_id')">* Este campo es requerido</div>
+      <input formControlName="province_id" type="text" class="form-control" placeholder="Provincia" >
+      <div class="alert alert-danger" *ngIf="isFieldValid('province_id')">* Este campo es requerido</div>
+      <input formControlName="city_id" type="text" class="form-control" placeholder="Localidad" >
+      <div class="alert alert-danger" *ngIf="isFieldValid('city_id')">* Este campo es requerido</div>
+      <input formControlName="postal_code" type="text" class="form-control"  placeholder="Codigo postal" >             
+      <input formControlName="street" type="text" class="form-control" placeholder="Calle" >
+      <div class="alert alert-danger" *ngIf="isFieldValid('street')">* Este campo es requerido</div>
+      <div class="form-row">
+          <div class="col"><input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número" ></div>
+          <div class="col"><input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso" ></div>
+          <div class="col"><input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento" ></div>
+      </div>
+    </div>
+    <div class="col">
+        <div class="form-row">
+          <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
+          <input type="text" class="form-control" style='width:91%' id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" >
+        </div>
+        <div class="form-row">
+          <a class="btn-lg" style="padding:0px"><span class="fa fa-twitter"></span></a>
+          <input type="text" class="form-control" style='width:91%' id="usuarioTwitter" name="usuarioTwitter" placeholder="Twitter" >
+        </div>
+        <div class="form-row">
+          <a class="btn-lg" style="padding:0px"><span class="fa fa-instagram"></span></a>
+          <input type="text" class="form-control" style='width:91%' id="usuarioInstagram" name="usuarioInstagram" placeholder="Instagram" >
+        </div>
+        <div class="form-row">
+          <a class="btn-lg" style="padding:0px"><span class="fa fa-youtube"></span></a>
+          <input type="text" class="form-control" style='width:91%' id="usuarioYoutube" name="usuarioYoutube" placeholder="Youtube" >
+        </div>
+        <legend>Contacto</legend>
+        <input type="text" formControlName="contact_name"  class="form-control" placeholder="Nombre de contacto designado" >
+        <div class="alert alert-danger" *ngIf="isFieldValid('contact_name')">* Este campo es requerido</div>
+        <div class="form-row">
+          <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
+          <input type="text" class="form-control" style='width:91%' formControlName="contact_phone" placeholder="#Pais#Caracteristica#Movil" >
+          <div class="alert alert-danger" *ngIf="isFieldValid('contact_phone')">* Este campo es requerido</div>
+        </div>
+    </div>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" formControlName="share_data"> Acepto ceder mis datos a terceros
+    </label>
+  </div>   
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
+    </label>
+  </div>        
+  <div class="alert alert-danger" *ngIf="isFieldValid('terms')">* Se deben aceptar los términos y condiciones</div>
+    
+  {{formulario_empresa.value | json}}
+  
+  <div class="modal-footer">   
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
+    <div>
+      <button type="submit" (click)="onSubmit()" class="btn btn-primary">Guardar</button>
+    </div>
+  </div>
+</form>

@@ -13,17 +13,15 @@
       </ul>
     </ul>
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto" >
-
-        <div *ngIf="isLogin;else logout">
-          <app-login></app-login>
-        </div>
-
-        <ng-template #logout>
-          <app-logout></app-logout>
-        </ng-template>
-
+      <div *ngIf="(!isLogged)">
+        <app-login></app-login>
+      </div>
+      <div *ngIf="(isLogged)">
+        <app-logout></app-logout>
+      </div>
     </ul>
 
 </div>
 </nav>
-<app-modal-login></app-modal-login>
+<app-reset-password></app-reset-password>
+<app-register></app-register>

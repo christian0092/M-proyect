@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { AuthService } from '../services/auth.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { LoginService } from '../services/login.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,30 +9,19 @@ import { Observable } from 'rxjs/Rx';
   //changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  isLogin: boolean;
+  isLogged : boolean;
+  isLogged$: Observable<boolean>;
 
-
-  constructor(private authService:AuthService) { }
+  constructor(
+    private loginService : LoginService
+  ) { }
 
   ngOnInit() {
-    this.isLogin=true;
-    //this.isLogin=this.authService.isLogin().source._value;
-    //console.log(this.isLogin);
-    //this.isLogin = this.authService.logged.value;
-    /*    this.authService.isLogin().subscribe(
-      data => {
-        this.isLogin = data;
-        console.log("jajaj" + this.isLogin);
-      }
-    );*/
+    this.isLogged$ = this.loginService.isLogin$();
+    this.isLogged$.subscribe(
+      isLogged => {
+        this.isLogged = isLogged;        
+      });
+    this.loginService.checkLogin();
   }
-/*
-  onLogin(user) {
-        this.authService.onLogin();
-      }
-
-*/
-
-
-
 }

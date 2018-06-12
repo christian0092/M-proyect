@@ -1,28 +1,87 @@
 import { Injectable } from '@angular/core';
 import { Headers,Http, Response } from '@angular/http';
 import 'rxjs/Rx';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { User } from '../login/user.model';
 
 @Injectable()
 export class LoginService {
+  private loggedIn : boolean;
+  private loggedIn$ = new Subject<boolean>();
+  private url = 'http://localhost:8000/';
+  private clientId = '1';
+  private clientSecret = 'eudaqO1iymV1Oo9AsMudvrm08GYvmbExAbzD3IRj';
+  private scope = '*';
+  private grantType = 'password';
 
-  constructor(private http:Http) { }
+  constructor(
+    private http:Http    
+  ) { }
 
-  getLogin(datos){
-    //console.log(datos.password);console.log(datos.username);
-
-    var header = new Headers({'Content-Type':'application/json'});
-    //var data = "client_id=5&client_secret=ZDJVgOO3QmbJYCwpNMguCCSxjnwvuQCjDUxbvSdy&grant_tyoe=password&username="+datos.username+"&password="+datos.password;
-    datos.client_id=5;
-    datos.client_secret="ZDJVgOO3QmbJYCwpNMguCCSxjnwvuQCjDUxbvSdy";
-    datos.grant_type="password";
-
-    console.log(datos);
-    return this.http.post('http://192.168.1.17:8080/oauth/token',datos,{headers:header})
-    .map((response:Response)=>response.json());
+  ngOnInit(){    
   }
 
+  login(user: User) {
+    if (user.username !== '' && user.password !== '' ) {
+        let body = {  'username': user.username, 
+                      'password': user.password,
+                      'client_id': this.clientId,
+                      'client_secret': this.clientSecret,
+                      'grant_type': this.grantType,
+                      'scope': this.scope
+                     };
+        const header = new Headers({'Content-Type': 'application/json'});
+
+        return this.http.post(
+            this.url+'oauth/token', 
+            body, 
+            {headers: header}
+        ).map((response:Response)=>response.json()); 
+    }
+  }
+
+  setLogin(data){
+    if(data.access_token != ''){
+      localStorage.setItem('userToken', JSON.stringify(data));        
+      this.changeLoginValue(true);
+    } else 
+      this.changeLoginValue(false);
+  }
+
+  private changeLoginValue(val){
+    this.loggedIn = val;
+    this.loggedIn$.next(this.loggedIn);
+  }
+
+  isLogin(){
+    return this.loggedIn;
+  }
+
+  checkLogin(){ 
+    var session = JSON.parse(localStorage.getItem("userToken"));
+    if(session == null){
+      this.changeLoginValue(false);
+      return;
+    }
+    this.changeLoginValue(true);
+  }
+
+  isLogin$(): Observable<boolean> {
+    return this.loggedIn$.asObservable();
+  }
+
+  logout(){
+    this.changeLoginValue(false);
+    localStorage.removeItem('userToken');
+  }
+
+  register(data: object): Observable<object>{
+    const header = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(
+      this.url+'registro',
+      data, 
+      {headers: header}
+    ).map((response:Response)=>response.json());
+  }
 }
-
-
-//JSON.strigify

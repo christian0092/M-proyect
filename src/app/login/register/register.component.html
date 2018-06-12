@@ -1,0 +1,29 @@
+
+<div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Registro de Usuario</h3>
+        <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">      
+        <div class="btn-group btn-group-toggle " id="botones_cabecera" data-toggle="buttons">
+          <label class="btn btn-secondary botonSeleccionModal" (click)="botonClick(true)">
+            <input id="toggle_persona" type="radio" name="options" id="option2" autocomplete="off"> Persona
+          </label>
+          <label class="btn btn-secondary botonSeleccionModal" (click)="botonClick(false)">
+            <input type="radio" name="options" id="option3" autocomplete="off"> Empresa
+          </label>
+        </div>  
+        <!--Formulario de persona-->
+        <div *ngIf="esPersona" class="form-group">
+          <app-register-persona #isValidPersona></app-register-persona>
+        </div>
+        <div *ngIf="!esPersona"  class="form-group">
+        <!--Formulario de empresa-->
+          <app-register-empresa></app-register-empresa>
+        </div>
+      </div>        
+    </div>    
+  </div>
+</div>
