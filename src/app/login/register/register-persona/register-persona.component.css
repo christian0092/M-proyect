@@ -1,0 +1,10 @@
+.caja_left{
+  position: relative;
+  float:left;
+  width:32%
+}
+.caja_right{
+  position: relative;
+  float:right;
+width:32%
+}

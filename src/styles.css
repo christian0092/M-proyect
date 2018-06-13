@@ -21,6 +21,9 @@
 .modal-header{
   color:#375a86;
 }
+#bordes{
+  border:solid red 2px;
+}
 #boton_grande{
     height:50px;
     width:100%;

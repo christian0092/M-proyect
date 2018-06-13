@@ -11,10 +11,23 @@ export class RegisterPersonaComponent implements OnInit {
   formulario_persona: FormGroup;
   private formSubmitAttempt: boolean;
 
+  private formPage;
+
+  private esPersonaUsuario: boolean;
+  private esPersonaPersonales: boolean;
+  private esPersonaRedes: boolean;
+  private esPersonaCondiciones: boolean;
+
+  private esAnterior: boolean;
+  private esSiguiente: boolean;
+  private esFinalizar: boolean;
+
+
+
   constructor(
     private fp: FormBuilder,
     private service: LoginService
-  ) { 
+  ) {
     this.createFormPersona();
   }
 
@@ -25,7 +38,7 @@ export class RegisterPersonaComponent implements OnInit {
        // pwd: this.fp.group({
           password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
           password_confirmation: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-       // }),        
+       // }),
       }),
       person : this.fp.group({
         name: [null, Validators.required],
@@ -52,15 +65,77 @@ export class RegisterPersonaComponent implements OnInit {
 
   ngOnInit() {
     this.formSubmitAttempt = false;
+
+    this.formPage=0;
+
+    this.esAnterior=false;
+    this.esSiguiente=true;
+    this.esFinalizar=false;
+
+    this.esPersonaUsuario=true;
+    this.esPersonaPersonales=false;
+    this.esPersonaRedes=false;
+    this.esPersonaCondiciones=false;
   }
+
+  searchPage(){
+    console.log(this.formPage);
+    switch(this.formPage){
+      case 0:
+        this.esPersonaUsuario=true;
+        this.esPersonaPersonales=false;
+        this.esPersonaRedes=false;
+        this.esPersonaCondiciones=false;
+        this.esAnterior=false;
+        this.esSiguiente=true;
+        this.esFinalizar=false;
+        break;
+      case 1:
+        this.esPersonaUsuario=false;
+        this.esPersonaPersonales=true;
+        this.esPersonaRedes=false;
+        this.esPersonaCondiciones=false;
+        this.esAnterior=true;
+        this.esSiguiente=true;
+        this.esFinalizar=false;
+        break;
+      case 2:
+        this.esPersonaUsuario=false;
+        this.esPersonaPersonales=false;
+        this.esPersonaRedes=true;
+        this.esPersonaCondiciones=false;
+        this.esAnterior=true;
+        this.esSiguiente=true;
+        this.esFinalizar=false;
+        break;
+      case 3:
+        this.esPersonaUsuario=false;
+        this.esPersonaPersonales=false;
+        this.esPersonaRedes=false;
+        this.esPersonaCondiciones=true;
+        this.esAnterior=true;
+        this.esSiguiente=false;
+        this.esFinalizar=true;
+        break;
+    }
+  }
+  onAnterior() {
+    this.formPage--;
+    this.searchPage();
+  }
+  onSiguiente() {
+    this.formPage++;
+    this.searchPage();
+  }
+
 
   onSubmit() {
     this.formSubmitAttempt = true;
-    if (this.formulario_persona.valid) {    
+    if (this.formulario_persona.valid) {
       this.service.register(this.formulario_persona.value).subscribe(
         data => {
           if(data['success']){
-            this.reset();            
+            this.reset();
             alert('Usuario creado correctamente');
           } else{
             alert(data['message']);

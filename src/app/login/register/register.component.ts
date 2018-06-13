@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private esPersona: boolean; 
+  private esInicio: boolean;
+  private esPersona: boolean;
+  private esEmpresa: boolean;
   private isValidPersona: boolean;
 
   constructor() { }
@@ -20,11 +22,23 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.esPersona = true;
+    this.esInicio = true;
+    this.esPersona = false;
+    this.esEmpresa = false;
     this.isValidPersona = false;
   }
 
   botonClick(val){
-    this.esPersona = val;
+    if(val==0){
+      this.esPersona = true;
+      this.esEmpresa = false;
+      this.esInicio = false;
+    }
+    else{
+      this.esPersona = false;
+      this.esEmpresa = true;
+      this.esInicio = false;
+    }
+
   }
 }

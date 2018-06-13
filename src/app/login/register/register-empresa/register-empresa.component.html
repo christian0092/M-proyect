@@ -1,24 +1,30 @@
-<form [formGroup]="formulario_empresa">  
-  <div class="form-row">
-    <div class="col">
-      <input formControlName="email" type="email" class="form-control" placeholder="Email">
-      <div class="alert alert-danger" *ngIf="isFieldValid('email')">* Este campo es requerido</div>
-    </div>
-    <div class="col">
-      <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
-      <div class="alert alert-danger" *ngIf="isFieldValid('password')">* Este campo es requerido</div>
-      <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Repite contraseña">
-      <div class="alert alert-danger" *ngIf="isFieldValid('password_confirmation')">* Este campo es requerido</div>
-      <div class="alert alert-danger" *ngIf="this.formulario_empresa.controls['password_confirmation'].value != this.formulario_empresa.controls['password'].value && isFieldValid('password') && isFieldValid('password_confirmation')">* Las contraseñas no coinciden</div>
-    </div>
-  </div>
 
+
+<form [formGroup]="formulario_empresa">
+
+  <div *ngIf="esEmpresaUsuario">
+
+    <div class="form-row">
+      <div class="col">
+        <input formControlName="email" type="email" class="form-control" placeholder="Email">
+        <div class="alert alert-danger" *ngIf="isFieldValid('email')">* Este campo es requerido</div>
+      </div>
+      <div class="col">
+        <input formControlName="password" type="password" class="form-control" placeholder="Contraseña">
+        <div class="alert alert-danger" *ngIf="isFieldValid('password')">* Este campo es requerido</div>
+        <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Repite contraseña">
+        <div class="alert alert-danger" *ngIf="isFieldValid('password_confirmation')">* Este campo es requerido</div>
+        <div class="alert alert-danger" *ngIf="this.formulario_empresa.controls['password_confirmation'].value != this.formulario_empresa.controls['password'].value && isFieldValid('password') && isFieldValid('password_confirmation')">* Las contraseñas no coinciden</div>
+      </div>
+    </div>
+
+  </div>
   <div class="form-row">
       <legend>Organizacion o Empresa</legend>
   </div>
 
   <div class="form-row">
-    <div class="col">        
+    <div class="col">
       <input type="text" class="form-control" formControlName="name" placeholder="Nombre de organizacion o empresa" >
       <div class="alert alert-danger" *ngIf="isFieldValid('name')">* Este campo es requerido</div>
       <div class="form-row">
@@ -32,7 +38,7 @@
       <div class="alert alert-danger" *ngIf="isFieldValid('province_id')">* Este campo es requerido</div>
       <input formControlName="city_id" type="text" class="form-control" placeholder="Localidad" >
       <div class="alert alert-danger" *ngIf="isFieldValid('city_id')">* Este campo es requerido</div>
-      <input formControlName="postal_code" type="text" class="form-control"  placeholder="Codigo postal" >             
+      <input formControlName="postal_code" type="text" class="form-control"  placeholder="Codigo postal" >
       <input formControlName="street" type="text" class="form-control" placeholder="Calle" >
       <div class="alert alert-danger" *ngIf="isFieldValid('street')">* Este campo es requerido</div>
       <div class="form-row">
@@ -72,17 +78,17 @@
     <label>
       <input type="checkbox" formControlName="share_data"> Acepto ceder mis datos a terceros
     </label>
-  </div>   
+  </div>
   <div class="checkbox">
     <label>
       <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
     </label>
-  </div>        
+  </div>
   <div class="alert alert-danger" *ngIf="isFieldValid('terms')">* Se deben aceptar los términos y condiciones</div>
-    
+
   {{formulario_empresa.value | json}}
-  
-  <div class="modal-footer">   
+
+  <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
     <div>
       <button type="submit" (click)="onSubmit()" class="btn btn-primary">Guardar</button>
