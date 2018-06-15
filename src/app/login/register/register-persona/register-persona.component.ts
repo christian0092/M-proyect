@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
@@ -28,7 +28,7 @@ export class RegisterPersonaComponent implements OnInit {
 
 
   formulario_persona: FormGroup;
-  private formSubmitAttempt: boolean;
+  private formSubmitAttempt: boolean;  
 
    formPage;
 
@@ -52,6 +52,13 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   createFormPersona() {
+    let allInterests: FormArray = new FormArray([]);
+    for (let i = 0; i < this.listaIntereses.length; i++) {
+      let fg = new FormGroup({});
+      fg.addControl(this.listaIntereses[i].name, new FormControl(false))
+      allInterests.push(fg)
+    }
+
     this.formulario_persona = this.fp.group({
       user : this.fp.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],
@@ -79,26 +86,12 @@ export class RegisterPersonaComponent implements OnInit {
         dept: [null],
         terms: [null, Validators.required],
         share_data: [true, Validators.required],
-        interests:this.fp.array([
-          {
-            'id':'','name':''
-          }
-        ])
+        interests: allInterests
       })
     }, {validators: passwordMatchValidator});
-
-
   }
 
-  get InteresFormArray():FormArray{
-    return this.formulario_persona.get('person.interests') as FormArray;
-  }
-  addInteresFormArray(){
-    let fg=this.fp.group(new interests());
-    this.InteresFormArray.push(fg);
-  }
   ngOnInit() {
-
     this.formSubmitAttempt = false;
 
     this.formPage=0;
