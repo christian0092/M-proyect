@@ -107,10 +107,14 @@
       <div class="col-md-5" >
 
         <div formGroupName="interests">
-          <div class="panel" formArrayName="options_interes">
+          <div class="panel">
 
-            <div class="caja_right" *ngFor="let interes of listaIntereses">
-              <label class="check"><input type="checkbox" > {{interes.name}}</label>
+            <div class="caja_right" *ngFor="let interest of listaIntereses; let i = index">
+                <span formGroupName="{{i}}">
+                    <input type="checkbox" formControlName="{{interest.name}}">
+                      {{interest.name}}
+                  </span>
+              <!--<label class="check"><input type="checkbox" > formControlName="{{person.category.name}}"</label>-->
             </div>
 
           </div>
@@ -247,5 +251,5 @@
   </div>
 
 </div>
-<!--{{formulario_persona.value | json}}-->
+{{formulario_persona.value | json}}
 </form>

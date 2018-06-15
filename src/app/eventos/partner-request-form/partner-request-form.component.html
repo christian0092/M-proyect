@@ -1,0 +1,64 @@
+<div class="modal fade" id="partnerFormRequestModal" tabindex="-1" role="dialog" aria-labelledby="partnerFormRequestModal" aria-hidden="true">
+	<div class="modal-dialog  modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Formulario de solicitud de Partner</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div  class="modal-body">
+				<form [formGroup]="partner_form">
+					<div class="alert alert-success" *ngIf="getNoError() && getSend()">Formulario enviado!</div>
+					<div class="alert alert-danger" *ngIf="!getNoError() && getSend()">Compruebe que no haya errores y vuelva a intentarlo</div>
+					<div class="contenido" >
+
+							<div class="form-row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-6">
+									<input formControlName="email" type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
+									<div *ngIf="partner_form.controls.email.errors && partner_form.controls.email.dirty">
+									<div class="alert alert-danger" *ngIf="partner_form.controls.email.errors.required" >Este campo es obligatorio</div>
+									<div class="alert alert-danger" *ngIf="partner_form.controls.email.errors.email" >Introduzca un email valido</div>
+								</div>
+								</div>
+								<div class="col-md-3">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-6">
+									<input formControlName="name" class="form-control" id="name"type="text" placeholder="Nombre" ngModel >
+									<div *ngIf="partner_form.controls.name.errors && partner_form.controls.name.dirty">
+									<div class="alert alert-danger" *ngIf="partner_form.controls.name.errors.required" >Este campo es obligatorio</div>
+									<div class="alert alert-danger" *ngIf="partner_form.controls.name.errors.minlength">Su nombre debe contener al menos 3 caracter</div>
+									<div class="alert alert-danger" *ngIf="partner_form.controls.name.errors.maxlength">Su nombre debe contener al como maximo 48 caracteres</div></div>
+								</div>
+								<div class="col-md-3">
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-6">
+									<input formControlName="cellphone" id="cellphone" type="text" class="form-control" placeholder="#Pais#Caracteristica#Movil" ngModel>
+									<!--<div class="alert alert-danger" *ngIf="isFieldValid('partner.phone')">* Este campo es requerido</div>-->
+								</div>
+								<div class="col-md-3">
+								</div>
+							</div>
+					
+					</div>
+				</form>
+				{{partner_form.value | json}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" (click)="close()" *ngIf="!getNoError() || !getSend()" data-dismiss="modal" >Cerrar</button>
+				 <button  class="btn btn-primary " *ngIf="!getNoError() || !getSend()"  (click)="onSubmit()">Enviar</button>
+				 <button  class="btn btn-primary " (click)="close()" *ngIf="getNoError() && getSend()" data-dismiss="modal" >Finalizar</button>
+			</div>
+		</div>
+	</div>
+</div>
