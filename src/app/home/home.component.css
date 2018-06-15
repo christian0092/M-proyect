@@ -14,12 +14,15 @@
   -o-animation: fadein 3s;
   font-family: 'Fjalla One', sans-serif;
   top:80px;
-  margin-bottom: 80px;
+  margin-bottom: 70px;
   position:relative;
   font-size: 60px;
   text-align: center;
   text-shadow: 2px 2px 8px black;
   color:WHITE;
+}
+.text_superior{
+  margin-bottom: 0px;
 }
 /*#cajas{
   text-align: center;
@@ -123,7 +126,7 @@
  }
 .imagen_evento{
   /*width:400px;*/
-  margin:10px;
+
   border:2px solid white;
   -webkit-box-shadow:0 0 30px rgba(0,0,0,0.8);
   -moz-box-shadow:0 0 30px rgba(0,0,0,0.8);

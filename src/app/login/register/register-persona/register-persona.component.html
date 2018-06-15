@@ -1,8 +1,11 @@
 <form [formGroup]="formulario_persona">
 
+<div class="contenido" >
+
   <div *ngIf="esPersonaUsuario">
-    <div class="form-row">
-        <legend>Usuario</legend>
+
+    <div class="form-row" id="header_titulo">
+        <legend>Paso 2: Usuario</legend>
     </div>
 
     <div  formGroupName = "user">
@@ -42,12 +45,13 @@
       </div>
     </div>
   </div>
+
 <div formGroupName="person">
 
   <div *ngIf="esPersonaPersonales">
 
-    <div class="form-row">
-        <legend>Datos Personales</legend>
+    <div class="form-row" id="header_titulo">
+        <legend>Paso 3: Datos Personales</legend>
     </div>
 
     <div class="form-row">
@@ -96,87 +100,61 @@
   <div *ngIf="esPersonaRedes">
 
 
+    <div class="form-row" id="header_titulo">
+        <legend>Paso 4: Intereses y Redes Sociales</legend>
+    </div>
 
     <div class="row">
 
-      <div class="col-md-6">
-        
-        <div class="form-row">
-            <legend>Intereses</legend>
-        </div>
-        <div class="caja_left">
-            <!--<div class="textarea">
-
-              <label for="exampleFormControlTextarea1" ></label>
-              <textarea formControlName="empleo" class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
-            </div>-->
-            <div>
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-        </div>
-        <div  class="caja_right">
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-
-        </div>
-        <div  class="caja_right">
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-            <div >
-              <label><input type="checkbox" formControlName=""> aaaaa</label>
-            </div>
-
-        </div>
+      <div class="col-md-1">
       </div>
-      <div class="col-md-6">
-        <div class="row">
-            <legend>Redes Sociales</legend>
+      <div class="col-md-5">
+
+
+
+        <div formGroupName="interests">
+          <div class="panel" formArrayName="options_interes">
+
+            <div class="caja_right" *ngFor="let interes of listaIntereses">
+              <label class="check"><input type="checkbox" > {{interes.name}}</label>
+            </div>
+
+          </div>
         </div>
+
+      </div>
+      <div class="col-md-5">
+
         <div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
-          <input type="text" class="form-control" style='width:91%' formControlName="usuarioFacebook" id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" >
+          <input type="text" class="form-control" style='width:85%'  id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" >
         </div>
         <div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-twitter"></span></a>
-          <input type="text" class="form-control" style='width:91%' formControlName="usuarioTwitter" id="usuarioTwitter" name="usuarioTwitter" placeholder="Twitter" >
+          <input type="text" class="form-control" style='width:85%'  id="usuarioTwitter" name="usuarioTwitter" placeholder="Twitter" >
         </div>
         <div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-instagram"></span></a>
-          <input type="text" class="form-control" style='width:91%' formControlName="usuarioInstagram" id="usuarioInstagram" name="usuarioInstagram" placeholder="Instagram" >
+          <input type="text" class="form-control" style='width:85%'  id="usuarioInstagram" name="usuarioInstagram" placeholder="Instagram" >
         </div>
         <div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-youtube"></span></a>
-          <input type="text" class="form-control" style='width:91%' formControlName="usuarioYoutube" id="usuarioYoutube" name="usuarioYoutube" placeholder="Youtube" >
+          <input type="text" class="form-control" style='width:85%'  id="usuarioYoutube" name="usuarioYoutube" placeholder="Youtube" >
         </div>
         <div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-linkedin"></span></a>
-          <input type="text" class="form-control" style='width:91%' formControlName="usuarioLinkedin" id="usuarioLinkedin" name="usuarioLinkedin" placeholder="Linkedin" >
+          <input type="text" class="form-control" style='width:85%'  id="usuarioLinkedin" name="usuarioLinkedin" placeholder="Linkedin" >
         </div>
+      </div>
+      <div class="col-md-1">
       </div>
     </div>
 
   </div>
 
-  <div *ngIf="esPersonaCondiciones">
+  <div *ngIf="esPersonaCondiciones" id="header_titulo">
     <div class="form-row">
-        <legend>Bases y Condiciones</legend>
+        <legend>Paso 5: Bases y Condiciones</legend>
     </div>
 
 
@@ -196,11 +174,36 @@
 
 </div>
 <!--{{formulario_persona.value | json}}-->
+</div>
+<div class="contenido" >
+  <div class="container">
+    <div class="row">
 
-<div class="modal-footer">
-  <button *ngIf="esAnterior" class="btn" (click)="onAnterior()" aria-hidden="true">Anterior</button>
-  <button *ngIf="esSiguiente" type="btn" (click)="onSiguiente()" class="btn btn-primary">Siguiente</button>
-  <button *ngIf="esFinalizar" type="btn" (click)="onSubmit()" class="btn btn-primary">Finalizar</button>
+
+      <div class="col-md-2"  >
+          <button *ngIf="esCancelar" class="btn btn-danger"  (click)="onCancelar()" id="boton_grande">Cancelar</button>
+      </div>
+      <div class="col-md-6"  >
+
+      </div>
+      <div class="col-md-2 " >
+          <button *ngIf="esAnterior" class="btn btn-dark disabled "  (click)="onAnterior()" id="boton_grande">Anterior</button>
+      </div>
+      <div class="col-md-2 " >
+          <button *ngIf="esSiguiente" class="btn btn-primary " (click)="onSiguiente()" id="boton_grande">Siguiente</button>
+          <button *ngIf="esFinalizar" class="btn btn-primary "  (click)="onSubmit()" id="boton_grande">Finalizar</button>
+      </div>
+
+
+    </div>
+  </div>
+  <!--
+  <div class="caja_left" id="boton_izquierda">
+
+  </div>
+  <div class="caja_right float-right"  id="boton_derecha">
+
+  </div>-->
 
   <!--<button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
   <div>
@@ -208,5 +211,5 @@
  </div>-->
 
 </div>
-{{formulario_persona.value | json}}
+<!--{{formulario_persona.value | json}}-->
 </form>

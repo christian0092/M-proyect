@@ -9,7 +9,7 @@ import { User } from '../../login/user.model';
   /*changeDetection: ChangeDetectionStrategy.OnPush*/
 })
 export class LoginComponent implements OnInit {
-  
+
   constructor(
     private loginService:LoginService
   ) { }
@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   }
 
   login(user: User){
+
+    console.log(user);
     this.loginService.login(user).subscribe(
       data => {
         this.loginService.setLogin(data);

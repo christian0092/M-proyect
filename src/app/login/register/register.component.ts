@@ -6,9 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private esInicio: boolean;
-  private esPersona: boolean;
-  private esEmpresa: boolean;
+  esInicio: boolean;
+  esPersona: boolean;
+  esEmpresa: boolean;
   private isValidPersona: boolean;
 
   constructor() { }

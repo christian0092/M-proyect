@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {Observable} from 'rxjs/Observable';
+
 import { LoginService } from '../../../services/login.service';
+import { Interests } from '../../../models/interests';
 
 @Component({
   selector: 'app-register-persona',
@@ -8,19 +11,37 @@ import { LoginService } from '../../../services/login.service';
   styleUrls: ['./register-persona.component.css']
 })
 export class RegisterPersonaComponent implements OnInit {
+
+    listaIntereses: Interests[]=[
+    new Interests('1','Ciencia'),
+    new Interests('2','Salud'),
+    new Interests('3','Tecnologia'),
+    new Interests('4','Robotica'),
+    new Interests('5','Programacion'),
+    new Interests('6','Innovacíon'),
+    new Interests('7','Investigación'),
+    new Interests('8','Transporte'),
+    new Interests('9','Medio Ambiente'),
+    new Interests('10','Diseño'),
+    new Interests('11','Marketing'),
+    new Interests('12','Seguridad Vial'),
+  ]
+
+
   formulario_persona: FormGroup;
   private formSubmitAttempt: boolean;
 
-  private formPage;
+   formPage;
 
-  private esPersonaUsuario: boolean;
-  private esPersonaPersonales: boolean;
-  private esPersonaRedes: boolean;
-  private esPersonaCondiciones: boolean;
+   esPersonaUsuario: boolean;
+   esPersonaPersonales: boolean;
+   esPersonaRedes: boolean;
+   esPersonaCondiciones: boolean;
 
-  private esAnterior: boolean;
-  private esSiguiente: boolean;
-  private esFinalizar: boolean;
+   esAnterior: boolean;
+   esSiguiente: boolean;
+   esFinalizar: boolean;
+   esCancelar: boolean;
 
 
 
@@ -59,11 +80,26 @@ export class RegisterPersonaComponent implements OnInit {
         dept: [null],
         terms: [null, Validators.required],
         share_data: [true, Validators.required],
+        interests:this.fp.array([
+          {
+            'id':'','name':''
+          }
+        ])
       })
     }, {validators: passwordMatchValidator});
+
+
   }
 
+  get InteresFormArray():FormArray{
+    return this.formulario_persona.get('person.interests') as FormArray;
+  }
+  addInteresFormArray(){
+    let fg=this.fp.group(new interests());
+    this.InteresFormArray.push(fg);
+  }
   ngOnInit() {
+
     this.formSubmitAttempt = false;
 
     this.formPage=0;
@@ -71,6 +107,7 @@ export class RegisterPersonaComponent implements OnInit {
     this.esAnterior=false;
     this.esSiguiente=true;
     this.esFinalizar=false;
+    this.esCancelar=true;
 
     this.esPersonaUsuario=true;
     this.esPersonaPersonales=false;

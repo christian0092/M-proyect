@@ -1,20 +1,26 @@
 
-<div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <!--<div class="modal-header">
         <h3>Registro de Usuario</h3>
         <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
       </div>-->
-      <div class="modal-body">
+      <div class="modal-body" >
 
-        <div *ngIf="esInicio" class="form-group">
+        <div *ngIf="esInicio" class="form-group" style="height:470px">
+
+          <div class="form-row">
+              <legend>Paso 1: Registro</legend>
+          </div>
+
+
           <div class="container">
             <div class="row">
               <div class="col-md-3">
               </div>
               <div class="col-md-6" style="text-align:center">
-              ¿Cómo qué quiere registrarse?
+              ¿Cómo quierés registrarte?
               </div>
               <div class="col-md-3">
               </div>
@@ -49,15 +55,16 @@
         </div>-->
 
 
-        <div *ngIf="esPersona" class="form-group"> <!--Formulario de persona-->
+        <div *ngIf="esPersona" class="form-group" > <!--Formulario de persona-->
           <app-register-persona #isValidPersona></app-register-persona>
         </div>
 
-        <div *ngIf="esEmpresa"  class="form-group"> <!--Formulario de empresa-->
+        <div *ngIf="esEmpresa"  class="form-group" > <!--Formulario de empresa-->
           <app-register-empresa></app-register-empresa>
         </div>
 
       </div>
+
 
     </div>
   </div>
