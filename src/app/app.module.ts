@@ -25,6 +25,7 @@ import { RegisterComponent } from './login/register/register.component';
 import { RegisterEmpresaComponent } from './login/register/register-empresa/register-empresa.component';
 import { RegisterPersonaComponent } from './login/register/register-persona/register-persona.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
+import { PartnerRequestFormComponent } from './eventos/partner-request-form/partner-request-form.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
     RegisterComponent,
     RegisterEmpresaComponent,
     RegisterPersonaComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    PartnerRequestFormComponent
   ],
   imports: [
     routes,

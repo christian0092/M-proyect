@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
 
