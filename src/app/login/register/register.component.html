@@ -8,14 +8,14 @@
       </div>-->
       <div class="modal-body" >
 
-        <div *ngIf="esInicio" class="form-group" style="height:470px">
+        <div *ngIf="esInicio" class="form-group" style="min-height:320px">
 
-          <div class="form-row">
+          <div class="form-row" id="header_titulo">
               <legend>Paso 1: Registro</legend>
           </div>
 
 
-          <div class="container">
+          <div class="container" style="margin-top:40px">
             <div class="row">
               <div class="col-md-3">
               </div>
@@ -26,23 +26,20 @@
               </div>
             </div>
             <div class="row" style="margin-top:20px">
-              <div class="col-md-4">
+
+              <div class="col-md-2">
+              </div>
+              <div class="col-md-4 text-right">
+              	<button type="button" class="btn btn-primary " id="boton_grande_redondo"  (click)="botonClick(0)">Persona</button>
               </div>
               <div class="col-md-4">
-              	<button type="button" class="btn btn-primary" id="boton_grande"  (click)="botonClick(0)">Persona</button>
+              	<button type="button" class="btn btn-primary " id="boton_grande_redondo"  (click)="botonClick(1)">Empresa</button>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-2">
               </div>
+
             </div>
-            <div class="row" style="margin-top:10px">
-              <div class="col-md-4">
-              </div>
-              <div class="col-md-4">
-              	<button type="button" class="btn btn-primary" id="boton_grande"  (click)="botonClick(1)">Empresa</button>
-              </div>
-              <div class="col-md-4">
-              </div>
-            </div>
+
           </div>
         </div>
         <!--<div class="btn-group btn-group-toggle " id="botones_cabecera" data-toggle="buttons">

@@ -90,14 +90,14 @@ export class RegisterPersonaComponent implements OnInit {
 
 
   }
-
+/*
   get InteresFormArray():FormArray{
     return this.formulario_persona.get('person.interests') as FormArray;
   }
   addInteresFormArray(){
     let fg=this.fp.group(new interests());
     this.InteresFormArray.push(fg);
-  }
+  }*/
   ngOnInit() {
 
     this.formSubmitAttempt = false;

@@ -1,0 +1,14 @@
+
+#boton_grande_redondo{
+
+    margin-top:20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+}
+#header_titulo{
+  margin-bottom: 30px;
+  border-bottom: solid #ced8e3 1px;
+}
