@@ -1,6 +1,8 @@
 <form [formGroup]="formulario_persona">
 
 <div class="contenido" style="min-height:415px">
+  <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
+  <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
   <div *ngIf="esPersonaUsuario">
 
@@ -9,6 +11,7 @@
     </div>
 
     <div  formGroupName = "user">
+
 
       <div class="form-row" style="margin-top:40px">
         <div class="col-md-3">
@@ -233,7 +236,7 @@
 
 
       <div class="col-md-2"  >
-          <button *ngIf="esCancelar" class="btn btn-danger"  (click)="onCancelar()" id="boton_grande">Cancelar</button>
+          <button *ngIf="esCancelar" class="btn btn-danger"  (click)="onCancelar()" data-dismiss="modalRegistro" id="boton_grande">Cancelar</button>
       </div>
       <div class="col-md-6"  >
 
@@ -243,7 +246,7 @@
       </div>
       <div class="col-md-2 " >
           <button *ngIf="esSiguiente" class="btn btn-primary " (click)="onSiguiente()" id="boton_grande">Siguiente</button>
-          <button *ngIf="esFinalizar" class="btn btn-primary "  (click)="onSubmit()" id="boton_grande">Finalizar</button>
+          <button *ngIf="esFinalizar" class="btn btn-primary "  (click)="onSubmit()" data-dismiss="modalRegistro" id="boton_grande">Finalizar</button>
       </div>
 
 

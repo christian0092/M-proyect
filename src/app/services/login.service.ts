@@ -16,15 +16,15 @@ export class LoginService {
   private grantType = 'password';
 
   constructor(
-    private http:Http    
+    private http:Http
   ) { }
 
-  ngOnInit(){    
+  ngOnInit(){
   }
 
   login(user: User) {
     if (user.username !== '' && user.password !== '' ) {
-        let body = {  'username': user.username, 
+        let body = {  'username': user.username,
                       'password': user.password,
                       'client_id': this.clientId,
                       'client_secret': this.clientSecret,
@@ -34,18 +34,18 @@ export class LoginService {
         const header = new Headers({'Content-Type': 'application/json'});
 
         return this.http.post(
-            this.url+'oauth/token', 
-            body, 
+            this.url+'oauth/token',
+            body,
             {headers: header}
-        ).map((response:Response)=>response.json()); 
+        ).map((response:Response)=>response.json());
     }
   }
 
   setLogin(data){
     if(data.access_token != ''){
-      localStorage.setItem('userToken', JSON.stringify(data));        
+      localStorage.setItem('userToken', JSON.stringify(data));
       this.changeLoginValue(true);
-    } else 
+    } else
       this.changeLoginValue(false);
   }
 
@@ -58,7 +58,7 @@ export class LoginService {
     return this.loggedIn;
   }
 
-  checkLogin(){ 
+  checkLogin(){
     var session = JSON.parse(localStorage.getItem("userToken"));
     if(session == null){
       this.changeLoginValue(false);
@@ -80,7 +80,7 @@ export class LoginService {
     const header = new Headers({'Content-Type': 'application/json'});
     return this.http.post(
       this.url+'registro',
-      data, 
+      data,
       {headers: header}
     ).map((response:Response)=>response.json());
   }
