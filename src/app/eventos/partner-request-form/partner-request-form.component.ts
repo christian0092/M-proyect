@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
+import { PartnerRequestService } from './partner-request.service';
 
 @Component({
   selector: 'app-partner-request-form',
@@ -12,32 +13,38 @@ export class PartnerRequestFormComponent implements OnInit {
 	send:boolean;
 	noError:boolean;
 
-  constructor(private fb:FormBuilder) { 
+  constructor(private fb:FormBuilder, private partnerService:PartnerRequestService) {
   	this.partner_form=fb.group({
   		email:['',Validators.compose([Validators.required,Validators.email])],
   		name:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(41)])],
-  		cellphone:['',Validators.required]})	
-  		}
+  		cellphone:['',Validators.required],
+      event_id:['1']})
+  	}
 
   ngOnInit() {
   	this.send=false;
   	this.noError=false;
   }
+
   onSubmit() {
-  	this.send=true;
-    if (this.partner_form.valid) {
-      /*this.service.register(this.partner_form.value).subscribe(
-        data => {
-          if(data['success']){
-            */
-            this.noError=true;
-            this.reset();
-          } else{
-            this.noError=false;
+      this.send=true;
+      if (this.partner_form.valid) {
+
+        this.partnerService.send(this.partner_form.value).subscribe(
+          data => {
+            console.log(data);
+            if(data['success']){
+
+              this.noError=true;
+              this.reset();
+            } else{
+              this.noError=false;
+            }
           }
-        }
-      
-  
+        );
+      }
+    }
+
  reset() {
     this.partner_form.reset();
   }
@@ -53,4 +60,3 @@ export class PartnerRequestFormComponent implements OnInit {
   	//this.partner_form.reset();
   }
 }
- 

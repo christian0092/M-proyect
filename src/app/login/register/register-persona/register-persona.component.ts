@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-register-persona',
@@ -11,8 +12,8 @@ import { Interests } from '../../../models/interests';
 })
 export class RegisterPersonaComponent implements OnInit {
 
-    listaIntereses: Interests[]=[
-    new Interests('1','Ciencia'),
+    listaIntereses:Interests[]=[
+    /*new Interests('1','Ciencia'),
     new Interests('2','Salud'),
     new Interests('3','Tecnologia'),
     new Interests('4','Robotica'),
@@ -23,8 +24,9 @@ export class RegisterPersonaComponent implements OnInit {
     new Interests('9','Medio Ambiente'),
     new Interests('10','Diseño'),
     new Interests('11','Marketing'),
-    new Interests('12','Seguridad Vial'),
+    new Interests('12','Seguridad Vial')*/
   ]
+
 
 
   formulario_persona: FormGroup;
@@ -48,17 +50,25 @@ export class RegisterPersonaComponent implements OnInit {
 
   constructor(
     private fp: FormBuilder,
-    private service: LoginService
+    private service: LoginService,
+    private registerServices: RegisterService,
   ) {
-    this.createFormPersona();
+
+
+
+      this.createFormPersona();
   }
 
   createFormPersona() {
+
+
+
     let allInterests: FormArray = new FormArray([]);
+    console.log(this.listaIntereses.length);
     for (let i = 0; i < this.listaIntereses.length; i++) {
       let fg = new FormGroup({});
-      fg.addControl(this.listaIntereses[i].name, new FormControl(false))
-      allInterests.push(fg)
+      fg.addControl(this.listaIntereses[i].name, new FormControl(false));
+      allInterests.push(fg);
     }
 
     this.formulario_persona = this.fp.group({
@@ -91,7 +101,25 @@ export class RegisterPersonaComponent implements OnInit {
     }, {validators: passwordMatchValidator});
   }
 
+  loadInterests(){
+      this.registerServices.getInterests()
+      .subscribe(
+      data => {
+        if(data['status']){
+          this.listaIntereses=data['data'];
+          console.log(this.listaIntereses);
+
+
+        } else{
+          console.log("error");
+        }
+      }
+    );
+  }
+
   ngOnInit() {
+    this.loadInterests();
+
 
     this.formSubmitAttempt = false;
 
@@ -106,6 +134,8 @@ export class RegisterPersonaComponent implements OnInit {
     this.esPersonaPersonales=false;
     this.esPersonaRedes=false;
     this.esPersonaCondiciones=false;
+
+
 
     /*this.enviado=false;
     this.enviado=false;*/
@@ -214,7 +244,7 @@ export class RegisterPersonaComponent implements OnInit {
       );*/
     }
     else{
-      
+
       this.error=true;
       this.validateAllFormFields(this.formulario_persona);
     }
