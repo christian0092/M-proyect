@@ -27,14 +27,12 @@ export class PartnerRequestFormComponent implements OnInit {
   }
 
   onSubmit() {
-      this.send=true;
+      
       if (this.partner_form.valid) {
-
         this.partnerService.send(this.partner_form.value).subscribe(
           data => {
-            console.log(data);
-            if(data['success']){
-
+            this.send=true;
+            if(data['status']){              
               this.noError=true;
               this.reset();
             } else{
@@ -57,6 +55,6 @@ export class PartnerRequestFormComponent implements OnInit {
   close(){
   	this.noError=false;
   	this.send=false;
-  	//this.partner_form.reset();
+  	this.partner_form.reset();
   }
 }

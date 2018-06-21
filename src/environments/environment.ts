@@ -4,5 +4,10 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'http://services.mwork.com.ar/',
+  clientId: '1',
+  clientSecret: 'eudaqO1iymV1Oo9AsMudvrm08GYvmbExAbzD3IRj',
+  scope: '*',
+  grantType: 'password'
 };

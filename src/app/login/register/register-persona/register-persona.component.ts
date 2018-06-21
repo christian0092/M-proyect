@@ -53,10 +53,8 @@ export class RegisterPersonaComponent implements OnInit {
     private service: LoginService,
     private registerServices: RegisterService,
   ) {
-
-
-
-      this.createFormPersona();
+    this.loadInterests();
+    this.createFormPersona();
   }
 
   createFormPersona() {
