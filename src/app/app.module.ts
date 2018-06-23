@@ -15,7 +15,10 @@ import { HomeComponent } from './home/home.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { EventosComponent } from './eventos/eventos.component';
 
+import { PartnerRequestService } from './eventos/partner-request-form/partner-request.service';
 import { LoginService } from './services/login.service';
+import { RegisterService } from './login/register/register.service';
+
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
 import { LogoutComponent } from './login/login/logout.component';
@@ -57,7 +60,11 @@ import { MSummitComponent } from './perfil/m-summit/m-summit.component';
     BrowserModule,
     ReactiveFormsModule
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService,
+    PartnerRequestService,
+    RegisterService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

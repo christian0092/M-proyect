@@ -1,3 +1,9 @@
+.carousel-item{
+  text-align:center;
+  /*padding:20px;*/
+
+}
+
 .fa {
   padding: 0px;
   font-size: 33px;
@@ -52,8 +58,8 @@
   margin-top: 15px;  color: #2057a2;
 }
 #imagen_patrocinador{
-  height:60px;
-  margin-left:10px;
+  height:80px;
+  margin-top:10px;
 }
 #imagen_logo{
   width:100%;

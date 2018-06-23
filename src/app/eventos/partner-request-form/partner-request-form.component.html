@@ -9,7 +9,7 @@
 			</div>
 			<div  class="modal-body">
 				<form [formGroup]="partner_form">
-					<div class="alert alert-success" *ngIf="getNoError() && getSend()">Formulario enviado!</div>
+					<div class="alert alert-success" *ngIf="getNoError() && getSend()">¡Solicitud enviada correctamente!</div>
 					<div class="alert alert-danger" *ngIf="!getNoError() && getSend()">Compruebe que no haya errores y vuelva a intentarlo</div>
 					<div class="contenido" >
 
@@ -49,10 +49,10 @@
 								<div class="col-md-3">
 								</div>
 							</div>
-					
+
 					</div>
 				</form>
-				{{partner_form.value | json}}
+			<!--	{{partner_form.value | json}}-->
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" (click)="close()"  data-dismiss="modal" >Cerrar</button>

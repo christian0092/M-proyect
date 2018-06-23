@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
-
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
+import { RegisterService } from '../register.service';
 
 @Component({
   selector: 'app-register-persona',
@@ -12,8 +12,8 @@ import { Interests } from '../../../models/interests';
 })
 export class RegisterPersonaComponent implements OnInit {
 
-    listaIntereses: Interests[]=[
-    new Interests('1','Ciencia'),
+    listaIntereses:Interests[]=[
+    /*new Interests('1','Ciencia'),
     new Interests('2','Salud'),
     new Interests('3','Tecnologia'),
     new Interests('4','Robotica'),
@@ -24,8 +24,9 @@ export class RegisterPersonaComponent implements OnInit {
     new Interests('9','Medio Ambiente'),
     new Interests('10','Diseño'),
     new Interests('11','Marketing'),
-    new Interests('12','Seguridad Vial'),
+    new Interests('12','Seguridad Vial')*/
   ]
+
 
 
   formulario_persona: FormGroup;
@@ -44,22 +45,35 @@ export class RegisterPersonaComponent implements OnInit {
    esCancelar: boolean;
 
 
+   send: boolean;
+   error:boolean;
 
   constructor(
     private fp: FormBuilder,
-    private service: LoginService
+    private service: LoginService,
+    private registerServices: RegisterService,
   ) {
+    this.loadInterests();
     this.createFormPersona();
   }
 
   createFormPersona() {
+
+
+
+    let allInterests: FormArray = new FormArray([]);
+    console.log(this.listaIntereses.length);
+    for (let i = 0; i < this.listaIntereses.length; i++) {
+      let fg = new FormGroup({});
+      fg.addControl(this.listaIntereses[i].name, new FormControl(false));
+      allInterests.push(fg);
+    }
+
     this.formulario_persona = this.fp.group({
       user : this.fp.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],
-       // pwd: this.fp.group({
-          password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-          password_confirmation: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-       // }),
+        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+        password_confirmation: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
       }),
       person : this.fp.group({
         name: [null, Validators.required],
@@ -80,25 +94,30 @@ export class RegisterPersonaComponent implements OnInit {
         dept: [null],
         terms: [null, Validators.required],
         share_data: [true, Validators.required],
-        interests:this.fp.array([
-          {
-            'id':'','name':''
-          }
-        ])
+        interests: allInterests
       })
     }, {validators: passwordMatchValidator});
+  }
+
+  loadInterests(){
+      this.registerServices.getInterests()
+      .subscribe(
+      data => {
+        if(data['status']){
+          this.listaIntereses=data['data'];
+          console.log(this.listaIntereses);
 
 
+        } else{
+          console.log("error");
+        }
+      }
+    );
   }
-/*
-  get InteresFormArray():FormArray{
-    return this.formulario_persona.get('person.interests') as FormArray;
-  }
-  addInteresFormArray(){
-    let fg=this.fp.group(new interests());
-    this.InteresFormArray.push(fg);
-  }*/
+
   ngOnInit() {
+    this.loadInterests();
+
 
     this.formSubmitAttempt = false;
 
@@ -113,10 +132,14 @@ export class RegisterPersonaComponent implements OnInit {
     this.esPersonaPersonales=false;
     this.esPersonaRedes=false;
     this.esPersonaCondiciones=false;
+
+
+
+    /*this.enviado=false;
+    this.enviado=false;*/
   }
 
   searchPage(){
-    console.log(this.formPage);
     switch(this.formPage){
       case 0:
         this.esPersonaUsuario=true;
@@ -128,14 +151,16 @@ export class RegisterPersonaComponent implements OnInit {
         this.esFinalizar=false;
         break;
       case 1:
-        this.esPersonaUsuario=false;
-        this.esPersonaPersonales=true;
-        this.esPersonaRedes=false;
-        this.esPersonaCondiciones=false;
-        this.esAnterior=true;
-        this.esSiguiente=true;
-        this.esFinalizar=false;
-        break;
+
+          this.esPersonaUsuario=false;
+          this.esPersonaPersonales=true;
+          this.esPersonaRedes=false;
+          this.esPersonaCondiciones=false;
+          this.esAnterior=true;
+          this.esSiguiente=true;
+          this.esFinalizar=false;
+          break;
+
       case 2:
         this.esPersonaUsuario=false;
         this.esPersonaPersonales=false;
@@ -156,31 +181,72 @@ export class RegisterPersonaComponent implements OnInit {
         break;
     }
   }
+  onCancelar() {
+    alert("cierro");
+    this.reset();
+  }
   onAnterior() {
     this.formPage--;
     this.searchPage();
   }
   onSiguiente() {
-    this.formPage++;
-    this.searchPage();
+
+    switch(this.formPage){
+      case 0:
+        if (this.formulario_persona.get('user.email').valid  && this.formulario_persona.get('user.password').valid && this.formulario_persona.get('user.password_confirmation').valid ) {
+          this.formPage++;
+          this.searchPage();
+          this.error=false;
+          break;
+        }
+        else{
+          this.error=true;
+          break;
+        }
+      case 1:
+      if (this.formulario_persona.get('person.name').valid  && this.formulario_persona.get('person.surname').valid && this.formulario_persona.get('person.birth_date').valid && this.formulario_persona.get('person.document_number').valid ) {
+        this.formPage++;
+        this.searchPage();
+        this.error=false;
+        break;
+      }
+      else{
+        this.error=true;
+        break;
+      }
+      case 2:
+        this.formPage++;
+        this.searchPage();
+        break;
+    }
+
   }
 
 
   onSubmit() {
     this.formSubmitAttempt = true;
     if (this.formulario_persona.valid) {
-      this.service.register(this.formulario_persona.value).subscribe(
+      this.send=true;
+      this.error=false;
+    /*this.service.register(this.formulario_persona.value).subscribe(
         data => {
           if(data['success']){
             this.reset();
-            alert('Usuario creado correctamente');
+            this.send=true;
+            this.error=false;
+            //alert('Usuario creado correctamente');
           } else{
             alert(data['message']);
           }
         }
-      );
-    } else
+      );*/
+    }
+    else{
+
+      this.error=true;
       this.validateAllFormFields(this.formulario_persona);
+    }
+
   }
 
   isFieldValid(field: string) {
@@ -189,6 +255,7 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   validateAllFormFields(formGroup: FormGroup) {         //{1}
+
     Object.keys(formGroup.controls).forEach(field => {  //{2}
       const control = formGroup.get(field);             //{3}
       if (control instanceof FormControl) {             //{4}
@@ -200,6 +267,7 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   reset() {
+
     this.formulario_persona.reset();
     this.formSubmitAttempt = false;
   }

@@ -12,24 +12,62 @@ import {FormControl} from '@angular/forms';
 })
 export class ModalCoffeeComponent implements OnInit {
 	ParticipantList:Participant[]=[
-    new Participant('Christian Molina',0),
-    new Participant('Fernanda Micakosky',1),
-    new Participant('Jonathan Gomez',2),
-    new Participant('Angeles Perez Angueria',2),
-    new Participant('La señora de España',0),
-    new Participant('Mel Gibson',0),
-    new Participant('El retutu papa',1),
-    new Participant('Completar cansa',2),
-    new Participant('Jhon wick',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
+    new Participant('6','Mel Gibson',1),
+    new Participant('7','El retutu papa',1),
+    new Participant('8','Completar cansa',2),
+    new Participant('9','Jhon wick',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
+    new Participant('6','Mel Gibson',1),
+    new Participant('7','El retutu papa',1),
+    new Participant('8','Completar cansa',2),
+    new Participant('9','Jhon wick',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
+    new Participant('6','Mel Gibson',1),
+    new Participant('7','El retutu papa',1),
+    new Participant('8','Completar cansa',2),
+    new Participant('9','Jhon wick',1),
+    new Participant('1','Christian Molina',1),
+    new Participant('2','Fernanda Micakosky',1),
+    new Participant('3','Jonathan Gomez',2),
+    new Participant('4','Angeles Perez Angueria',2),
+    new Participant('5','La señora de España',1),
  	]
  	Show:boolean=false;
-  constructor() { 
+  constructor() {
    console.log(JSON.stringify(this.ParticipantList)); }
 
   ngOnInit() {
   }
+
   displayshow(){
   	return  this.Show;
+  }
+
+  invitation(){
+
   }
 
 }

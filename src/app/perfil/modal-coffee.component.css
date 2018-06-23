@@ -1,0 +1,19 @@
+#instruccion{
+  margin-top:20px;
+}
+#instruccion p{
+  font-size: 14px;
+}
+#participantes p{
+  font-size: 16px;
+}
+#participantes button{
+  font-size: 12px;
+  height:23px;
+  padding:0.3px;
+}
+#participantes {
+
+  height:35px;
+  padding:5px;
+}

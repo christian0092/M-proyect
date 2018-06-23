@@ -4,48 +4,45 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { User } from '../login/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class LoginService {
   private loggedIn : boolean;
   private loggedIn$ = new Subject<boolean>();
-  private url = 'http://localhost:8000/';
-  private clientId = '1';
-  private clientSecret = 'eudaqO1iymV1Oo9AsMudvrm08GYvmbExAbzD3IRj';
-  private scope = '*';
-  private grantType = 'password';
 
   constructor(
-    private http:Http    
+    private http:Http
   ) { }
 
-  ngOnInit(){    
+  ngOnInit(){
   }
 
   login(user: User) {
     if (user.username !== '' && user.password !== '' ) {
-        let body = {  'username': user.username, 
+        let body = {  'username': user.username,
                       'password': user.password,
-                      'client_id': this.clientId,
-                      'client_secret': this.clientSecret,
-                      'grant_type': this.grantType,
-                      'scope': this.scope
+                      'client_id': environment.clientId,
+                      'client_secret': environment.clientSecret,
+                      'grant_type': environment.grantType,
+                      'scope': environment.scope
                      };
         const header = new Headers({'Content-Type': 'application/json'});
 
         return this.http.post(
-            this.url+'oauth/token', 
-            body, 
+            environment.apiUrl + 'oauth/token',
+            body,
             {headers: header}
-        ).map((response:Response)=>response.json()); 
+        ).map((response:Response)=>response.json());
     }
   }
 
-  setLogin(data){
-    if(data.access_token != ''){
-      localStorage.setItem('userToken', JSON.stringify(data));        
+  setLogin(data, email: string){
+    if(data.access_token != null){
+      localStorage.setItem('email', email);
+      localStorage.setItem('token', data.access_token);
       this.changeLoginValue(true);
-    } else 
+    } else
       this.changeLoginValue(false);
   }
 
@@ -58,8 +55,8 @@ export class LoginService {
     return this.loggedIn;
   }
 
-  checkLogin(){ 
-    var session = JSON.parse(localStorage.getItem("userToken"));
+  checkLogin(){
+    var session = JSON.parse(localStorage.getItem("token"));
     if(session == null){
       this.changeLoginValue(false);
       return;
@@ -73,14 +70,15 @@ export class LoginService {
 
   logout(){
     this.changeLoginValue(false);
-    localStorage.removeItem('userToken');
+    localStorage.removeItem("email");
+    localStorage.removeItem("token");
   }
 
   register(data: object): Observable<object>{
     const header = new Headers({'Content-Type': 'application/json'});
     return this.http.post(
-      this.url+'registro',
-      data, 
+      environment.apiUrl + 'registro',
+      data,
       {headers: header}
     ).map((response:Response)=>response.json());
   }
