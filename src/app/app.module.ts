@@ -31,6 +31,7 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { PartnerRequestFormComponent } from './eventos/partner-request-form/partner-request-form.component';
 import { MSummitComponent } from './perfil/m-summit/m-summit.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,7 @@ import { MSummitComponent } from './perfil/m-summit/m-summit.component';
     FormsModule,
     HttpModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,  
   ],
   providers: [
     LoginService,
