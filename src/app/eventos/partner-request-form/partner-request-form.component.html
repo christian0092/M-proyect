@@ -55,9 +55,9 @@
 				{{partner_form.value | json}}
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" (click)="close()" *ngIf="!getNoError() || !getSend()" data-dismiss="modal" >Cerrar</button>
+				<button type="button" class="btn btn-primary" (click)="close()"  data-dismiss="modal" >Cerrar</button>
 				 <button  class="btn btn-primary " *ngIf="!getNoError() || !getSend()"  (click)="onSubmit()">Enviar</button>
-				 <button  class="btn btn-primary " (click)="close()" *ngIf="getNoError() && getSend()" data-dismiss="modal" >Finalizar</button>
+				 <!--<button  class="btn btn-primary " (click)="close()" *ngIf="getNoError() && getSend()" data-dismiss="modal" >Finalizar</button>-->
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,5 @@
 import {Routes,RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
-
 import { NosotrosComponent } from './nosotros/nosotros.component';
 import { HomeComponent } from './home/home.component';
 import { EventosComponent } from './eventos/eventos.component';

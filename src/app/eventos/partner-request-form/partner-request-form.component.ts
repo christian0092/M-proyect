@@ -50,7 +50,7 @@ export class PartnerRequestFormComponent implements OnInit {
   close(){
   	this.noError=false;
   	this.send=false;
-  	//this.partner_form.reset();
+  	this.partner_form.reset();
   }
 }
  
