@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
+import { Socials } from '../../../models/socials';
 import { RegisterService } from '../register.service';
 
 @Component({
@@ -12,21 +13,14 @@ import { RegisterService } from '../register.service';
 })
 export class RegisterPersonaComponent implements OnInit {
 
-    listaIntereses:Interests[]=[
-    /*new Interests('1','Ciencia'),
-    new Interests('2','Salud'),
-    new Interests('3','Tecnologia'),
-    new Interests('4','Robotica'),
-    new Interests('5','Programacion'),
-    new Interests('6','Innovacíon'),
-    new Interests('7','Investigación'),
-    new Interests('8','Transporte'),
-    new Interests('9','Medio Ambiente'),
-    new Interests('10','Diseño'),
-    new Interests('11','Marketing'),
-    new Interests('12','Seguridad Vial')*/
+    listaIntereses:Interests[]=[];
+  listaSocial:Socials[]=[
+  new Socials('1','Facebook','fa fa-facebook'),
+  new Socials('2','Twitter','fa fa-twitter'),
+  new Socials('3','Instagram','fa fa-instagram'),
+  new Socials('4','Youtube','fa fa-youtube'),
+  new Socials('5','Linkedin','fa fa-linkedin')
   ]
-
 
 
   formulario_persona: FormGroup;
@@ -53,21 +47,39 @@ export class RegisterPersonaComponent implements OnInit {
     private service: LoginService,
     private registerServices: RegisterService,
   ) {
-    this.loadInterests();
+    //this.loadInterests();
     this.createFormPersona();
   }
 
   createFormPersona() {
 
-
-
     let allInterests: FormArray = new FormArray([]);
-    console.log(this.listaIntereses.length);
-    for (let i = 0; i < this.listaIntereses.length; i++) {
+
+    this.registerServices.getInterests()
+    .subscribe(
+      data => {
+        if(data['status']){
+          this.listaIntereses=data['data'];
+
+          for (let i = 0; i < this.listaIntereses.length; i++) {
+            let fg = new FormGroup({});
+            fg.addControl(this.listaIntereses[i].name, new FormControl(false));
+            allInterests.push(fg);
+          }
+
+        } else{
+          console.log("error");
+        }
+      }
+    );
+
+    let allSocials: FormArray = new FormArray([]);
+    for (let i = 0; i < this.listaSocial.length; i++) {
       let fg = new FormGroup({});
-      fg.addControl(this.listaIntereses[i].name, new FormControl(false));
-      allInterests.push(fg);
+      fg.addControl(this.listaSocial[i].name, new FormControl());
+      allSocials.push(fg);
     }
+
 
     this.formulario_persona = this.fp.group({
       user : this.fp.group({
@@ -94,12 +106,13 @@ export class RegisterPersonaComponent implements OnInit {
         dept: [null],
         terms: [null, Validators.required],
         share_data: [true, Validators.required],
-        interests: allInterests
+        interests: allInterests,
+        socials: allSocials
       })
     }, {validators: passwordMatchValidator});
   }
 
-  loadInterests(){
+  /*loadInterests(){
       this.registerServices.getInterests()
       .subscribe(
       data => {
@@ -113,10 +126,10 @@ export class RegisterPersonaComponent implements OnInit {
         }
       }
     );
-  }
+  }*/
 
   ngOnInit() {
-    this.loadInterests();
+    //this.loadInterests();
 
 
     this.formSubmitAttempt = false;
@@ -182,12 +195,13 @@ export class RegisterPersonaComponent implements OnInit {
     }
   }
   onCancelar() {
-    alert("cierro");
+    console.log("cierro");
     this.reset();
   }
   onAnterior() {
     this.formPage--;
     this.searchPage();
+    this.error=false;
   }
   onSiguiente() {
 
@@ -250,18 +264,18 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   isFieldValid(field: string) {
+
     return (!this.formulario_persona.get(field).valid && this.formulario_persona.get(field).touched) ||
       (this.formulario_persona.get(field).untouched && this.formSubmitAttempt);
   }
 
-  validateAllFormFields(formGroup: FormGroup) {         //{1}
-
-    Object.keys(formGroup.controls).forEach(field => {  //{2}
-      const control = formGroup.get(field);             //{3}
-      if (control instanceof FormControl) {             //{4}
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        //{5}
-        this.validateAllFormFields(control);            //{6}
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
       }
     });
   }

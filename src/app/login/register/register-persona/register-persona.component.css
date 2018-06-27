@@ -22,6 +22,11 @@
   -webkit-border-radius: 5px 5px 5px 5px;
 
 }
+.boton_grande{
+    height:50px;
+    width:100%;
+    margin-top:10px
+}
 #header_titulo{
   margin-bottom: 30px;
   border-bottom: solid #ced8e3 1px;

@@ -17,7 +17,8 @@
         <div class="col-md-3">
         </div>
         <div class="col-md-6">
-          <input formControlName="email" type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
+          <input formControlName="email" type="email" class="form-control" id="email" name="email" placeholder="Email"  ngModel>
+
           <div class="alert alert-danger" *ngIf="isFieldValid('user.email')">* Este campo es requerido</div>
         </div>
         <div class="col-md-3">
@@ -117,7 +118,6 @@
                     <input type="checkbox" formControlName="{{interest.name}}">
                       {{interest.name}}
                   </span>
-              <!--<label class="check"><input type="checkbox" > formControlName="{{person.category.name}}"</label>-->
             </div>
 
           </div>
@@ -126,7 +126,23 @@
       </div>
       <div class="col-md-5" style="margin-top:10px">
 
-        <div class="form-row">
+
+        <div formGroupName="socials" style="width:100%">
+
+            <div *ngFor="let social of listaSocial; let i = index" >
+                <span formGroupName="{{i}}">
+                    <div class="form-row">
+                      <a class="btn-lg" style="padding:0px"><span class="{{social.imagen}}"></span></a>
+                      <input type="text" class="form-control" style='width:85%' formControlName="{{social.name}}" placeholder="{{social.name}}" >
+                    </div>
+                  </span>
+            </div>
+
+
+        </div>
+
+
+        <!--<div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
           <input type="text" class="form-control" style='width:85%'  id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" >
         </div>
@@ -146,7 +162,9 @@
           <a class="btn-lg" style="padding:0px"><span class="fa fa-linkedin"></span></a>
           <input type="text" class="form-control" style='width:85%'  id="usuarioLinkedin" name="usuarioLinkedin" placeholder="Linkedin" >
         </div>
+        -->
       </div>
+
       <div class="col-md-1">
       </div>
     </div>
@@ -236,17 +254,17 @@
 
 
       <div class="col-md-2"  >
-          <button *ngIf="esCancelar" class="btn btn-danger"  (click)="onCancelar()" data-dismiss="modalRegistro" id="boton_grande">Cancelar</button>
+          <button *ngIf="esCancelar" class="btn btn-danger boton_grande"  (click)="onCancelar()" data-dismiss="modalRegistro" >Cancelar</button>
       </div>
       <div class="col-md-6"  >
 
       </div>
       <div class="col-md-2 " >
-          <button *ngIf="esAnterior" class="btn btn-dark disabled "  (click)="onAnterior()" id="boton_grande">Anterior</button>
+          <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande"  (click)="onAnterior()" >Anterior</button>
       </div>
       <div class="col-md-2 " >
-          <button *ngIf="esSiguiente" class="btn btn-primary " (click)="onSiguiente()" id="boton_grande">Siguiente</button>
-          <button *ngIf="esFinalizar" class="btn btn-primary "  (click)="onSubmit()" data-dismiss="modalRegistro" id="boton_grande">Finalizar</button>
+          <button *ngIf="esSiguiente" class="btn btn-primary boton_grande" (click)="onSiguiente()" >Siguiente</button>
+          <button *ngIf="esFinalizar" class="btn btn-primary boton_grande"  (click)="onSubmit()" data-dismiss="modalRegistro" >Finalizar</button>
       </div>
 
 

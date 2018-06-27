@@ -12,3 +12,32 @@
   margin-bottom: 30px;
   border-bottom: solid #ced8e3 1px;
 }
+
+
+.img_redonda{
+    position: relative;
+    width: 210px;
+    height: 210px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+    z-index: 1;
+    max-width: 100%;
+
+        transform:scale(1);
+        -ms-transform:scale(1);
+        -moz-transform:scale(1);
+        -webkit-transform:scale(1);
+        -o-transform:scale(1);
+        -webkit-transition: all 500ms ease-in-out;
+        -moz-transition: all 500ms ease-in-out;
+        -ms-transition: all 500ms ease-in-out;
+        -o-transition: all 500ms ease-in-out;
+}
+.img_redonda:hover{
+            transform:scale(1.2);
+            -ms-transform:scale(1.2);
+            -moz-transform:scale(1.2);
+            -webkit-transform:scale(1.2);
+            -o-transform:scale(1.2);
+ }

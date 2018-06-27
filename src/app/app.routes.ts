@@ -9,6 +9,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 const appRoutes: Routes=[
   {path:'',redirectTo:'/home', pathMatch: 'full'},
+
   {path:'home',component:HomeComponent},
   {path:'nosotros',component:NosotrosComponent},
   {path:'eventos',component:EventosComponent},
