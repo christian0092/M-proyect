@@ -29,6 +29,8 @@ import { RegisterEmpresaComponent } from './login/register/register-empresa/regi
 import { RegisterPersonaComponent } from './login/register/register-persona/register-persona.component';
 import { ResetPasswordComponent } from './login/reset-password/reset-password.component';
 import { PartnerRequestFormComponent } from './eventos/partner-request-form/partner-request-form.component';
+import { MSummitComponent } from './perfil/m-summit/m-summit.component';
+
 
 @NgModule({
   declarations: [
@@ -49,14 +51,15 @@ import { PartnerRequestFormComponent } from './eventos/partner-request-form/part
     RegisterEmpresaComponent,
     RegisterPersonaComponent,
     ResetPasswordComponent,
-    PartnerRequestFormComponent
+    PartnerRequestFormComponent,
+    MSummitComponent
   ],
   imports: [
     routes,
     FormsModule,
     HttpModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,  
   ],
   providers: [
     LoginService,

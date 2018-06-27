@@ -12,6 +12,7 @@ export class PartnerRequestFormComponent implements OnInit {
 	partner_form:FormGroup;
 	send:boolean;
 	noError:boolean;
+	public loading: boolean = false;
 
   constructor(private fb:FormBuilder, private partnerService:PartnerRequestService) {
   	this.partner_form=fb.group({
@@ -32,6 +33,7 @@ export class PartnerRequestFormComponent implements OnInit {
         this.partnerService.send(this.partner_form.value).subscribe(
           data => {
             this.send=true;
+            this.loading = true;
             if(data['status']){              
               this.noError=true;
               this.reset();
@@ -45,6 +47,7 @@ export class PartnerRequestFormComponent implements OnInit {
 
  reset() {
     this.partner_form.reset();
+     this.loading = false;
   }
   getNoError(){
   	return this.noError;
