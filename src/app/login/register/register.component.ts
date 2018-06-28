@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   esInicio: boolean;
+
   esPersona: boolean;
   esEmpresa: boolean;
   private isValidPersona: boolean;
@@ -22,6 +23,13 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.esInicio = true;
+    this.esPersona = false;
+    this.esEmpresa = false;
+    this.isValidPersona = false;
+  }
+
+  cerrar(){
     this.esInicio = true;
     this.esPersona = false;
     this.esEmpresa = false;

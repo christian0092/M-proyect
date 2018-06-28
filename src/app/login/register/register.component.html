@@ -56,8 +56,9 @@
         </div>-->
 
 
+
         <div *ngIf="esPersona" class="form-group" > <!--Formulario de persona-->
-          <app-register-persona #isValidPersona></app-register-persona>
+          <app-register-persona #isValidPersona ></app-register-persona>
         </div>
 
         <div *ngIf="esEmpresa"  class="form-group" > <!--Formulario de empresa-->
@@ -65,7 +66,7 @@
         </div>
 
       </div>
-
+<button class="btn btn-danger"  data-dismiss="modal" (click)="cerrar()">Cancelar</button>
 
     </div>
   </div>

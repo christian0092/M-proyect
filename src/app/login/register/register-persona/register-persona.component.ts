@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
 import { Socials } from '../../../models/socials';
 import { RegisterService } from '../register.service';
+import { RegisterComponent } from '../register.component';
 
 @Component({
   selector: 'app-register-persona',
@@ -12,6 +13,7 @@ import { RegisterService } from '../register.service';
   styleUrls: ['./register-persona.component.css']
 })
 export class RegisterPersonaComponent implements OnInit {
+
 
   listaIntereses:Interests[]=[];
   listaSocial:Socials[]=[
@@ -119,7 +121,7 @@ export class RegisterPersonaComponent implements OnInit {
 
     this.formPage=0;
 
-    this.esAnterior=false;
+    this.esAnterior=true;
     this.esSiguiente=true;
     this.esFinalizar=false;
     this.esCancelar=true;
@@ -133,12 +135,23 @@ export class RegisterPersonaComponent implements OnInit {
 
   searchPage(){
     switch(this.formPage){
+      case -1:
+        this.esPersonaUsuario=false;
+        this.esPersonaPersonales=false;
+        this.esPersonaRedes=false;
+        this.esPersonaCondiciones=false;
+        this.esAnterior=false;
+        this.esSiguiente=false;
+        this.esFinalizar=false;
+        this.esInicio=true;
+
+        break;
       case 0:
         this.esPersonaUsuario=true;
         this.esPersonaPersonales=false;
         this.esPersonaRedes=false;
         this.esPersonaCondiciones=false;
-        this.esAnterior=false;
+        this.esAnterior=true;
         this.esSiguiente=true;
         this.esFinalizar=false;
         break;

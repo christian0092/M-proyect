@@ -10,6 +10,8 @@ import { Socials } from '../../../models/socials';
   styleUrls: ['./register-empresa.component.css']
 })
 export class RegisterEmpresaComponent implements OnInit {
+
+  
   formulario_empresa: FormGroup;
   private formSubmitAttempt: boolean;
 

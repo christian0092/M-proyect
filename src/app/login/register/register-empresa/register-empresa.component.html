@@ -6,7 +6,7 @@
     <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
     <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
-    <div *ngIf="esEmpresaUsuario">
+    <div [hidden]="!esEmpresaUsuario">
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 2: Usuario</legend>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="esEmpresaPersonales">
+    <div [hidden]="!esEmpresaPersonales">
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 3: Datos Organizacion o Empresa</legend>
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div *ngIf="esEmpresaRedes">
+    <div [hidden]="!esEmpresaRedes">
 
 
       <div class="form-row" id="header_titulo">
@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div *ngIf="esEmpresaCondiciones" >
+    <div [hidden]="!esEmpresaCondiciones" >
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 5: Bases y Condiciones</legend>
@@ -185,7 +185,7 @@
         </label>
       </div>
       <div class="form-row">
-        <div class="alert alert-danger" *ngIf="isFieldValid('person.terms')">* Se deben aceptar los términos y condiciones
+        <div class="alert alert-danger" *ngIf="isFieldValid('terms')">* Se deben aceptar los términos y condiciones
         </div>
       </div>
 
