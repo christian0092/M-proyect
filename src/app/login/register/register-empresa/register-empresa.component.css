@@ -1,0 +1,24 @@
+#header_titulo{
+  margin-bottom: 30px;
+  border-bottom: solid #ced8e3 1px;
+}
+
+.boton_grande{
+    height:50px;
+    width:100%;
+    margin-top:10px
+}
+
+
+#boton_izquierda{
+  border:solid red 2px;
+  float:left;
+  position:relative;
+  width:50%;
+}
+#boton_derecha{
+  border:solid red 2px;
+  float:right;
+  width:50%;
+  position:relative;
+}

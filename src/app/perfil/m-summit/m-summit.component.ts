@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./m-summit.component.css']
 })
 export class MSummitComponent implements OnInit {
-	
+
 	formTemplate:FormGroup;
 	public loading: boolean = false;
 	file:File;
@@ -33,11 +33,11 @@ export class MSummitComponent implements OnInit {
           filetype: this.file.type,
           filesyze:this.file.size,
           value: this.file
-        })  
-        console.log(this.formTemplate);  
+        })
+        console.log(this.formTemplate);
     }
-      
- 
+
+
   onSubmit() {
   	this.send=true;
    const formModel = this.formTemplate.value;
@@ -47,7 +47,7 @@ export class MSummitComponent implements OnInit {
       this.noError=true;
       this.loading = false;
     }, 1000);
-   
+
   }
   	getNoError(){
   	return this.noError;
@@ -55,7 +55,7 @@ export class MSummitComponent implements OnInit {
   getSend(){
   	return this.send;}
 
-  		
+
 
   clearFile() {
     this.formTemplate.get('template').setValue(null);
@@ -94,4 +94,4 @@ export class MSummitComponent implements OnInit {
         console.log('Completed file download.')
       });*
 }*/
-}
+//}

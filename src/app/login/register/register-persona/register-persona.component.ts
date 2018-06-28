@@ -13,7 +13,7 @@ import { RegisterService } from '../register.service';
 })
 export class RegisterPersonaComponent implements OnInit {
 
-    listaIntereses:Interests[]=[];
+  listaIntereses:Interests[]=[];
   listaSocial:Socials[]=[
   new Socials('1','Facebook','fa fa-facebook'),
   new Socials('2','Twitter','fa fa-twitter'),
@@ -44,10 +44,10 @@ export class RegisterPersonaComponent implements OnInit {
 
   constructor(
     private fp: FormBuilder,
-    private service: LoginService,
+    private loginServices: LoginService,
     private registerServices: RegisterService,
   ) {
-    //this.loadInterests();
+
     this.createFormPersona();
   }
 
@@ -112,24 +112,7 @@ export class RegisterPersonaComponent implements OnInit {
     }, {validators: passwordMatchValidator});
   }
 
-  /*loadInterests(){
-      this.registerServices.getInterests()
-      .subscribe(
-      data => {
-        if(data['status']){
-          this.listaIntereses=data['data'];
-          console.log(this.listaIntereses);
-
-
-        } else{
-          console.log("error");
-        }
-      }
-    );
-  }*/
-
   ngOnInit() {
-    //this.loadInterests();
 
 
     this.formSubmitAttempt = false;
@@ -146,10 +129,6 @@ export class RegisterPersonaComponent implements OnInit {
     this.esPersonaRedes=false;
     this.esPersonaCondiciones=false;
 
-
-
-    /*this.enviado=false;
-    this.enviado=false;*/
   }
 
   searchPage(){
@@ -242,7 +221,7 @@ export class RegisterPersonaComponent implements OnInit {
     if (this.formulario_persona.valid) {
       this.send=true;
       this.error=false;
-    /*this.service.register(this.formulario_persona.value).subscribe(
+        this.loginServices.register(this.formulario_persona.value).subscribe(
         data => {
           if(data['success']){
             this.reset();
@@ -253,7 +232,7 @@ export class RegisterPersonaComponent implements OnInit {
             alert(data['message']);
           }
         }
-      );*/
+      );
     }
     else{
 
