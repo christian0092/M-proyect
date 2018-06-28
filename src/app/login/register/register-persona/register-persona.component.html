@@ -4,7 +4,7 @@
   <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
   <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
-  <div *ngIf="esPersonaUsuario">
+  <div [hidden]="!esPersonaUsuario">
 
     <div class="form-row" id="header_titulo">
         <legend>Paso 2: Usuario</legend>
@@ -53,7 +53,7 @@
 
 <div formGroupName="person">
 
-  <div *ngIf="esPersonaPersonales">
+  <div [hidden]="!esPersonaPersonales">
 
     <div class="form-row" id="header_titulo">
         <legend>Paso 3: Datos Personales</legend>
@@ -98,7 +98,7 @@
 
   </div>
 
-  <div *ngIf="esPersonaRedes">
+  <div [hidden]="!esPersonaRedes">
 
 
     <div class="form-row" id="header_titulo">
@@ -172,7 +172,7 @@
 
   </div>
 
-  <div *ngIf="esPersonaCondiciones" >
+  <div [hidden]="!esPersonaCondiciones" >
 
     <div class="form-row" id="header_titulo">
         <legend>Paso 5: Bases y Condiciones</legend>
