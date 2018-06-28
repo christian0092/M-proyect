@@ -143,7 +143,6 @@ export class RegisterPersonaComponent implements OnInit {
         this.esAnterior=false;
         this.esSiguiente=false;
         this.esFinalizar=false;
-        this.esInicio=true;
 
         break;
       case 0:
