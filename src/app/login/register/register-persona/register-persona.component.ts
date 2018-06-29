@@ -135,16 +135,7 @@ export class RegisterPersonaComponent implements OnInit {
 
   searchPage(){
     switch(this.formPage){
-      case -1:
-        this.esPersonaUsuario=false;
-        this.esPersonaPersonales=false;
-        this.esPersonaRedes=false;
-        this.esPersonaCondiciones=false;
-        this.esAnterior=false;
-        this.esSiguiente=false;
-        this.esFinalizar=false;
-
-        break;
+    
       case 0:
         this.esPersonaUsuario=true;
         this.esPersonaPersonales=false;
