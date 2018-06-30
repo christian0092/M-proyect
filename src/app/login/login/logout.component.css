@@ -1,0 +1,13 @@
+.botonlogout {
+    background-color: LightSeaGreen; /* Green */
+    color: white;
+}
+.botonlogout:hover, .botonlogout:focus,.botonlogin.active, .botonlogout.dropdown-toggle:focus{
+    background-color: white; /* Green */
+    color: LightSeaGreen;
+}
+.botonlogout:active{
+	background-color: white; /* Green */
+    color: LightSeaGreen;
+	border: 2px double LightSeaGreen;
+}

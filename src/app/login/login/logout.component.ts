@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-logout',
@@ -8,14 +9,21 @@ import { LoginService } from '../../services/login.service';
 })
 export class LogoutComponent implements OnInit {
 
+  user:String="hola";
+  package:JSON;
+
   constructor(
-    private loginService:LoginService
-  ) { }
+    private loginService:LoginService, private userService:UserService
+  ) {
+   }
 
   ngOnInit() {
+     this.package=this.userService.getUsername();
+     this.user=this.package.email;
   }
 
   logout(){
+
     this.loginService.logout(); 
   }
 }

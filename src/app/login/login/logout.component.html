@@ -1,1 +1,13 @@
-<button type="button" class="btn botonlogin " (click)="logout()" >Logout <span class="caret"></span></button>
+<li class="dropdown order-3 ">
+	<button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn  dropdown-toggle botonlogout ">{{user}} <span class="caret"></span></button>
+	<ul class="dropdown-menu dropdown-menu-right mt-2">
+		<li class="px-3 py-2">
+			<div class="form-group text-center">
+				<a href="#" [routerLink]="['perfil']">Ver Perfil<span class="caret"></span></a>
+			</div>
+			<div class="form-group text-center">
+				<a href (click)="logout()">Cerrar sesion</a>
+			</div>			
+		</li>
+	</ul>
+</li>
