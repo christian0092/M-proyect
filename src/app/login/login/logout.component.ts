@@ -19,11 +19,18 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
      this.package=this.userService.getUsername();
-     this.user=this.package.email;
+     this.user=this.package['email'];
   }
 
   logout(){
 
     this.loginService.logout(); 
   }
+}
+function replacer(key, value) {
+  //console.log(typeof value);
+  if (key === 'email') {
+    return undefined;
+  }
+  return value;
 }
