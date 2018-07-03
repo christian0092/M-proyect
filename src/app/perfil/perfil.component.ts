@@ -26,7 +26,6 @@ export class PerfilComponent implements OnInit {
     new Participant('5','La señora de España',1),
     new Participant('6','Mel Gibson',1),
     new Participant('7','El retutu papa',1),
-
  	]
   agenda: Actividad[]=[
     new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido'),
