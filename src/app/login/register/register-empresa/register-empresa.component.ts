@@ -16,11 +16,11 @@ export class RegisterEmpresaComponent implements OnInit {
   private formSubmitAttempt: boolean;
 
   listaSocial:Socials[]=[
-  new Socials('1','Facebook','fa fa-facebook'),
+ /* new Socials('1','Facebook','fa fa-facebook'),
   new Socials('2','Twitter','fa fa-twitter'),
   new Socials('3','Instagram','fa fa-instagram'),
   new Socials('4','Youtube','fa fa-youtube'),
-  new Socials('5','Linkedin','fa fa-linkedin')
+  new Socials('5','Linkedin','fa fa-linkedin')*/
   ]
 
      formPage;

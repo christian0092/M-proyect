@@ -19,6 +19,8 @@ import { PartnerRequestService } from './eventos/partner-request-form/partner-re
 import { LoginService } from './services/login.service';
 import { RegisterService } from './login/register/register.service';
 import {UserService} from './services/user.service';
+import { StudyLevelsService } from "./services/study-levels.service";
+import { AccountsService } from "./services/accounts.service";
 
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
@@ -68,7 +70,9 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
     LoginService,
     PartnerRequestService,
     RegisterService,
-    UserService
+    UserService,
+    StudyLevelsService,
+    AccountsService
   ],
   bootstrap: [AppComponent]
 })

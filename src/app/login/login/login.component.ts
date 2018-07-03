@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   login(user: User){
     this.loginService.login(user).subscribe(
       data => {
-        this.loginService.setLogin(data, user.username);
+        this.loginService.setLogin(data);
       },
       error =>  console.log(<any>error));
   }

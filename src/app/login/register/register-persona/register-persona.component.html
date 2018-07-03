@@ -1,149 +1,190 @@
 <form [formGroup]="formulario_persona">
 
-<div class="contenido" style="min-height:415px">
-  <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
-  <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
+  <div class="contenido" style="min-height:415px">
+    <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
+    <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
-  <div [hidden]="!esPersonaUsuario">
+    <div [hidden]="!esPersonaUsuario">
 
-    <div class="form-row" id="header_titulo">
+      <div class="form-row" id="header_titulo">
         <legend>Paso 2: Usuario</legend>
-    </div>
-
-    <div  formGroupName = "user">
-
-
-      <div class="form-row" style="margin-top:40px">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-          <input formControlName="email" type="email" class="form-control" id="email" name="email" placeholder="Email"  ngModel>
-
-          <div class="alert alert-danger" *ngIf="isFieldValid('user.email')">* Este campo es requerido</div>
-        </div>
-        <div class="col-md-3">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-          <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
-          <div class="alert alert-danger" *ngIf="isFieldValid('user.password')">* Este campo es requerido</div>
-
-        </div>
-        <div class="col-md-3">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-3">
-        </div>
-        <div class="col-md-6">
-          <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
-          <div class="alert alert-danger" *ngIf="isFieldValid('user.password_confirmation')">* Este campo es requerido</div>
-          <!--<div class="alert alert-danger" *ngIf="this.formulario_persona.controls['password_confirmation'].value != this.formulario_persona.controls['password'].value && isFieldValid('user.pwd.password') && isFieldValid('user.pwd.password_confirmation')">* Las contraseñas no coinciden</div>-->
-
-        </div>
-        <div class="col-md-3">
-        </div>
       </div>
 
-    </div>
-  </div>
+      <div formGroupName="user">
 
-<div formGroupName="person">
 
-  <div [hidden]="!esPersonaPersonales">
+        <div class="form-row" style="margin-top:40px">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+            <input formControlName="email" type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
 
-    <div class="form-row" id="header_titulo">
-        <legend>Paso 3: Datos Personales</legend>
-    </div>
-
-    <div class="form-row">
-      <div class="col-md-6">
-        <input formControlName="name" class="form-control" type="text" placeholder="Nombre" ngModel >
-        <div class="alert alert-danger" *ngIf="isFieldValid('person.name')">* Este campo es requerido</div>
-        <input formControlName="surname" type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" ngModel>
-        <div class="alert alert-danger" *ngIf="isFieldValid('person.surname')">* Este campo es requerido</div>
-        <input formControlName="document_number" type="text" class="form-control" id="dni" name="dni" placeholder="DNI" ngModel>
-        <div class="alert alert-danger" *ngIf="isFieldValid('person.document_number')">* Este campo es requerido</div>
-        <input formControlName="birth_date" type="text" onfocus="(this.type='date')"  id="date" class="form-control" id="fechaDeNacimiento" name="fechaDeNacimiento" placeholder="Fecha de nacimiento" ngModel>
-        <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">* Este campo es requerido</div>
-        <input formControlName="empleo" type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>
-        <select formControlName="study_level_id" class="form-control" id="exampleFormControlSelect1">
-          <option disabled selected="selected">Estudios</option>
-          <option >Robo de trabajos con LC</option>
-          <option>Aprendiendo ingles con JM</option>
-          <option>Avanzado o no, todo es lo mismo con SR</option>
-        </select>
-      </div>
-      <div class="col-md-6">
+            <div class="alert alert-danger" *ngIf="isFieldValid('user.email')">* Este campo es requerido</div>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
         <div class="form-row">
-          <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
-          <input formControlName="cellphone" type="text" class="form-control" style='width:89%' placeholder="#Pais#Caracteristica#Movil" ngModel>
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+            <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña"
+              ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('user.password')">* Este campo es requerido</div>
+
+          </div>
+          <div class="col-md-3">
+          </div>
         </div>
-        <input formControlName="country_id" type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>
-        <input formControlName="province_id" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia" ngModel>
-        <input formControlName="city_id" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad" ngModel>
-        <input formControlName="postal_code" type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal" ngModel>
-        <input formControlName="street" type="text" class="form-control" id="calle" name="calle" placeholder="Calle" ngModel>
         <div class="form-row">
-          <div class="col"><input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número" ngModel></div>
-          <div class="col"><input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso" ngModel></div>
-          <div class="col"><input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento" ngModel></div>
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-6">
+            <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña"
+              placeholder="Repite contraseña" ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('user.password_confirmation')">* Este campo es requerido</div>
+            <!--<div class="alert alert-danger" *ngIf="this.formulario_persona.controls['password_confirmation'].value != this.formulario_persona.controls['password'].value && isFieldValid('user.pwd.password') && isFieldValid('user.pwd.password_confirmation')">* Las contraseñas no coinciden</div>-->
 
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div [hidden]="!esPersonaRedes">
-
-
-    <div class="form-row" id="header_titulo">
-        <legend>Paso 4: Intereses y Redes Sociales</legend>
-    </div>
-
-    <div class="row">
-
-      <div class="col-md-1">
-      </div>
-      <div class="col-md-5" >
-
-        <div formGroupName="interests">
-          <div class="panel">
-
-            <div class="caja_right" *ngFor="let interest of listaIntereses; let i = index">
-                <span formGroupName="{{i}}">
-                    <input type="checkbox" formControlName="{{interest.name}}">
-                      {{interest.name}}
-                  </span>
-            </div>
-
+          </div>
+          <div class="col-md-3">
           </div>
         </div>
 
       </div>
-      <div class="col-md-5" style="margin-top:10px">
+    </div>
 
+    <div formGroupName="person">
 
-        <div formGroupName="socials" style="width:100%">
+      <div [hidden]="!esPersonaPersonales">
 
-            <div *ngFor="let social of listaSocial; let i = index" >
-                <span formGroupName="{{i}}">
-                    <div class="form-row">
-                      <a class="btn-lg" style="padding:0px"><span class="{{social.imagen}}"></span></a>
-                      <input type="text" class="form-control" style='width:85%' formControlName="{{social.name}}" placeholder="{{social.name}}" >
-                    </div>
-                  </span>
-            </div>
-
-
+        <div class="form-row" id="header_titulo">
+          <legend>Paso 3: Datos Personales</legend>
         </div>
 
+        <div class="form-row">
+          <div class="col-md-6">
+            <input formControlName="name" class="form-control" type="text" placeholder="Nombre" ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('person.name')">* Este campo es requerido</div>
+            <input formControlName="surname" type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('person.surname')">* Este campo es requerido</div>
+            <input formControlName="document_number" type="text" class="form-control" id="dni" name="dni" placeholder="DNI" ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('person.document_number')">* Este campo es requerido</div>
+            <input formControlName="birth_date" type="text" onfocus="(this.type='date')" id="date" class="form-control" id="fechaDeNacimiento"
+              name="fechaDeNacimiento" placeholder="Fecha de nacimiento" ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">* Este campo es requerido</div>
+            <input formControlName="empleo" type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>
+            <select formControlName="study_level_id" class="form-control" id="exampleFormControlSelect1">
+              <option disabled selected="selected">Estudios</option>
+              <option *ngFor="let value of studyLevels" [value]="value.id">{{ value.name }}
+              </option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <div class="form-row">
+              <a class="btn-lg" style="padding:0px">
+                <span class="fa fa-whatsapp"></span>
+              </a>
+              <input formControlName="cellphone" type="text" class="form-control" style='width:89%' placeholder="#Pais#Caracteristica#Movil"
+                ngModel>
+            </div>
+            <input formControlName="country_id" type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>
+            <input formControlName="province_id" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia"
+              ngModel>
+            <input formControlName="city_id" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad"
+              ngModel>
+            <input formControlName="postal_code" type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal"
+              ngModel>
+            <input formControlName="street" type="text" class="form-control" id="calle" name="calle" placeholder="Calle" ngModel>
+            <div class="form-row">
+              <div class="col">
+                <input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número"
+                  ngModel>
+              </div>
+              <div class="col">
+                <input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso" ngModel>
+              </div>
+              <div class="col">
+                <input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento"
+                  ngModel>
+              </div>
 
-        <!--<div class="form-row">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div [hidden]="!esPersonaRedes">
+
+
+        <div class="form-row" id="header_titulo">
+          <legend>Paso 4: Intereses y Redes Sociales</legend>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5">
+
+            <!--    <div formGroupName="interests">
+          <div class="panel">
+
+         <div class="caja_right" *ngFor="let interest of listaIntereses; let i = index">
+                <span formGroupName="{{i}}">
+                    <input type="checkbox" formControlName="{{interest.name}}">
+                      {{interest.name}}
+                  </span>
+            </div>          
+          </div>
+        </div>
+-->
+            <div formArrayName="interests" *ngFor="let interest of this.formulario_persona.controls['person']['controls']['interests']['controls']; let i = index;">
+              <span formGroupName="{{i}}">
+                <input type="checkbox" formControlName="checked"> {{interest.value.label}}
+              </span>
+
+              
+            </div>
+
+          </div>
+          <div class="col-md-5" style="margin-top:10px">
+
+
+           <!-- <div formGroupName="socials" style="width:100%">
+
+              <div *ngFor="let social of listaSocial; let i = index">
+                <span formGroupName="{{i}}">
+                  <div class="form-row">
+                    <a class="btn-lg" style="padding:0px">
+                      <span class="{{social.imagen}}"></span>
+                    </a>
+                    <input type="text" class="form-control" style='width:85%' formControlName="{{social.name}}" placeholder="{{social.name}}">
+                  </div>
+                </span>
+              </div>
+
+
+            </div>-->
+
+            <div formGroupName="accounts" style="width:100%">
+
+                <div *ngFor="let social of this.formulario_persona.controls['person']['controls']['accounts']['controls']; let i = index;">
+                  <span formGroupName="{{i}}">
+                    <div class="form-row">
+                      <a class="btn-lg" style="padding:0px">
+                        <span class="{{social.value.image}}"></span>
+                      </a>
+                      <input type="text" class="form-control" style='width:85%' formControlName="value" placeholder="{{social.value.label}}">
+                    </div>
+                  </span>
+                </div>
+  
+  
+              </div>
+
+
+            <!--<div class="form-row">
           <a class="btn-lg" style="padding:0px"><span class="fa fa-facebook"></span></a>
           <input type="text" class="form-control" style='width:85%'  id="usuarioFacebook" name="usuarioFacebook" placeholder="Facebook" >
         </div>
@@ -164,25 +205,25 @@
           <input type="text" class="form-control" style='width:85%'  id="usuarioLinkedin" name="usuarioLinkedin" placeholder="Linkedin" >
         </div>
         -->
+          </div>
+
+          <div class="col-md-1">
+          </div>
+        </div>
+
       </div>
 
-      <div class="col-md-1">
-      </div>
-    </div>
+      <div [hidden]="!esPersonaCondiciones">
 
-  </div>
-
-  <div [hidden]="!esPersonaCondiciones" >
-
-    <div class="form-row" id="header_titulo">
-        <legend>Paso 5: Bases y Condiciones</legend>
-    </div>
-    <div class="form-row">
-      <label>
-        <input type="checkbox" formControlName="share_data"> Acepto ceder mis datos a terceros
-      </label>
-    </div>
-    <div class="form-row">
+        <div class="form-row" id="header_titulo">
+          <legend>Paso 5: Bases y Condiciones</legend>
+        </div>
+        <div class="form-row">
+          <label>
+            <input type="checkbox" formControlName="share_data"> Acepto ceder mis datos a terceros
+          </label>
+        </div>
+        <div class="form-row">
           <textarea class="form-control" rows="5" readonly style="width:100%">
             Términos y Condiciones
 
@@ -233,45 +274,45 @@
             Se fija como domicilio de TOPYED S.A la calle Alsina 1184, Ciudad Autónoma de Buenos Aires, Código Postal 1088, República Argentina. Ante cualquier duda sobre los Términos y Condiciones Generales o demás políticas y principios que rigen al Sitio, se solicita consultar nuestra página www.ver.com.ar.
 
           </textarea>
-    </div>
-    <div class="form-row">
-      <label>
-        <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
-      </label>
-    </div>
-    <div class="form-row">
-      <div class="alert alert-danger" *ngIf="isFieldValid('person.terms')">* Se deben aceptar los términos y condiciones
+        </div>
+        <div class="form-row">
+          <label>
+            <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
+          </label>
+        </div>
+        <div class="form-row">
+          <div class="alert alert-danger" *ngIf="isFieldValid('person.terms')">* Se deben aceptar los términos y condiciones
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>
-
-</div>
-
-</div>
-<div class="contenido" style="min-height:60px">
-  <div class="container">
-    <div class="row">
+  <div class="contenido" style="min-height:60px">
+    <div class="container">
+      <div class="row">
 
 
-      <div class="col-md-2"  >
+        <div class="col-md-2">
           <!--<button *ngIf="esCancelar" class="btn btn-danger boton_grande"  (click)="onCancelar()" data-dismiss="modalRegistro" >Cancelar</button>-->
-      </div>
-      <div class="col-md-6"  >
+        </div>
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-2 ">
+          <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande" (click)="onAnterior()">Anterior</button>
+        </div>
+        <div class="col-md-2 ">
+          <button *ngIf="esSiguiente" class="btn btn-primary boton_grande" (click)="onSiguiente()">Siguiente</button>
+          <button *ngIf="esFinalizar" class="btn btn-primary boton_grande" (click)="onSubmit()" data-dismiss="modalRegistro">Finalizar</button>
+        </div>
+
 
       </div>
-      <div class="col-md-2 " >
-          <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande"  (click)="onAnterior()" >Anterior</button>
-      </div>
-      <div class="col-md-2 " >
-          <button *ngIf="esSiguiente" class="btn btn-primary boton_grande" (click)="onSiguiente()" >Siguiente</button>
-          <button *ngIf="esFinalizar" class="btn btn-primary boton_grande"  (click)="onSubmit()" data-dismiss="modalRegistro" >Finalizar</button>
-      </div>
-
-
     </div>
-  </div>
 
-</div>
-<!--{{formulario_persona.value | json}}-->
+  </div>
+  {{formulario_persona.value | json}}
 </form>
