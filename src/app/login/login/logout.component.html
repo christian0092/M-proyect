@@ -6,7 +6,7 @@
 				<a href="#" [routerLink]="['perfil']">Ver Perfil<span class="caret"></span></a>
 			</div>
 			<div class="form-group text-center">
-				<a (click)="logout()">Cerrar sesion</a>
+				<a id="logout" [routerLink]="['home']" (click)="logout()">Cerrar sesion</a>
 			</div>			
 		</li>
 	</ul>
