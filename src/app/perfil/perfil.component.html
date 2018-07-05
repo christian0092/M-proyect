@@ -1,189 +1,180 @@
 <div id="main">
-
 	<div class="contenido" >
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
-							<div ><a href=""><span class="fa fa-twitter fa_perfil"></span></a></div>
-							<div ><a href=""><span class="fa fa-facebook fa_perfil"></span></a></div>
-							<div ><a href=""><span class="fa fa-linkedin fa_perfil"></span></a></div>
-							<div ><a href=""><span class="fa fa-instagram fa_perfil"></span></a></div>
+						<div ><a href=""><span class="fa fa-twitter fa_perfil"></span></a></div>
+						<div ><a href=""><span class="fa fa-facebook fa_perfil"></span></a></div>
+						<div ><a href=""><span class="fa fa-linkedin fa_perfil"></span></a></div>
+						<div ><a href=""><span class="fa fa-instagram fa_perfil"></span></a></div>
 					</div>
-
 				</div>
 				<div class="col-md-8" >
 					<div class="row" >
-							<div class="col-lg titulo" >
-								<h2>{{name}}</h2>
-							</div>
+						<div class="col-lg titulo" >
+							<h2>{{myProfile.name}}</h2>
+						</div>
 					</div>
 					<div class="row" >
 						<div class="col-md-4 datos" >
-
 							<p>
-							DNI:{{dni}}<br>
-							Fecha Nacimiento: {{fechaDeNacimiento}}<br>
-							Email:{{email}}<br>
-							Empleo: {{empleo}} <br>
-							Estudios: {{estudios}} <br>
-							<p>
-
+								DNI:{{myProfile.dni}}<br>
+								Fecha Nacimiento: {{myProfile.fechaDeNacimiento}}<br>
+								Email:{{myProfile.email}}<br>
+								Empleo: {{myProfile.empleo}} <br>
+								Estudios: {{myProfile.estudios}} <br>
+								<p>
+								</div>
+								<div class="col-md-4 datos" >
+									<p>
+										Teléfono:{{myProfile.telefono}}<br>
+										País: {{myProfile.pais}}<br>
+										Provincia: {{myProfile.provincia}}<br>
+										Localidad: {{myProfile.localidad}} <br>
+										Código Postal: {{myProfile.codigoPostal}} <br>
+										Calle: {{myProfile.calle}}<br>
+										Piso: {{myProfile.piso}}
+										<p>
+										</div>
+										<div class="col-md-4 datos" >
+											<legend style="font-size:16px;margin-left:5px">Intereses</legend>
+											<ul class="list-group">
+												<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" *ngFor="let interes of myProfile.listaIntereses">
+													<p>{{interes.name}}</p>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-2"  >
+									<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#editProfile">Editar</button>
+								</div>
+							</div>
 						</div>
-						<div class="col-md-4 datos" >
-							<p>
-							Teléfono:{{telefono}}<br>
-							País: {{pais}}<br>
-							Provincia: {{provincia}}<br>
-							Localidad: {{localidad}} <br>
-							Código Postal: {{codigoPostal}} <br>
-							Calle: {{calle}}<br>
-							Piso: {{piso}}
-							<p>
-
-						</div>
-						<div class="col-md-4 datos" >
-							<legend style="font-size:16px;margin-left:5px">Intereses</legend>
-							<ul class="list-group">
-								<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" *ngFor="let interes of listaIntereses">
-									<p>{{interes.name}}</p>
-								</li>
-							</ul>
-
+					</div>
+					<div class="contenido" id="diagonal_centro">
+						<div class="container"  >
+							<div class="titulo_divisor">
+								<div class="titulo_texto_divisor"><h2>EVENTO</h2></div>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="col-md-2"  >
-						<button type="button" class="btn btn-primary" id="boton_grande">Editar Datos</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido" id="diagonal_centro">
-		<div class="container"  >
-			<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>EVENTO</h2></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido" >
-		<div class="container" >
-			<div class="row">
-				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/logo_movilidad.jpg" id="imagen_logo">
-					<div class="row" style="margin-top:20px;margin-left:1px">
-							<div ><a href="https://twitter.com/smartyvia?lang=es"><span class="fa fa-twitter"></span></a></div>
+					<div class="contenido" >
+						<div class="container" >
+							<div class="row">
+								<div class="col-md-3 float-left" >
+									<img src="assets/eventos/logo_movilidad.jpg" id="imagen_logo">
+									<div class="row" style="margin-top:20px;margin-left:1px">
+										<div ><a href="https://twitter.com/smartyvia?lang=es"><span class="fa fa-twitter"></span></a></div>
+									</div>
+								</div>
+								<div class="col-md-7 titulo" >
+									<h2>II Workshop LATAM #MOVILIDADFUTURA </h2>
+									<h6>24 de Agosto 2018 | PUCV, Valparaíso, CHILE.</h6>
+									<p >
+										#MOVILIDADFUTURA es la llave de presentación y conocimiento de nuevas tecnologías en Seguridad Vial,
+										las Carreteras y el Medio Ambiente.
+										Pensado para establecer encuentros entre Clientes, Socios Claves, Científicos e Inversores,
+										la jornada plantea opciones Conference, Workshop y Summit con el objetivo de brindarle al Asistente
+										la mejor experiencia de presentación.
+									</p>
+								</div>
+								<div class="col-md-2"  >
+									<button type="button" class="btn btn-primary" id="boton_grande">Finalizar Inscripción</button>
+								</div>
+							</div>
+						</div>
 					</div>
-
-				</div>
-				<div class="col-md-7 titulo" >
-					<h2>II Workshop LATAM #MOVILIDADFUTURA </h2>
-					<h6>24 de Agosto 2018 | PUCV, Valparaíso, CHILE.</h6>
-					<p >
-						 #MOVILIDADFUTURA es la llave de presentación y conocimiento de nuevas tecnologías en Seguridad Vial,
-						 las Carreteras y el Medio Ambiente.
-						 Pensado para establecer encuentros entre Clientes, Socios Claves, Científicos e Inversores,
-						 la jornada plantea opciones Conference, Workshop y Summit con el objetivo de brindarle al Asistente
-						 la mejor experiencia de presentación.
-					</p>
-
-
-				</div>
-				<div class="col-md-2"  >
-						<button type="button" class="btn btn-primary" id="boton_grande">Finalizar Inscripción</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido" id="diagonal_centro">
-		<div class="container"  >
-			<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>AGENDA</h2></div>
-			</div>
-		</div>
-	</div>
-	<div class="contenido" style="margin-top:20px">
-		<div class="container" >
-			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
-				<div class="col-md-3">
-
-				</div>
-				<div class="col-md-2">
-					<div id="agenda_horario">
-						{{listaAgenda.hora_inicio}} hs
+					<div class="contenido" id="diagonal_centro">
+						<div class="container"  >
+							<div class="titulo_divisor">
+								<div class="titulo_texto_divisor"><h2>AGENDA</h2></div>
+							</div>
+						</div>
+					</div>
+					<div class="contenido" style="margin-top:20px">
+						<div class="container" >
+							<div class="row" *ngFor="let listaAgenda of myProfile.agenda" style="padding:10px;border-bottom:1px solid grey;">
+								<div class="col-md-3">
+								</div>
+								<div class="col-md-2">
+									<div id="agenda_horario">
+										{{listaAgenda.hora_inicio}} hs
+									</div>
+								</div>
+								<div class="col-md-4" >
+									<div id="agenda_titulo">
+										{{listaAgenda.nombre_formato}}
+									</div>
+									<div id="agenda_descripcion">
+										{{listaAgendadescripcion_formato}}
+									</div>
+								</div>
+								<div class="col-md-3" >
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contenido" id="diagonal_centro">
+						<div class="container" >
+							<div class="titulo_divisor">
+								<div class="titulo_texto_divisor"><h2>M-COFFEE</h2></div>
+							</div>
+						</div>
+					</div>
+					<div class="contenido" style="margin-top:30px">
+						<div class="container" >
+							<div class="row">
+								<div class="col-md-2"  >
+								</div>
+								<div class="col-md-6" >
+									<ul class="list-group">
+										<app-participant *ngFor="let participant of ParticipantList" [Participant]="participant"></app-participant>
+									</ul>
+								</div>
+								<div class="col-md-2"  >
+									<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#exampleModal" (click)="test()">Invitar otra Persona</button>
+								</div>
+								<div class="col-md-2"  >
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contenido" id="diagonal_centro">
+						<div class="container"  >
+							<div class="titulo_divisor">
+								<div class="titulo_texto_divisor"><h2>M-SUMMIT</h2></div>
+							</div>
+						</div>
+					</div>
+					<div class="contenido">
+						<div class="container"  style="">
+							<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#mSummitModal">M-Summit</button>
+							<modal-coffee></modal-coffee>
+							<msummit></msummit>
+							<m-summitDisplay></m-summitDisplay>
+						</div>
 					</div>
 				</div>
-				<div class="col-md-4" >
-					<div id="agenda_titulo">
-							{{listaAgenda.nombre_formato}}
-					</div>
-					<div id="agenda_descripcion">
-						{{listaAgenda.descripcion_formato}}
-					</div>
-				</div>
-				<div class="col-md-3" >
 
-				</div>
-
-			</div>
-		</div>
-	</div>
-
-
-	<div class="contenido" id="diagonal_centro">
-		<div class="container" >
-			<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M-COFFEE</h2></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido" style="margin-top:30px">
-		<div class="container" >
-			<div class="row">
-				<div class="col-md-2"  >
-				</div>
-				<div class="col-md-6" >
-					<ul class="list-group">
-						<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" *ngFor="let Participant of ParticipantList">
-
-							<p>{{Participant.name}}</p>
-							<!--<button *ngIf="Participant.status==0" type="button" (click)="invitation(Participant.id,Participant.status)" class="btn btn-danger">Cancelar Invitacion</button>-->
-							<button *ngIf="Participant.status==1 "type="button" (click)="invitation(Participant.id,Participant.status)" class="btn btn-primary">Aceptado</button>
-							<button *ngIf="Participant.status==2" type="button" class="btn btn-dark disabled">Pendiente</button>
-
-						</li>
-					</ul>
-				</div>
-				<div class="col-md-2"  >
-					<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#exampleModal">Invitar otra Persona</button>
-				</div>
-				<div class="col-md-2"  >
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido" id="diagonal_centro">
-		<div class="container"  >
-			<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M-SUMMIT</h2></div>
-			</div>
-		</div>
-	</div>
-
-	<div class="contenido">
-		<div class="container"  style="">
-			<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#mSummitModal">M-Summit</button>
-			<modal-coffee></modal-coffee>
-			<msummit></msummit>
-			<m-summitDisplay></m-summitDisplay>
-		</div>
-	</div>
-
+	<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ 	<app-register-persona *ngIf="myProfile.tipo=='Persona'"></app-register-persona>
+ 	<app-register-empresa *ngIf="myProfile.tipo=='Empresa'"></app-register-empresa>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger"  data-dismiss="modal" >Cancelar</button>
+      </div>
+    </div>
+  </div>
 </div>
