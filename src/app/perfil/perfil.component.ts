@@ -19,8 +19,8 @@ export class PerfilComponent implements OnInit {
   listaIntereses:Array<Interests>=[]; 
   ParticipantList:Participant[];
   myProfile:Profile;
-
   agenda: Actividad[]
+  
   constructor( private userService:UserService) { }
 
   ngOnInit() {

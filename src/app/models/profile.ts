@@ -17,7 +17,11 @@ export class Profile {
   public piso:string,
   public tipo:string,
   public listaIntereses:Interests[],
-  public agenda:Actividad[]
+  public agenda:Actividad[],
+  public twitter:string,
+  public facebook:string,
+  public linkedin:string,  
+  public instagram:string,
   ){
 	}
 }
