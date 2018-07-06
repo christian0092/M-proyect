@@ -35,7 +35,10 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { PartnerRequestFormComponent } from './eventos/partner-request-form/partner-request-form.component';
 import { MSummitComponent } from './perfil/m-summit/m-summit.component';
 import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
+
 import { ActividadComponent } from './eventos/actividad/actividad.component';
+import { ParticipantComponent } from './perfil/participant/participant.component';
+
 
 
 @NgModule({
@@ -60,7 +63,9 @@ import { ActividadComponent } from './eventos/actividad/actividad.component';
     PartnerRequestFormComponent,
     MSummitComponent,
     MSummit2Component,
-    ActividadComponent
+
+    ActividadComponent,
+    ParticipantComponent
   ],
   imports: [
     routes,

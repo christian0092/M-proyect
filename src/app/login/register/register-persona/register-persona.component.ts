@@ -8,6 +8,9 @@ import { RegisterComponent } from '../register.component';
 import { StudyLevel } from '../../../models/study_level';
 import { StudyLevelsService } from '../../../services/study-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
+import {UserService} from '../../../services/user.service';
+
+
 
 @Component({
   selector: 'app-register-persona',
@@ -43,13 +46,15 @@ export class RegisterPersonaComponent implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
+  isLogged:boolean;
 
   constructor(
     private fp: FormBuilder,
     private loginServices: LoginService,
     private registerServices: RegisterService,
     private studyLevelsService: StudyLevelsService,
-    private accountService: AccountsService
+    private accountService: AccountsService,
+    private userService:UserService
   ) {
     this.createFormPersona();
   }
@@ -108,8 +113,34 @@ export class RegisterPersonaComponent implements OnInit {
     this.esPersonaPersonales = false;
     this.esPersonaRedes = false;
     this.esPersonaCondiciones = false;
+    this.loginServices.isLogin$().subscribe(
+      loginStatus=> this.getForm(loginStatus)
+
+      )
+    //this.loginServices.isLogin();
+    this.registerServices.goBack().subscribe(
+      data=>this.discardChanges())        
   }
 
+  discardChanges(){
+  this.getForm(this.isLogged);
+  this.formPage=0;
+  this.searchPage();
+  this.error=false;
+  this.send=false;
+  }
+  ngAfterviewInit(){
+  }
+
+  getForm(isLogged){
+    this.isLogged=isLogged
+    console.log(this.isLogged)
+    if(this.isLogged){
+      this.formulario_persona=this.userService.getForm(this.formulario_persona);
+    }else{
+      this.formulario_persona.reset();
+    }
+  }
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
       levels => { this.studyLevels = levels.data },
@@ -162,7 +193,7 @@ export class RegisterPersonaComponent implements OnInit {
   addAccountItem(id: string, name: string, imagen: string): void {
     var item = this.formulario_persona.controls['person']['controls']['accounts'] as FormArray;
     item.push(this.newAccountItem(id, name, imagen));  
-    console.log(imagen);  
+    //console.log(imagen);  
   }
 
   loadAccounts() {
@@ -232,9 +263,14 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   onAnterior() {
+    if(this.formPage>0){
     this.formPage--;
     this.searchPage();
-    this.error = false;
+    this.error = false;}
+    else if(this.formPage==0){
+      
+
+    }
   }
 
   onSiguiente() {
@@ -273,6 +309,7 @@ export class RegisterPersonaComponent implements OnInit {
     if (this.formulario_persona.valid) {
       this.send = true;
       this.error = false;
+      if(!this.isLogged){//registra si no esta logueado
       this.loginServices.register(this.formulario_persona.value).subscribe(
         data => {
           if (data['success']) {
@@ -282,9 +319,11 @@ export class RegisterPersonaComponent implements OnInit {
             //alert('Usuario creado correctamente');
           } else {
             alert(data['message']);
-          }
-        }
-      );
+            }
+          });
+      }else if(this.isLogged){
+        console.log("modificando usuario");
+      }
     }
     else {
       this.error = true;

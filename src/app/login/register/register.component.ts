@@ -1,18 +1,22 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import {Profile} from '../../models/profile';
+import {UserService} from '../../services/user.service';
+import { LoginService } from '../../services/login.service';
+import {RegisterService} from '../../login/register/register.service'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  esInicio: boolean;
-
-  esPersona: boolean;
-  esEmpresa: boolean;
+  private esInicio: boolean;
+  private esPersona: boolean;
+  private esEmpresa: boolean;
   private isValidPersona: boolean;
+  private type:String;
+  private isLogged:boolean;
 
-  constructor() { }
+  constructor( private userService:UserService, private loginServices: LoginService, private registerService:RegisterService) { }
 
   changePersona(valid){
     console.log(valid);
@@ -21,32 +25,66 @@ export class RegisterComponent implements OnInit {
     else
       this.isValidPersona = false;
   }
-
   ngOnInit() {
     this.esInicio = true;
     this.esPersona = false;
     this.esEmpresa = false;
     this.isValidPersona = false;
+    this.loginServices.isLogin$().subscribe(isLoggin=>this.checkType(isLoggin))
+    this.loginServices.checkLogin();
+    this.userService.getMyProfile().subscribe(myProfile=> 
+    this.type=myProfile.tipo)
+    this.userService.checkMyProfile();
   }
-
   cerrar(){
-    this.esInicio = true;
-    this.esPersona = false;
-    this.esEmpresa = false;
-    this.isValidPersona = false;
+
+    if(this.type=="Persona" && this.isLogged){
+      this.action(0)
+    }
+      else if (this.type=="Empresa"&& this.isLogged) {
+      this.action(1)
+      }else if (!this.isLogged) {
+    this.action(2)
+      }
+    this.registerService.pushGoBack();
+  }
+  checkType(log:boolean){
+    this.isLogged=log
+    if(this.type=="Persona" && this.isLogged){
+      this.action(0)
+    console.log("persona logeada");
+    }
+      else if (this.type=="Empresa"&& this.isLogged) {
+         this.action(1)
+       console.log("empresa logeada");
+      }else if (!this.isLogged) {
+        this.action(2)
+       console.log("forastero");
+      }
   }
 
-  botonClick(val){
-    if(val==0){
-      this.esPersona = true;
+  action(val){
+    switch (val) {
+      case 0:
+       this.esPersona = true;
       this.esEmpresa = false;
       this.esInicio = false;
-    }
-    else{
-      this.esPersona = false;
+        break;
+         case 1:
+     this.esPersona = false;
       this.esEmpresa = true;
       this.esInicio = false;
+        break;
+         case 2:
+       this.esPersona = false;
+      this.esEmpresa = false;
+      this.esInicio = true;
+        break;
+      
+      default:
+        // code...
+        break;
     }
-
+ this.isValidPersona = false;
   }
 }

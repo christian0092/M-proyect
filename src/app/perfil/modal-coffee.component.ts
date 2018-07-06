@@ -57,7 +57,8 @@ export class ModalCoffeeComponent implements OnInit {
  	]
  	Show:boolean=false;
   constructor() {
-   console.log(JSON.stringify(this.ParticipantList)); }
+   //console.log(JSON.stringify(this.ParticipantList)); 
+ }
 
   ngOnInit() {
   }
