@@ -1,0 +1,12 @@
+.titulo p{
+  font-size: 16px;
+  text-align: justify;
+}
+.titulo h3{
+  margin-top:5px;
+  color: #2057a2;
+}
+.titulo h5{
+  color: #2057a2;
+  float:left;
+}

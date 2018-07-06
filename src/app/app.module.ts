@@ -21,6 +21,7 @@ import { RegisterService } from './login/register/register.service';
 import {UserService} from './services/user.service';
 import { StudyLevelsService } from "./services/study-levels.service";
 import { AccountsService } from "./services/accounts.service";
+import { EventosService } from "./eventos/eventos.service";
 
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
@@ -34,6 +35,7 @@ import { ResetPasswordComponent } from './login/reset-password/reset-password.co
 import { PartnerRequestFormComponent } from './eventos/partner-request-form/partner-request-form.component';
 import { MSummitComponent } from './perfil/m-summit/m-summit.component';
 import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
+import { ActividadComponent } from './eventos/actividad/actividad.component';
 
 
 @NgModule({
@@ -57,14 +59,15 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
     ResetPasswordComponent,
     PartnerRequestFormComponent,
     MSummitComponent,
-    MSummit2Component
+    MSummit2Component,
+    ActividadComponent
   ],
   imports: [
     routes,
     FormsModule,
     HttpModule,
     BrowserModule,
-    ReactiveFormsModule,  
+    ReactiveFormsModule,
   ],
   providers: [
     LoginService,
@@ -72,7 +75,8 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
     RegisterService,
     UserService,
     StudyLevelsService,
-    AccountsService
+    AccountsService,
+    EventosService
   ],
   bootstrap: [AppComponent]
 })

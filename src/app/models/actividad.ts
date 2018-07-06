@@ -5,6 +5,8 @@ export class Actividad {
     public nombre:string,
     public descripcion:string,
     public nombre_formato:string,
-    public descripcion_formato:string
+    public descripcion_formato:string,
+    public formato_id:string,
+    public formato_imagen:string
   ){}
 }

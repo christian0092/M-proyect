@@ -43,7 +43,7 @@
   color: #2057a2;
 }
 #agenda_horario{
-  font-size: 18px;
+  font-size: 16px;
   color: #2057a2;
 }
 .titulo p{
@@ -58,8 +58,9 @@
   margin-top: 15px;  color: #2057a2;
 }
 #imagen_patrocinador{
-  height:80px;
+  
   margin-top:10px;
+  width:100%;
 }
 #imagen_logo{
   width:100%;

@@ -14,28 +14,24 @@
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/logo_movilidad.jpg" id="imagen_logo">
+					<img src="assets/eventos/{{evento[0].logo}}" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
 							<div ><a href="https://twitter.com/smartyvia?lang=es"><span class="fa fa-twitter"></span></a></div>
 					</div>
 
 				</div>
 				<div class="col-md-7 titulo" >
-					<h2>II Workshop LATAM #MOVILIDADFUTURA </h2>
-					<h6>24 de Agosto 2018 | PUCV, Valparaíso, CHILE.</h6>
+					<h2>{{evento[0].name}}</h2>
+					<h6>{{evento[0].start_date}} | {{evento[0].event_place}}, Valparaíso, CHILE.</h6>
 					<p >
-						 #MOVILIDADFUTURA es la llave de presentación y conocimiento de nuevas tecnologías en Seguridad Vial,
-						 las Carreteras y el Medio Ambiente.
-						 Pensado para establecer encuentros entre Clientes, Socios Claves, Científicos e Inversores,
-						 la jornada plantea opciones Conference, Workshop y Summit con el objetivo de brindarle al Asistente
-						 la mejor experiencia de presentación.
+						 {{evento[0].description}}
 					</p>
 
 					<div class="row">
-						<div class="col">
-							<img src="assets/eventos/logosmart.jpg" id="imagen_organizan">
+						<div class="col" *ngFor="let organizer of evento[0].organizers">
+							<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
 						</div>
-						<div class="col">
+						<!--<div class="col">
 							<img src="assets/eventos/ivia.jpg" id="imagen_organizan">
 						</div>
 						<div class="col">
@@ -43,12 +39,12 @@
 						</div>
 						<div class="col">
 							<img src="assets/eventos/escuela.jpg" id="imagen_organizan">
-						</div>
+						</div>-->
 
 					</div>
 				</div>
 				<div class="col-md-2"  >
-						<button type="button" class="btn btn-primary" id="boton_grande">Participar</button>
+						<button type="button" class="btn btn-primary" id="boton_grande" (click)="loadEvento()">Participar</button>
 				</div>
 			</div>
 		</div>
@@ -62,18 +58,18 @@
 		</div>
 	</div>
 
-	<div class="contenido" style="margin-top:20px">
+	<!--<div class="contenido" style="margin-top:20px">
 		<div class="container" >
-			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
+			<div class="row" *ngFor="let listaAgenda of agenda2" style="padding:10px;border-bottom:1px solid grey;">
 				<div class="col-md-3">
 
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<div id="agenda_horario">
 						{{listaAgenda.hora_inicio}} hs
 					</div>
 				</div>
-				<div class="col-md-4" >
+				<div class="col-md-5" >
 					<div id="agenda_titulo">
 							{{listaAgenda.nombre_formato}}
 					</div>
@@ -87,40 +83,46 @@
 
 			</div>
 		</div>
-	</div>
-<!--
+	</div>-->
+
 	<div class="contenido" style="margin-top:20px">
 		<div class="container" >
 			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
 
-				<div class="col-md-2">
+        <div class="col-md-1">
+
+        </div>
+				<div class="col-md-1">
 					<div id="agenda_horario">
-						{{listaAgenda.hora_inicio}} hs
+						{{listaAgenda.start_time}} hs
 					</div>
 				</div>
-				<div class="col-md-4" >
+				<div class="col-md-3" >
 					<div id="agenda_titulo">
-							{{listaAgenda.nombre_formato}}
+							{{listaAgenda.event_format.name}}
 					</div>
-					<div id="agenda_descripcion">
-						{{listaAgenda.descripcion_formato}}
-					</div>
+          <div id="agenda_descripcion">
+              {{listaAgenda.event_format.description}}
+          </div>
 				</div>
 				<div class="col-md-5" >
 					<div  id="agenda_titulo">
-						{{listaAgenda.nombre}}
+						{{listaAgenda.name}}
 					</div>
 					<div id="agenda_descripcion">
-						{{listaAgenda.descripcion}}
+            <div *ngFor="let listaSpeaker of listaAgenda.speakers" style="float:left;margin-right:5px">{{listaSpeaker.name}}</div>
+
 					</div>
 				</div>
 				<div class="col-md-1" >
-						<button type="button" class="btn btn-primary" id="boton_grande">Ver</button>
+						<button type="button" class="btn btn-primary" id="boton_grande" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
+				</div>
+        <div class="col-md-1" >
 				</div>
 			</div>
 		</div>
 	</div>
--->
+
 <!--
 	<div class="contenido" >
 		<div class="container" >
@@ -209,27 +211,46 @@
   <div class="container" style="margin-bottom:0">
 
     <div class="row" >
-      <div  class="col-lg">
-        <div id="carouselExampleSlidesOnly"  class="carousel slide" data-speed="1" data-interval="2000" data-ride="carousel">
+      <div  class="col-md-4" >
+      </div>
+      <div  class="col-md-4" >
+        <div id="carouselExampleSlidesOnly"  class="carousel slide" data-speed="1" data-interval="3000" data-ride="carousel">
           <div class="carousel-inner" >
 
             <div class="carousel-item active" >
+            </div>
+            <div class="carousel-item" *ngFor="let partner of evento[0].partners">
+              <a href="{{partner.link_page}}" target="_blank"><img src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
+            </div>
+            <!--<div class="carousel-item" >
               <a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/asebal.jpg" id="imagen_patrocinador"></a>
-							<a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat1.png" id="imagen_patrocinador"></a>
-
+            </div>
+            <div class="carousel-item" >
+              <a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat1.png" id="imagen_patrocinador"></a>
 					  </div>
             <div class="carousel-item">
 							<a href="https://www.auditoresdeseguridadvial.com/" target="_blank"><img src="assets/eventos/auditores.jpg" id="imagen_patrocinador"></a>
-							<a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" id="imagen_patrocinador"></a>
+            </div>
+            <div class="carousel-item">
+              <a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" id="imagen_patrocinador"></a>
 						</div>
-
+            <div class="carousel-item">
+              <a href="http://www.tiendaetrasa.com/" target="_blank"><img src="assets/eventos/etrasa.jpg" id="imagen_patrocinador"></a>
+            </div>
+            <div class="carousel-item">
+              <a href="https://www.mwork.com.ar/" target="_blank"><img src="assets/eventos/mwork.jpg" id="imagen_patrocinador"></a>
+            </div>
 						<div class="carousel-item">
 							<a target="_blank"><img src="assets/eventos/bsp.jpg" id="imagen_patrocinador"></a>
-							<a target="_blank"><img src="assets/eventos/cota.jpg" id="imagen_patrocinador"></a>
             </div>
+            <div class="carousel-item">
+							<a target="_blank"><img src="assets/eventos/cota.jpg" id="imagen_patrocinador"></a>
+            </div>-->
 
           </div>
         </div>
+      </div>
+      <div  class="col-md-4" >
       </div>
     </div>
 
@@ -269,6 +290,7 @@
 		</div>
 	</div>
 <app-partner-request-form></app-partner-request-form>
+<app-actividad [actividad]="actividad"></app-actividad>
 <app-footer></app-footer>
 
 </div>
