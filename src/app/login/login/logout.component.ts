@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import {UserService} from '../../services/user.service';
+import {Profile} from '../../models/profile'
 
 @Component({
   selector: 'app-logout',
@@ -10,7 +11,7 @@ import {UserService} from '../../services/user.service';
 export class LogoutComponent implements OnInit {
 
   user:String="hola";
-  package:JSON;
+
 
   constructor(
     private loginService:LoginService, private userService:UserService
@@ -18,8 +19,8 @@ export class LogoutComponent implements OnInit {
    }
 
   ngOnInit() {
-     this.package=this.userService.getUsername();
-     this.user=this.package['email'];
+    this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
+    this.userService.checkUser();
   }
 
   logout(){
