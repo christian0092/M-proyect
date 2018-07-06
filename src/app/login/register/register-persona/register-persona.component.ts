@@ -8,6 +8,8 @@ import { RegisterComponent } from '../register.component';
 import { StudyLevel } from '../../../models/study_level';
 import { StudyLevelsService } from '../../../services/study-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
+import {UserService} from '../../../services/user.service';
+
 
 @Component({
   selector: 'app-register-persona',
@@ -43,13 +45,15 @@ export class RegisterPersonaComponent implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
+  isLogged:boolean;
 
   constructor(
     private fp: FormBuilder,
     private loginServices: LoginService,
     private registerServices: RegisterService,
     private studyLevelsService: StudyLevelsService,
-    private accountService: AccountsService
+    private accountService: AccountsService,
+    private userService:UserService
   ) {
     this.createFormPersona();
   }
@@ -108,8 +112,28 @@ export class RegisterPersonaComponent implements OnInit {
     this.esPersonaPersonales = false;
     this.esPersonaRedes = false;
     this.esPersonaCondiciones = false;
-  }
+    this.loginServices.isLogin$().subscribe(
+      loginStatus=> this.getForm(loginStatus)
 
+      )
+    this.getForm(this.loginServices.isLogin());
+   
+  }
+  ngAfterViewInit(){
+    this.discardChanges();
+  }
+  discardChanges(){
+  this.getForm(this.isLogged);
+  }
+  getForm(isLogged){
+    this.isLogged=isLogged
+    console.log(this.isLogged)
+    if(this.isLogged){
+      this.formulario_persona=this.userService.getForm(this.formulario_persona);
+    }else{
+      this.formulario_persona.reset();
+    }
+  }
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
       levels => { this.studyLevels = levels.data },
@@ -162,7 +186,7 @@ export class RegisterPersonaComponent implements OnInit {
   addAccountItem(id: string, name: string, imagen: string): void {
     var item = this.formulario_persona.controls['person']['controls']['accounts'] as FormArray;
     item.push(this.newAccountItem(id, name, imagen));  
-    console.log(imagen);  
+    //console.log(imagen);  
   }
 
   loadAccounts() {
@@ -232,9 +256,14 @@ export class RegisterPersonaComponent implements OnInit {
   }
 
   onAnterior() {
+    if(this.formPage>0){
     this.formPage--;
     this.searchPage();
-    this.error = false;
+    this.error = false;}
+    else if(this.formPage==0){
+      
+
+    }
   }
 
   onSiguiente() {

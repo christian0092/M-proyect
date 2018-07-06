@@ -298,8 +298,11 @@
         <div class="col-md-2">
           <!--<button *ngIf="esCancelar" class="btn btn-danger boton_grande"  (click)="onCancelar()" data-dismiss="modalRegistro" >Cancelar</button>-->
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
 
+        </div>
+        <div class="col-md-2 " *ngIf="isLogged">
+          <button  class="btn btn-dark disabled boton_grande" (click)="discardChanges()">Descartar</button>
         </div>
         <div class="col-md-2 ">
           <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande" (click)="onAnterior()">Anterior</button>
