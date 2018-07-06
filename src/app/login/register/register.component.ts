@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {Profile} from '../../models/profile';
 import {UserService} from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
+import {RegisterService} from '../../login/register/register.service'
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   private type:String;
   private isLogged:boolean;
 
-  constructor( private userService:UserService, private loginServices: LoginService,) { }
+  constructor( private userService:UserService, private loginServices: LoginService, private registerService:RegisterService) { }
 
   changePersona(valid){
     console.log(valid);
@@ -32,7 +33,7 @@ export class RegisterComponent implements OnInit {
     this.loginServices.isLogin$().subscribe(isLoggin=>this.checkType(isLoggin))
     this.loginServices.checkLogin();
     this.userService.getMyProfile().subscribe(myProfile=> 
-    this.type=myProfile.tipo))
+    this.type=myProfile.tipo)
     this.userService.checkMyProfile();
   }
   cerrar(){
@@ -45,7 +46,7 @@ export class RegisterComponent implements OnInit {
       }else if (!this.isLogged) {
     this.action(2)
       }
-    
+    this.registerService.pushGoBack();
   }
   checkType(log:boolean){
     this.isLogged=log

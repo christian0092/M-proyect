@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Interests } from '../../models/interests';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class RegisterService {
     listaIntereses : Interests[]
+    private goBack$=new Subject<boolean>()
 
     private header = new Headers();
 
@@ -28,6 +30,12 @@ export class RegisterService {
       return this.http.post(
         environment.apiUrl + 'user', data, { headers: this.header }
       ).map((response: Response) => response.json());
+    }
+    goBack():Observable<boolean>{
+      return this.goBack$;
+    }
+    pushGoBack(){
+      this.goBack$.next(true);
     }
 
 }

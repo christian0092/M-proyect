@@ -11,6 +11,7 @@ import { AccountsService } from '../../../services/accounts.service';
 import {UserService} from '../../../services/user.service';
 
 
+
 @Component({
   selector: 'app-register-persona',
   templateUrl: './register-persona.component.html',
@@ -116,15 +117,21 @@ export class RegisterPersonaComponent implements OnInit {
       loginStatus=> this.getForm(loginStatus)
 
       )
-    this.getForm(this.loginServices.isLogin());
-   
+    //this.loginServices.isLogin();
+    this.registerServices.goBack().subscribe(
+      data=>this.discardChanges())        
   }
-  ngAfterViewInit(){
-    this.discardChanges();
-  }
+
   discardChanges(){
   this.getForm(this.isLogged);
+  this.formPage=0;
+  this.searchPage();
+  this.error=false;
+  this.send=false;
   }
+  ngAfterviewInit(){
+  }
+
   getForm(isLogged){
     this.isLogged=isLogged
     console.log(this.isLogged)
@@ -302,6 +309,7 @@ export class RegisterPersonaComponent implements OnInit {
     if (this.formulario_persona.valid) {
       this.send = true;
       this.error = false;
+      if(!this.isLogged){//registra si no esta logueado
       this.loginServices.register(this.formulario_persona.value).subscribe(
         data => {
           if (data['success']) {
@@ -311,9 +319,11 @@ export class RegisterPersonaComponent implements OnInit {
             //alert('Usuario creado correctamente');
           } else {
             alert(data['message']);
-          }
-        }
-      );
+            }
+          });
+      }else if(this.isLogged){
+        console.log("modificando usuario");
+      }
     }
     else {
       this.error = true;
