@@ -7,6 +7,8 @@ import {FormControl} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import { ParticipantComponent } from '../perfil/participant/participant.component';
 import {Profile} from '../models/profile';
+import {LoginService} from '../services/login.service'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -14,23 +16,33 @@ import {Profile} from '../models/profile';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-  
+
   observable$:Observable<JSON>;
   listaIntereses:Array<Interests>=[]; 
   ParticipantList:Participant[];
   myProfile:Profile;
   agenda: Actividad[];
-  skip:number=1
   
-  constructor( private userService:UserService) { }
+  constructor( private userService:UserService,private loginService:LoginService, private router: Router) { }
 
   ngOnInit() {
+    this.loginService.isLogin$().subscribe(login=>this.doInit(login))
+        this.doInit(this.loginService.isLogin());
+   
+    
+  }
+  doInit(val:boolean){
+    console.log("Estoy"+val)
+    if(val==true){
     this.userService.getMyParticipantList().subscribe(myParticipantList=>this.ParticipantList=myParticipantList);
     this.userService.checkMyParticipantList();
     this.userService.getMyProfile().subscribe(myProfile=> this.myProfile=myProfile)
-    this.userService.checkMyProfile();
+    this.userService.checkMyProfile();}
+    else{
+      this.router.navigate(['/home'])
+    }
   }
-
+ 
 
 }
 
