@@ -10,7 +10,7 @@ import {Profile} from '../../models/profile'
 })
 export class LogoutComponent implements OnInit {
 
-  user:String="hola";
+  user:String="Mi usuario";
 
 
   constructor(
@@ -20,11 +20,10 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
-    this.userService.checkUser();
+    this.userService.checkMyProfile(); 
+   
   }
-
   logout(){
-
     this.loginService.logout(); 
   }
 }
