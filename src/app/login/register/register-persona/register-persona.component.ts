@@ -195,6 +195,7 @@ export class RegisterPersonaComponent implements OnInit {
         if (data['success']) {
           this.listaSocial = data['data'];         
           for (let i = 0; i < this.listaSocial.length; i++) {
+            
           /*  let fg = new FormGroup({});
             fg.addControl(this.listaIntereses[i].name, new FormControl(false));
             this.allInterests.push(fg);*/
