@@ -31,13 +31,9 @@ public actividad={};
   ) { }
 
   ngOnInit() {
-
-
-
     this.loadEvento();
-    this.loadAgenda();
-
   }
+
   getActividad (actividad){
     this.actividad=actividad;
     console.log(this.actividad);
@@ -48,7 +44,8 @@ public actividad={};
       data => {
         if (data['data']) {
           this.evento = data['data'];
-          console.log(this.evento);
+          console.log(this.evento[0].id);
+          this.loadAgenda(this.evento[0].id);
         } else {
           console.log("error");
         }
@@ -56,8 +53,8 @@ public actividad={};
     );
   }
 
-  loadAgenda(){
-    this.eventosServices.getEventActivities().subscribe(
+  loadAgenda(data){
+    this.eventosServices.getEventActivities(data).subscribe(
       data => {
         if (data['data']) {
           this.agenda = data['data'];
@@ -68,10 +65,23 @@ public actividad={};
       }
     );
   }
+
+  onSubmit(){
+  /*  this.eventosServices.addEventUser().subscribe(
+      data => {
+        if (data['data']) {
+
+          console.log(data['data']);
+        } else {
+          console.log("error");
+        }
+      }
+    );*/
+  }
+
   getVer(formato){
     if(formato==7 || formato==8) return false
     else return true;
-
   }
 
 

@@ -28,7 +28,16 @@ export class ActividadComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.actividad.formato_id);
+    /*this.eventosServices.addActivityUser().subscribe(
+      data => {
+        if (data['data']) {
+
+          console.log(data['data']);
+        } else {
+          console.log("error");
+        }
+      }
+    );*/
   }
   getFormatExpone(){
     if(this.actividad.event_format.id!=3 && this.actividad.event_format.id!=5 ) return true;

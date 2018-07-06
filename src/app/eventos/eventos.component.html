@@ -16,7 +16,9 @@
 				<div class="col-md-3 float-left" >
 					<img src="assets/eventos/{{evento[0].logo}}" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
-							<div ><a href="https://twitter.com/smartyvia?lang=es"><span class="fa fa-twitter"></span></a></div>
+							<div *ngFor="let account of evento[0].accounts">
+                <a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
+              </div>
 					</div>
 
 				</div>
