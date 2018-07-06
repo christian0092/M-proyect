@@ -19,7 +19,8 @@ export class PerfilComponent implements OnInit {
   listaIntereses:Array<Interests>=[]; 
   ParticipantList:Participant[];
   myProfile:Profile;
-  agenda: Actividad[]
+  agenda: Actividad[];
+  skip:number=1
   
   constructor( private userService:UserService) { }
 
