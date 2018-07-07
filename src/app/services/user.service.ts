@@ -30,12 +30,12 @@ export class UserService {
     new Participant('6','Mel Gibson',1),
     new Participant('7','El retutu papa',1)]
     private dummyMyActividad:Actividad[]=[
-    new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido'),
-    new Actividad('9:15','9:45','','','APERTURA','Presentación de II Workshop LATAM #MOVILIDADFUTURA'),
-    new Actividad('9:45','10:45','Sensor ','Grupo ADTD UTN presenta sensor ','CONGRESS','Presentación a cargo de influenciadores'),
-    new Actividad('10:45','12:45','Sensor','Grupo ADTD UTN presenta sensor ','WORKSHOP','Resolución de problemáticas junto al panel de expertos'),
-    new Actividad('12:45','13:30','','','BREAK',''),
-    new Actividad('13:30','14:30','Sensor','Grupo ADTD UTN presenta sensor ','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave'),
+    new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido','',''),
+    new Actividad('9:15','9:45','','','APERTURA','Presentación de II Workshop LATAM #MOVILIDADFUTURA','',''),
+    new Actividad('9:45','10:45','Sensor ','Grupo ADTD UTN presenta sensor ','CONGRESS','Presentación a cargo de influenciadores','',''),
+    new Actividad('10:45','12:45','Sensor','Grupo ADTD UTN presenta sensor ','WORKSHOP','Resolución de problemáticas junto al panel de expertos','',''),
+    new Actividad('12:45','13:30','','','BREAK','','',''),
+    new Actividad('13:30','14:30','Sensor','Grupo ADTD UTN presenta sensor ','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','',''),
   ]
     private dummyMyProfile:Profile=new Profile("Christian0092@hotmail.com","Christian Enzo Molina","37033486","Estudiante","Ing en sistemas","23/11/1992","+5492392545130","Argentina","Buenos Aires","Trenque Lauquen","6400","Baldovino 1402","N/A","Persona",this.dummyInterestList, this.dummyMyActividad,"https://twitter.com/ChrissMolinaa","https://www.facebook.com/Chrisenzo0092","https://www.linkedin.com/in/christian-molina-3583b4141/","https://www.instagram.com/chrisenzo0092/")
 ////////////////////////////////Real Atributes/////////////////////////////////////////////////////////
