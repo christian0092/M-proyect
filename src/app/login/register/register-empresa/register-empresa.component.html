@@ -1,12 +1,12 @@
 
 
-<form [formGroup]="formulario_empresa">
+<form [formGroup]="formulario">
 
   <div class="contenido" style="min-height:415px">
     <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
     <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
-    <div [hidden]="!esEmpresaUsuario">
+    <div [hidden]="!esRegistroUsuario">
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 2: Usuario</legend>
@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div [hidden]="!esEmpresaPersonales">
+    <div [hidden]="!esRegistroPersonales">
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 3: Datos Organizacion o Empresa</legend>
@@ -83,7 +83,7 @@
       </div>
     </div>
 
-    <div [hidden]="!esEmpresaRedes">
+    <div [hidden]="!esRegistroRedes">
 
 
       <div class="form-row" id="header_titulo">
@@ -98,26 +98,36 @@
               <input type="text" class="form-control" style='width:91%' formControlName="contact_phone" placeholder="#Pais#Caracteristica#Movil del contacto" >
               <div class="alert alert-danger" *ngIf="isFieldValid('contact_phone')">* Este campo es requerido</div>
             </div>
+             <div formArrayName="interests" *ngFor="let interest of this.formulario.controls['interests']['controls']; let i = index;">
+              <span formGroupName="{{i}}">
+                <input type="checkbox" formControlName="checked"> {{interest.value.label}}
+              </span>
+              
+            </div>
 
 
           </div>
           <div class="col-md-6">
-            <div formGroupName="socials" style="width:100%">
-                <div *ngFor="let social of listaSocial; let i = index" >
-                    <span formGroupName="{{i}}">
-                        <div class="form-row">
-                          <a class="btn-lg" style="padding:0px"><span class="{{social.imagen}}"></span></a>
-                          <input type="text" class="form-control" style='width:85%' formControlName="{{social.name}}" placeholder="{{social.name}}" >
-                        </div>
-                      </span>
-                </div>
+            <div formGroupName="accounts" style="width:100%">
+              <div *ngFor="let social of this.formulario.controls['accounts']['controls']; let i = index;">
+                <span formGroupName="{{i}}">
+                  <div class="form-row">
+                    <a class="btn-lg" style="padding:0px">
+                      <span class="{{social.value.image}}"></span>
+                    </a>
+                    <input type="text" class="form-control" style='width:85%' formControlName="value" placeholder="{{social.value.label}}">
+                  </div>
+                </span>
+              </div>
+              
+              
             </div>
 
           </div>
       </div>
     </div>
 
-    <div [hidden]="!esEmpresaCondiciones" >
+    <div [hidden]="!esRegistroCondiciones" >
 
       <div class="form-row" id="header_titulo">
           <legend>Paso 5: Bases y Condiciones</legend>
@@ -218,7 +228,7 @@
     </div>
 
   </div>
-  {{formulario_empresa.value | json}}
+  {{formulario.value | json}}
 
   <!--<div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>

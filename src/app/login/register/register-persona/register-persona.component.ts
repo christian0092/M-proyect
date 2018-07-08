@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS } from '@angular/forms';
+import { Component, OnInit, Input} from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS , AbstractControl} from '@angular/forms';
 import { LoginService } from '../../../services/login.service';
 import { Interests } from '../../../models/interests';
 import { Socials } from '../../../models/socials';
@@ -9,16 +9,18 @@ import { StudyLevel } from '../../../models/study_level';
 import { StudyLevelsService } from '../../../services/study-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
 import {UserService} from '../../../services/user.service';
-
-
+import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../../customValidators/customValidators';
+import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../registerDecorator';
+import { RegisterAbstract } from '../register-abstract';
 
 @Component({
   selector: 'app-register-persona',
   templateUrl: './register-persona.component.html',
   styleUrls: ['./register-persona.component.css']
 })
-export class RegisterPersonaComponent implements OnInit {
-  items: any[] = [];
+
+export class RegisterPersonaComponent extends RegisterAbstract implements OnInit  {
+  /*items: any[] = [];
 
 
   listaIntereses: Interests[] = [];
@@ -30,9 +32,9 @@ export class RegisterPersonaComponent implements OnInit {
     new Socials('3', 'Instagram', 'fa fa-instagram'),
     new Socials('4', 'Youtube', 'fa fa-youtube'),
     new Socials('5', 'Linkedin', 'fa fa-linkedin')*/
-  ]
+  //]
 
-  formulario_persona: FormGroup;
+  /*formulario_persona: FormGroup;
   private formSubmitAttempt: boolean;
   formPage;
   esPersonaUsuario: boolean;
@@ -46,20 +48,56 @@ export class RegisterPersonaComponent implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
-  isLogged:boolean;
+  isLogged:boolean;*/
 
-  constructor(
-    private fp: FormBuilder,
-    private loginServices: LoginService,
-    private registerServices: RegisterService,
-    private studyLevelsService: StudyLevelsService,
-    private accountService: AccountsService,
-    private userService:UserService
-  ) {
-    this.createFormPersona();
+  constructor( fp: FormBuilder,
+    loginServices: LoginService,
+     registerServices: RegisterService,
+     studyLevelsService: StudyLevelsService,
+    accountService: AccountsService,
+    userService:UserService
+   ) {
+    super( fp, loginServices,registerServices, studyLevelsService,
+    accountService,
+    userService)
+      }
+      addAccountItem(id: string, name: string, imagen: string): void {
+    var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;
+    item.push(this.newAccountItem(id, name, imagen));  
+    //console.log(imagen);  
+  }
+  onSiguiente() {
+    switch (this.formPage) {
+      case 0:
+        if (this.formulario.get('user.email').valid && this.formulario.get('user.password').valid && this.formulario.get('user.password_confirmation').valid) {
+          this.formPage++;
+          this.searchPage();
+          this.error = false;
+          break;
+        }
+        else {
+          this.error = true;
+          break;
+        }
+      case 1:
+        if (this.formulario.get('person.name').valid && this.formulario.get('person.surname').valid && this.formulario.get('person.birth_date').valid && this.formulario.get('person.document_number').valid) {
+          this.formPage++;
+          this.searchPage();
+          this.error = false;
+          break;
+        }
+        else {
+          this.error = true;
+          break;
+        }
+      case 2:
+        this.formPage++;
+        this.searchPage();
+        break;
+    }
   }
 
-  createFormPersona() {
+  /*createFormPersona() {
     this.loadInterests();
     this.loadAccounts();
     /*let allSocials: FormArray = new FormArray([]);
@@ -69,11 +107,11 @@ export class RegisterPersonaComponent implements OnInit {
       allSocials.push(fg);
     }*/
 
-    this.formulario_persona = this.fp.group({
+    /*this.formulario_persona = this.fp.group({
       user: this.fp.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],
         password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-        password_confirmation: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+        password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
       }),
       person: this.fp.group({
         name: [null, Validators.required],
@@ -170,7 +208,7 @@ export class RegisterPersonaComponent implements OnInit {
           /*  let fg = new FormGroup({});
             fg.addControl(this.listaIntereses[i].name, new FormControl(false));
             this.allInterests.push(fg);*/
-            this.addIterestItem(this.listaIntereses[i].id, this.listaIntereses[i].name);
+           /* this.addIterestItem(this.listaIntereses[i].id, this.listaIntereses[i].name);
           }
           //console.log(this.formulario_persona.controls['person']);
           //console.log(this.formulario_persona.controls['person']['controls']['items']['controls']);
@@ -179,9 +217,9 @@ export class RegisterPersonaComponent implements OnInit {
         }
       }
     );
-  }
+  }*/
 
-  newAccountItem(id: string, name: string, imagen: string): FormGroup {
+ /* newAccountItem(id: string, name: string, imagen: string): FormGroup {
     return this.fp.group({
       image: imagen,
       id: id,
@@ -205,7 +243,7 @@ export class RegisterPersonaComponent implements OnInit {
           /*  let fg = new FormGroup({});
             fg.addControl(this.listaIntereses[i].name, new FormControl(false));
             this.allInterests.push(fg);*/
-            this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name);
+            /*this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name);
           }
           //console.log(this.formulario_persona.controls['person']);
           //console.log(this.formulario_persona.controls['person']['controls']['items']['controls']);
@@ -327,34 +365,22 @@ export class RegisterPersonaComponent implements OnInit {
     }
     else {
       this.error = true;
-      this.validateAllFormFields(this.formulario_persona);
+      validateAllFormFields(this.formulario_persona);
     }
-
+   //let obj={loginServices:this.loginServices,formSubmitAttempt:this.formSubmitAttempt,send:this.send,error:this.error,isLogged:this.isLogged}=onSubmitAbstract(this.formulario_persona,this.loginServices, this.formSubmitAttempt,this.send,this.error,this.isLogged);
   }
 
   isFieldValid(field: string) {
-    return (!this.formulario_persona.get(field).valid && this.formulario_persona.get(field).touched) ||
-      (this.formulario_persona.get(field).untouched && this.formSubmitAttempt);
-  }
+    return isFieldValidation(field, this.formulario_persona)
 
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
   }
 
   reset() {
     this.formulario_persona.reset();
     this.formSubmitAttempt = false;
-  }
+    //let obj={form:this.formulario_persona,formSubmitAttempt:this.formSubmitAttempt}=resetAbstract(this.formulario_persona,this.isFieldValid)
+  }*/
 }
 
-function passwordMatchValidator(g: FormGroup) {
-  return g.get('password').value === g.get('passwordConfirm').value
-    ? null : { 'mismatch': true };
-}
+
+
