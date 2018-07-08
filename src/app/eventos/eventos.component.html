@@ -46,7 +46,8 @@
 					</div>
 				</div>
 				<div class="col-md-2"  >
-						<button type="button" class="btn btn-primary" id="boton_grande" (click)="loadEvento()">Participar</button>
+            <button *ngIf="getSubscripto()" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento[0].id)">Abandonar</button>
+						<button *ngIf="!getSubscripto()" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento[0].id)">Participar</button>
 				</div>
 			</div>
 		</div>

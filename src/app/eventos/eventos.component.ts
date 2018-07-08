@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Actividad } from '../models/actividad';
-//import { Event } from '../models/event';
+import { Event } from '../models/event';
 import {Observable} from 'rxjs/Observable';
 import {FormControl} from '@angular/forms';
 import { EventosService } from './eventos.service';
+import {Observable} from 'rxjs/Observable';
+//import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-eventos',
@@ -13,6 +15,8 @@ import { EventosService } from './eventos.service';
 export class EventosComponent implements OnInit {
 
 public actividad={};
+/*isEvent : boolean;
+isLogged$: Observable<boolean>;*/
 
   agenda2: Actividad[]=[
     new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido','2','coffe_c.jpg'),
@@ -23,21 +27,39 @@ public actividad={};
     new Actividad('13:30','14:30','','','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','3','congress_c.jpg'),
   ];
 
-  public evento={};
+  public evento:Event;
   public agenda={};
-
   constructor(
-    private eventosServices:EventosService
+    private eventosServices:EventosService,
+    //private loginService:LoginService
   ) { }
 
   ngOnInit() {
     this.loadEvento();
+
+/*
+    this.isLogged$ = this.loginService.isLogin$();
+    this.isLogged$.subscribe(
+      isLogged => {
+        this.isLogged = isLogged;
+        if(this.isLogged){
+          checkEvent():
+        }
+      });
+    this.loginService.checkLogin();*/
+
+
   }
 
   getActividad (actividad){
     this.actividad=actividad;
     console.log(this.actividad);
   }
+  getSubscripto (){
+    return false;
+
+  }
+
 
   loadEvento(){
     this.eventosServices.getEvent().subscribe(
@@ -66,17 +88,20 @@ public actividad={};
     );
   }
 
-  onSubmit(){
-  /*  this.eventosServices.addEventUser().subscribe(
+  onParticipar(data){
+   this.eventosServices.addEventUser(data).subscribe(
       data => {
-        if (data['data']) {
-
-          console.log(data['data']);
-        } else {
-          console.log("error");
-        }
+        console.log(data['success']);
       }
-    );*/
+    );
+  }
+
+  onAbandonar(data){
+   this.eventosServices.deleteEventUser(data).subscribe(
+      data => {
+        console.log(data['success']);
+      }
+    );
   }
 
   getVer(formato){

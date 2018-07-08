@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class EventosService {
 
 private header = new Headers();
+
   constructor(private http: Http) { }
 
   getEvent() {
@@ -29,14 +30,29 @@ private header = new Headers();
       .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  addEventUser(){
-    /*const header = new Headers({ 'Content-Type': 'application/json' });
+  addEventUser(data){
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization':'Bearer' + localStorage.getItem('token') });
+
+    let body = {
+      'event_id': data
+    };
 
     return this.http.post(
-      environment.apiUrl + 'eventUser',
-      data,
-      { headers: header }
-    ).map((response: Response) => response.json());*/
+      environment.apiUrl + 'subscribeEvent', body,
+      { headers: header}
+    ).map((response: Response) => response.json());
   }
+  
+  deleteEventUser(data){
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization':'Bearer' + localStorage.getItem('token') });
 
+    let body = {
+      'event_id': data
+    };
+
+    return this.http.post(
+      environment.apiUrl + 'unsubscribeEvent', body,
+      { headers: header}
+    ).map((response: Response) => response.json());
+  }
 }
