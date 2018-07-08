@@ -1,3 +1,8 @@
+import { Account } from '../models/account';
+import { Status } from '../models/status';
+import { Organizer } from '../models/organizer';
+import { Partner } from '../models/partner';
+
 export class Event {
   constructor(
             public id: string,
@@ -27,7 +32,12 @@ export class Event {
             public analitycs_incident_monitoring: string,
             public analitycs_analyze_results: string,
             public status_id: string,
-            public user_id: string
+            public logo: string,
+            public user_id: string,
+            public accounts:Account[],
+            public status:Status,
+            public organizers:Organizer[],
+            public partners:Partner[]
 
   ){}
 }
