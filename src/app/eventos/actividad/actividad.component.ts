@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../services/login.service';
-//import { Actividad } from '../../models/actividad';
+import { Activity } from '../../models/activity';
 import { ActividadService } from './actividad.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ActividadService } from './actividad.service';
   styleUrls: ['./actividad.component.css']
 })
 export class ActividadComponent implements OnInit {
-  @Input() public actividad;
+  @Input() public actividad:Activity;
   cabecera;
   isLogged : boolean;
   isLogged$: Observable<boolean>;
