@@ -1,6 +1,6 @@
 export class Status {
   constructor(
-    public id: string,
+    public id: number,
     public name: string
 
   ){}

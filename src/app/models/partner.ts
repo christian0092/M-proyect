@@ -1,7 +1,7 @@
 export class Partner {
   constructor(
-    public id:string,
-    public event_id:string,
+    public id:number,
+    public event_id:number,
     public name:string,
     public logo:string,
     public link_page:string
