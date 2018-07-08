@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response} from '@angular/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
+import { Activity } from '../../models/activity';
 
 @Injectable()
 
@@ -33,6 +34,20 @@ export class ActividadService {
 
     return this.http.post(
       environment.apiUrl + 'unsubscribeActivity', body,
+      { headers: header}
+    ).map((response: Response) => response.json());
+  }
+
+  checkActivity(data){
+
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization':'Bearer' + localStorage.getItem('token') });
+
+    let body = {
+      'event_id': data
+    };
+
+    return this.http.post(
+      environment.apiUrl + 'activitiesPerson', body,
       { headers: header}
     ).map((response: Response) => response.json());
   }

@@ -14,7 +14,7 @@ export class ActividadComponent implements OnInit {
   cabecera;
   isLogged : boolean;
   isLogged$: Observable<boolean>;
-
+  //actividades;
   constructor(
       private loginService:LoginService,
       private actividadServices:ActividadService
@@ -25,11 +25,31 @@ export class ActividadComponent implements OnInit {
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
+        /*if(isLogged){
+          this.checkActivity();
+        }
+        else{
+
+        }*/
       });
     this.loginService.checkLogin();
 
   }
+  /*checkActivity(){
 
+    this.actividadServices.checkActivity(actividad.event_id).subscribe(
+      data => {
+        if (data['success']) {
+          this.actividades=data['data'];
+          console.log(data['data']);
+
+        } else {
+          console.log("error");
+
+        }
+      }
+    );
+  }*/
   onParticipar(data){
    this.actividadServices.addActivityUser(data).subscribe(
       data => {
@@ -46,11 +66,11 @@ export class ActividadComponent implements OnInit {
     );
   }
   getFormatExpone(){
-    if(this.actividad.event_format.id!=3 && this.actividad.event_format.id!=5 ) return true;
+    if(this.actividad.event_format_id!=3 && this.actividad.event_format_id!=5 ) return true;
     else return false;
   }
-  getFormat(){
-    switch(this.actividad.event_format.id){
+  getFormat(a){
+    switch(a){
       case 1:
         this.cabecera="congress_c.jpg";
         break;
