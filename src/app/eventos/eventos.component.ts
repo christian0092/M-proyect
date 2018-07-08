@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Activity } from '../models/activity';
 import { Actividad } from '../models/actividad';
 import { Event } from '../models/event';
 import {Observable} from 'rxjs/Observable';
 import {FormControl} from '@angular/forms';
 import { EventosService } from './eventos.service';
-import {Observable} from 'rxjs/Observable';
+
 //import { LoginService } from '../../services/login.service';
 
 @Component({
@@ -14,7 +15,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class EventosComponent implements OnInit {
 
-public actividad={};
+
 /*isEvent : boolean;
 isLogged$: Observable<boolean>;*/
 
@@ -26,7 +27,7 @@ isLogged$: Observable<boolean>;*/
     new Actividad('12:45','13:30','','','BREAK','','1',''),
     new Actividad('13:30','14:30','','','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','3','congress_c.jpg'),
   ];
-
+  public actividad:Activity;
   public evento:Event;
   public agenda={};
   constructor(
