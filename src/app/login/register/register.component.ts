@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     if(this.type=="Persona" && this.isLogged){
       this.action(0)
     }
-      else if (this.type=="Empresa"&& this.isLogged) {
+      else if (this.type=="Empresa" && this.isLogged) {
       this.action(1)
       }else if (!this.isLogged) {
     this.action(2)
