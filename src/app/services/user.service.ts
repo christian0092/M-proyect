@@ -15,7 +15,7 @@ import { Actividad } from '../models/actividad';
 export class UserService {
   ///////////////////////////////////Dummy Data///////////////////////////////////////////
    private dummyJson:JSON; 
-   private dummyData:string='{"password":"pepitolandia","type":"Persona","interest":[{"id":"4","name":"Innovacion"},{"id":"3","name":"Tecnologia"},{"id":"1","name":"Progamación"},{"id":"2","name":"Robotica"}] ,"calle":"Regimiento 3 de Caballería 473","piso":"-Departamento-","postal_code":"6400","city_id":"Trenque Lauquen","province_id":"Buenos Aires","country_id":"Argentina","cellphone":"+542392449401","name":"Jonathan","surname":"Gomez","birth_date":"01/01/1876","document_type_id":"37033486","email":"borretumail@ynolose.com","job_level_id":"Empresario","study_level_id":"Universitario"}';
+   private dummyData:string='{"password":"pepitolandia","type":"Empresa","interest":[{"id":"4","name":"Innovacion"},{"id":"3","name":"Tecnologia"},{"id":"1","name":"Progamación"},{"id":"2","name":"Robotica"}] ,"calle":"Regimiento 3 de Caballería 473","piso":"-Departamento-","postal_code":"6400","city_id":"Trenque Lauquen","province_id":"Buenos Aires","country_id":"Argentina","cellphone":"+542392449401","name":"Jonathan","surname":"Gomez","birth_date":"01/01/1876","document_type_id":"37033486","email":"borretumail@ynolose.com","job_level_id":"Empresario","study_level_id":"Universitario"}';
    private dummyInterestList:Interests[]=[
   new Interests('1','Progamación'),
   new Interests('2','Robótica'),
@@ -37,7 +37,7 @@ export class UserService {
     new Actividad('12:45','13:30','','','BREAK','','',''),
     new Actividad('13:30','14:30','Sensor','Grupo ADTD UTN presenta sensor ','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','',''),
   ]
-    private dummyMyProfile:Profile=new Profile("Christian0092@hotmail.com","Christian Enzo Molina","37033486","Estudiante","Ing en sistemas","23/11/1992","+5492392545130","Argentina","Buenos Aires","Trenque Lauquen","6400","Baldovino 1402","N/A","Persona",this.dummyInterestList, this.dummyMyActividad,"https://twitter.com/ChrissMolinaa","https://www.facebook.com/Chrisenzo0092","https://www.linkedin.com/in/christian-molina-3583b4141/","https://www.instagram.com/chrisenzo0092/")
+    private dummyMyProfile:Profile=new Profile("Christian0092@hotmail.com","Christian Enzo Molina","37033486","Estudiante","Ing en sistemas","23/11/1992","+5492392545130","Argentina","Buenos Aires","Trenque Lauquen","6400","Baldovino 1402","N/A","Empresa",this.dummyInterestList, this.dummyMyActividad,"https://twitter.com/ChrissMolinaa","https://www.facebook.com/Chrisenzo0092","https://www.linkedin.com/in/christian-molina-3583b4141/","https://www.instagram.com/chrisenzo0092/")
 ////////////////////////////////Real Atributes/////////////////////////////////////////////////////////
    private userObservable$ = new Subject<JSON>();
    private user : JSON;
@@ -65,12 +65,18 @@ export class UserService {
   }
     getForm(form: FormGroup): FormGroup {
       this.changeUserValues(this.dummyJson);
+      if(this.myProfile.tipo=="Persona"){
       form.controls['user'].patchValue( {email:this.myProfile.email});
       form.controls['user'].patchValue( {password_confirmation:this.user['password']});
       form.controls['user'].patchValue( {password:this.user['password']});
       form.controls['person'].patchValue( {name:this.user['name']});
       form.controls['person'].patchValue( {surname:this.user['surname']})
-      form.controls['person'].patchValue( {document_number:this.user['document_type_id']})
+      form.controls['person'].patchValue( {document_number:this.user['document_type_id']})}
+      else if(this.myProfile.tipo=="Empresa"){
+      form.patchValue( {email:this.myProfile.email});
+      form.patchValue( {password_confirmation:this.user['password']});
+      form.patchValue( {password:this.user['password']});
+      }
 
    return form
   }
