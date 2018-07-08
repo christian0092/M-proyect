@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../services/login.service';
 //import { Actividad } from '../../models/actividad';
+import { ActividadService } from './actividad.service';
+
 @Component({
   selector: 'app-actividad',
   templateUrl: './actividad.component.html',
@@ -14,7 +16,8 @@ export class ActividadComponent implements OnInit {
   isLogged$: Observable<boolean>;
 
   constructor(
-      private loginService:LoginService
+      private loginService:LoginService,
+      private actividadServices:ActividadService
   ) { }
 
   ngOnInit() {
@@ -27,17 +30,20 @@ export class ActividadComponent implements OnInit {
 
   }
 
-  onSubmit(){
-    /*this.eventosServices.addActivityUser().subscribe(
+  onParticipar(data){
+   this.actividadServices.addActivityUser(data).subscribe(
       data => {
-        if (data['data']) {
-
-          console.log(data['data']);
-        } else {
-          console.log("error");
-        }
+        console.log(data['success']);
       }
-    );*/
+    );
+  }
+
+  onAbandonar(data){
+   this.actividadServices.deleteActivityUser(data).subscribe(
+      data => {
+        console.log(data['success']);
+      }
+    );
   }
   getFormatExpone(){
     if(this.actividad.event_format.id!=3 && this.actividad.event_format.id!=5 ) return true;
@@ -59,6 +65,11 @@ export class ActividadComponent implements OnInit {
         break;
     }
     return true;
+  }
+
+  getSubscripto (){
+    return false;
+
   }
 
 }

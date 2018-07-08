@@ -22,6 +22,7 @@ import {UserService} from './services/user.service';
 import { StudyLevelsService } from "./services/study-levels.service";
 import { AccountsService } from "./services/accounts.service";
 import { EventosService } from "./eventos/eventos.service";
+import { ActividadService } from "./eventos/actividad/actividad.service";
 
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
@@ -81,7 +82,8 @@ import { ParticipantComponent } from './perfil/participant/participant.component
     UserService,
     StudyLevelsService,
     AccountsService,
-    EventosService
+    EventosService,
+    ActividadService
   ],
   bootstrap: [AppComponent]
 })
