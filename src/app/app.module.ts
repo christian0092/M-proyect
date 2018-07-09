@@ -23,6 +23,7 @@ import { StudyLevelsService } from "./services/study-levels.service";
 import { AccountsService } from "./services/accounts.service";
 import { EventosService } from "./eventos/eventos.service";
 import { ActividadService } from "./eventos/actividad/actividad.service";
+import { VerificarCorreoService } from "./verificar-correo/verificar-correo.service";
 
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
@@ -39,6 +40,7 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
 
 import { ActividadComponent } from './eventos/actividad/actividad.component';
 import { ParticipantComponent } from './perfil/participant/participant.component';
+import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
 
 
 
@@ -66,7 +68,8 @@ import { ParticipantComponent } from './perfil/participant/participant.component
     MSummit2Component,
 
     ActividadComponent,
-    ParticipantComponent
+    ParticipantComponent,
+    VerificarCorreoComponent
   ],
   imports: [
     routes,
@@ -83,7 +86,8 @@ import { ParticipantComponent } from './perfil/participant/participant.component
     StudyLevelsService,
     AccountsService,
     EventosService,
-    ActividadService
+    ActividadService,
+    VerificarCorreoService
   ],
   bootstrap: [AppComponent]
 })
