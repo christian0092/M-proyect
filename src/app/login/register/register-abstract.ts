@@ -6,7 +6,11 @@ import { Socials } from '../../models/socials';
 import { RegisterService } from '../register/register.service';
 import { RegisterComponent } from '../register/register.component';
 import { StudyLevel } from '../../models/study_level';
+import { ProfessionLevel } from '../../models/profession-level';
+import { Countries } from '../../models/countries';
 import { StudyLevelsService } from '../../services/study-levels.service';
+import { ProfessionLevelsService } from '../../services/profession-levels.service';
+import { CountriesService } from '../../services/countries.service';
 import { AccountsService } from '../../services/accounts.service';
 import {UserService} from '../../services/user.service';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../customValidators/customValidators';
@@ -15,10 +19,11 @@ import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../register/
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
 
-
+  countries:Countries[]
   listaIntereses: Interests[] = [];
   allInterests: FormArray = new FormArray([]);
   studyLevels: StudyLevel[];
+  professionLevels: ProfessionLevel[]
   listaSocial: Socials[] = [
   /*  new Socials('1', 'Facebook', 'fa fa-facebook'),
     new Socials('2', 'Twitter', 'fa fa-twitter'),
@@ -49,7 +54,9 @@ export class RegisterAbstract implements OnInit {
     private registerServices: RegisterService,
     private studyLevelsService: StudyLevelsService,
     private accountService: AccountsService,
-    private userService:UserService
+    private userService:UserService,
+    private professionLevelsService: ProfessionLevelsService,
+    private countriesService: CountriesService
   ) {
     this.createFormRegistro();
   }
@@ -102,6 +109,8 @@ export class RegisterAbstract implements OnInit {
 
   ngOnInit() {
     this.loadStudyLevels()
+    this.loadProfessionLevels()
+    this.loadCountries()
     this.formSubmitAttempt = false;
     this.formPage = 0;
     this.esAnterior = true;
@@ -143,6 +152,19 @@ export class RegisterAbstract implements OnInit {
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
       levels => { this.studyLevels = levels.data },
+      err => { console.log(err); }
+    );
+  }
+
+  loadProfessionLevels(){
+    this.professionLevelsService.getProfessionLevels().subscribe(
+      levels => { this.professionLevels = levels.data },
+      err => { console.log(err); }
+    );
+  }
+  loadCountries(){
+    this.countriesService.getCountries().subscribe(
+      levels => { this.countries = levels.data },
       err => { console.log(err); }
     );
   }

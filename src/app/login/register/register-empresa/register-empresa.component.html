@@ -64,8 +64,14 @@
           </div>
         </div>
         <div class="col-md-6">
-          <input formControlName="country_id" type="text" class="form-control" placeholder="Pais" >
-          <div class="alert alert-danger" *ngIf="isFieldValid('country_id')">* Este campo es requerido</div>
+           <!--<input formControlName="country_id" type="text" class="form-control" placeholder="Pais" >-->
+           <select formControlName="country_id" class="form-control" id="pais">
+              <option disabled selected="selected">Paises</option>
+              <option *ngFor="let value of countries" [value]="value.id">{{ value.name }}
+              </option>
+            </select>
+         <div class="alert alert-danger" *ngIf="isFieldValid('country_id')">* Este campo es requerido</div>
+
           <input formControlName="province_id" type="text" class="form-control" placeholder="Provincia" >
           <div class="alert alert-danger" *ngIf="isFieldValid('province_id')">* Este campo es requerido</div>
           <input formControlName="city_id" type="text" class="form-control" placeholder="Localidad" >

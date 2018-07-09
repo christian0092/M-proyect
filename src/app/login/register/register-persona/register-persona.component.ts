@@ -12,6 +12,9 @@ import {UserService} from '../../../services/user.service';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../../customValidators/customValidators';
 import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import { RegisterAbstract } from '../register-abstract';
+import { ProfessionLevelsService } from '../../../services/profession-levels.service';
+import { CountriesService } from '../../../services/countries.service';
+
 
 @Component({
   selector: 'app-register-persona',
@@ -55,11 +58,13 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
      registerServices: RegisterService,
      studyLevelsService: StudyLevelsService,
     accountService: AccountsService,
-    userService:UserService
+    userService:UserService,
+   professionLevelsService: ProfessionLevelsService,
+   countriesServices:CountriesService
    ) {
     super( fp, loginServices,registerServices, studyLevelsService,
     accountService,
-    userService)
+    userService,professionLevelsService, countriesServices)
       }
       addAccountItem(id: string, name: string, imagen: string): void {
     var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;

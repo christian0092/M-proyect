@@ -9,7 +9,10 @@ import {UserService} from '../../../services/user.service';
 import { RegisterService } from '../register.service';
 import { RegisterAbstract } from '../register-abstract';
 import { StudyLevelsService } from '../../../services/study-levels.service';
+import { ProfessionLevelsService } from '../../../services/profession-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
+import { CountriesService } from '../../../services/countries.service';
+
 @Component({
   selector: 'app-register-empresa',
   templateUrl: './register-empresa.component.html',
@@ -50,11 +53,13 @@ export class RegisterEmpresaComponent  extends RegisterAbstract implements OnIni
      registerServices: RegisterService,
      studyLevelsService: StudyLevelsService,
     accountService: AccountsService,
-    userService:UserService
+    userService:UserService,
+    professionLevelsService: ProfessionLevelsService,
+    countriesService:CountriesService
    ) {
     super( fp, loginServices,registerServices, studyLevelsService,
     accountService,
-    userService)
+    userService, professionLevelsService, countriesService)
 
       }
 
