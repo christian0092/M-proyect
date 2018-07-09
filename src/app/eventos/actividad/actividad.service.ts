@@ -42,14 +42,11 @@ export class ActividadService {
 
     const header = new Headers({ 'Content-Type': 'application/json','Authorization':'Bearer' + localStorage.getItem('token') });
 
-    let body = {
-      'event_id': data
-    };
-
-    return this.http.post(
-      environment.apiUrl + 'activitiesPerson', body,
-      { headers: header}
+    return this.http.get(
+      environment.apiUrl + 'activitiesPerson',
+         { headers: header, params:{event_id:data}}
     ).map((response: Response) => response.json());
   }
+
 
 }

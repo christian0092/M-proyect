@@ -11,7 +11,11 @@ import { ActividadService } from './actividad.service';
 })
 export class ActividadComponent implements OnInit {
   @Input() public actividad:Activity;
+  @Input() public participaActividad:boolean;
+  @Input() public subscripto:boolean;
   cabecera;
+  public send=false;
+  public error=false;
   isLogged : boolean;
   isLogged$: Observable<boolean>;
   //actividades;
@@ -25,15 +29,9 @@ export class ActividadComponent implements OnInit {
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        /*if(isLogged){
-          this.checkActivity();
-        }
-        else{
-
-        }*/
       });
     this.loginService.checkLogin();
-
+    this.send=false;
   }
   /*checkActivity(){
 
@@ -50,18 +48,48 @@ export class ActividadComponent implements OnInit {
       }
     );
   }*/
+  getSend(){
+    return this.send;
+  }
+  getError(){
+    return this.error;
+  }
+  resetSend(){
+    this.send=false;
+    this.error=false;
+  }
   onParticipar(data){
-   this.actividadServices.addActivityUser(data).subscribe(
-      data => {
-        console.log(data['success']);
-      }
-    );
+
+    if(this.subscripto){
+      this.actividadServices.addActivityUser(data).subscribe(
+         data => {
+           if(data['success']){
+             this.participaActividad=true;
+             this.send=true;
+            this.error=false;
+             console.log(data['message']);
+           }
+           else{
+             console.log(data['message']);
+           }
+         }
+       );
+    }
+    else{
+      this.send=false;
+      this.error=true;
+      //alert("Debe Inscribirse al Evento para Participar de una Acividad");
+    }
+
   }
 
   onAbandonar(data){
    this.actividadServices.deleteActivityUser(data).subscribe(
       data => {
-        console.log(data['success']);
+        if(data['success']){
+          this.participaActividad=false;
+          this.send=false;
+        }
       }
     );
   }
