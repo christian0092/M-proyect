@@ -14,9 +14,9 @@
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/{{evento.logo}}" id="imagen_logo">
+					<img src="assets/eventos/{{this.evento.logo}}" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
-							<div *ngFor="let account of evento.accounts">
+							<div *ngFor="let account of eventoAccounts">
                 <a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
               </div>
 					</div>
@@ -30,7 +30,7 @@
 					</p>
 
 					<div class="row">
-						<div class="col" *ngFor="let organizer of evento.organizers">
+						<div class="col" *ngFor="let organizer of eventoOrganizers">
 							<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
 						</div>
 
@@ -38,7 +38,10 @@
 				</div>
 				<div class="col-md-2"  >
             <button *ngIf="subscripto" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento.id)">Abandonar</button>
-						<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento.id)">Participar</button>
+						<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento.id)">Inscribirse</button>
+            <div class="alert alert-danger" *ngIf="getError()" style="font-size:15px;margin-top:10px">Debe Loguearse para Inscribirse al Evento</div>
+            <div class="alert alert-success" *ngIf="getSend()" style="font-size:15px;margin-top:10px">Estás inscripto en el Evento</div>
+
 				</div>
 			</div>
 		</div>
@@ -96,7 +99,7 @@
 							{{listaAgenda.event_format.name}}
 					</div>
           <div id="agenda_descripcion">
-              {{listaAgenda.event_format.description}}
+            	{{listaAgenda.event_format.description}}
           </div>
 				</div>
 				<div class="col-md-5" >
@@ -213,7 +216,7 @@
 
             <div class="carousel-item active" >
             </div>
-            <div class="carousel-item" *ngFor="let partner of evento.partners">
+            <div class="carousel-item" *ngFor="let partner of eventoPartners">
               <a href="{{partner.link_page}}" target="_blank"><img src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
             </div>
             <!--<div class="carousel-item" >
@@ -284,7 +287,7 @@
 		</div>
 	</div>
 <app-partner-request-form></app-partner-request-form>
-<app-actividad [actividad]="actividad"></app-actividad>
+<app-actividad [participaActividad]="participaActividad" [subscripto]="subscripto" [actividad]="actividad"></app-actividad>
 <app-footer></app-footer>
 
 </div>

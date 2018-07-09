@@ -2,10 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/activity';
 import { Actividad } from '../models/actividad';
 import { Event } from '../models/event';
+import { Partner } from '../models/partner';
+import { Organizer } from '../models/organizer';
+import { Account } from '../models/account';
+import { Speaker } from '../models/speaker';
+import { Event_format } from '../models/event_format';
+
 import {Observable} from 'rxjs/Observable';
 import {FormControl} from '@angular/forms';
 import { EventosService } from './eventos.service';
-
+import { ActividadService } from './actividad/actividad.service';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -15,7 +21,8 @@ import { LoginService } from '../services/login.service';
 })
 export class EventosComponent implements OnInit {
 
-
+error=false;
+send=false;
 isLogged : boolean;
 isLogged$: Observable<boolean>;
 
@@ -28,38 +35,62 @@ isLogged$: Observable<boolean>;
     new Actividad('13:30','14:30','','','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','3','congress_c.jpg'),
   ];
   public actividad:Activity;
-  public evento:Event;
-  public agenda={};
+
+
+  public participaActividad=false;
+  public actividades:Activity[];
+
+  public evento: Event;
+  public eventoAccounts: Account[];
+  public eventoPartners: Partner[];
+  public eventoOrganizers: Organizer[];
+
+  public agenda:Activity[];
+  public agendaSpeakers: Speaker[];
+  //public agendaFormat: Event_Format[]
 
   public subscripto=false;
 
   constructor(
     private eventosServices:EventosService,
+    private actividadServices:ActividadService,
     private loginService:LoginService
   ) { }
 
   ngOnInit() {
 
-    this.loadEvento();
+
 
 
     this.isLogged$ = this.loginService.isLogin$();
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        if(isLogged){
-          //alert('si');
-
-
+        /*if(isLogged){
+          alert('si si si');
         }
         else{
-          //alert('no');
-        }
+          alert('no no no');
+
+        }*/
       });
     this.loginService.checkLogin();
+    this.loadEvento();
+    //this.loadEvento();
 
 
   }
+  getSend(){
+    return this.send;
+  }
+  getError(){
+    return this.error;
+  }
+  resetSend(){
+    this.send=false;
+    this.error=false;
+  }
+
   checkEvent(data){
     this.eventosServices.checkEvent(data).subscribe(
       data => {
@@ -73,12 +104,64 @@ isLogged$: Observable<boolean>;
       }
     );
   }
+
+  checkActivity(id){
+
+    this.actividadServices.checkActivity(this.evento.id).subscribe(
+      data => {
+        if (data['success']) {
+
+          this.actividades=data['data'];
+          console.log(this.actividades);
+
+          for(let act of this.actividades){
+            if(act.id==id){
+              this.participaActividad=true;
+              break;
+            }
+            else{
+              this.participaActividad=false;
+            }
+          }
+        } else {
+          console.log("error");
+
+        }
+      }
+    );
+  }
+
   getActividad (actividad){
     this.actividad=actividad;
-    console.log(this.actividad);
+    this.checkActivity(this.actividad.id);
+    /*if(this.actividades){
+      alert('aaaaaaa');
+      console.log(this.actividades);
+    }
+    else{
+      alert('eeeeeee');
+    }*/
   }
 
   loadEvento(){
+    this.eventosServices.getEvent().subscribe(events => {
+          this.evento = events[0];
+
+          console.log(this.evento);
+
+          this.eventoAccounts = this.evento.accounts
+          this.eventoPartners = this.evento.partners
+          this.eventoOrganizers = this.evento.organizers
+
+          this.loadAgenda(this.evento.id);
+          if(this.isLogged){
+            this.checkEvent(this.evento.id);
+          }
+
+        });
+
+
+    /*
     this.eventosServices.getEvent().subscribe(
       data => {
         if (data['data']) {
@@ -92,11 +175,19 @@ isLogged$: Observable<boolean>;
           console.log("error");
         }
       }
-    );
+    );*/
   }
 
   loadAgenda(data){
-    this.eventosServices.getEventActivities(data).subscribe(
+    this.eventosServices.getEventActivities(data).subscribe(activities => {
+          this.agenda = activities;
+
+          console.log(this.agenda);
+          //this.agendaSpeakers = this.agenda.speakers
+
+        });
+
+    /*this.eventosServices.getEventActivities(data).subscribe(
       data => {
         if (data['data']) {
           this.agenda = data['data'];
@@ -105,7 +196,7 @@ isLogged$: Observable<boolean>;
           console.log("error");
         }
       }
-    );
+    );*/
   }
 
   onParticipar(data){
@@ -113,13 +204,19 @@ isLogged$: Observable<boolean>;
     if(this.isLogged){
       this.eventosServices.addEventUser(data).subscribe(
          data => {
-           console.log(data['success']);
-           this.subscripto=true;
+           if(data['success']){
+             this.subscripto=true;
+             this.error=false;
+             this.send=true;
+           }
+
          }
        );
     }
     else{
-      alert('Debe loguearse para poder Participar de los Eventos');
+      //alert('Debe loguearse para poder Participar de los Eventos');
+      this.error=true;
+      this.send=false;
     }
 
   }
@@ -128,8 +225,10 @@ isLogged$: Observable<boolean>;
     if(this.isLogged){
      this.eventosServices.deleteEventUser(data).subscribe(
         data => {
-          console.log(data['success']);
-          this.subscripto=false;
+          if(data['success']){
+            this.subscripto=false;
+          }
+
         }
       );
     }
