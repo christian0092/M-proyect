@@ -1,9 +1,11 @@
-export class Speaker {
-  constructor(
-    public id:number,
-    public name:string,
-    public image:string,
-    public link_page:string,
+import { Deserializable } from "./deserializable.model";
+
+export class Speaker implements Deserializable {
+
+    public id:number
+    public name:string
+    public image:string
+    public link_page:string
     public pivot:{
         activity_id:number,
         speaker_id:number,
@@ -11,5 +13,9 @@ export class Speaker {
         updated_at:string
     }
 
-  ){}
+    deserialize(input: any) {
+      Object.assign(this, input);
+      return this;
+    }
+
 }
