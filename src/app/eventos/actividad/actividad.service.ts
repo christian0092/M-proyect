@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response} from '@angular/http';
 import { environment } from '../../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, Subject  } from 'rxjs';
 import { Activity } from '../../models/activity';
 
 @Injectable()
@@ -9,6 +9,7 @@ import { Activity } from '../../models/activity';
 export class ActividadService {
 
   private header = new Headers();
+  private onActivityclick$ = new Subject<Activity>();
 
   constructor(private http: Http) { }
 
@@ -48,5 +49,12 @@ export class ActividadService {
     ).map((response: Response) => response.json());
   }
 
+  onActivityclick(): Observable<Activity> {
+    return this.onActivityclick$.asObservable();
+  }
+
+  public onActivityclickchange(activity: Activity) {
+    this.onActivityclick$.next(activity);
+  }
 
 }
