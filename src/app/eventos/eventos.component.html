@@ -14,7 +14,7 @@
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/{{this.evento.logo}}" id="imagen_logo">
+					<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
 							<div *ngFor="let account of eventoAccounts">
                 <a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
@@ -23,10 +23,10 @@
 
 				</div>
 				<div class="col-md-7 titulo" >
-					<h2>{{evento.name}}</h2>
-					<h6>{{evento.start_date}} | {{evento.event_place}}, Valparaíso, CHILE.</h6>
+					<h2>{{evento?.name}}</h2>
+					<h6>{{evento?.start_date}} | {{evento?.event_place}}, Valparaíso, CHILE.</h6>
 					<p >
-						 {{evento.description}}
+						 {{evento?.description}}
 					</p>
 
 					<div class="row">
@@ -37,8 +37,8 @@
 					</div>
 				</div>
 				<div class="col-md-2"  >
-            <button *ngIf="subscripto" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento.id)">Abandonar</button>
-						<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento.id)">Inscribirse</button>
+            <button *ngIf="subscripto" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento?.id)">Abandonar</button>
+						<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento?.id)">Inscribirse</button>
             <div class="alert alert-danger" *ngIf="getError()" style="font-size:15px;margin-top:10px">Debe Loguearse para Inscribirse al Evento</div>
             <div class="alert alert-success" *ngIf="getSend()" style="font-size:15px;margin-top:10px">Estás inscripto en el Evento</div>
 
@@ -287,7 +287,7 @@
 		</div>
 	</div>
 <app-partner-request-form></app-partner-request-form>
-<app-actividad [participaActividad]="participaActividad" [subscripto]="subscripto" [actividad]="actividad"></app-actividad>
+<app-actividad [participaActividad]="participaActividad" [subscripto]="subscripto"></app-actividad>
 <app-footer></app-footer>
 
 </div>
