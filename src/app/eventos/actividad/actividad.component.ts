@@ -10,7 +10,8 @@ import { ActividadService } from './actividad.service';
   styleUrls: ['./actividad.component.css']
 })
 export class ActividadComponent implements OnInit {
-  @Input() public actividad:Activity;
+  //@Input() public actividad:Activity;
+  public actividad:Activity;
   @Input() public participaActividad:boolean;
   @Input() public subscripto:boolean;
   cabecera;
@@ -18,6 +19,9 @@ export class ActividadComponent implements OnInit {
   public error=false;
   isLogged : boolean;
   isLogged$: Observable<boolean>;
+
+  onActivityclick$: Observable<Activity>;
+
   //actividades;
   constructor(
       private loginService:LoginService,
@@ -32,6 +36,16 @@ export class ActividadComponent implements OnInit {
       });
     this.loginService.checkLogin();
     this.send=false;
+
+
+    this.onActivityclick$ = this.actividadServices.onActivityclick();
+    this.onActivityclick$.subscribe(
+       actividad => {
+        this.actividad = actividad;
+        console.log(this.actividad)
+      });
+
+
   }
   /*checkActivity(){
 
@@ -94,6 +108,7 @@ export class ActividadComponent implements OnInit {
     );
   }
   getFormatExpone(){
+    if(this.actividad == null)return;
     if(this.actividad.event_format_id!=3 && this.actividad.event_format_id!=5 ) return true;
     else return false;
   }

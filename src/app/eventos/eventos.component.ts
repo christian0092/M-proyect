@@ -13,6 +13,7 @@ import {FormControl} from '@angular/forms';
 import { EventosService } from './eventos.service';
 import { ActividadService } from './actividad/actividad.service';
 import { LoginService } from '../services/login.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-eventos',
@@ -21,10 +22,10 @@ import { LoginService } from '../services/login.service';
 })
 export class EventosComponent implements OnInit {
 
-error=false;
-send=false;
-isLogged : boolean;
-isLogged$: Observable<boolean>;
+  error=false;
+  send=false;
+  isLogged : boolean;
+  isLogged$: Observable<boolean>;
 
   agenda2: Actividad[]=[
     new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido','2','coffe_c.jpg'),
@@ -36,7 +37,6 @@ isLogged$: Observable<boolean>;
   ];
   public actividad:Activity;
 
-
   public participaActividad=false;
   public actividades:Activity[];
 
@@ -47,7 +47,6 @@ isLogged$: Observable<boolean>;
 
   public agenda:Activity[];
   public agendaSpeakers: Speaker[];
-  //public agendaFormat: Event_Format[]
 
   public subscripto=false;
 
@@ -59,25 +58,13 @@ isLogged$: Observable<boolean>;
 
   ngOnInit() {
 
-
-
-
     this.isLogged$ = this.loginService.isLogin$();
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        /*if(isLogged){
-          alert('si si si');
-        }
-        else{
-          alert('no no no');
-
-        }*/
+        this.loadEvento();
       });
     this.loginService.checkLogin();
-    this.loadEvento();
-    //this.loadEvento();
-
 
   }
   getSend(){
@@ -95,10 +82,8 @@ isLogged$: Observable<boolean>;
     this.eventosServices.checkEvent(data).subscribe(
       data => {
         if (data['success']) {
-          //alert("participa");
           this.subscripto=true;
         } else {
-          //alert("no participa");
             this.subscripto=false;
         }
       }
@@ -133,14 +118,11 @@ isLogged$: Observable<boolean>;
 
   getActividad (actividad){
     this.actividad=actividad;
-    this.checkActivity(this.actividad.id);
-    /*if(this.actividades){
-      alert('aaaaaaa');
-      console.log(this.actividades);
-    }
-    else{
-      alert('eeeeeee');
-    }*/
+    this.actividadServices.onActivityclickchange(this.actividad);
+
+    if(this.isLogged)
+      this.checkActivity(this.actividad.id);
+
   }
 
   loadEvento(){
@@ -160,43 +142,14 @@ isLogged$: Observable<boolean>;
 
         });
 
-
-    /*
-    this.eventosServices.getEvent().subscribe(
-      data => {
-        if (data['data']) {
-
-          this.evento = data['data'][0];
-          this.loadAgenda(this.evento.id);
-          if(this.isLogged){
-            this.checkEvent(this.evento.id);
-          }
-        } else {
-          console.log("error");
-        }
-      }
-    );*/
   }
 
   loadAgenda(data){
     this.eventosServices.getEventActivities(data).subscribe(activities => {
           this.agenda = activities;
-
           console.log(this.agenda);
           //this.agendaSpeakers = this.agenda.speakers
-
         });
-
-    /*this.eventosServices.getEventActivities(data).subscribe(
-      data => {
-        if (data['data']) {
-          this.agenda = data['data'];
-          console.log(this.agenda);
-        } else {
-          console.log("error");
-        }
-      }
-    );*/
   }
 
   onParticipar(data){
@@ -214,7 +167,6 @@ isLogged$: Observable<boolean>;
        );
     }
     else{
-      //alert('Debe loguearse para poder Participar de los Eventos');
       this.error=true;
       this.send=false;
     }
