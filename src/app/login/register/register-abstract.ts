@@ -46,6 +46,8 @@ export class RegisterAbstract implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
+  success:boolean;
+  errorInfo:string;
   isLogged:boolean;
 
   constructor(
@@ -86,12 +88,12 @@ export class RegisterAbstract implements OnInit {
         surname: [null, Validators.required],
         birth_date: [null, Validators.required],
         document_number: [null, Validators.required],
-        empleo: [null],
+        profession_id: [null],
         study_level_id: [null],
-        cellphone: [null],
+        phone: [null],
         country_id: [null],
-        province_id: [null],
-        city_id: [null],
+        province: [null],
+        city: [null],
         street: [null],
         number: [null],
         postal_code: [null],
@@ -102,7 +104,9 @@ export class RegisterAbstract implements OnInit {
         //interests: this.allInterests,
         interests: this.fp.array([]),
         //socials: allSocials
-        accounts: this.fp.array([])
+        accounts: this.fp.array([]),
+        avatar:[null],
+        document_type_id:1
       })
     }, { validators: passwordMatchValidator });
   }
@@ -304,20 +308,32 @@ export class RegisterAbstract implements OnInit {
       if(!this.isLogged){//registra si no esta logueado
       this.loginServices.register(this.formulario.value).subscribe(
         data => {
+          console.log(data)
           if (data['success']) {
             this.reset();
-            this.send = true;
+            this.send =false
             this.error = false;
-            //alert('Usuario creado correctamente');
+            this.success=true;
+            /*console.error(data['message'])
+            this.send = false;
+            this.error=true
+            this.errorInfo=data['message'];*/
           } else {
-            alert(data['message']);
+            this.send = false;
+            this.error=true
+            this.errorInfo=data['message'];
             }
+          },error=>{
+            this.send = false;
+            this.error=true
+           this.errorInfo=error;
           });
       }else if(this.isLogged){
         console.log("modificando usuario");
       }
     }
     else {
+      this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
       this.error = true;
       validateAllFormFields(this.formulario);
     }

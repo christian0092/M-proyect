@@ -81,7 +81,9 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
           break;
         }
         else {
-          this.error = true;
+            this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
+            this.error = true;
+         
           break;
         }
       case 1:
@@ -92,7 +94,8 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
           break;
         }
         else {
-          this.error = true;
+            this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
+            this.error = true;
           break;
         }
       case 2:

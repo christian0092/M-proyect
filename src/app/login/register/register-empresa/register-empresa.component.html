@@ -3,7 +3,7 @@
 <form [formGroup]="formulario">
 
   <div class="contenido" style="min-height:415px">
-    <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
+    <div class="alert alert-info" *ngIf="send">Formulario enviado! Por favor espere..</div>
     <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
 
     <div [hidden]="!esRegistroUsuario">

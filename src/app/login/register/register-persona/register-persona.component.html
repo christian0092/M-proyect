@@ -1,7 +1,8 @@
 <form [formGroup]="formulario">
   <div class="contenido" style="min-height:415px">
-    <div class="alert alert-success" *ngIf="send">Formulario enviado!</div>
-    <div class="alert alert-danger" *ngIf="error">Compruebe que no haya errores y vuelva a intentarlo</div>
+    <div class="alert alert-info" *ngIf="send">Formulario enviado! Por favor espere..</div>
+    <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
+      <div class="alert alert-success" *ngIf="success">Registro exitoso! Por favor revise su correo</div>
     <div [hidden]="!esRegistroUsuario">
       <div class="form-row" id="header_titulo">
         <legend>Paso 2: Usuario</legend>
@@ -59,7 +60,7 @@
             name="fechaDeNacimiento" placeholder="Fecha de nacimiento" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">* Este campo es requerido</div>
             <!--<input formControlName="empleo" type="text" class="form-control" id="empleo" name="empleo" placeholder="Empleo" ngModel>-->
-            <select formControlName="empleo" class="form-control" id="empleo">
+            <select formControlName="profession_id" class="form-control" id="empleo">
               <option disabled selected="selected">Profesiones</option>
               <option *ngFor="let value of professionLevels" [value]="value.id">{{ value.name }}
               </option>
@@ -75,7 +76,7 @@
               <a class="btn-lg" style="padding:0px">
                 <span class="fa fa-whatsapp"></span>
               </a>
-              <input formControlName="cellphone" type="text" class="form-control" style='width:89%' placeholder="#Pais#Caracteristica#Movil"
+              <input formControlName="phone" type="text" class="form-control" style='width:89%' placeholder="#Pais#Caracteristica#Movil"
               ngModel>
             </div>
             <!--<input formControlName="country_id" type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>-->
@@ -84,9 +85,9 @@
               <option *ngFor="let value of countries" [value]="value.id">{{ value.name }}
               </option>
             </select>
-            <input formControlName="province_id" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia"
+            <input formControlName="province" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia"
             ngModel>
-            <input formControlName="city_id" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad"
+            <input formControlName="city" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad"
             ngModel>
             <input formControlName="postal_code" type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal"
             ngModel>
