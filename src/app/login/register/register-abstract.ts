@@ -14,7 +14,8 @@ import { CountriesService } from '../../services/countries.service';
 import { AccountsService } from '../../services/accounts.service';
 import {UserService} from '../../services/user.service';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../customValidators/customValidators';
-import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
+import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
+ import { Observable } from 'rxjs/Observable'
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
@@ -77,38 +78,7 @@ export class RegisterAbstract implements OnInit {
     
   }
   createForm(){
-    this.formulario = this.fp.group({
-      user: this.fp.group({
-        email: [null, Validators.compose([Validators.required, Validators.email])],
-        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-        password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
-      }),
-      person: this.fp.group({
-        name: [null, Validators.required],
-        surname: [null, Validators.required],
-        birth_date: [null, Validators.required],
-        document_number: [null, Validators.required],
-        profession_id: [null],
-        study_level_id: [null],
-        phone: [null],
-        country_id: [null],
-        province: [null],
-        city: [null],
-        street: [null],
-        number: [null],
-        postal_code: [null],
-        floor: [null],
-        dept: [null],
-        terms: [null, Validators.required],
-        share_data: [true, Validators.required],
-        //interests: this.allInterests,
-        interests: this.fp.array([]),
-        //socials: allSocials
-        accounts: this.fp.array([]),
-        avatar:[null],
-        document_type_id:1
-      })
-    }, { validators: passwordMatchValidator });
+   
   }
 
   ngOnInit() {
@@ -237,8 +207,9 @@ export class RegisterAbstract implements OnInit {
     );
   }
   addAccountItem(id: string, name: string, imagen: string): void {
-   
-    
+    var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;
+    item.push(this.newAccountItem(id, name, imagen));  
+    //console.log(imagen);  
   }
 
   searchPage() {
@@ -310,15 +281,25 @@ export class RegisterAbstract implements OnInit {
         data => {
           console.log(data)
           if (data['success']) {
-            this.reset();
             this.send =false
             this.error = false;
             this.success=true;
+           
+            setTimeout(() => {
+              this.reset();
+              this.registerServices.pushClose()
+             
+            }, 5000);
+                    
+            
+       
+
             /*console.error(data['message'])
             this.send = false;
             this.error=true
             this.errorInfo=data['message'];*/
           } else {
+            console.log(data['success'])
             this.send = false;
             this.error=true
             this.errorInfo=data['message'];
@@ -327,6 +308,7 @@ export class RegisterAbstract implements OnInit {
             this.send = false;
             this.error=true
            this.errorInfo=error;
+           console.log(error);
           });
       }else if(this.isLogged){
         console.log("modificando usuario");
@@ -341,9 +323,13 @@ export class RegisterAbstract implements OnInit {
   }
 
   isFieldValid(field: string) {
-    return isFieldValidation(field, this.formulario)
+   return (!this.formulario.get(field).valid && this.formulario.get(field).touched) ||
+      (this.formulario.get(field).untouched && this.formSubmitAttempt) ||
+      (this.formulario.get(field).untouched && this.formulario.get(field).touched);
 
   }
+
+  
 
   reset() {
     this.formulario.reset();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input , ViewChild, ElementRef} from '@angular/core';
 import {Profile} from '../../models/profile';
 import {UserService} from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   private isValidPersona: boolean;
   private type:String;
   private isLogged:boolean;
+  @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
   constructor( private userService:UserService, private loginServices: LoginService, private registerService:RegisterService) { }
 
@@ -35,6 +36,7 @@ export class RegisterComponent implements OnInit {
     this.userService.getMyProfile().subscribe(myProfile=> 
     this.type=myProfile.tipo)
     this.userService.checkMyProfile();
+    this.registerService.close().subscribe(data=>this.cerrar())
   }
   cerrar(){
 
@@ -47,6 +49,7 @@ export class RegisterComponent implements OnInit {
     this.action(2)
       }
     this.registerService.pushGoBack();
+
   }
   checkType(log:boolean){
     this.isLogged=log

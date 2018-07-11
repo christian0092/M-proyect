@@ -38,4 +38,11 @@ export class RegisterService {
       this.goBack$.next(true);
     }
 
+     close():Observable<boolean>{
+      return this.goBack$;
+    }
+    pushClose(){
+      this.goBack$.next(true);
+    }
+
 }
