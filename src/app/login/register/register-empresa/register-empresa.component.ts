@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Socials } from '../../../models/socials';
 import { passwordConfirming, passwordMatchValidator,validateAllFormFields} from '../../../customValidators/customValidators';
-import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../registerDecorator';
+import {  onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import {UserService} from '../../../services/user.service';
 import { RegisterService } from '../register.service';
 import { RegisterAbstract } from '../register-abstract';
@@ -64,45 +64,53 @@ export class RegisterEmpresaComponent  extends RegisterAbstract implements OnIni
       }
 
       createForm(){
-      this.formulario = this.fp.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
-      password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-      password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
-      name: [null, Validators.required],
-      phone: [null, Validators.required],
-      country_id: [null],
-      province_id: [null],
-      city_id: [null],
-      street: [null],
-      number: [null],
-      postal_code: [null],
-      floor: [null],
-      dept: [null],
-      contact_name: [null, Validators.required],
-      contact_phone: [null, Validators.required],
-      terms: [null, Validators.required],
-      share_data: [true],
-      //socials: allSocials
-      interests: this.fp.array([]),
-        //socials: allSocials,
-      accounts: this.fp.array([])
-    }, {validators: passwordMatchValidator});
+     this.formulario = this.fp.group({
+      organization: this.fp.group({
+        email: [null, Validators.compose([Validators.required, Validators.email])],
+        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+        password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
+      }),
+      person: this.fp.group({
+        name: [null, Validators.required],
+        phone: [null, Validators.required],
+        country_id: [null, Validators.required],
+        province: [null],
+        city: [null, Validators.required],
+        street: [null, Validators.required],
+        number: [null,Validators.required],
+        postal_code: [null],  
+        floor: [null],
+        dept: [null],
+        share_data: [true],
+        avatar:[null],
+        contact_name:[null,Validators.required],
+        contact_phone:[null,Validators.required],
+         interests: this.fp.array([]),
+        accounts: this.fp.array([]),
+        terms: [null, Validators.required]
+        /*surname: [null, Validators.required],
+        birth_date: [null, Validators.required],
+        document_number: [null, Validators.required],
+        profession_id: [null],
+        study_level_id: [null],
+         document_type_id:1*/})
+    }, { validators: passwordMatchValidator });
   }
-     addIterestItem(id: string, name: string): void {
+    /* addIterestItem(id: string, name: string): void {
     var item = this.formulario.controls['interests'] as FormArray;
     item.push(this.newIterestItem(id, name));    
-  }
-addAccountItem(id: string, name: string, imagen: string): void {
+  }*/
+/*addAccountItem(id: string, name: string, imagen: string): void {
     var item = this.formulario.controls['accounts'] as FormArray;
     item.push(this.newAccountItem(id, name, imagen));  
     //console.log(imagen);  
-  }
+  }*/
   onSiguiente() {
 
       switch(this.formPage){
         case 0:
 
-          if (this.formulario.get('email').valid  && this.formulario.get('password').valid && this.formulario.get('password_confirmation').valid ) {
+          if (this.formulario.get('organization.email').valid  && this.formulario.get('organization.password').valid && this.formulario.get('organization.password_confirmation').valid && this.formulario.get('organization.password').value==this.formulario.get('organization.password_confirmation').value) {
 
             this.formPage++;
             this.searchPage();
@@ -110,12 +118,13 @@ addAccountItem(id: string, name: string, imagen: string): void {
             break;
           }
           else{
-
-            this.error=true;
+          this.getForm(this.isLogged)
+            this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
+            this.error = true;
             break;
           }
         case 1:
-        if (this.formulario.get('name').valid  && this.formulario.get('phone').valid ) {
+        if (this.formulario.get('person.name').valid  && this.formulario.get('person.phone').valid ) {
           this.formPage++;
           this.searchPage();
           this.error=false;
@@ -126,7 +135,7 @@ addAccountItem(id: string, name: string, imagen: string): void {
           break;
         }
         case 2:
-        if (this.formulario.get('contact_name').valid  && this.formulario.get('contact_phone').valid ) {
+        if (this.formulario.get('person.contact_name').valid  && this.formulario.get('person.contact_phone').valid ) {
           this.formPage++;
           this.searchPage();
           this.error=false;
