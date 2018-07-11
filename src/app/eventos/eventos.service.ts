@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable,Subject } from 'rxjs';
 import { Event } from '../models/event';
 import { Activity } from '../models/activity';
 
@@ -10,16 +10,44 @@ export class EventosService {
 
 private header = new Headers();
 
+private MisEventIn: Event[];
+private MisEventIn$ = new Subject<Event[]>();
+
+
   constructor(private http: Http) { }
 
-/*  getEvent():Observable<Event> {
+  public changeMisEventValue(val) {
+    this.MisEventIn = val;
+    this.MisEventIn$.next(this.MisEventIn);
 
-  const header = new Headers({ 'Content-Type': 'application/json'});
+  }
 
-    return this.http.get(environment.apiUrl + 'events',  { headers: header })
-      .map((response: Response) => response.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }*/
+  participoEvent(id){
+    console.log('participoEvent()');
+    console.log(id);
+    console.log(this.MisEventIn);
+    if(this.MisEventIn==null) return false
+    for(let e of this.MisEventIn){
+      if(e.id==id) return true;
+    }
+    return false;
+  }
+
+  getMisEventIn$(): Observable<Event[]> {
+    return this.MisEventIn$.asObservable();
+  }
+
+  misEvent(): Observable<Event[]> {
+
+    console.log('misEvent()');
+
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
+
+    return this.http.get(environment.apiUrl + 'eventPerson', { headers: header })
+      .map((res: Response) => res.json().data.map((event: Event) => new Event().deserialize(event)));
+      //.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
 
   getEvent(): Observable<Event[]> {
   this.header.append('Content-Type', 'application/json');
@@ -47,11 +75,7 @@ private header = new Headers();
 
   checkEvent(data) {
 
-    /*this.header.append('Content-Type', 'application/json');
-    this.header.append('Authorization', 'Bearer' + localStorage.getItem('token'));*/
   const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
-    /*alert('data'+data);
-    console.log(this.header);*/
 
     return this.http.get(
       environment.apiUrl + 'isParticipatingEvent',

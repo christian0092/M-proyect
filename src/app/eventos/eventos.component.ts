@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/activity';
 import { Actividad } from '../models/actividad';
+
 import { Event } from '../models/event';
 import { Partner } from '../models/partner';
 import { Organizer } from '../models/organizer';
@@ -27,14 +28,17 @@ export class EventosComponent implements OnInit {
   isLogged : boolean;
   isLogged$: Observable<boolean>;
 
-  agenda2: Actividad[]=[
+  isMisEvent : Event[];
+  isMisEvent$: Observable<Event[]>;
+
+  /*agenda2: Actividad[]=[
     new Actividad('9:00','9:15','','','COFFEE MEET','15´ para presentarse con el asistente elegido','2','coffe_c.jpg'),
     new Actividad('9:15','9:45','','','APERTURA','Presentación de II Workshop LATAM #MOVILIDADFUTURA','1',''),
     new Actividad('9:45','10:45','Sensor ','Grupo ADTD UTN presenta sensor ','CONGRESS','Presentación a cargo de influenciadores','4','congress_c.jpg'),
     new Actividad('10:45','12:45','Sensor','Grupo ADTD UTN presenta sensor ','WORKSHOP','Resolución de problemáticas junto al panel de expertos','5','workshop_c.jpg'),
     new Actividad('12:45','13:30','','','BREAK','','1',''),
     new Actividad('13:30','14:30','','','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','3','congress_c.jpg'),
-  ];
+  ];*/
   public actividad:Activity;
 
   public participaActividad=false;
@@ -57,14 +61,18 @@ export class EventosComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  //this.isMisEvent$ = this.loginService.isMisEvent$();
 
     this.isLogged$ = this.loginService.isLogin$();
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
+        if(isLogged==true) this.error=false;
         this.loadEvento();
+        this.loadMisEvento();
+
       });
-    this.loginService.checkLogin();
+    //this.loginService.checkLogin();
 
   }
   getSend(){
@@ -120,7 +128,7 @@ export class EventosComponent implements OnInit {
     this.actividad=actividad;
     this.actividadServices.onActivityclickchange(this.actividad);
 
-    if(this.isLogged)
+    if(this.isLogged && this.subscripto)
       this.checkActivity(this.actividad.id);
 
   }
@@ -137,11 +145,19 @@ export class EventosComponent implements OnInit {
 
           this.loadAgenda(this.evento.id);
           if(this.isLogged){
-            this.checkEvent(this.evento.id);
+            //this.checkEvent(this.evento.id);
+            this.subscripto=this.eventosServices.participoEvent(this.evento.id);
           }
 
         });
+  }
 
+  loadMisEvento(){
+
+    this.eventosServices.misEvent().subscribe(events => {
+      console.log(events);
+          this.eventosServices.changeMisEventValue(events)
+        });
   }
 
   loadAgenda(data){
