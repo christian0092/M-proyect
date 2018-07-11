@@ -2,10 +2,10 @@ import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../customValidators/customValidators';
 import { LoginService } from '../../services/login.service';
 
-export function isFieldValidation(field: string,form:FormGroup) {
+/*export function isFieldValidation(field: string,form:FormGroup) {
     return (!form.get(field).valid && form.get(field).touched) ||
       (form.get(field).untouched && this.formSubmitAttempt);
-  }
+  }*/
   export function onSubmitAbstract(form:FormGroup, loginServices: LoginService, formSubmitAttempt:boolean, send:boolean, error:boolean,isLogged:boolean) {
    	formSubmitAttempt = true;
     if (form.valid) {

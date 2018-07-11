@@ -20,6 +20,8 @@ import { LoginService } from './services/login.service';
 import { RegisterService } from './login/register/register.service';
 import {UserService} from './services/user.service';
 import { StudyLevelsService } from "./services/study-levels.service";
+import { ProfessionLevelsService } from "./services/profession-levels.service";
+import { CountriesService } from "./services/countries.service";
 import { AccountsService } from "./services/accounts.service";
 import { EventosService } from "./eventos/eventos.service";
 import { ActividadService } from "./eventos/actividad/actividad.service";
@@ -87,7 +89,9 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     AccountsService,
     EventosService,
     ActividadService,
-    VerificarCorreoService
+    VerificarCorreoService,
+    ProfessionLevelsService,
+    CountriesService
   ],
   bootstrap: [AppComponent]
 })

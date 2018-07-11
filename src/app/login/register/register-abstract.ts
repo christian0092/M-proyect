@@ -6,19 +6,25 @@ import { Socials } from '../../models/socials';
 import { RegisterService } from '../register/register.service';
 import { RegisterComponent } from '../register/register.component';
 import { StudyLevel } from '../../models/study_level';
+import { ProfessionLevel } from '../../models/profession-level';
+import { Countries } from '../../models/countries';
 import { StudyLevelsService } from '../../services/study-levels.service';
+import { ProfessionLevelsService } from '../../services/profession-levels.service';
+import { CountriesService } from '../../services/countries.service';
 import { AccountsService } from '../../services/accounts.service';
 import {UserService} from '../../services/user.service';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../customValidators/customValidators';
-import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
+import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
+ import { Observable } from 'rxjs/Observable'
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
 
-
+  countries:Countries[]
   listaIntereses: Interests[] = [];
   allInterests: FormArray = new FormArray([]);
   studyLevels: StudyLevel[];
+  professionLevels: ProfessionLevel[]
   listaSocial: Socials[] = [
   /*  new Socials('1', 'Facebook', 'fa fa-facebook'),
     new Socials('2', 'Twitter', 'fa fa-twitter'),
@@ -41,6 +47,8 @@ export class RegisterAbstract implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
+  success:boolean;
+  errorInfo:string;
   isLogged:boolean;
 
   constructor(
@@ -49,7 +57,9 @@ export class RegisterAbstract implements OnInit {
     private registerServices: RegisterService,
     private studyLevelsService: StudyLevelsService,
     private accountService: AccountsService,
-    private userService:UserService
+    private userService:UserService,
+    private professionLevelsService: ProfessionLevelsService,
+    private countriesService: CountriesService
   ) {
     this.createFormRegistro();
   }
@@ -68,40 +78,13 @@ export class RegisterAbstract implements OnInit {
     
   }
   createForm(){
-    this.formulario = this.fp.group({
-      user: this.fp.group({
-        email: [null, Validators.compose([Validators.required, Validators.email])],
-        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
-        password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
-      }),
-      person: this.fp.group({
-        name: [null, Validators.required],
-        surname: [null, Validators.required],
-        birth_date: [null, Validators.required],
-        document_number: [null, Validators.required],
-        empleo: [null],
-        study_level_id: [null],
-        cellphone: [null],
-        country_id: [null],
-        province_id: [null],
-        city_id: [null],
-        street: [null],
-        number: [null],
-        postal_code: [null],
-        floor: [null],
-        dept: [null],
-        terms: [null, Validators.required],
-        share_data: [true, Validators.required],
-        //interests: this.allInterests,
-        interests: this.fp.array([]),
-        //socials: allSocials
-        accounts: this.fp.array([])
-      })
-    }, { validators: passwordMatchValidator });
+   
   }
 
   ngOnInit() {
     this.loadStudyLevels()
+    this.loadProfessionLevels()
+    this.loadCountries()
     this.formSubmitAttempt = false;
     this.formPage = 0;
     this.esAnterior = true;
@@ -143,6 +126,19 @@ export class RegisterAbstract implements OnInit {
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
       levels => { this.studyLevels = levels.data },
+      err => { console.log(err); }
+    );
+  }
+
+  loadProfessionLevels(){
+    this.professionLevelsService.getProfessionLevels().subscribe(
+      levels => { this.professionLevels = levels.data },
+      err => { console.log(err); }
+    );
+  }
+  loadCountries(){
+    this.countriesService.getCountries().subscribe(
+      levels => { this.countries = levels.data },
       err => { console.log(err); }
     );
   }
@@ -211,8 +207,9 @@ export class RegisterAbstract implements OnInit {
     );
   }
   addAccountItem(id: string, name: string, imagen: string): void {
-   
-    
+    var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;
+    item.push(this.newAccountItem(id, name, imagen));  
+    //console.log(imagen);  
   }
 
   searchPage() {
@@ -282,20 +279,43 @@ export class RegisterAbstract implements OnInit {
       if(!this.isLogged){//registra si no esta logueado
       this.loginServices.register(this.formulario.value).subscribe(
         data => {
+          console.log(data)
           if (data['success']) {
-            this.reset();
-            this.send = true;
+            this.send =false
             this.error = false;
-            //alert('Usuario creado correctamente');
+            this.success=true;
+           
+            setTimeout(() => {
+              this.reset();
+              this.registerServices.pushClose()
+             
+            }, 5000);
+                    
+            
+       
+
+            /*console.error(data['message'])
+            this.send = false;
+            this.error=true
+            this.errorInfo=data['message'];*/
           } else {
-            alert(data['message']);
+            console.log(data['success'])
+            this.send = false;
+            this.error=true
+            this.errorInfo=data['message'];
             }
+          },error=>{
+            this.send = false;
+            this.error=true
+           this.errorInfo=error;
+           console.log(error);
           });
       }else if(this.isLogged){
         console.log("modificando usuario");
       }
     }
     else {
+      this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
       this.error = true;
       validateAllFormFields(this.formulario);
     }
@@ -303,9 +323,13 @@ export class RegisterAbstract implements OnInit {
   }
 
   isFieldValid(field: string) {
-    return isFieldValidation(field, this.formulario)
+   return (!this.formulario.get(field).valid && this.formulario.get(field).touched) ||
+      (this.formulario.get(field).untouched && this.formSubmitAttempt) ||
+      (this.formulario.get(field).untouched && this.formulario.get(field).touched);
 
   }
+
+  
 
   reset() {
     this.formulario.reset();

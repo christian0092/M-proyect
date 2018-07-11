@@ -4,6 +4,8 @@ export function passwordConfirming(c: AbstractControl): any {
         if(!c.parent || !c) return;
         const pwd = c.parent.get('password');
         const cpwd= c.parent.get('password_confirmation')
+        console.log(cpwd.value)
+        console.log(pwd.value)
 
         if(!pwd || !cpwd) return ;
         if (pwd.value !== cpwd.value) {
