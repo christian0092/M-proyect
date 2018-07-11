@@ -10,7 +10,7 @@ import { StudyLevelsService } from '../../../services/study-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
 import {UserService} from '../../../services/user.service';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../../customValidators/customValidators';
-import { isFieldValidation, onSubmitAbstract, resetAbstract } from '../registerDecorator';
+import { onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import { RegisterAbstract } from '../register-abstract';
 import { ProfessionLevelsService } from '../../../services/profession-levels.service';
 import { CountriesService } from '../../../services/countries.service';
@@ -66,21 +66,22 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
     accountService,
     userService,professionLevelsService, countriesServices)
       }
-      addAccountItem(id: string, name: string, imagen: string): void {
-    var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;
-    item.push(this.newAccountItem(id, name, imagen));  
-    //console.log(imagen);  
-  }
+      
   onSiguiente() {
     switch (this.formPage) {
       case 0:
-        if (this.formulario.get('user.email').valid && this.formulario.get('user.password').valid && this.formulario.get('user.password_confirmation').valid) {
+        if (this.formulario.get('user.email').valid && this.formulario.get('user.password').valid && this.formulario.get('user.password_confirmation').valid && this.formulario.get('user.password').value==this.formulario.get('user.password_confirmation').value) {
           this.formPage++;
           this.searchPage();
           this.error = false;
           break;
         }
         else {
+
+          console.log(this.formulario.get('user.password').value)
+          console.log(this.formulario.get('user.password_confirmation').value)
+          this.formulario.controls['user'].patchValue( {password:null});
+          this.formulario.controls['user'].patchValue( {password_confirmation:null});
             this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
             this.error = true;
          
@@ -103,6 +104,41 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         this.searchPage();
         break;
     }
+  }
+
+  createForm(){
+    this.formulario = this.fp.group({
+      user: this.fp.group({
+        email: [null, Validators.compose([Validators.required, Validators.email])],
+        password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+        password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
+      }),
+      person: this.fp.group({
+        name: [null, Validators.required],
+        surname: [null, Validators.required],
+        birth_date: [null, Validators.required],
+        document_number: [null, Validators.required],
+        profession_id: [null],
+        study_level_id: [null],
+        phone: [null],
+        country_id: [null],
+        province: [null],
+        city: [null],
+        street: [null],
+        number: [null],
+        postal_code: [null],
+        floor: [null],
+        dept: [null],
+        terms: [null, Validators.required],
+        share_data: [true, Validators.required],
+        //interests: this.allInterests,
+        interests: this.fp.array([]),
+        //socials: allSocials
+        accounts: this.fp.array([]),
+        avatar:[null],
+        document_type_id:1
+      })
+    }, { validators: passwordMatchValidator });
   }
 
   /*createFormPersona() {
