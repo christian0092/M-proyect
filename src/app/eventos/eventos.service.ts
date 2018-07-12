@@ -23,9 +23,7 @@ private MisEventIn$ = new Subject<Event[]>();
   }
 
   participoEvent(id){
-    console.log('participoEvent()');
-    console.log(id);
-    console.log(this.MisEventIn);
+
     if(this.MisEventIn==null) return false
     for(let e of this.MisEventIn){
       if(e.id==id) return true;
