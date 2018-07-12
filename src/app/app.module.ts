@@ -26,6 +26,8 @@ import { AccountsService } from "./services/accounts.service";
 import { EventosService } from "./eventos/eventos.service";
 import { ActividadService } from "./eventos/actividad/actividad.service";
 import { VerificarCorreoService } from "./verificar-correo/verificar-correo.service";
+import {MSummitService} from "./services/m-summit.service"
+
 
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
@@ -91,7 +93,8 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     ActividadService,
     VerificarCorreoService,
     ProfessionLevelsService,
-    CountriesService
+    CountriesService, 
+    MSummitService
   ],
   bootstrap: [AppComponent]
 })

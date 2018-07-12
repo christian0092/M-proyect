@@ -1,3 +1,45 @@
-<p>
-  m-summit2 works!
-</p>
+<div class="modal fade" id="mSummitModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog  modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">M-Summit</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div  class="modal-body">
+				<div class="jumbotron">
+					<h5 class="display-4">Descarga</h5>
+					<hr class="my-4">
+					<p>Datos relacionados a las descarga del template</p>
+					<p class="lead">
+						<a class="btn btn-primary btn-lg float-right" href="example.com/assets/eventos/asebal.jpg" download="asebal.jpg" role="button">Descargar template</a>
+					</p>
+				</div>
+				<div class="jumbotron">
+					<h5 class="display-4">Sugerencias para exponer en el M-Summit</h5>
+					<p>Consejos para exponer en M-Summit</p>
+				</div>
+				<div class="jumbotron">
+					<h5 class="display-4">Contacto para tu asesoramiento</h5>
+					<form [formGroup]="queryForm">
+						<div class="form-group">
+							<label for="exampleFormControlTextarea1">Consulta</label>
+							<div class="alert alert-danger" *ngIf="error">{{errorData}}</div>
+							<div class="alert alert-success" *ngIf="ok">Su consulta se a enviado!</div>
+							<textarea formControlName="query" class="form-control" id="exampleFormControlTextarea1" rows="3" ngModel></textarea>
+							<div class="alert alert-danger" *ngIf="isFieldValid('query')" >Debe introducir una consulta</div>
+						</div>
+					</form>
+					<p class="lead">
+						<button class="btn btn-primary btn-lg" role="button" [disabled]="send" (click)="onSubmit()">Contactarme<i class="fa fa-spinner fa-spin fa-fw" *ngIf="send"></i></button>
+					</p>
+				</div>
+				{{queryForm.value | json}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="setQueryForm()" >Cerrar</button>
+			</div>
+		</div>
+	</div>
+</div>
