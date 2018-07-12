@@ -33,6 +33,9 @@ export class PerfilComponent implements OnInit {
 
   observable$:Observable<JSON>;
   listaIntereses:Array<Interests>=[];
+
+  public listaAccounts:Account[];
+
   ParticipantList:Participant[];
 
   public myProfile:Profile;
@@ -51,8 +54,6 @@ export class PerfilComponent implements OnInit {
 
   public evento: Event;
   public eventoAccounts: Account[];
-  /*public eventoPartners: Partner[];
-  public eventoOrganizers: Organizer[];*/
 
   constructor(
     private userService:UserService,
@@ -68,8 +69,6 @@ export class PerfilComponent implements OnInit {
         this.doInit(login);
       });
         this.doInit(this.loginService.isLogin());
-
-
 
   }
   doInit(val:boolean){
@@ -91,10 +90,12 @@ export class PerfilComponent implements OnInit {
       this.myProfile$.subscribe(
           profile => {
             this.myProfile = profile;
-            //console.log("mira esto")
-            //console.log( this.myProfile.interests)
              this.person=this.myProfile.person;
-
+             this.listaIntereses=this.myProfile.interests;
+             this.listaAccounts=this.myProfile.accounts;
+             console.log('acaaaa aaaaaaaaaaaaaaaaa');
+             console.log(this.listaIntereses);
+             console.log(this.listaAccounts);
 
       });
 
@@ -121,7 +122,7 @@ export class PerfilComponent implements OnInit {
   }
   loadMisDatos(){
 
-   
+
   }
 
   loadMisEvento(){

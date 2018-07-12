@@ -2,53 +2,54 @@
 	<div class="contenido" >
 		<div class="container" >
 			<div class="row">
-				<div class="col-md-2 float-left" >
+				<!--<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
-					<div class="row" style="margin-top:20px;margin-left:1px">
-						<!--<div ><a href={{myProfile.twitter}}><span class="fa fa-twitter fa_perfil"></span></a></div>
-						<div ><a href={{myProfile.facebook}}><span class="fa fa-facebook fa_perfil"></span></a></div>
-						<div ><a href={{myProfile.linkedin}}><span class="fa fa-linkedin fa_perfil"></span></a></div>
-						<div ><a href={{myProfile.instagram}}><span class="fa fa-instagram fa_perfil"></span></a></div>
-			-->		</div>
-				</div>
-				<div class="col-md-8" >
+
+				</div>-->
+				<div class="col-md-10" >
 					<div class="row" >
-						<div class="col-lg titulo" >
-							<h2>{{person.name}}</h2>
+						<div class="col-lg " >
+
+							<div class="row" style="margin-top:15px;margin-left:1px">
+									<div class="titulo">{{person?.name}} {{person?.surname}}</div><div  *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil"></span></a></div>
+							</div>
 						</div>
 					</div>
 					<div class="row" >
-						<div class="col-md-4 datos" >
-							<p>
-								DNI:{{person.document_number}}<br>
-								Fecha Nacimiento: {{person.birth_date}}<br>
-								Email:{{person.email}}<br>
-								Profesión: {{person.profession.name}} <br>
-								Estudios: {{person.study_level.name}} <br>
-								<p>
+						<div class="col-md-4 " style="margin-top:15px">
+
+								<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
+								<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
+								<div class="dato"><div class="titulo_dato">Email:</div> {{person?.email}}</div>
+								<div class="dato"><div class="titulo_dato">Profesión:</div> {{person?.profession.name}}</div>
+								<div class="dato"><div class="titulo_dato">Estudios:</div> {{person?.study_level.name}}</div>
+								<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
+
 								</div>
-								<div class="col-md-4 datos" >
-									<p>
-										Teléfono:{{person.phone}}<br>
-										País: {{person.country.name}}<br>
-										Provincia: {{person.province}}<br>
-										Localidad: {{person.city}} <br>
-										Código Postal: {{person?.postal_code}} <br>
-										Calle: {{person.street}} N°: {{person?.number}}<br>
-										Piso: {{person.floor}} Dto:{{person.dept}}
-										<p>
+								<div class="col-md-4" style="margin-top:15px">
+
+										<div class="dato"><div class="titulo_dato">País:</div> {{person?.country.name}}</div>
+										<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
+										<div class="dato"><div class="titulo_dato">Localidad:</div> {{person?.city}} </div>
+										<div class="dato"><div class="titulo_dato">Código Postal:</div> {{person?.postal_code}} </div>
+										<div class="dato"><div class="titulo_dato">Calle:</div> <div class="titulo_dato">{{person?.street}} N°:</div> {{person?.number}}</div>
+										<div class="dato"><div class="titulo_dato">Piso:</div> <div class="titulo_dato">{{person?.floor}} Dto:</div> {{person?.dept}}</div>
+
 										</div>
-										<div class="col-md-4 datos" >
-											<legend style="font-size:16px;margin-left:5px">Intereses</legend>
-											<ul class="list-group">
-												<!--<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" *ngFor="let interes of myProfile.interests">
-													<p>{{interes.name}}</p>
-												</li>-->
-											</ul>
+										<div class="col-md-4 datos" style="margin-top:15px">
+
+											<div class="dato"><div class="titulo_dato">Intereses:</div></div>
+											<div style="clear:left">
+												<ul class="list-group">
+													<li style="border:none" class="list-group-item d-flex justify-content-between align-items-center" id="intereses" *ngFor="let interes of listaIntereses">
+														<p>{{interes.name}}</p>
+													</li>
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-2"  >
+								<div class="col-md-2" style="margin-top:15px" >
 									<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#modalRegistro" >Editar</button>
 								</div>
 							</div>
