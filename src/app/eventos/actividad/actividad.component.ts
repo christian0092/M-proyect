@@ -12,8 +12,10 @@ import { ActividadService } from './actividad.service';
 export class ActividadComponent implements OnInit {
   //@Input() public actividad:Activity;
   public actividad:Activity;
+
   @Input() public participaActividad:boolean;
   @Input() public subscripto:boolean;
+
   cabecera;
   public send=false;
   public error=false;
@@ -42,8 +44,9 @@ export class ActividadComponent implements OnInit {
     this.onActivityclick$.subscribe(
        actividad => {
         this.actividad = actividad;
-        console.log(this.actividad)
+        console.log(this.actividad);
       });
+
 
 
   }
@@ -98,16 +101,24 @@ export class ActividadComponent implements OnInit {
   }
 
   onAbandonar(data){
+
+    console.log(data);
    this.actividadServices.deleteActivityUser(data).subscribe(
       data => {
         if(data['success']){
           this.participaActividad=false;
           this.send=false;
+
+          this.actividadServices.checkActivity(this.actividad.event_id).subscribe(activities => {
+                this.actividadServices.checkActivities(activities['data']);
+
+              });
         }
       }
     );
   }
   getFormatExpone(){
+
     if(this.actividad == null)return;
     if(this.actividad.event_format_id!=3 && this.actividad.event_format_id!=5 ) return true;
     else return false;

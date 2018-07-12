@@ -9,7 +9,11 @@ import { Activity } from '../../models/activity';
 export class ActividadService {
 
   private header = new Headers();
+
   private onActivityclick$ = new Subject<Activity>();
+
+  private inActivities:Activity[];
+  private inActivities$ = new Subject<Activity[]>();
 
   constructor(private http: Http) { }
 
@@ -55,6 +59,20 @@ export class ActividadService {
 
   public onActivityclickchange(activity: Activity) {
     this.onActivityclick$.next(activity);
+  }
+
+
+  ////////////MY ACTIVITIES/////////////
+
+
+  getActivities(): Observable<Activity[]> {
+    return this.inActivities$.asObservable();
+  }
+  public ActivitiesChange(activity: Activity[]) {
+    this.inActivities$.next(activity);
+  }
+  checkActivities(activity: Activity[]){
+      this.ActivitiesChange(activity)
   }
 
 }
