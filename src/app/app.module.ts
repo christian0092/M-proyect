@@ -27,6 +27,8 @@ import { EventosService } from "./eventos/eventos.service";
 import { ActividadService } from "./eventos/actividad/actividad.service";
 import { VerificarCorreoService } from "./verificar-correo/verificar-correo.service";
 import {MSummitService} from "./services/m-summit.service"
+import {FileUploadClientServiceService} from "./services/file-upload-client-service.service"
+
 
 
 import { LoginComponent } from './login/login/login.component';
@@ -94,7 +96,8 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     VerificarCorreoService,
     ProfessionLevelsService,
     CountriesService, 
-    MSummitService
+    MSummitService,
+    FileUploadClientServiceService
   ],
   bootstrap: [AppComponent]
 })
