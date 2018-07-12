@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
   addProfile(){
     this.userService.Profile().subscribe(profile => {
           console.log(profile['data']);
-          this.userService.checkMyProfile(profile['data']);
+          this.userService.checkMyProfile();
 
     });
   }
