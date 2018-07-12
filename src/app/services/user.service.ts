@@ -70,12 +70,12 @@ export class UserService {
       //this.changeUserValues(this.dummyJson);
       //if(this.myProfile.tipo=="Persona"){
 
-      form.controls['user'].patchValue( {email:this.myProfile.email});
-      form.controls['user'].patchValue( {password_confirmation:this.user['password']});
-      form.controls['user'].patchValue( {password:this.user['password']});
-      form.controls['person'].patchValue( {name:this.user['name']});
-      form.controls['person'].patchValue( {surname:this.user['surname']})
-      form.controls['person'].patchValue( {document_number:this.user['document_type_id']})
+      form.controls['user'].patchValue( {email:this.myProfile.person.email});
+      form.controls['user'].patchValue( {password_confirmation:''});
+      form.controls['user'].patchValue( {password:''});
+      form.controls['person'].patchValue( {name:this.myProfile.person.name});
+      form.controls['person'].patchValue( {surname:this.myProfile.person.surname})
+      form.controls['person'].patchValue( {document_number:this.myProfile.person.document_number})
 
   //  }
       /*else if(this.myProfile.tipo=="Empresa"){
@@ -121,7 +121,7 @@ export class UserService {
   {const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
     return this.http.get(environment.apiUrl + 'persons/get', { headers: header })
-    .map((res: Response) =>new Profile().deserialize(res.json().data)
+    .map((res: Response) =>this.myProfile=new Profile().deserialize(res.json().data)
     //.map((profile: Profile) => new Profile().deserialize(Profile) )
     );
   ////////////////////////////--myDiary--//////////////////////////////////////////

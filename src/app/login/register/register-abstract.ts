@@ -99,7 +99,7 @@ export class RegisterAbstract implements OnInit {
       loginStatus=> this.getForm(loginStatus)
 
       )
-    //this.loginServices.isLogin();
+    this.loginServices.isLogin();
     this.registerServices.goBack().subscribe(
       data=>this.discardChanges())        
   }

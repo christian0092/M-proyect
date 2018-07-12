@@ -37,7 +37,7 @@ private MisEventIn$ = new Subject<Event[]>();
 
   misEvent(): Observable<Event[]> {
 
-    console.log('misEvent()');
+    //console.log('misEvent()');
 
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 

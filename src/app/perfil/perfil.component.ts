@@ -91,10 +91,9 @@ export class PerfilComponent implements OnInit {
       this.myProfile$.subscribe(
           profile => {
             this.myProfile = profile;
-            console.log("mira esto")
-            console.log( this.myProfile.interests)
+            //console.log("mira esto")
+            //console.log( this.myProfile.interests)
              this.person=this.myProfile.person;
-             this.myProfile.interests
 
 
       });
@@ -128,7 +127,7 @@ export class PerfilComponent implements OnInit {
   loadMisEvento(){
     this.eventosServices.misEvent().subscribe(events => {
           this.isMisEvent=events;
-          console.log(this.isMisEvent);
+          //console.log(this.isMisEvent);
           this.eventosServices.changeMisEventValue(events);
 
           if(this.isMisEvent.length>0){
@@ -144,7 +143,7 @@ export class PerfilComponent implements OnInit {
   loadEvento(){
     this.eventosServices.getEvent().subscribe(events => {
           this.evento = events[0];
-          console.log(this.evento);
+          //console.log(this.evento);
           this.eventoAccounts = this.evento.accounts
 
           this.loadMiAgenda(this.evento.id);
@@ -161,7 +160,7 @@ export class PerfilComponent implements OnInit {
 
     this.actividadServices.checkActivity(data).subscribe(activities => {
           this.agenda = activities['data'];
-          console.log(this.agenda);
+          //console.log(this.agenda);
           this.actividadServices.checkActivities(this.agenda);
 
 
