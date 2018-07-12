@@ -26,11 +26,11 @@ export class MSummit2Component implements OnInit {
       	event_id:['1'],
       	query:['',Validators.required]})
 
-  	 
+
   	}
 
   ngOnInit() {
-  	 
+
   	this.setQueryForm()
   }
  isFieldValid(query:string){
@@ -42,26 +42,26 @@ export class MSummit2Component implements OnInit {
   	this.ok=false
   	this.queryForm.reset()
   	if(this.myProfile!=null){
-  	this.queryForm.patchValue({email:this.myProfile.email, name:this.myProfile.name, phone:this.myProfile.telefono})}
+  	this.queryForm.patchValue({email:this.myProfile.email, name:this.myProfile.name, phone:this.myProfile.person.phone})}
   	}
 
   onSubmit() {
-    
+
       if (this.queryForm.valid) {
       	 this.send=true;
       	 this.error=false;
       this.mSummitServices.send(this.queryForm.value).subscribe(
           data => {
-           
-            if(data['status']){ 
+
+            if(data['status']){
              setTimeout(
-             	() => {this.ok=true}, 1000); 
+             	() => {this.ok=true}, 1000);
              	this.setQueryForm()
-             } else{ 
+             } else{
             this.error=true
-      		this.errorData=data['status']            
+      		this.errorData=data['status']
             }
-            
+
           });
       }else if(this.queryForm.valid==false){
       	this.error=true
