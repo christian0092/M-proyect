@@ -1,5 +1,6 @@
 import { StudyLevel } from '../models/study_level';
 import { Profession } from '../models/profession';
+import { Country } from '../models/country';
 import { Deserializable } from "./deserializable.model";
 
 export class Person implements Deserializable{
@@ -27,7 +28,7 @@ export class Person implements Deserializable{
             public user_id:string
             public study_level:StudyLevel
             public profession:Profession
-            public country:string
+            public country:Country
 
 
 
@@ -37,6 +38,7 @@ export class Person implements Deserializable{
 		Object.assign(this, input);
 		this.study_level = new StudyLevel().deserialize(input.study_level);
 		this.profession = new Profession().deserialize(input.profession);
+            this.country=new Country().deserialize(input.country)
 		return this;
 	}
 

@@ -26,10 +26,11 @@ export class LogoutComponent implements OnInit {
     //this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
     //this.userService.checkMyProfile();
 
-    this.myProfile$ = this.userService.getMyProfile();
+    this.myProfile$ = this.userService.getMyProfile2();
     this.myProfile$.subscribe(
         profile => {
           this.myProfile = profile;
+          console.log(this.myProfile.person.name)
           this.user=this.myProfile.person.name;
     });
 

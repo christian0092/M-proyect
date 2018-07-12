@@ -14,28 +14,28 @@
 				<div class="col-md-8" >
 					<div class="row" >
 						<div class="col-lg titulo" >
-							<h2>{{this.person?.name}}</h2>
+							<h2>{{person.name}}</h2>
 						</div>
 					</div>
 					<div class="row" >
 						<div class="col-md-4 datos" >
 							<p>
-								DNI:{{this.person?.document_number}}<br>
-								Fecha Nacimiento: {{this.person?.birth_date}}<br>
-								Email:{{this.person?.email}}<br>
-								Profesión: {{this.person?.profession.name}} <br>
-								Estudios: {{this.person?.study_level.name}} <br>
+								DNI:{{person.document_number}}<br>
+								Fecha Nacimiento: {{person.birth_date}}<br>
+								Email:{{person.email}}<br>
+								Profesión: {{person.profession.name}} <br>
+								Estudios: {{person.study_level.name}} <br>
 								<p>
 								</div>
 								<div class="col-md-4 datos" >
 									<p>
-										Teléfono:{{person?.phone}}<br>
-										País: {{person?.country}}<br>
-										Provincia: {{person?.province}}<br>
-										Localidad: {{person?.city}} <br>
+										Teléfono:{{person.phone}}<br>
+										País: {{person.country.name}}<br>
+										Provincia: {{person.province}}<br>
+										Localidad: {{person.city}} <br>
 										Código Postal: {{person?.postal_code}} <br>
-										Calle: {{person?.street}} N°: {{person?.number}}<br>
-										Piso: {{person?.floor}} Dto:{{person?.dept}}
+										Calle: {{person.street}} N°: {{person?.number}}<br>
+										Piso: {{person.floor}} Dto:{{person.dept}}
 										<p>
 										</div>
 										<div class="col-md-4 datos" >

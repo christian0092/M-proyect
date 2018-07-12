@@ -38,7 +38,7 @@ export class PerfilComponent implements OnInit {
   public myProfile:Profile;
   public myProfile$: Observable<Profile>;
 
-  public person:Person;
+  public person:Person=new Person();
 
   isMisEvent : Event[];
   //isMisEvent$: Observable<Event[]>;
@@ -87,10 +87,16 @@ export class PerfilComponent implements OnInit {
 
       });*/
 
-      this.myProfile$ = this.userService.getMyProfile();
+      this.myProfile$ = this.userService.getMyProfile2();
       this.myProfile$.subscribe(
           profile => {
             this.myProfile = profile;
+            console.log("mira esto")
+            console.log( this.myProfile.interests)
+             this.person=this.myProfile.person;
+             this.myProfile.interests
+
+
       });
 
       //this.userService.checkMyProfile();
@@ -115,7 +121,8 @@ export class PerfilComponent implements OnInit {
     }
   }
   loadMisDatos(){
-    this.person=this.myProfile.person;
+
+   
   }
 
   loadMisEvento(){

@@ -12,6 +12,8 @@ export class Profile implements Deserializable{
         public linkedin_id:string
         public confirmed:string
         public confirmation_code:string
+        public created_at:string
+        public updated_at:string
 				public person:Person
 				public organization:string
 				public interests: Interests[]

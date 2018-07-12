@@ -12,6 +12,7 @@ import { Observable, Subject  } from 'rxjs';
 
 
 
+
 @Injectable()
 export class UserService {
   ///////////////////////////////////Dummy Data///////////////////////////////////////////
@@ -105,8 +106,9 @@ export class UserService {
    getMyProfile():Observable<Profile>{
     return this.myProfileObservable$
   }
-  checkMyProfile(val:Profile){
-      this.changeMyProfile(val)
+  checkMyProfile(){
+    this.Profile().subscribe(data=>this.changeMyProfile(data))
+      
   }
   Profile(){
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
@@ -115,7 +117,13 @@ export class UserService {
     .map((response: Response) => response.json());
       //.map((res: Response) => res.json().data.map((profile: Profile) => new Profile().deserialize(profile)));
   }
+  getMyProfile2():Observable<Profile>
+  {const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
+    return this.http.get(environment.apiUrl + 'persons/get', { headers: header })
+    .map((res: Response) =>new Profile().deserialize(res.json().data)
+    //.map((profile: Profile) => new Profile().deserialize(Profile) )
+    );
   ////////////////////////////--myDiary--//////////////////////////////////////////
 
 }
