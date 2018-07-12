@@ -90,7 +90,7 @@ export class PerfilComponent implements OnInit {
       this.myProfile$ = this.userService.getMyProfile();
       this.myProfile$.subscribe(
           profile => {
-            this.myProfile = profile.person;
+            this.myProfile = profile;
       });
 
       //this.userService.checkMyProfile();
