@@ -108,7 +108,7 @@ export class UserService {
   }
   checkMyProfile(){
     this.Profile().subscribe(data=>this.changeMyProfile(data))
-      
+
   }
   Profile(){
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
@@ -125,25 +125,5 @@ export class UserService {
     //.map((profile: Profile) => new Profile().deserialize(Profile) )
     );
   ////////////////////////////--myDiary--//////////////////////////////////////////
-
 }
- /*interface user {
-         name:string,
-        surname:string,
-        birth_date:Date,
-        document_number:string,
-        phone:string,
-        cellphone::string,
-        email:string,
-        document_type_id: Int16Array,
-        study_level_id:Int16Array,
-        country_id:Int16Array,
-        province_id:Int16Array,
-        city_id:Int16Array,
-        user_id:Int16Array,
-        postal_code:Int16Array
-    }
-    interface userInterface {
-         name:string,
-
-    }*/
+}
