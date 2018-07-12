@@ -50,7 +50,7 @@
 						<div class="col-lg" >
 							<div style="float:right" >
 								<button type="button" class="btn btn-dark disabled" data-dismiss="modal"(click)="resetSend()" >Cerrar</button>
-								<button *ngIf="isLogged && participaActividad" type="button" class="btn btn-danger" (click)="onAbandonar(actividad?.id)">Dejar de Participar</button>
+								<button *ngIf="isLogged && participaActividad" type="button" class="btn btn-danger" data-dismiss="modal" (click)="onAbandonar(actividad?.id)">Dejar de Participar</button>
 								<button *ngIf="isLogged && !participaActividad" type="button" class="btn btn-primary "   (click)="onParticipar(actividad?.id)">Participar</button>
 							</div>
 

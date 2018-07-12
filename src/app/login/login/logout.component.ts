@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import {UserService} from '../../services/user.service';
 import {Profile} from '../../models/profile'
+import { Observable,Subject } from 'rxjs';
 
 @Component({
   selector: 'app-logout',
@@ -12,6 +13,9 @@ export class LogoutComponent implements OnInit {
 
   user:String="Mi usuario";
 
+  myProfile:Profile;
+  myProfile$: Observable<Profile>;
+
 
   constructor(
     private loginService:LoginService, private userService:UserService
@@ -19,12 +23,19 @@ export class LogoutComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
-    this.userService.checkMyProfile(); 
-   
+    //this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
+    //this.userService.checkMyProfile();
+
+    this.myProfile$ = this.userService.getMyProfile();
+    this.myProfile$.subscribe(
+        profile => {
+          this.myProfile = profile;
+          this.user=this.myProfile.person.name;
+    });
+
   }
   logout(){
-    this.loginService.logout(); 
+    this.loginService.logout();
   }
 }
 function replacer(key, value) {
