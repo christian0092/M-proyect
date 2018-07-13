@@ -52,13 +52,13 @@
             <input formControlName="name" class="form-control" type="text" placeholder="Nombre (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.name')">Debes agregar su nombre.</div>
             <input formControlName="surname" type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido (*)"
-              ngModel>
+            ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.surname')">* Debes agregar su apellido</div>
             <input formControlName="document_number" type="text" class="form-control" id="dni" name="dni" placeholder="DNI (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.document_number')">Debes agregar su documento.</div>
             <input formControlName="birth_date" type="text" onfocus="(this.type='date')" id="date" class="form-control" id="fechaDeNacimiento" name="fechaDeNacimiento" placeholder="Fecha de nacimiento (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldPattern('person.birth_date') || isFieldBirthDate('person.birth_date')">La fecha elegida no es válida.</div>
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">Debes agregar su fecha de nacimiento.</div>            
+            <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">Debes agregar su fecha de nacimiento.</div>
             <select formControlName="profession_id" class="form-control" id="empleo">
               <option [ngValue]="null">Seleccione su profesión</option>
               <option *ngFor="let value of professionLevels" [value]="value.id">{{ value.name }}
@@ -86,10 +86,10 @@
               </option>
             </select>
             <input formControlName="province" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia"
-              ngModel>
+            ngModel>
             <input formControlName="city" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad" ngModel>
             <input formControlName="postal_code" type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal"
-              ngModel>
+            ngModel>
             <input formControlName="street" type="text" class="form-control" id="calle" name="calle" placeholder="Calle" ngModel>
             <div class="form-row">
               <div class="col">
@@ -124,11 +124,15 @@
               </div>
             </div>
             -->
+            <div class="row" *ngIf="listaIntereses.length<1" >
+              <div class="col-md-5"></div>
+              <div class="col-md-2 "><i class="fa fa-spinner fa-spin fa-fw" ></i></div>
+              <div class="col-md-5"></div>
+            </div>
             <div formArrayName="interests" *ngFor="let interest of this.formulario.controls['person']['controls']['interests']['controls']; let i = index;">
               <span formGroupName="{{i}}">
                 <input type="checkbox" formControlName="checked"> {{interest.value.label}}
               </span>
-
             </div>
           </div>
           <div class="col-md-5" style="margin-top:10px">
@@ -144,6 +148,11 @@
                 </span>
               </div>
             </div>-->
+             <div class="row" *ngIf="this.listaSocial.length<1" >
+              <div class="col-md-5"></div>
+              <div class="col-md-2 "><i class="fa fa-spinner fa-spin fa-fw" ></i></div>
+              <div class="col-md-5"></div>
+            </div>
             <div formGroupName="accounts" style="width:100%">
               <div *ngFor="let social of this.formulario.controls['person']['controls']['accounts']['controls']; let i = index;">
                 <span formGroupName="{{i}}">
@@ -155,8 +164,6 @@
                   </div>
                 </span>
               </div>
-
-
             </div>
           </div>
         </div>

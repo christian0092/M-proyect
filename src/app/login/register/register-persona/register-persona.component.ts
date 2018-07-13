@@ -9,7 +9,7 @@ import { StudyLevel } from '../../../models/study_level';
 import { StudyLevelsService } from '../../../services/study-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
 import { UserService } from '../../../services/user.service';
-import { passwordConfirming, passwordMatchValidator, validateAllFormFields } from '../../../customValidators/customValidators';
+import { passwordConfirming, passwordMatchValidator, validateAllFormFields, trueCheck } from '../../../customValidators/customValidators';
 import { onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import { RegisterAbstract } from '../register-abstract';
 import { ProfessionLevelsService } from '../../../services/profession-levels.service';
@@ -155,7 +155,7 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         postal_code: [null],
         floor: [null],
         dept: [null],
-        terms: [null, Validators.required],
+        terms: [null, Validators.compose([Validators.required, trueCheck])],
         share_data: [true, Validators.required],
         //interests: this.allInterests,
         interests: this.fp.array([]),

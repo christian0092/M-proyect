@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Socials } from '../../../models/socials';
-import { passwordConfirming, passwordMatchValidator, validateAllFormFields } from '../../../customValidators/customValidators';
+import { passwordConfirming, passwordMatchValidator, validateAllFormFields, trueCheck } from '../../../customValidators/customValidators';
 import { onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import { UserService } from '../../../services/user.service';
 import { RegisterService } from '../register.service';
@@ -87,7 +87,7 @@ export class RegisterEmpresaComponent extends RegisterAbstract implements OnInit
         contact_phone: [null, Validators.required],
         interests: this.fp.array([]),
         accounts: this.fp.array([]),
-        terms: [null, Validators.required]
+        terms: [null, Validators.compose([trueCheck,Validators.required]) ]
         /*surname: [null, Validators.required],
         birth_date: [null, Validators.required],
         document_number: [null, Validators.required],
