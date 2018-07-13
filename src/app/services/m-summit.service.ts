@@ -18,7 +18,8 @@ private header = new Headers();
   //  this.header.append('Authorization', 'Bearer ' + localStorage.getItem('userToken')['access_token']);
     return this.http.get(
       environment.apiUrl + 'partnerContact', { headers: this.header, search: data }
-    ).map((response: Response) => response.json());
+    ).map((response: Response) => response.json())
+    .catch((Error:any)=>Observable.throw(Error.json()))
   }
 
 }

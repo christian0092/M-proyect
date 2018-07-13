@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../../../services/login.service';
 import { Socials } from '../../../models/socials';
-import { passwordConfirming, passwordMatchValidator,validateAllFormFields} from '../../../customValidators/customValidators';
-import {  onSubmitAbstract, resetAbstract } from '../registerDecorator';
-import {UserService} from '../../../services/user.service';
+import { passwordConfirming, passwordMatchValidator, validateAllFormFields } from '../../../customValidators/customValidators';
+import { onSubmitAbstract, resetAbstract } from '../registerDecorator';
+import { UserService } from '../../../services/user.service';
 import { RegisterService } from '../register.service';
 import { RegisterAbstract } from '../register-abstract';
 import { StudyLevelsService } from '../../../services/study-levels.service';
@@ -18,7 +18,7 @@ import { CountriesService } from '../../../services/countries.service';
   templateUrl: './register-empresa.component.html',
   styleUrls: ['./register-empresa.component.css']
 })
-export class RegisterEmpresaComponent  extends RegisterAbstract implements OnInit {
+export class RegisterEmpresaComponent extends RegisterAbstract implements OnInit {
 /*
   
   formulario_empresa: FormGroup;
@@ -48,44 +48,44 @@ export class RegisterEmpresaComponent  extends RegisterAbstract implements OnIni
      error:boolean;
      isLogged:boolean;
 
-  */constructor( fp: FormBuilder,
+  */constructor(fp: FormBuilder,
     loginServices: LoginService,
-     registerServices: RegisterService,
-     studyLevelsService: StudyLevelsService,
+    registerServices: RegisterService,
+    studyLevelsService: StudyLevelsService,
     accountService: AccountsService,
-    userService:UserService,
+    userService: UserService,
     professionLevelsService: ProfessionLevelsService,
-    countriesService:CountriesService
-   ) {
-    super( fp, loginServices,registerServices, studyLevelsService,
-    accountService,
-    userService, professionLevelsService, countriesService)
+    countriesService: CountriesService
+  ) {
+    super(fp, loginServices, registerServices, studyLevelsService,
+      accountService,
+      userService, professionLevelsService, countriesService)
 
-      }
+  }
 
-      createForm(){
-     this.formulario = this.fp.group({
-      organization: this.fp.group({
+  createForm() {
+    this.formulario = this.fp.group({
+      user: this.fp.group({
         email: [null, Validators.compose([Validators.required, Validators.email])],
         password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
         password_confirmation: [null, Validators.compose([Validators.required, passwordConfirming])],
       }),
-      person: this.fp.group({
+      organization: this.fp.group({
         name: [null, Validators.required],
-        phone: [null, Validators.required],
+        phone: [null, Validators.compose([Validators.required, Validators.pattern(this.mobnumPattern)])],
         country_id: [null, Validators.required],
         province: [null],
         city: [null, Validators.required],
         street: [null, Validators.required],
-        number: [null,Validators.required],
-        postal_code: [null],  
+        number: [null, Validators.required],
+        postal_code: [null],
         floor: [null],
         dept: [null],
         share_data: [true],
-        avatar:[null],
-        contact_name:[null,Validators.required],
-        contact_phone:[null,Validators.required],
-         interests: this.fp.array([]),
+        avatar: [null],
+        contact_name: [null, Validators.required],
+        contact_phone: [null, Validators.required],
+        interests: this.fp.array([]),
         accounts: this.fp.array([]),
         terms: [null, Validators.required]
         /*surname: [null, Validators.required],
@@ -96,59 +96,83 @@ export class RegisterEmpresaComponent  extends RegisterAbstract implements OnIni
          document_type_id:1*/})
     }, { validators: passwordMatchValidator });
   }
-    /* addIterestItem(id: string, name: string): void {
-    var item = this.formulario.controls['interests'] as FormArray;
-    item.push(this.newIterestItem(id, name));    
-  }*/
-/*addAccountItem(id: string, name: string, imagen: string): void {
-    var item = this.formulario.controls['accounts'] as FormArray;
-    item.push(this.newAccountItem(id, name, imagen));  
-    //console.log(imagen);  
-  }*/
+  /* addIterestItem(id: string, name: string): void {
+  var item = this.formulario.controls['interests'] as FormArray;
+  item.push(this.newIterestItem(id, name));    
+}*/
+  /*addAccountItem(id: string, name: string, imagen: string): void {
+      var item = this.formulario.controls['accounts'] as FormArray;
+      item.push(this.newAccountItem(id, name, imagen));  
+      //console.log(imagen);  
+    }*/
   onSiguiente() {
-
-      switch(this.formPage){
-        case 0:
-
-          if (this.formulario.get('organization.email').valid  && this.formulario.get('organization.password').valid && this.formulario.get('organization.password_confirmation').valid && this.formulario.get('organization.password').value==this.formulario.get('organization.password_confirmation').value) {
-
-            this.formPage++;
-            this.searchPage();
-            this.error=false;
-            break;
-          }
-          else{
+    this.formSubmitAttempt = true;
+    switch (this.formPage) {
+      case 0:
+        if (this.formulario.get('user.email').valid &&
+          this.formulario.get('user.password').valid &&
+          this.formulario.get('user.password_confirmation').valid &&
+          this.formulario.get('user.password').value == this.formulario.get('user.password_confirmation').value) {
+          this.formPage++;
+          this.searchPage();
+          this.error = false;
+          this.formSubmitAttempt = false;
+          break;
+        }
+        else {
           this.getForm(this.isLogged)
-            this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
+          this.errorInfo = "Compruebe que no haya errores y vuelva a intentarlo";
+          this.error = true;
+          break;
+        }
+      case 1:
+        if (this.formulario.get('organization.name').valid &&
+          this.formulario.get('organization.phone').valid &&
+          this.formulario.get('organization.country_id').valid &&
+          this.formulario.get('organization.city').valid &&
+          this.formulario.get('organization.contact_name').valid &&
+          this.formulario.get('organization.contact_phone').valid &&
+          !(this.formulario.get('organization.street').value != "" && this.formulario.get('organization.number').value == "")
+        ) {
+          this.formPage++;
+          this.searchPage();
+          this.error = false;
+          this.formSubmitAttempt = false;
+          break;
+        }
+        else {
+          if (this.formulario.get('organization.street').value != "" && this.formulario.get('organization.number').value == "") {
+            this.errorInfo = "Especifique la altura de la calle en el campo correcto";
             this.error = true;
-            break;
+          } else {
+            this.errorInfo = "Compruebe que no haya errores y vuelva a intentarlo";
+            this.error = true;
           }
-        case 1:
-        if (this.formulario.get('person.name').valid  && this.formulario.get('person.phone').valid ) {
+          break;
+        }
+      case 2:
+        if (this.checkSomeInterest()) {
           this.formPage++;
           this.searchPage();
-          this.error=false;
+          this.error = false;
+          this.formSubmitAttempt = false;
           break;
         }
-        else{
-          this.error=true;
+        else {
+          this.errorInfo = "Tilde al menos un interés";
+          this.error = true;
           break;
         }
-        case 2:
-        if (this.formulario.get('person.contact_name').valid  && this.formulario.get('person.contact_phone').valid ) {
-          this.formPage++;
-          this.searchPage();
-          this.error=false;
-          break;
-        }
-        else{
-          this.error=true;
-          break;
-        }
-      }
-
+      case 3:
+        this.formPage++;
+        this.searchPage();
+        this.error = false;
+        this.formSubmitAttempt = false;
+        break;
     }
-      }
+
+  }
+}
 
 
 

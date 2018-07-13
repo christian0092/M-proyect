@@ -16,55 +16,88 @@ export class MSummitComponent implements OnInit {
 	formTemplate:FormGroup;
 	public loading: boolean = false;
 	file:File;
+  file2:File
+  errorInfo:string='Se produjo un error inesperado'
+  success:boolean=false
 	public noError:Boolean;
 	public send:Boolean=false;
 
  @ViewChild('fileInput') fileInput: ElementRef;
   constructor(private fb: FormBuilder, private fileUploadService:FileUploadClientServiceService) {
    this.formTemplate=fb.group({
-  		template:['',Validators.compose([Validators.required])]})}
+      tittle:['',Validators.compose([Validators.required])],
+      descriptionArea:['',Validators.compose([Validators.required])],
+      template:fb.group({
+        fileName:['',Validators.compose([Validators.required])],
+        fileType:['',Validators.compose([Validators.required])],
+        fileSyze:['',Validators.compose([Validators.required])],
+      })
+    })}
 
   ngOnInit() {
+    this.noError=true
   }
 
   onFileChange(event) {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
      this.file = event.target.files[0];
-     }
+     //this.file2=event.target.files[1];
+     
     this.formTemplate.get('template').setValue({
-          filename: this.file.name,
-          filetype: this.file.type,
-          filesyze:this.file.size,
-          value: this.file
+          fileName: this.file.name,
+          fileType: this.file.type,
+          fileSyze:this.file.size,
         })
+      console.log(this.file.name)
+      console.log(this.file2.name)
         console.log(this.formTemplate);
-    }
+    }else{
+      this.noError=false
+      this.errorInfo="Se produjo un error al cargar, vuelva a intentarlo.."
+    }}
+      clearFile() {
+    this.formTemplate.reset()
+    this.file=null;
+    this.send=false;
+    this.success=false
+    this.noError=false;
+  }
 
 
   onSubmit() {
+    if(this.formTemplate.valid && this.file){
   	this.send=true;
-   const formModel = this.formTemplate.value;
+    this.noError=true
+   //const formModel = this.formTemplate.value;
     this.loading = true;
        this.fileUploadService.addfile(
                 this.file, 
                 this.formTemplate).subscribe(
-                    event=>{console.log(event)
+                    event=>{
+                      this.send=false
+                      this.success=true
                       this.loading=false
                       this.noError=true}, 
                     error=>{
+                       this.send=false
+                      this.success=false
                       this.noError=false;
-      this.loading = false;
-
+                      this.loading = false;
+                      this.errorInfo=error.message
                         console.log(error)
-                    });
+                    });}else if(this.formTemplate.invalid && this.file==null){
+                    this.loading=false
+                    this.noError=false
+                    this.errorInfo="Se produjo un error, compruebe que esta logueado y los campos estan completos"
+                }
 
   }
   	getNoError(){
   	return this.noError;
   }
   getSend(){
-  	return this.send;}
+  	return this.send;}}
 
      /* handleProgress(event){
     if (event.type === HttpEventType.DownloadProgress) {
@@ -84,13 +117,7 @@ export class MSummitComponent implements OnInit {
       }
     }*/
 
-  clearFile() {
-    this.formTemplate.get('template').setValue(null);
-    this.file=null;
-    this.send=false;
-    this.noError=false;
-  }
-}
+
 
   /*downloadFile() {
   return this.http
