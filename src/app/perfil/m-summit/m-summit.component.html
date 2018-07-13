@@ -1,28 +1,35 @@
 <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
-<div class="contenido" >
-	<div class="alert alert-info" *ngIf="getSend()">Enviando..</div>
-	<div class="alert alert-success" *ngIf="success">Archivo enviado correctamente!</div>
-	<div class="alert alert-danger" *ngIf="!getNoError()">{{errorInfo}}</div>
-	
+<div class="contenido" style="margin-top:15px">
+	<div class="conteiner">
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8">
+				<div class="alert alert-info" *ngIf="getSend()">Enviando..</div>
+				<div class="alert alert-success" *ngIf="success">Archivo enviado correctamente!</div>
+				<div class="alert alert-danger" *ngIf="!getNoError()">{{errorInfo}}</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
 	<form [formGroup]="formTemplate">
 		<div class="row">
 			<div class="col-md-2"></div>
 			<div class="col-md-4">
-				<div class="conteiner">
 					<input formControlName="tittle" type="text" class="form-control" id="mCoffeTittle" name="tittle" placeholder="Titulo"  ngModel>
 					<textarea formControlName="descriptionArea" class="form-control" id="descriptionArea" placeholder="Descripcion" rows="5" ngModel></textarea>
-				</div>
+
 			</div>
 			<div class="col-md-4">
-				<div class="conteiner">
+				<div>
 					<input type="file" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
-					<div></div>
-					<button type="submit" [disabled]="formTemplate.invalid || loading" class="btn btn-success" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
-					<button type="button" class="btn btn-danger"(click)="clearFile()">Cancelar</button>
+				</div>
+				<div style="margin-top:10px">
+					<button type="submit" [disabled]="formTemplate.invalid || loading" class="btn btn-primary" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+					<button type="button" class="btn btn-dark disabled"(click)="clearFile()">Cancelar</button>
 				</div>
 			</div>
 			<div class="col-md-2"></div>
 		</div>
-		{{formTemplate.value | json}}
+	<!--	{{formTemplate.value | json}} -->
 	</form>
+	</div>
 </div>

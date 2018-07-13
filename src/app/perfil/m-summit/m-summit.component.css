@@ -1,0 +1,8 @@
+.filestyle{
+  font-size: 15px;
+  border:solid 1px #c7c7c7;
+  border-radius: 4px 4px 4px 4px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+
+}
