@@ -1,0 +1,26 @@
+/*.titulo {
+  font-size: 30px;
+  color: #2057a2;
+}*/
+.titulo p{
+  font-size: 16px;
+  text-align: justify;
+  /*margin-top: 15px;*/
+}/*
+.datos p{
+  font-size: 15px;
+  margin-top: 15px;
+}*/
+.titulo h4{
+  /*margin-top: 15px; */
+  color: #2057a2;
+}
+
+.titulo h5{
+  /*margin-top: 15px;  */
+  color: #2057a2;
+}
+#summit_titulo{
+  font-size: 20px;
+  color: #2057a2;
+}
