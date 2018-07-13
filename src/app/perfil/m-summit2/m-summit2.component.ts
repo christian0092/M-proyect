@@ -77,7 +77,7 @@ export class MSummit2Component implements OnInit {
           },
           error =>{ this.send=false
                     this.error=true
-                    this.errorData=error.message
+                    this.errorData=error['type']
                     console.log(error)
                     }
           );
