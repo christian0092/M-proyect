@@ -10,8 +10,10 @@
 					<div class="row" >
 						<div class="col-lg " >
 
-							<div class="row" style="margin-top:15px;margin-left:1px">
-									<div class="titulo">{{person?.name}} {{person?.surname}}</div><div  *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil"></span></a></div>
+							<div class="row" style="margin-top:15px;">
+									<div class="col-lg">
+										<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left" *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil"></span></a></div>
+									</div>
 							</div>
 						</div>
 					</div>
@@ -67,10 +69,12 @@
 							<div class="row">
 								<div class="col-md-3 float-left" >
 									<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
-									<div class="row" style="margin-top:20px;margin-left:1px">
+									<div class="row" style="margin-top:20px">
+										<div class="col-lg">
 											<div *ngFor="let account of eventoAccounts">
 												<a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
 											</div>
+										</div>
 									</div>
 
 								</div>
@@ -191,7 +195,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-5"  >
+							<div class="col-md-5"   >
 							</div>
 							<div class="col-md-2"  >
 								<button type="button" class="btn btn-primary" id="boton_grande" (click)="verAgendaCompleta()" >Ver Agenda Completa</button>
@@ -234,15 +238,22 @@
 						</div>
 					</div>
 				</div>
-				<msummit></msummit>
+
 				<div class="contenido">
 					<div class="container"  style="">
-						<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#mSummitModal">M-Summit</button>
-						<modal-coffee></modal-coffee>
-						
-						<m-summitDisplay [myProfile]="myProfile"></m-summitDisplay>
+
+						<msummit></msummit>
+
+					<!--	<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#mSummitModal">M-Summit</button>
+-->
+<m-summitDisplay></m-summitDisplay>
+						<!--<m-summitDisplay [myProfile]="myProfile"></m-summitDisplay>-->
 					</div>
 				</div>
+
+
 			</div>
+
+			<modal-coffee></modal-coffee>
 			<app-register></app-register>
 			<app-actividad [participaActividad]="true" [subscripto]="true"></app-actividad>
