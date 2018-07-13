@@ -5,6 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import {isFieldValidation} from '../../login/register/registerDecorator'
 import { MSummitService} from '../../services/m-summit.service'
 import {UserService} from '../../services/user.service'
+import {FileServiceService}from'../../services/file-service.service'
+
 
 
 @Component({
@@ -20,7 +22,7 @@ export class MSummit2Component implements OnInit {
 	errorData:string=''
 	ok:boolean=false
 
-  constructor(private fb:FormBuilder, private mSummitServices:MSummitService, private userService:UserService) {
+  constructor(private fb:FormBuilder, private mSummitServices:MSummitService, private userService:UserService, private fileServices:FileServiceService) {
   	this.queryForm=fb.group({
   		email:['',Validators.compose([Validators.required,Validators.email])],
   		name:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(41)])],
@@ -30,7 +32,9 @@ export class MSummit2Component implements OnInit {
 
 
   	}
-
+    download(){
+      this.fileServices.downloadFile()
+    }
   ngOnInit() {
 
   	this.setQueryForm()
