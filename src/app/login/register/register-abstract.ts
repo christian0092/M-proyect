@@ -1,5 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS , AbstractControl} from '@angular/forms';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS, AbstractControl } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Interests } from '../../models/interests';
 import { Socials } from '../../models/socials';
@@ -12,29 +12,24 @@ import { StudyLevelsService } from '../../services/study-levels.service';
 import { ProfessionLevelsService } from '../../services/profession-levels.service';
 import { CountriesService } from '../../services/countries.service';
 import { AccountsService } from '../../services/accounts.service';
-import {UserService} from '../../services/user.service';
-import { passwordConfirming, passwordMatchValidator, validateAllFormFields} from '../../customValidators/customValidators';
+import { UserService } from '../../services/user.service';
+import { passwordConfirming, passwordMatchValidator, validateAllFormFields } from '../../customValidators/customValidators';
 import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
- import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Observable'
+import { getLocaleDateFormat } from '@angular/common';
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
 
-  countries:Countries[]
+  countries: Countries[]
   listaIntereses: Interests[] = [];
   allInterests: FormArray = new FormArray([]);
   studyLevels: StudyLevel[];
   professionLevels: ProfessionLevel[]
-  listaSocial: Socials[] = [
-  /*  new Socials('1', 'Facebook', 'fa fa-facebook'),
-    new Socials('2', 'Twitter', 'fa fa-twitter'),
-    new Socials('3', 'Instagram', 'fa fa-instagram'),
-    new Socials('4', 'Youtube', 'fa fa-youtube'),
-    new Socials('5', 'Linkedin', 'fa fa-linkedin')*/
-  ]
+  listaSocial: Socials[] = []
 
   formulario: FormGroup;
-   formSubmitAttempt: boolean;
+  formSubmitAttempt: boolean;
   formPage;
   esRegistroUsuario: boolean;
   esRegistroPersonales: boolean;
@@ -47,9 +42,15 @@ export class RegisterAbstract implements OnInit {
   esCancelar: boolean;
   send: boolean;
   error: boolean;
-  success:boolean;
-  errorInfo:string;
-  isLogged:boolean;
+  success: boolean;
+  errorInfo: string;
+  isLogged: boolean;
+
+  maxDate: Date = new Date();
+  minDate: Date = new Date();
+
+  mobnumPattern = "^((\\+?[0-9]{2,3}-?))?[0-9]{3,5}[-]{0,1}[0-9]{3,8}$";
+  datePattern = "^[0-9]{4}-[0-9]{2}-[0-9]{2}$";
 
   constructor(
     protected fp: FormBuilder,
@@ -57,7 +58,7 @@ export class RegisterAbstract implements OnInit {
     private registerServices: RegisterService,
     private studyLevelsService: StudyLevelsService,
     private accountService: AccountsService,
-    private userService:UserService,
+    private userService: UserService,
     private professionLevelsService: ProfessionLevelsService,
     private countriesService: CountriesService
   ) {
@@ -68,20 +69,12 @@ export class RegisterAbstract implements OnInit {
     this.loadInterests();
     this.loadAccounts();
     this.createForm();
-    /*let allSocials: FormArray = new FormArray([]);
-    for (let i = 0; i < this.listaSocial.length; i++) {
-      let fg = new FormGroup({});
-      fg.addControl(this.listaSocial[i].name, new FormControl());
-      allSocials.push(fg);
-    }*/
+  }
 
-    
-  }
-  createForm(){
-   
-  }
+  createForm() { }
 
   ngOnInit() {
+    this.minDate.setFullYear(this.minDate.getFullYear()-100); 
     this.loadStudyLevels()
     this.loadProfessionLevels()
     this.loadCountries()
@@ -95,34 +88,42 @@ export class RegisterAbstract implements OnInit {
     this.esRegistroPersonales = false;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
-    this.loginServices.isLogin$().subscribe(
-      loginStatus=> this.getForm(loginStatus)
-
-      )
+    this.loginServices.isLogin$().subscribe(loginStatus => this.getForm(loginStatus))
     //this.loginServices.isLogin();
     this.registerServices.goBack().subscribe(
-      data=>this.discardChanges())        
+      data => this.discardChanges())
   }
 
-  discardChanges(){
-  this.getForm(this.isLogged);
-  this.formPage=0;
-  this.searchPage();
-  this.error=false;
-  this.send=false;
+  discardChanges() {
+    this.getForm(this.isLogged);
+    this.formPage = 0;
+    this.searchPage();
+    this.error = false;
+    this.send = false;
   }
-  ngAfterviewInit(){
+  ngAfterviewInit() {
   }
 
-  getForm(isLogged){
-    this.isLogged=isLogged
-    console.log(this.isLogged)
-    if(this.isLogged){
-      this.formulario=this.userService.getForm(this.formulario);
-    }else{
+  checkSomeInterest(): boolean {
+    var name = 'person'
+    if (this.formulario.controls['organization'])
+      name = 'organization'
+    for (let interest of this.formulario.controls[name]['controls']['interests']['controls']) {
+      if (interest.value.checked === true)
+        return true;
+    };
+    return false;
+  }
+
+  getForm(isLogged) {
+    this.isLogged = isLogged
+    if (this.isLogged) {
+      this.formulario = this.userService.getForm(this.formulario);
+    } else {
       this.formulario.reset();
     }
   }
+
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
       levels => { this.studyLevels = levels.data },
@@ -130,19 +131,19 @@ export class RegisterAbstract implements OnInit {
     );
   }
 
-  loadProfessionLevels(){
+  loadProfessionLevels() {
     this.professionLevelsService.getProfessionLevels().subscribe(
       levels => { this.professionLevels = levels.data },
       err => { console.log(err); }
     );
   }
-  loadCountries(){
+
+  loadCountries() {
     this.countriesService.getCountries().subscribe(
       levels => { this.countries = levels.data },
       err => { console.log(err); }
     );
   }
-
   newIterestItem(id: string, name: string): FormGroup {
     return this.fp.group({
       checked: false,
@@ -152,8 +153,11 @@ export class RegisterAbstract implements OnInit {
   }
 
   addIterestItem(id: string, name: string): void {
-    var item = this.formulario.controls['person']['controls']['interests'] as FormArray;
-    item.push(this.newIterestItem(id, name));    
+    var namefield = 'person'
+    if (this.formulario.controls['organization'])
+      namefield = 'organization'
+    var item = this.formulario.controls[namefield]['controls']['interests'] as FormArray;
+    item.push(this.newIterestItem(id, name));
   }
 
   loadInterests() {
@@ -162,15 +166,8 @@ export class RegisterAbstract implements OnInit {
         if (data['success']) {
           this.listaIntereses = data['data'];
           for (let i = 0; i < this.listaIntereses.length; i++) {
-          /*  let fg = new FormGroup({});
-            fg.addControl(this.listaIntereses[i].name, new FormControl(false));
-            this.allInterests.push(fg);*/
             this.addIterestItem(this.listaIntereses[i].id, this.listaIntereses[i].name);
           }
-          //console.log(this.formulario.controls['person']);
-          //console.log(this.formulario.controls['person']['controls']['items']['controls']);
-        } else {
-          console.log("error");
         }
       }
     );
@@ -185,31 +182,25 @@ export class RegisterAbstract implements OnInit {
     });
   }
 
-  
-
   loadAccounts() {
     this.accountService.getAccounts().subscribe(
       data => {
         if (data['success']) {
-          this.listaSocial = data['data'];         
+          this.listaSocial = data['data'];
           for (let i = 0; i < this.listaSocial.length; i++) {
-          /*  let fg = new FormGroup({});
-            fg.addControl(this.listaIntereses[i].name, new FormControl(false));
-            this.allInterests.push(fg);*/
             this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name);
           }
-          //console.log(this.formulario.controls['person']);
-          //console.log(this.formulario.controls['person']['controls']['items']['controls']);
-        } else {
-          console.log("error");
         }
       }
     );
   }
+
   addAccountItem(id: string, name: string, imagen: string): void {
-    var item = this.formulario.controls['person']['controls']['accounts'] as FormArray;
-    item.push(this.newAccountItem(id, name, imagen));  
-    //console.log(imagen);  
+    var namefield = 'person'
+    if (this.formulario.controls['organization'])
+      namefield = 'organization'
+    var item = this.formulario.controls[namefield]['controls']['accounts'] as FormArray;
+    item.push(this.newAccountItem(id, name, imagen));
   }
 
   searchPage() {
@@ -254,87 +245,99 @@ export class RegisterAbstract implements OnInit {
   }
 
   onCancelar() {
-    console.log("cierro");
     this.reset();
   }
 
   onAnterior() {
-    if(this.formPage>0){
-    this.formPage--;
-    this.searchPage();
-    this.error = false;}
-    else if(this.formPage==0){
-      
-
+    if (this.formPage > 0) {
+      this.formPage--;
+      this.searchPage();
+      this.error = false;
+    }
+    else if (this.formPage == 0) {
     }
   }
-
-  
 
   onSubmit() {
     this.formSubmitAttempt = true;
     if (this.formulario.valid) {
       this.send = true;
       this.error = false;
-      if(!this.isLogged){//registra si no esta logueado
-      this.loginServices.register(this.formulario.value).subscribe(
-        data => {
-          console.log(data)
-          if (data['success']) {
-            this.send =false
-            this.error = false;
-            this.success=true;
-           
-            setTimeout(() => {
-              this.reset();
-              this.registerServices.pushClose()
-             
-            }, 5000);
-                    
-            
-       
+      if (!this.isLogged) {//registra si no esta logueado
+        this.loginServices.register(this.formulario.value).subscribe(
+          data => {
+            if (data['success'] === true) {
+              this.send = false
+              this.error = false;
+              this.success = true;
 
-            /*console.error(data['message'])
-            this.send = false;
-            this.error=true
-            this.errorInfo=data['message'];*/
-          } else {
-            console.log(data['success'])
-            this.send = false;
-            this.error=true
-            this.errorInfo=data['message'];
+              setTimeout(() => {
+                this.reset();
+                this.registerServices.pushClose()
+              }, 5000);
             }
-          },error=>{
+          },
+          error => {
             this.send = false;
-            this.error=true
-           this.errorInfo=error;
-           console.log(error);
+            this.error = true;
+            var serverError = error['data'];
+            if (serverError['email']) {
+              this.errorInfo = serverError['email'];
+            }
+            if (serverError['password'] != null) {
+              this.errorInfo = serverError['password'];
+            }
           });
-      }else if(this.isLogged){
+      } else if (this.isLogged) {
         console.log("modificando usuario");
       }
     }
     else {
-      this.errorInfo="Compruebe que no haya errores y vuelva a intentarlo";
+      this.errorInfo = "Compruebe que no haya errores y vuelva a intentarlo";
       this.error = true;
       validateAllFormFields(this.formulario);
     }
-   //let obj={loginServices:this.loginServices,formSubmitAttempt:this.formSubmitAttempt,send:this.send,error:this.error,isLogged:this.isLogged}=onSubmitAbstract(this.formulario,this.loginServices, this.formSubmitAttempt,this.send,this.error,this.isLogged);
+    //let obj={loginServices:this.loginServices,formSubmitAttempt:this.formSubmitAttempt,send:this.send,error:this.error,isLogged:this.isLogged}=onSubmitAbstract(this.formulario,this.loginServices, this.formSubmitAttempt,this.send,this.error,this.isLogged);
   }
 
   isFieldValid(field: string) {
-   return (!this.formulario.get(field).valid && this.formulario.get(field).touched) ||
+    return (!this.formulario.get(field).valid && this.formulario.get(field).touched) ||
       (this.formulario.get(field).untouched && this.formSubmitAttempt) ||
       (this.formulario.get(field).untouched && this.formulario.get(field).touched);
-
   }
 
-  
+  isFieldRequired(field: string) {
+    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    return (this.formulario.get(field).errors.required && this.formulario.get(field).touched) || //si tiene error y lo toco
+      (this.formulario.get(field).untouched && this.formSubmitAttempt) || //
+      (this.formulario.get(field).untouched && this.formulario.get(field).touched);
+  }
+
+  isFieldMatchPass(pass: string, pass_confirmation:string) {    
+    if(this.formulario.get(pass_confirmation).errors == null) return false; //si no tiene errores    
+    return (!this.formulario.get(pass_confirmation).errors.required && this.formulario.get(pass_confirmation).touched && this.formulario.get(pass).value != this.formulario.get(pass_confirmation).value)      
+  }
+
+  isFieldPattern(field: string) {
+    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.pattern)//si tiene error y lo toco     
+  }
+
+  isFieldEmail(field: string) {
+    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.email)
+  }
+
+  isFieldBirthDate(field: string) {    
+    if(this.formulario.get(field).value == null) return false;
+    var year = new Date();
+    var value =  new Date(this.formulario.get(field).value)
+    return (this.formulario.get(field).touched && !(value.getFullYear() <= year.getFullYear() && value.getFullYear() >= (year.getFullYear() - 100)))
+  }
 
   reset() {
     this.formulario.reset();
     this.formSubmitAttempt = false;
-    //let obj={form:this.formulario,formSubmitAttempt:this.formSubmitAttempt}=resetAbstract(this.formulario,this.isFieldValid)
   }
 }
 

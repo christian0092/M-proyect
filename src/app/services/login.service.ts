@@ -81,8 +81,7 @@ export class LoginService {
       environment.apiUrl + 'register',
       data,
       { headers: header }
-    ).map((response: Response) => response.json())
-    //.catch((e: any) => Observable.throw(e)).map((res:any)=>res.json())
-    //.catch((Error:any)=>Observable.throw(Error.json().error)||"server error");
+    ).map((response: Response) => response.json())    
+    .catch((Error:any)=>Observable.throw(Error.json()));
   }
 }

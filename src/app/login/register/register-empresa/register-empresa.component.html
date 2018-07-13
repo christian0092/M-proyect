@@ -1,19 +1,20 @@
 <form [formGroup]="formulario">
   <div class="contenido" style="min-height:415px">
-   <div class="alert alert-info" *ngIf="send">Formulario enviado! Por favor espere..</div>
+    <div class="alert alert-info" *ngIf="send">Formulario enviado! Por favor espere..</div>
     <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
-      <div class="alert alert-success" *ngIf="success">Registro exitoso! Por favor revise su correo</div>
+    <div class="alert alert-success" *ngIf="success">Registro exitoso! Por favor revise su correo</div>
     <div [hidden]="!esRegistroUsuario">
       <div class="form-row" id="header_titulo">
         <legend>Paso 2: Usuario</legend>
       </div>
-      <div formGroupName="organization">
+      <div formGroupName="user">
         <div class="form-row" style="margin-top:40px">
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="email" type="email" class="form-control" id="email2" name="email" placeholder="Email"  ngModel>
-            <div class="alert alert-danger" *ngIf="isFieldValid('organization.email')">* Este campo es requerido</div>
+            <input formControlName="email" type="email" class="form-control" name="email" placeholder="Email (*)" ngModel>
+            <div *ngIf="isFieldRequired('user.email')" class="alert alert-danger">Debes agregar un correo electrónico.</div>
+            <div *ngIf="isFieldEmail('user.email')" class="alert alert-danger">El formato debe ser <i> nombre@dom.com </i>.</div>
           </div>
           <div class="col-md-3">
           </div>
@@ -22,8 +23,9 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña" ngModel>
-            <div class="alert alert-danger" *ngIf="isFieldValid('organization.password')">* Este campo es requerido</div>
+            <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña (*)"
+              ngModel>
+            <div class="alert alert-danger" *ngIf="isFieldValid('user.password')">Debes agregar una contraseña de entre 6-20 caracteres.</div>
           </div>
           <div class="col-md-3">
           </div>
@@ -32,76 +34,92 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Repite contraseña" ngModel>
-            <div class="alert alert-danger" *ngIf="isFieldValid('organization.password_confirmation')">* Este campo es requerido</div>
-            <!--<div class="alert alert-danger" *ngIf="this.formulario_persona.controls['password_confirmation'].value != this.formulario_persona.controls['password'].value && isFieldValid('user.pwd.password') && isFieldValid('user.pwd.password_confirmation')">* Las contraseñas no coinciden</div>-->
+            <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Confirma la contraseña (*)" ngModel>
+            <div *ngIf="isFieldRequired('user.password_confirmation')" class="alert alert-danger">Debes agregar una confirmación de contraseña.</div>
+            <div *ngIf="isFieldMatchPass('user.password', 'user.password_confirmation')" class="alert alert-danger">Las contraseñas no coinciden.</div>
           </div>
         </div>
         <div class="col-md-3">
         </div>
       </div>
     </div>
-    <div formGroupName="person">
+    <div formGroupName="organization">
       <div [hidden]="!esRegistroPersonales">
         <div class="form-row" id="header_titulo">
-          <legend>Paso 3: Datos Organizacion o Empresa</legend>
+          <legend>Paso 3: Datos de la Organización</legend>
         </div>
         <div class="form-row">
           <div class="col-md-6">
-            <input type="text" class="form-control" formControlName="name" placeholder="Nombre de organizacion o empresa" >
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.name')">* Este campo es requerido</div>
+            <input type="text" class="form-control" formControlName="name" placeholder="Nombre de la organización (*)">
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.name')">Debes agregar el nombre de la organización</div>
             <div class="form-row">
-              <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
-              <input type="text" class="form-control" style='width:91%' formControlName="phone" placeholder="#Pais#Caracteristica#Movil" >
-              <div class="alert alert-danger" *ngIf="isFieldValid('person.phone')">* Este campo es requerido</div>
+              <a class="btn-lg" style="padding:0px">
+                <span class="fa fa-whatsapp"></span>
+              </a>
+              <input type="text" class="form-control" style='width:91%' formControlName="phone" placeholder="Ej: +99-9999-999999 (*)">
+              <div *ngIf="isFieldRequired('organization.phone')" class="alert alert-danger">Debes agregar el teléfono.</div>
+              <div *ngIf="isFieldPattern('organization.phone')" class="alert alert-danger">Formato de teléfono inválido. Ej: +99-9999-999999 (los guiones pueden obviarse).</div>
+            </div>
+            <input type="text" formControlName="contact_name" class="form-control" placeholder="Nombre del contacto designado (*)">
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.contact_name')">Debe agregar el nombre del contacto.</div>
+            <div class="form-row">
+              <a class="btn-lg" style="padding:0px">
+                <span class="fa fa-whatsapp"></span>
+              </a>
+              <input type="text" class="form-control" style='width:91%' formControlName="contact_phone" placeholder="Ej: +99-9999-999999 (*)">
+              <div *ngIf="isFieldRequired('organization.contact_phone')" class="alert alert-danger">Debes agregar el teléfono.</div>
+              <div *ngIf="isFieldPattern('organization.contact_phone')" class="alert alert-danger">Formato de teléfono inválido. Ej: +99-9999-999999 (los guiones pueden obviarse).</div>
             </div>
           </div>
           <div class="col-md-6">
             <!--<input formControlName="country_id" type="text" class="form-control" placeholder="Pais" >-->
             <select formControlName="country_id" class="form-control" id="pais">
-              <option disabled selected="selected">Paises</option>
+              <option [ngValue]="null">Seleccione su país (*)</option>
               <option *ngFor="let value of countries" [value]="value.id">{{ value.name }}
               </option>
             </select>
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.country_id')">* Este campo es requerido</div>
-            <input formControlName="province" type="text" class="form-control" placeholder="Provincia" >
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.province')">* Este campo es requerido</div>
-            <input formControlName="city" type="text" class="form-control" placeholder="Localidad" >
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.city')">* Este campo es requerido</div>
-            <input formControlName="postal_code" type="text" class="form-control"  placeholder="Codigo postal" >
-            <input formControlName="street" type="text" class="form-control" placeholder="Calle" >
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.street')">* Este campo es requerido</div>
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.country_id')">Debe agregar el país.</div>
+            <input formControlName="province" type="text" class="form-control" placeholder="Provincia">
+            <!--<div class="alert alert-danger" *ngIf="isFieldValid('organization.province')">* Debe agregar el país (*)</div>-->
+            <input formControlName="city" type="text" class="form-control" placeholder="Localidad (*)">
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.city')">Debe agregar la localidad.</div>
+            <input formControlName="postal_code" type="text" class="form-control" placeholder="Codigo postal">
+            <input formControlName="street" type="text" class="form-control" placeholder="Calle (*)">
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.street')">Debe agregar la calle.</div>
             <div class="form-row">
-              <div class="col"><input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número" ></div>
-              <div class="col"><input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso" ></div>
-              <div class="col"><input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Departamento" ></div>
+              <div class="col">
+                <input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número (*)">
+              </div>
+              <div class="col">
+                <input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso">
+              </div>
+              <div class="col">
+                <input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Dpto">
+              </div>
             </div>
+            <div class="alert alert-danger" *ngIf="isFieldValid('organization.number')">Debe agregar la altura de la localidad.</div>
           </div>
         </div>
       </div>
+
+
       <div [hidden]="!esRegistroRedes">
         <div class="form-row" id="header_titulo">
-          <legend>Paso 4: Contacto y Redes Sociales</legend>
+          <legend>Paso 4: Intereses y Redes Sociales</legend>
         </div>
-        <div class="form-row">
-          <div class="col-md-6">
-            <input type="text" formControlName="contact_name"  class="form-control" placeholder="Nombre de contacto designado" >
-            <div class="alert alert-danger" *ngIf="isFieldValid('person.contact_name')">* Este campo es requerido</div>
-            <div class="form-row">
-              <a class="btn-lg" style="padding:0px"><span class="fa fa-whatsapp"></span></a>
-              <input type="text" class="form-control" style='width:91%' formControlName="contact_phone" placeholder="#Pais#Caracteristica#Movil del contacto" >
-              <div class="alert alert-danger" *ngIf="isFieldValid('person.contact_phone')">* Este campo es requerido</div>
-            </div>
-            <div formArrayName="interests" *ngFor="let interest of this.formulario.controls['person']['controls']['interests']['controls']; let i = index;">
+        <div class="row">
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-5">
+            <div formArrayName="interests" *ngFor="let interest of this.formulario.controls['organization']['controls']['interests']['controls']; let i = index;">
               <span formGroupName="{{i}}">
                 <input type="checkbox" formControlName="checked"> {{interest.value.label}}
               </span>
-              
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-5" style="margin-top:10px">
             <div formGroupName="accounts" style="width:100%">
-              <div *ngFor="let social of this.formulario.controls['person']['controls']['accounts']['controls']; let i = index;">
+              <div *ngFor="let social of this.formulario.controls['organization']['controls']['accounts']['controls']; let i = index;">
                 <span formGroupName="{{i}}">
                   <div class="form-row">
                     <a class="btn-lg" style="padding:0px">
@@ -111,13 +129,12 @@
                   </div>
                 </span>
               </div>
-              
-              
             </div>
           </div>
         </div>
       </div>
-      <div [hidden]="!esRegistroCondiciones" >
+
+      <div [hidden]="!esRegistroCondiciones">
         <div class="form-row" id="header_titulo">
           <legend>Paso 5: Bases y Condiciones</legend>
         </div>
@@ -160,7 +177,7 @@
           </label>
         </div>
         <div class="form-row">
-          <div class="alert alert-danger" *ngIf="isFieldValid('person.terms')">* Se deben aceptar los términos y condiciones
+          <div class="alert alert-danger" *ngIf="isFieldValid('organization.terms')">* Se deben aceptar los términos y condiciones
           </div>
         </div>
       </div>
@@ -169,22 +186,21 @@
   <div class="contenido" style="min-height:60px">
     <div class="container">
       <div class="row">
-        <div class="col-md-2"  >
+        <div class="col-md-2">
           <!--<button *ngIf="esCancelar" class="btn btn-danger boton_grande"  (click)="onCancelar()" data-dismiss="modalRegistro" >Cancelar</button>-->
         </div>
-        <div class="col-md-6"  >
+        <div class="col-md-6">
         </div>
-        <div class="col-md-2 " >
-          <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande"  (click)="onAnterior()" >Anterior</button>
+        <div class="col-md-2 ">
+          <button *ngIf="esAnterior" class="btn btn-dark disabled boton_grande" (click)="onAnterior()">Anterior</button>
         </div>
-        <div class="col-md-2 " >
-          <button *ngIf="esSiguiente" class="btn btn-primary boton_grande" (click)="onSiguiente()" >Siguiente</button>
-          <button *ngIf="esFinalizar" class="btn btn-primary boton_grande"  (click)="onSubmit()" data-dismiss="modalRegistro" >Finalizar</button>
+        <div class="col-md-2 ">
+          <button *ngIf="esSiguiente" class="btn btn-primary boton_grande" (click)="onSiguiente()">Siguiente</button>
+          <button *ngIf="esFinalizar" class="btn btn-primary boton_grande" (click)="onSubmit()" data-dismiss="modalRegistro">Finalizar</button>
         </div>
       </div>
     </div>
   </div>
-  {{formulario.value | json}}
   <!--<div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cerrar</button>
     <div>
