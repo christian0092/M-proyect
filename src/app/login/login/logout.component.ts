@@ -31,7 +31,7 @@ export class LogoutComponent implements OnInit {
         profile => {
           this.myProfile = profile;
           console.log(this.myProfile.person.name)
-          this.user=this.myProfile.person.name;
+          this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
     });
 
   }

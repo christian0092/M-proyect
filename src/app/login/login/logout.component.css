@@ -3,11 +3,32 @@
     color: white;
 }
 .botonlogout:hover, .botonlogout:focus,.botonlogin.active, .botonlogout.dropdown-toggle:focus{
-    background-color: white; /* Green */
-    color: LightSeaGreen;
+    /*background-color: white;
+    color: LightSeaGreen;*/
+    	border: 3px double white;
 }
 .botonlogout:active{
-	background-color: white; /* Green */
-    color: LightSeaGreen;
-	border: 2px double LightSeaGreen;
+	/*background-color: white;
+    color: LightSeaGreen;*/
+	border: 3px double white;
+}
+
+.fa-login{
+  color:white;
+}
+.fa-login-2{
+  color:LightSeaGreen;
+  font-size:18px;
+}
+.botones{
+  font-size:15px;
+  text-decoration: none;
+  color:LightSeaGreen;
+
+}
+
+.botones:hover{
+  color:LightSeaGreen;
+  text-shadow: 0.5px 0.5px 0.5px grey;
+  /*font-weight:bold;*/
 }
