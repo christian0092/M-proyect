@@ -21,22 +21,25 @@
 	<form [formGroup]="formTemplate">
 		<div class="row">
 			<div class="col-md-1"></div>
-			<div class="col-md-6">
+			<div class="col-md-8">
 					<input formControlName="tittle" type="text" class="form-control" id="mCoffeTittle" name="tittle" placeholder="Titulo"  ngModel>
 					<textarea formControlName="descriptionArea" class="form-control" id="descriptionArea" placeholder="Descripcion" rows="5" ngModel></textarea>
+					<div style="">
+						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
+					</div>
+
 
 			</div>
-			<div class="col-md-4">
-				<div>
-					<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
-				</div>
-				<div style="margin-top:10px">
-					<button type="submit" [disabled]="formTemplate.invalid || loading" class="btn btn-primary" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
-					<button type="button" class="btn btn-dark disabled"(click)="clearFile()">Cancelar</button>
+			<div class="col-md-2" style="">
+
+				<div style="margin-top:10px;">
+					<button type="submit" id="boton_grande" [disabled]="formTemplate.invalid || loading" class="btn btn-primary" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+					<button type="button" id="boton_grande" class="btn btn-dark disabled"(click)="clearFile()">Cancelar</button>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
 		</div>
+
 	<!--	{{formTemplate.value | json}} -->
 	</form>
 	</div>
