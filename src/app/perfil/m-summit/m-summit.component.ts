@@ -61,7 +61,8 @@ export class MSummitComponent implements OnInit {
     this.file=null;
     this.send=false;
     this.success=false
-    this.noError=false;
+    this.noError=true;
+    this.fileInput.nativeElement.value=""
   }
 
 
