@@ -1,26 +1,26 @@
 <li class="dropdown order-3 ">
-    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn  dropdown-toggle botonlogin ">Login <span class="caret"></span></button>
+    <button type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn  dropdown-toggle botonlogin "><span class="fa fa-user-circle-o fa-login"></span>Login <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right mt-2">
-        <li class="px-3 py-2">
+        <li style="padding:15px;width:250px">
             <form class="form" role="form" (ngSubmit)="login(loginForm.value)" #loginForm="ngForm">
                 <div class="form-group">
                     <input id="username" name='username'  placeholder="Email" class="form-control form-control-sm" type="text" required="" ngModel>
                 </div>
                 <div class="form-group">
-                    <input id="password" type="password" name='password'  placeholder="Password" class="form-control form-control-sm"  required="" ngModel>
+                    <input id="password" type="password" name='password'  placeholder="Contraseña" class="form-control form-control-sm"  required="" ngModel>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    <button type="submit" class="btn btn-primary btn-block" >Login</button>
                 </div>
                 <div class="form-group text-center">
-                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Recuperar Password?</a></small>
+                    <span class="fa fa-unlock-alt fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalPassword" class="botones">¿Olvidaste tu Contraseña?</a></small>
                 </div>
                 <div class="form-group text-center">
-                    <small><a href="#" data-toggle="modal" data-target="#modalRegistro">Registrarse</a></small>
+                    <span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
                 </div>
-                <a class="btn btn-block btn-social btn-lg btn-linkedin">
+              <!--  <a class="btn btn-block btn-social btn-lg btn-linkedin">
                     <span class="fa fa-linkedin"></span> <small><a>Login con linkedin</a></small>
-                </a>
+                </a>-->
             </form>
         </li>
     </ul>

@@ -1,13 +1,37 @@
 .botonlogin {
-    background-color: #4CAF50; /* Green */
-    color: white;
+    background-color: white; /*#4CAF50; /* Green */
+    color: LightSeaGreen;
 }
 .botonlogin:hover, .botonlogin:focus,.botonlogin.active, .botonlogin.dropdown-toggle:focus{
-    background-color: white; /* Green */
-    color: #4CAF50;
+  /*  background-color: white;
+    color: #4CAF50;*/
+    	border: 3px double LightSeaGreen;
 }
 .botonlogin:active{
-	background-color: white; /* Green */
+	/*background-color: white;
     color: #4CAF50;
-	border: 2px double #4CAF50;
+	border: 2px double #4CAF50;*/
+
+  	border: 3px double LightSeaGreen;
+}
+
+.fa-login{
+  color:LightSeaGreen;
+}
+
+.fa-login-2{
+  color:LightSeaGreen;
+  font-size:18px;
+}
+.botones{
+  font-size:15px;
+  text-decoration: none;
+  color:LightSeaGreen;
+
+}
+
+.botones:hover{
+  color:LightSeaGreen;
+  text-shadow: 0.5px 0.5px 0.5px grey;
+  /*font-weight:bold;*/
 }
