@@ -33,8 +33,15 @@ export class RegisterComponent implements OnInit {
     this.isValidPersona = false;
     this.loginServices.isLogin$().subscribe(isLoggin=>this.checkType(isLoggin))
     this.loginServices.checkLogin();
-    this.userService.getMyProfile().subscribe(myProfile=> 
-    this.type=myProfile.tipo)
+    this.userService.getMyProfile2().subscribe(myProfile=>{ 
+        
+    if(myProfile.person!=null){
+      console.log("asigne persona")
+      this.type="Persona"}else if(myProfile.organization!=null){
+         console.log("asigne persona")
+        this.type="Empresa"
+      }}     )
+    
     this.userService.checkMyProfile();
     this.registerService.close().subscribe(data=>this.cerrar())
   }

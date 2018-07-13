@@ -88,8 +88,11 @@ export class RegisterAbstract implements OnInit {
     this.esRegistroPersonales = false;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
-    this.loginServices.isLogin$().subscribe(loginStatus => this.getForm(loginStatus))
-    //this.loginServices.isLogin();
+    this.loginServices.isLogin$().subscribe(
+      loginStatus=> this.getForm(loginStatus)
+
+      )
+    this.loginServices.isLogin();
     this.registerServices.goBack().subscribe(
       data => this.discardChanges())
   }

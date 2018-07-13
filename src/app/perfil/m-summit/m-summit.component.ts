@@ -1,6 +1,10 @@
 import { Component, OnInit,  ViewChild , ElementRef} from '@angular/core';
 import { Http, ResponseContentType } from '@angular/http';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FileUploadClientServiceService} from "../../services/file-upload-client-service.service"
+import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'msummit',
@@ -16,7 +20,7 @@ export class MSummitComponent implements OnInit {
 	public send:Boolean=false;
 
  @ViewChild('fileInput') fileInput: ElementRef;
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private fileUploadService:FileUploadClientServiceService) {
    this.formTemplate=fb.group({
   		template:['',Validators.compose([Validators.required])]})}
 
@@ -42,11 +46,18 @@ export class MSummitComponent implements OnInit {
   	this.send=true;
    const formModel = this.formTemplate.value;
     this.loading = true;
-    setTimeout(() => {
-      console.log(formModel);
-      this.noError=true;
+       this.fileUploadService.addfile(
+                this.file, 
+                this.formTemplate).subscribe(
+                    event=>{console.log(event)
+                      this.loading=false
+                      this.noError=true}, 
+                    error=>{
+                      this.noError=false;
       this.loading = false;
-    }, 1000);
+
+                        console.log(error)
+                    });
 
   }
   	getNoError(){
@@ -55,7 +66,23 @@ export class MSummitComponent implements OnInit {
   getSend(){
   	return this.send;}
 
+     /* handleProgress(event){
+    if (event.type === HttpEventType.DownloadProgress) {
+        this.loading =true
+        //this.uploadProgress = Math.round(100 * event.loaded / event.total)
+      }
 
+      if (event.type === HttpEventType.UploadProgress) {
+        this.loading =true
+        //this.uploadProgress = Math.round(100 * event.loaded / event.total)
+      }
+
+      if (event.type === HttpEventType.Response) {
+        // console.log(event.body);
+        this.loading = true
+        //this.serverResponse = event.body
+      }
+    }*/
 
   clearFile() {
     this.formTemplate.get('template').setValue(null);

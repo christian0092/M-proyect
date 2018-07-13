@@ -99,13 +99,16 @@ export class EventosComponent implements OnInit {
   }
 
   checkActivity(id){
-
+    this.participaActividad=false;
     this.actividadServices.checkActivity(this.evento.id).subscribe(
       data => {
         if (data['success']) {
 
           this.actividades=data['data'];
+
+          console.log('aacaa vaaaaa');
           console.log(this.actividades);
+          console.log(id);
 
           for(let act of this.actividades){
             if(act.id==id){
@@ -116,6 +119,8 @@ export class EventosComponent implements OnInit {
               this.participaActividad=false;
             }
           }
+          console.log(this.participaActividad);
+
         } else {
           console.log("error");
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { User } from '../../login/user.model';
-
+import {UserService} from '../../services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +11,8 @@ import { User } from '../../login/user.model';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private loginService:LoginService
+    private loginService:LoginService,
+    private userService:UserService,
   ) { }
 
   ngOnInit() {
@@ -21,7 +22,17 @@ export class LoginComponent implements OnInit {
     this.loginService.login(user).subscribe(
       data => {
         this.loginService.setLogin(data);
+        this.addProfile();
+
       },
       error =>  console.log(<any>error));
+  }
+
+  addProfile(){
+    this.userService.Profile().subscribe(profile => {
+          console.log(profile['data']);
+          this.userService.checkMyProfile();
+
+    });
   }
 }

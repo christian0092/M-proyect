@@ -1,3 +1,55 @@
-<p>
-  m-summit2 works!
-</p>
+<div class="modal fade" id="mSummitModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog  modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">M-Summit</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			
+			<div  class="modal-body">
+				<div class="contenido" >
+					
+					
+					<div class="jumbotron ">
+						<div class="container" >
+							<h1 >Descarga</h1>
+							<p>Datos relacionados a las descarga del template</p>
+							<p class="lead">
+								<a class="btn btn-primary btn-lg float-right" href="example.com/assets/eventos/asebal.jpg" download="asebal.jpg" role="button">Descargar template</a>
+							</p>
+						</div>
+			</div>
+						<div class="jumbotron">
+							<div class="container" >
+								<h1 >Sugerencias para exponer en el M-Summit</h1>
+								<p>Consejos para exponer en M-Summit</p>
+							</div>
+						</div>
+						<form [formGroup]="queryForm">
+							<div class="jumbotron">
+								<div class="container" >
+									<h1>Contacto para tu asesoramiento</h1>
+									
+									<div class="form-group">
+										<label for="exampleFormControlTextarea1">Consulta</label>
+										<div class="alert alert-danger" *ngIf="error">{{errorData}}</div>
+										<div class="alert alert-success" *ngIf="ok">Su consulta se a enviado!</div>
+										<textarea formControlName="query" class="form-control" id="exampleFormControlTextarea1" rows="3" ngModel></textarea>
+										<div class="alert alert-danger" *ngIf="isFieldValid('query')" >Debe introducir una consulta</div>
+									</div>
+									<p class="lead">
+										<button class="btn btn-primary btn-lg float-right " role="button" [disabled]="send" (click)="onSubmit()">Contactarme<i class="fa fa-spinner fa-spin fa-fw" *ngIf="send"></i></button></p>
+									</div>
+								</div>
+							</form>
+							
+						
+				</div></div>
+					{{queryForm.value | json}}
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="setQueryForm()" >Cerrar</button>
+					</div></div>
+				</div></div>

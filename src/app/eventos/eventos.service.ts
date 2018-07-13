@@ -23,9 +23,7 @@ private MisEventIn$ = new Subject<Event[]>();
   }
 
   participoEvent(id){
-    console.log('participoEvent()');
-    console.log(id);
-    console.log(this.MisEventIn);
+
     if(this.MisEventIn==null) return false
     for(let e of this.MisEventIn){
       if(e.id==id) return true;
@@ -39,7 +37,7 @@ private MisEventIn$ = new Subject<Event[]>();
 
   misEvent(): Observable<Event[]> {
 
-    console.log('misEvent()');
+    //console.log('misEvent()');
 
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
