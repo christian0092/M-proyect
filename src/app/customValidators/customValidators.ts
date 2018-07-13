@@ -14,7 +14,7 @@ export function passwordConfirming(c: AbstractControl): any {
   return g.get('password').value === g.get('passwordConfirm').value
     ? null : { 'mismatch': true };
 }
-export function   validateAllFormFields(formGroup: FormGroup) {
+export function validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
@@ -23,4 +23,13 @@ export function   validateAllFormFields(formGroup: FormGroup) {
         this.validateAllFormFields(control);
       }
     });
+  }
+  export function trueCheck(c: AbstractControl){
+     if(!c.parent || !c) return;
+        const check = c.parent.get('terms');
+        if(!check) return ;
+        if (check.value !== true) {
+            return { invalid: true };
+
+    }
   }
