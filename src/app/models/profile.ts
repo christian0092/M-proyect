@@ -16,7 +16,7 @@ export class Profile implements Deserializable{
         public created_at:string
         public updated_at:string
 				public person:Person
-				//public organization:Organization
+				public organization:Organization
 				public interests: Interests[]
         public accounts: Account[]
 
@@ -24,11 +24,15 @@ export class Profile implements Deserializable{
   ){}
 
 	deserialize(input: any) {
+		console.log(input)
 		Object.assign(this, input);
+		if(input.person=!null){
 		this.accounts = input.accounts.map((account: Account) => new Account().deserialize(account));
 		this.interests = input.interests.map((interests: Interests) => new Interests().deserialize(interests));
 		this.person = new Person().deserialize(input.person);
-		//this.organization = new Organization().deserialize(input.organization);
+		}
+		
+		this.organization = new Organization().deserialize(input.organization);
 		return this;
 	}
 }
