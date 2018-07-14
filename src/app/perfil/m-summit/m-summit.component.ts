@@ -25,12 +25,12 @@ export class MSummitComponent implements OnInit {
  @ViewChild('fileInput') fileInput: ElementRef;
   constructor(private fb: FormBuilder, private fileUploadService:FileUploadClientServiceService) {
    this.formTemplate=fb.group({
-      tittle:['',Validators.compose([Validators.required])],
-      descriptionArea:['',Validators.compose([Validators.required])],
-      template:fb.group({
-        fileName:['',Validators.compose([Validators.required])],
-        fileType:['',Validators.compose([Validators.required])],
-        fileSyze:['',Validators.compose([Validators.required])],
+     title: ['', Validators.compose([Validators.required])],
+      description: ['', Validators.compose([Validators.required])],
+      template: fb.group({
+        fileName: ['', Validators.compose([Validators.required])],
+        fileType: ['', Validators.compose([Validators.required])],
+        fileSize: ['', Validators.compose([Validators.required])],
       })
     })}
 
@@ -47,7 +47,7 @@ export class MSummitComponent implements OnInit {
     this.formTemplate.get('template').setValue({
           fileName: this.file.name,
           fileType: this.file.type,
-          fileSyze:this.file.size,
+          fileSize:this.file.size,
         })
       console.log(this.file.name)
       console.log(this.file2.name)
@@ -70,6 +70,7 @@ export class MSummitComponent implements OnInit {
     if(this.formTemplate.valid && this.file){
   	this.send=true;
     this.noError=true
+    this.success=false
    //const formModel = this.formTemplate.value;
     this.loading = true;
        this.fileUploadService.addfile(
@@ -79,7 +80,9 @@ export class MSummitComponent implements OnInit {
                       this.send=false
                       this.success=true
                       this.loading=false
-                      this.noError=true}, 
+                      this.noError=true
+                      this.fileInput.nativeElement.value=""
+                      this.formTemplate.reset()}, 
                     error=>{
                        this.send=false
                       this.success=false
@@ -88,6 +91,7 @@ export class MSummitComponent implements OnInit {
                       this.errorInfo=error.message
                         console.log(error)
                     });}else if(this.formTemplate.invalid && this.file==null){
+                    this.success=true
                     this.loading=false
                     this.noError=false
                     this.errorInfo="Se produjo un error, compruebe que esta logueado y los campos estan completos"

@@ -18,21 +18,20 @@ apiBaseURL = 'http://127.0.0.1:8000/api/'
     constructor(private http: Http){ }
 
 
-    addfile(fileItem:File, form:FormGroup): Observable<object> {
-      const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
+addfile(fileItem:File, form:FormGroup): Observable<object> {
+      const header = new Headers(
+        { 'Accept': 'application/json',
+          'Authorization': 'Bearer' + localStorage.getItem('token')
+        });
       const formData: FormData = new FormData();
-      formData.append( 'tittle',form.get('tittle').value)
-      formData.append( 'descriptionArea',form.get('descriptionArea').value)
-      formData.append( 'fileName',form.get('template.fileName').value)
-      formData.append( 'fileType',form.get('template.fileType').value)
-      formData.append( 'fileSyze',form.get('template.fileSyze').value)
-      formData.append('file', fileItem, fileItem.name)
+      formData.append('template', fileItem, fileItem.name)
+      formData.append('title',form.get('title').value)
+      formData.append('description',form.get('description').value);
       return this.http.post(
-        environment.apiUrl + 'login', formData, { headers: this.header }
+        environment.apiUrl + 'summitUploadTemplete', formData, { headers: header }
       ).map((response: Response) => response.json())
-      .catch((Error:any)=>Observable.throw(Error.json()))
+      .catch((Error:any)=>Observable.throw(Error.json()))      
     }
-
     /* fileUpload(fileItem:File, extraData?:object):any{
       let apiCreateEndpoint = `${this.apiBaseURL}files/create/`
       const formData: FormData = new FormData();

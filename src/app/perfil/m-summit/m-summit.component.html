@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-10">
-				<div class="alert alert-info" *ngIf="getSend()">Enviando..</div>
+				<div class="alert alert-info" *ngIf="getSend()">Enviando, esto puede tardar..</div>
 				<div class="alert alert-success" *ngIf="success">Archivo enviado correctamente!</div>
 				<div class="alert alert-danger" *ngIf="!getNoError()">{{errorInfo}}</div>
 			</div>
@@ -22,8 +22,8 @@
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-8">
-					<input formControlName="tittle" type="text" class="form-control" id="mCoffeTittle" name="tittle" placeholder="Titulo"  ngModel>
-					<textarea formControlName="descriptionArea" class="form-control" id="descriptionArea" placeholder="Descripcion" rows="5" ngModel></textarea>
+					<input formControlName="title" type="text" class="form-control" id="mCoffeTittle" name="title" placeholder="Titulo"  ngModel>
+					<textarea formControlName="description" class="form-control" id="descriptionArea" placeholder="Descripcion" rows="5" ngModel></textarea>
 					<div style="">
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
 					</div>
@@ -40,7 +40,7 @@
 			<div class="col-md-1"></div>
 		</div>
 
-	<!--	{{formTemplate.value | json}} -->
+		{{formTemplate.value | json}} 
 	</form>
 	</div>
 </div>
