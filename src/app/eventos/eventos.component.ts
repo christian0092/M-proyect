@@ -67,9 +67,13 @@ export class EventosComponent implements OnInit {
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        if(isLogged==true) this.error=false;
+        if(isLogged==true)
+        {
+          this.error=false;
+          this.loadMisEvento();
+        }
         this.loadEvento();
-        this.loadMisEvento();
+
 
       });
     //this.loginService.checkLogin();
@@ -133,7 +137,7 @@ export class EventosComponent implements OnInit {
     this.actividad=actividad;
     this.actividadServices.onActivityclickchange(this.actividad);
 
-    if(this.isLogged && this.subscripto)
+    if(this.isLogged==true && this.subscripto==true)
       this.checkActivity(this.actividad.id);
 
   }
@@ -142,14 +146,12 @@ export class EventosComponent implements OnInit {
     this.eventosServices.getEvent().subscribe(events => {
           this.evento = events[0];
 
-          console.log(this.evento);
-
           this.eventoAccounts = this.evento.accounts
           this.eventoPartners = this.evento.partners
           this.eventoOrganizers = this.evento.organizers
 
           this.loadAgenda(this.evento.id);
-          if(this.isLogged){
+          if(this.isLogged==true){
             //this.checkEvent(this.evento.id);
             this.subscripto=this.eventosServices.participoEvent(this.evento.id);
           }
@@ -160,7 +162,7 @@ export class EventosComponent implements OnInit {
   loadMisEvento(){
 
     this.eventosServices.misEvent().subscribe(events => {
-      console.log(events);
+      
           this.eventosServices.changeMisEventValue(events)
         });
   }
@@ -175,7 +177,7 @@ export class EventosComponent implements OnInit {
 
   onParticipar(data){
 
-    if(this.isLogged){
+    if(this.isLogged==true){
       this.eventosServices.addEventUser(data).subscribe(
          data => {
            if(data['success']){
@@ -195,7 +197,7 @@ export class EventosComponent implements OnInit {
   }
 
   onAbandonar(data){
-    if(this.isLogged){
+    if(this.isLogged==true){
      this.eventosServices.deleteEventUser(data).subscribe(
         data => {
           if(data['success']){
