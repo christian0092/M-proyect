@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { RequestOptions, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { InterceptorService } from 'ng2-interceptors';
+//import { InterceptorService } from 'ng2-interceptors';
 import { Headers, Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 
@@ -27,4 +27,4 @@ export class FileServiceService {
             saveFile(res.blob(), fileName);
         });
     }
-    
+  }
