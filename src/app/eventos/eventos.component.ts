@@ -42,7 +42,10 @@ export class EventosComponent implements OnInit {
   public actividad:Activity;
 
   public participaActividad=false;
-  public actividades:Activity[];
+  //public actividades:Activity[];
+
+  actividades:Activity[];
+  actividades$: Observable<Activity[]>;
 
   public evento: Event;
   public eventoAccounts: Account[];
@@ -103,16 +106,21 @@ export class EventosComponent implements OnInit {
   }
 
   checkActivity(id){
-    this.participaActividad=false;
-    this.actividadServices.checkActivity(this.evento.id).subscribe(
+
+    //alert('checkActivity'+id);
+    //this.participaActividad=false;
+
+    /*this.actividades$ = this.actividadServices.getActivities();
+    this.actividades$.subscribe(
+        inActivities => {
+          this.actividades = inActivities;
+    });
+    this.actividadServices.checkActivity(this.evento.id).subscribe();*/
+    /*this.actividadServices.checkActivity(this.evento.id).subscribe(
       data => {
         if (data['success']) {
 
           this.actividades=data['data'];
-
-          console.log('aacaa vaaaaa');
-          console.log(this.actividades);
-          console.log(id);
 
           for(let act of this.actividades){
             if(act.id==id){
@@ -123,22 +131,41 @@ export class EventosComponent implements OnInit {
               this.participaActividad=false;
             }
           }
-          console.log(this.participaActividad);
 
         } else {
           console.log("error");
 
         }
       }
-    );
+    );*/
+
+      /*if(this.actividades!=null){
+        for(let act of this.actividades){
+
+          alert('formato'+act.id);
+          if(act.id==id){
+            this.participaActividad=true;
+            break;
+          }
+          else{
+            this.participaActividad=false;
+          }
+        }
+        alert('participaActividad'+this.participaActividad);
+      }
+      else{
+        this.participaActividad=false;
+      }*/
+
+
   }
 
   getActividad (actividad){
     this.actividad=actividad;
     this.actividadServices.onActivityclickchange(this.actividad);
 
-    if(this.isLogged==true && this.subscripto==true)
-      this.checkActivity(this.actividad.id);
+    /*if(this.isLogged==true && this.subscripto==true)
+      this.checkActivity(this.actividad.id);*/
 
   }
 
@@ -151,10 +178,10 @@ export class EventosComponent implements OnInit {
           this.eventoOrganizers = this.evento.organizers
 
           this.loadAgenda(this.evento.id);
-          if(this.isLogged==true){
-            //this.checkEvent(this.evento.id);
+          /*if(this.isLogged==true){
+
             this.subscripto=this.eventosServices.participoEvent(this.evento.id);
-          }
+          }*/
 
         });
   }
@@ -162,15 +189,36 @@ export class EventosComponent implements OnInit {
   loadMisEvento(){
 
     this.eventosServices.misEvent().subscribe(events => {
-      
-          this.eventosServices.changeMisEventValue(events)
+          //this.eventosServices.changeMisEventValue(events)
+          if(events.length>0){
+            this.subscripto=true;
+            //this.loadMisActividades(events[0].id);
+          }
         });
   }
 
+/*loadMisActividades(id){
+  this.actividades$ = this.actividadServices.getActivities();
+  this.actividades$.subscribe(
+      inActivities => {
+        this.actividades = inActivities;
+  });
+
+        this.actividadServices.checkActivity(id).subscribe(activities => {
+        this.actividades = activities['data'];
+        console.log(this.actividades);
+        this.actividadServices.checkActivities(this.actividades);
+
+
+  });*/
+
+//this.actividadServices.checkActivity(id).subscribe();
+  //this.actividadServices.checkActivities(this.actividades);
+/*}*/
   loadAgenda(data){
     this.eventosServices.getEventActivities(data).subscribe(activities => {
           this.agenda = activities;
-          console.log(this.agenda);
+          //console.log(this.agenda);
           //this.agendaSpeakers = this.agenda.speakers
         });
   }
@@ -202,10 +250,10 @@ export class EventosComponent implements OnInit {
         data => {
           if(data['success']){
             this.subscripto=false;
+            /*this.actividades = [];
+            this.actividadServices.checkActivities(this.actividades);*/
           }
-
-        }
-      );
+        });
     }
     else{
       alert('Debe loguearse para poder Abandonar los Eventos');
@@ -214,6 +262,7 @@ export class EventosComponent implements OnInit {
   }
 
   getVer(formato){
+
     if(formato==7 || formato==8) return false
     else return true;
   }
