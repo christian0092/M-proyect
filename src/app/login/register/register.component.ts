@@ -2,7 +2,9 @@ import { Component, OnInit, Input , ViewChild, ElementRef} from '@angular/core';
 import {Profile} from '../../models/profile';
 import {UserService} from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
-import {RegisterService} from '../../login/register/register.service'
+import {RegisterService} from '../../login/register/register.service';
+
+import {Observable} from 'rxjs/Observable';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -18,9 +20,15 @@ export class RegisterComponent implements OnInit {
   isLogged : boolean;
   isLogged$: Observable<boolean>;
 
+  close$: Observable<boolean>;
+
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
-  constructor( private userService:UserService, private loginServices: LoginService, private registerService:RegisterService) { }
+  constructor(
+    private userService:UserService,
+    private loginServices: LoginService,
+    private registerService:RegisterService
+  ) { }
 
   changePersona(valid){
     console.log(valid);
@@ -35,7 +43,8 @@ export class RegisterComponent implements OnInit {
     this.esEmpresa = false;
     this.isValidPersona = false;
 
-    this.isLogged$ = this.loginServices.isLogin$().subscribe(
+    this.isLogged$ = this.loginServices.isLogin$();
+    this.isLogged$.subscribe(
       isLoggin=>{
         this.isLogged = isLoggin;
         if(isLoggin==true)
@@ -57,10 +66,8 @@ export class RegisterComponent implements OnInit {
     this.loginServices.checkLogin();
 
 
-
-
-
-    this.registerService.close().subscribe(data=>this.cerrar())
+    this.close$=this.registerService.close();
+    this.close$.subscribe(data=>this.cerrar());
   }
   cerrar(){
 
