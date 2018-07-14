@@ -35,27 +35,37 @@ export class PerfilComponent implements OnInit {
   observable$:Observable<JSON>;
   listaIntereses:Array<Interests>=[];
 
+  isLogged : boolean;
+  isLogged$: Observable<boolean>;
+
   public listaAccounts:Account[];
 
   ParticipantList:Participant[];
 
   public myProfile:Profile;
   public myProfile$: Observable<Profile>;
-  personLogged:boolean=false
+
 
   public person:Person=new Person();
   public organization:Organization=new Organization();
+  personLogged:boolean=false;
   isMisEvent : Event[];
   //isMisEvent$: Observable<Event[]>;
 
 
   public actividad:Activity;
 
+  //public actividades:Activity[];
+
   agenda:Activity[];
   agenda$: Observable<Activity[]>;
 
   public evento: Event;
   public eventoAccounts: Account[];
+
+  errorEvento;
+
+  summitLogged;
 
   constructor(
     private userService:UserService,
@@ -66,105 +76,142 @@ export class PerfilComponent implements OnInit {
    ) { }
 
   ngOnInit() {
-    this.loginService.isLogin$().subscribe(
+
+    this.isLogged$ = this.loginService.isLogin$();
+    this.isLogged$.subscribe(
       login=>{
         this.doInit(login);
       });
-        this.doInit(this.loginService.isLogin());
+
+      this.doInit(this.loginService.isLogin());
 
   }
+
   doInit(val:boolean){
     if(val==true){
-      this.userService.getMyParticipantList().subscribe(myParticipantList=>this.ParticipantList=myParticipantList);
-      this.userService.checkMyParticipantList();
-
 
       this.myProfile$ = this.userService.getMyProfile2();
       this.myProfile$.subscribe(
           profile => {
-            
-            if(profile.organization!=null){
-              this.organization=profile.organization
-              this.personLogged=false
-            }
             if (profile!=null) {
              this.myProfile = profile;
-             this.personLogged=true
-            }
-            if (profile.person!=null) {
-              this.person=profile.person
-            }
-           if(profile.interests!=null)
-            { this.listaIntereses=profile.interests;}
-          if(profile.accounts!=null)
-              {this.listaAccounts=profile.accounts;}
-          
-            
+             if(profile.organization!=null){
+               this.organization=profile.organization
+               this.personLogged=false
+             }
 
-             this.loadMisEvento();
+             if (profile.person!=null) {
+               this.person=profile.person
+               this.personLogged=true
+             }
+             if(profile.interests!=null)
+               { this.listaIntereses=profile.interests;}
+             if(profile.accounts!=null)
+               {this.listaAccounts=profile.accounts;}
+
+               this.loadMisEvento();
+            }
+
+
+
+
       });
-
       this.userService.checkMyProfile();
+
+      this.agenda$ = this.actividadServices.getActivities();
+      this.agenda$.subscribe(
+          inActivities => {
+            this.agenda = inActivities;
+
+      });
 
     }
     else{
-      this.router.navigate(['/home'])
+      //this.router.navigate(['/home'])
     }
   }
 
   loadMisEvento(){
     this.eventosServices.misEvent().subscribe(events => {
           this.isMisEvent=events;
-          this.eventosServices.changeMisEventValue(events);
+
+          //this.eventosServices.changeMisEventValue(events);
 
           if(this.isMisEvent.length>0){
             this.loadEvento();
+            this.errorEvento=false;
           }
           else{
             this.evento=null;
             this.eventoAccounts=null;
+            this.errorEvento=true;
           }
     });
   }
 
+  getErrorEvento(){
+    return this.errorEvento;
+  }
+
   loadEvento(){
     this.eventosServices.getEvent().subscribe(events => {
+
           this.evento = events[0];
           this.eventoAccounts = this.evento.accounts
 
-          this.loadMiAgenda(this.evento.id);
-
+          if(events.length>0)
+            this.loadMiAgenda(this.evento.id);
         });
   }
+
   loadMiAgenda(data){
 
-    this.agenda$ = this.actividadServices.getActivities();
-    this.agenda$.subscribe(
-        inActivities => {
-          this.agenda = inActivities;
-    });
 
+    //this.actividadServices.checkActivity(data).subscribe();
     this.actividadServices.checkActivity(data).subscribe(activities => {
           this.agenda = activities['data'];
-          //console.log(this.agenda);
           this.actividadServices.checkActivities(this.agenda);
+    });
 
+    this.mostrarApartado();
 
-        });
   }
+  mostrarApartado(){
 
+    if(this.agenda!=null){
+          for(let act of this.agenda){
+
+            if(act.event_format_id==3){
+              this.summitLogged=true;
+              break;
+            }
+            else{
+              this.summitLogged=false;
+            }
+          }
+        }
+  }
   onAbandonar(data){
 
      this.eventosServices.deleteEventUser(data).subscribe(
         data => {
           if(data['success']){
+
+                  this.errorEvento=true;
+
+                /*  this.actividadServices.checkActivity(data).subscribe(activities => {
+                  this.agenda = activities['data'];
+
+                  this.actividadServices.checkActivities(this.agenda);
+            });*/
+
             this.loadMisEvento();
           }
         });
   }
 
   getVer(formato){
-    if(formato==7 || formato==8) return false
+    if(formato==7 || formato==8) return false;
     else return true;
   }
 
@@ -181,29 +228,3 @@ export class PerfilComponent implements OnInit {
   }
 
 }
-
-    /*this.observable$=this.userService.getObservable$();
-    this.observable$.subscribe(
-      user => {
-        console.log(user);
-        this.name=user['name'];
-        this.dni=user['document_type_id'];
-        this.fechaDeNacimiento=user['birth_date'];
-        this.email = user['email'];
-        this.empleo=user['job_level_id'];
-        this.estudios=user['study_level_id'];
-        this.telefono=user['cellphone'];
-        this.pais=user['country_id'];
-        this.provincia=user['province_id'];
-        this.localidad=user['city_id'];
-        this.codigoPostal=user['postal_code'];
-        this.calle=user['calle'];
-        this.piso =user['piso'];
-        this.tipo=user['type'];
-        this.listaIntereses=[];
-        for(var i=0;i<user['interest'].length;i++)
-          {
-          this.listaIntereses.push(new Interests(user['interest'][i]['id'],user['interest'][i]['name']));
-          }
-      });
-    this.userService.checkUser();*/

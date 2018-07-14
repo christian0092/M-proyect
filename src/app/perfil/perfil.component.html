@@ -1,24 +1,30 @@
 <div id="main">
 	<div class="contenido" >
 		<div class="container" >
-			<div class="row" *ngIf="personLogged">
+			<div class="row" >
 				<!--<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 
 				</div>-->
-				<div class="col-lg"  >
+
 					<div class="row" >
 						<div class="col-lg " >
 
-							<div class="row" style="margin-top:15px;">
-									<div class="col-lg">
+							<div class="row" style="margin-top:15px;" >
+									<div class="col-lg" *ngIf="personLogged">
 										<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
 									</div>
+
+									<div class="col-lg" *ngIf="!personLogged">
+										<div class="titulo" style="float:left">{{organization?.name}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
+									</div>
+
 							</div>
+
 						</div>
 					</div>
 					<div class="row" >
-								<div class="col-md-3 " style="margin-top:15px">
+								<div class="col-md-3 " style="margin-top:15px" *ngIf="personLogged">
 
 									<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
 									<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
@@ -28,7 +34,15 @@
 									<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
 
 								</div>
-								<div class="col-md-3" style="margin-top:15px">
+								<div class="col-md-3 " style="margin-top:15px" *ngIf="!personLogged">
+
+									<div class="dato"><div class="titulo_dato">Email:</div> {{organization?.email}}</div>
+									<div class="dato"><div class="titulo_dato">Teléfono:</div> {{organization?.phone}}</div>
+									<div class="dato"><div class="titulo_dato">Contacto:</div> {{organization?.contact_name}}</div>
+									<div class="dato"><div class="titulo_dato">Teléfono de Contacto:</div> {{organization?.contact_phone}}</div>
+
+								</div>
+								<div class="col-md-3" style="margin-top:15px" *ngIf="personLogged">
 
 										<div class="dato"><div class="titulo_dato">País:</div> {{person?.country.name}}</div>
 										<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
@@ -36,6 +50,16 @@
 										<div class="dato"><div class="titulo_dato">Código Postal:</div> {{person?.postal_code}} </div>
 										<div class="dato"><div class="titulo_dato">Calle:</div>{{person?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
 										<div class="dato"><div class="titulo_dato">Piso:</div> {{person?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
+
+								</div>
+								<div class="col-md-3" style="margin-top:15px" *ngIf="!personLogged">
+
+										<div class="dato"><div class="titulo_dato">País:</div> {{organization?.country.name}}</div>
+										<div class="dato"><div class="titulo_dato">Provincia:</div> {{organization?.province}}</div>
+										<div class="dato"><div class="titulo_dato">Localidad:</div> {{organization?.city}} </div>
+										<div class="dato"><div class="titulo_dato">Código Postal:</div> {{organization?.postal_code}} </div>
+										<div class="dato"><div class="titulo_dato">Calle:</div>{{organization?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
+										<div class="dato"><div class="titulo_dato">Piso:</div> {{organization?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
 
 								</div>
 								<div class="col-md-3 datos" style="margin-top:15px">
@@ -56,11 +80,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-								<!--<div class="col-md-2 " style="margin-top:15px" >
 
-									<button type="button" class="btn btn-primary boton_grande"  data-toggle="modal" data-target="#modalRegistro" >Editar</button>
-								</div>-->
 							</div>
 						</div>
 					</div>
@@ -71,7 +91,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="contenido" >
+					<div class="contenido" *ngIf="!getErrorEvento()">
 						<div class="container" >
 							<div class="row">
 								<div class="col-md-3 float-left" >
@@ -101,40 +121,11 @@
 								</div>
 								<div class="col-md-2"  >
 										<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
-										<!--<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento?.id)">Asistir</button>
-										<div class="alert alert-danger" *ngIf="getError()" style="font-size:15px;margin-top:10px">Debe Loguearse para Inscribirse al Evento</div>
-										<div class="alert alert-success" *ngIf="getSend()" style="font-size:15px;margin-top:10px">Estás inscripto en el Evento</div>
-				-->
 								</div>
 							</div>
 						</div>
 					</div>
-					<!--<div class="contenido" >
-						<div class="container" >
-							<div class="row">
-								<div class="col-md-3 float-left" >
-									<img src="assets/eventos/logo_movilidad.jpg" id="imagen_logo">
-									<div class="row" style="margin-top:20px;margin-left:1px">
-										<div ><a href="https://twitter.com/smartyvia?lang=es"><span class="fa fa-twitter"></span></a></div>
-									</div>
-								</div>
-								<div class="col-md-7 titulo" >
-									<h2>II Workshop LATAM #MOVILIDADFUTURA </h2>
-									<h6>24 de Agosto 2018 | PUCV, Valparaíso, CHILE.</h6>
-									<p >
-										#MOVILIDADFUTURA es la llave de presentación y conocimiento de nuevas tecnologías en Seguridad Vial,
-										las Carreteras y el Medio Ambiente.
-										Pensado para establecer encuentros entre Clientes, Socios Claves, Científicos e Inversores,
-										la jornada plantea opciones Conference, Workshop y Summit con el objetivo de brindarle al Asistente
-										la mejor experiencia de presentación.
-									</p>
-								</div>
-								<div class="col-md-2"  >
-									<button type="button" class="btn btn-primary" id="boton_grande" >Finalizar Inscripción</button>
-								</div>
-							</div>
-						</div>
-					</div>-->
+
 					<div class="contenido" id="diagonal_centro">
 						<div class="container"  >
 							<div class="titulo_divisor">
@@ -142,29 +133,7 @@
 							</div>
 						</div>
 					</div>
-					<!--<div class="contenido" style="margin-top:20px">
-						<div class="container" >
-							<div class="row" *ngFor="let listaAgenda of myProfile.agenda" style="padding:10px;border-bottom:1px solid grey;">
-								<div class="col-md-3">
-								</div>
-								<div class="col-md-2">
-									<div id="agenda_horario">
-										{{listaAgenda.hora_inicio}} hs
-									</div>
-								</div>
-								<div class="col-md-4" >
-									<div id="agenda_titulo">
-										{{listaAgenda.nombre_formato}}
-									</div>
-									<div id="agenda_descripcion">
-										{{listaAgendadescripcion_formato}}
-									</div>
-								</div>
-								<div class="col-md-3" >
-								</div>
-							</div>
-						</div>
-					</div>-->
+
 					<div class="contenido" style="margin-bottom:20px">
 						<div class="container" style="margin-top:0px;margin-bottom:0px">
 							<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
@@ -212,32 +181,8 @@
 						</div>
 
 					</div>
-<!--
-					<div class="contenido" id="diagonal_centro">
-						<div class="container" >
-							<div class="titulo_divisor">
-								<div class="titulo_texto_divisor"><h2>M-COFFEE</h2></div>
-							</div>
-						</div>
-					</div>-->
-				<!--	<div class="contenido" style="margin-top:30px">
-						<div class="container" >
-							<div class="row">
-								<div class="col-md-2"  >
-								</div>
-								<div class="col-md-6" >
-									<ul class="list-group">
-									<app-participant *ngFor="let participant of ParticipantList" [Participant]="participant"></app-participant>
-								</ul>
-							</div>
-							<div class="col-md-2"  >
-								<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#exampleModal" (click)="test()">Invitar otra Persona</button>
-							</div>
-							<div class="col-md-2"  >
-							</div>
-						</div>
-					</div>
-				</div>-->
+
+				<div *ngIf="summitLogged">
 				<div class="contenido" id="diagonal_centro">
 					<div class="container"  >
 						<div class="titulo_divisor">
@@ -251,16 +196,12 @@
 						<m-summitDisplay ></m-summitDisplay>
 						<msummit></msummit>
 
-					<!--	<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#mSummitModal">M-Summit</button>
--->
-						<!--<m-summitDisplay></m-summitDisplay>-->
-
 					</div>
 				</div>
-
+				</div>
 
 			</div>
 
 			<modal-coffee></modal-coffee>
 			<app-register></app-register>
-			<app-actividad [participaActividad]="true" [subscripto]="true"></app-actividad>
+			<app-actividad [subscripto]="true"></app-actividad>
