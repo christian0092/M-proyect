@@ -23,6 +23,7 @@ import { Speaker } from '../models/speaker';
 import { Event_format } from '../models/event_format';
 
 import { Person } from '../models/person';
+import { Organization } from '../models/organization';
 
 @Component({
   selector: 'app-perfil',
@@ -42,7 +43,7 @@ export class PerfilComponent implements OnInit {
   public myProfile$: Observable<Profile>;
 
   public person:Person=new Person();
-
+  public organization:Organization=new Organization();
   isMisEvent : Event[];
   //isMisEvent$: Observable<Event[]>;
 
@@ -77,58 +78,28 @@ export class PerfilComponent implements OnInit {
       this.userService.checkMyParticipantList();
 
 
-      /*this.userService.getMyProfile().subscribe(myProfile=> this.myProfile=myProfile);
-
-      this.userService.Profile().subscribe(myProfile => {
-            this.myProfile = myProfile;
-            console.log(this.myProfile);
-            this.userService.checkMyProfile(myProfile);
-
-      });*/
-
       this.myProfile$ = this.userService.getMyProfile2();
       this.myProfile$.subscribe(
           profile => {
             this.myProfile = profile;
              this.person=this.myProfile.person;
+             this.organization=this.myProfile.organization;
              this.listaIntereses=this.myProfile.interests;
              this.listaAccounts=this.myProfile.accounts;
-             console.log('acaaaa aaaaaaaaaaaaaaaaa');
-             console.log(this.listaIntereses);
-             console.log(this.listaAccounts);
-
+             this.loadMisEvento();
       });
 
-      //this.userService.checkMyProfile();
-
-    /*  this.isMisEvent$ = this.eventosServices.getMisEventIn$();
-      this.isMisEvent$.subscribe(
-        isMisEvent => {
-          this.isMisEvent = isMisEvent;
-          this.loadMisEvento();
-
-        });*/
-
-
-        this.loadMisEvento();
-        this.loadMisDatos();
-
-
+      this.userService.checkMyProfile();
 
     }
     else{
-     // this.router.navigate(['/home'])
+      this.router.navigate(['/home'])
     }
-  }
-  loadMisDatos(){
-
-
   }
 
   loadMisEvento(){
     this.eventosServices.misEvent().subscribe(events => {
           this.isMisEvent=events;
-          //console.log(this.isMisEvent);
           this.eventosServices.changeMisEventValue(events);
 
           if(this.isMisEvent.length>0){
@@ -144,7 +115,6 @@ export class PerfilComponent implements OnInit {
   loadEvento(){
     this.eventosServices.getEvent().subscribe(events => {
           this.evento = events[0];
-          //console.log(this.evento);
           this.eventoAccounts = this.evento.accounts
 
           this.loadMiAgenda(this.evento.id);
