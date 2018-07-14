@@ -14,11 +14,15 @@ export class LoginService {
 
   constructor(
     private http: Http,
-    private router: Router
+    private router: Router,
+   
   ) { }
+
 
   ngOnInit() {
   }
+
+
 
   login(user: User) {
     if (user.username !== '' && user.password !== '') {
@@ -31,7 +35,8 @@ export class LoginService {
         environment.apiUrl + 'login',
         body,
         { headers: header }
-      ).map((response: Response) => response.json());
+      ).map((response: Response) => response.json())
+      .catch((Error:any)=>Observable.throw(Error.json()));
     }
   }
 
