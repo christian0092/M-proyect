@@ -15,6 +15,7 @@ export class ActividadService {
   private inActivities:Activity[];
   private inActivities$ = new Subject<Activity[]>();
 
+
   constructor(private http: Http) { }
 
   addActivityUser(data){

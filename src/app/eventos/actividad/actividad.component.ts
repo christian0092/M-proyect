@@ -12,9 +12,13 @@ import { ActividadService } from './actividad.service';
 export class ActividadComponent implements OnInit {
   //@Input() public actividad:Activity;
   public actividad:Activity;
-
-  @Input() public participaActividad:boolean;
+public actividades:Activity[];
+  //@Input() public participaActividad:boolean;
   @Input() public subscripto:boolean;
+
+public participaActividad;
+
+  textSummit="";
 
   cabecera;
   public send=false;
@@ -43,10 +47,41 @@ export class ActividadComponent implements OnInit {
     this.onActivityclick$ = this.actividadServices.onActivityclick();
     this.onActivityclick$.subscribe(
        actividad => {
-        this.actividad = actividad;
-        console.log(this.actividad);
+
+         if(actividad!=null){
+           this.actividad = actividad;
+           console.log('estoy en actividad particular '+actividad.event_id);
+
+           this.actividadServices.checkActivity(actividad.event_id).subscribe(
+             activities => {
+                 this.actividades = activities['data'];
+                 this.checkActivity(actividad.id);
+
+               });
+         }
       });
 
+
+
+  }
+
+  checkActivity(id){
+
+      if(this.actividades!=null){
+        for(let act of this.actividades){
+
+          if(act.id==id){
+            this.participaActividad=true;
+            break;
+          }
+          else{
+            this.participaActividad=false;
+          }
+        }
+      }
+      else{
+        this.participaActividad=false;
+      }
 
 
   }
@@ -109,7 +144,7 @@ export class ActividadComponent implements OnInit {
           this.participaActividad=false;
           this.send=false;
 
-          this.actividadServices.checkActivity(this.actividad.event_id).subscribe(activities => {
+              this.actividadServices.checkActivity(this.actividad.event_id).subscribe(activities => {
                 this.actividadServices.checkActivities(activities['data']);
 
               });
@@ -127,15 +162,19 @@ export class ActividadComponent implements OnInit {
     switch(a){
       case 1:
         this.cabecera="congress_c.jpg";
+        this.textSummit="";
         break;
       case 2:
         this.cabecera="workshop_c.jpg";
+        this.textSummit="";
         break;
       case 3:
         this.cabecera="summit_c.jpg";
+        this.textSummit="En la sección M-SUMMIT de su Perfil encontrará toda la información necesaria";
         break;
       case 5:
         this.cabecera="coffee_c.jpg";
+        this.textSummit="";
         break;
     }
     return true;
