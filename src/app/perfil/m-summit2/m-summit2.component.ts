@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import {Observable} from 'rxjs/Observable';
 import {isFieldValidation} from '../../login/register/registerDecorator'
 import { MSummitService} from '../../services/m-summit.service'
-import {UserService} from '../../services/user.service'
 import {FileServiceService}from'../../services/file-service.service'
 
 
@@ -15,19 +14,15 @@ import {FileServiceService}from'../../services/file-service.service'
   styleUrls: ['./m-summit2.component.css']
 })
 export class MSummit2Component implements OnInit {
-	@Input() myProfile:Profile;
 	queryForm:FormGroup
 	send:boolean=false
 	error:boolean=false
 	errorData:string=''
 	ok:boolean=false
 
-  constructor(private fb:FormBuilder, private mSummitServices:MSummitService, private userService:UserService, private fileServices:FileServiceService) {
+  constructor(private fb:FormBuilder, private mSummitServices:MSummitService, private fileServices:FileServiceService) {
   	this.queryForm=fb.group({
-  		email:['',Validators.compose([Validators.required,Validators.email])],
-  		name:['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(41)])],
-  		phone:['',Validators.required],
-      	event_id:['1'],
+      	event_id:['',Validators.required],
       	query:['',Validators.required]})
 
 
@@ -37,9 +32,9 @@ export class MSummit2Component implements OnInit {
     }
   ngOnInit() {
 
-  	this.setQueryForm()
+  	this.queryForm.get('event_id').patchValue("1")
     console.log("Estoy en summit")
-    console.log(this.myProfile)
+ 
   }
  isFieldValid(query:string){
   	return isFieldValidation(query,this.queryForm)
@@ -49,18 +44,9 @@ export class MSummit2Component implements OnInit {
   	this.error=false
   	this.ok=false
   	this.queryForm.reset()
-  	if(this.myProfile!=null){
-  	this.queryForm.patchValue({email:this.myProfile.person.email, name:this.myProfile.name, phone:this.myProfile.person.phone})}
-    else//if(this.myProfile==null)
-        {
-         this.userService.getMyProfile2().subscribe(
-           myProfile => {this.queryForm.patchValue({email:myProfile.person.email, name:myProfile.name, phone:myProfile.person.phone})
-          },
-          error=>{this.error=true
-                  this.errorData="Ocurrio un error al obtener sus datos, asegurese de estar logueado"}
-          ) //calaberi se la come
-        }
-  	}
+    this.queryForm.get('event_id').patchValue("1")
+  }
+  
 
   onSubmit() {
 
@@ -70,18 +56,18 @@ export class MSummit2Component implements OnInit {
       this.mSummitServices.send(this.queryForm.value).subscribe(
           data => {
 
-            if(data['status']){
-             setTimeout(
-             	() => {this.ok=true}, 1000);
+            if(data['success']){
+              this.ok=true
              	this.setQueryForm()
+               console.log(data['message'])
              } else{
             this.error=true
-      		this.errorData=data['status']
+      		this.errorData=data['message']
             }
           },
           error =>{ this.send=false
                     this.error=true
-                    this.errorData=error['type']
+                    this.errorData=error['message']
                     console.log(error)
                     }
           );
