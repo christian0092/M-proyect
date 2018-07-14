@@ -15,32 +15,37 @@ export class LogoutComponent implements OnInit {
 
   myProfile:Profile;
   myProfile$: Observable<Profile>;
+  isLogged$:Observable<boolean>
 
 
   constructor(
     private loginService:LoginService, private userService:UserService
   ) {
-   }
-
-  ngOnInit() {
+    
     //this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
     //this.userService.checkMyProfile();
-    this.isLogged$ = this.loginService.isLogin$();
-    this.isLogged$.subscribe(
+    this.loginService.isLogin$().subscribe(
       isLogged => {
         if(isLogged==true)
         {
           this.myProfile$ = this.userService.getMyProfile2();
-          this.myProfile$.subscribe(
+          this.userService.getMyProfile2().subscribe(
               profile => {
+
                 this.myProfile = profile;
-                if(this.myProfile.person!=null){
+                  console.log(this.myProfile)
+                if(this.myProfile.person.name!=null){
+
                   this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
+                   console.log(this.user)
+
                 }
                 else{
-                  this.user=this.myProfile.organization.name;
+                   console.log(this.myProfile)
+                 this.user=this.myProfile.organization.name;
                 }
-                this.userService.checkMyProfile();
+               // this.user="hola"
+                //this.userService.checkMyProfile();
           });
 
         }
@@ -48,6 +53,9 @@ export class LogoutComponent implements OnInit {
 
 
 
+   }
+
+  ngOnInit() {
 
   }
   logout(){
