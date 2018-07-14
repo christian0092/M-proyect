@@ -3,7 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { User } from '../../login/user.model';
 import {UserService} from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+
 
 @Component({
   selector: 'app-login',
@@ -18,20 +18,12 @@ logForm:FormGroup
  error:boolean=false
  errorInfo:string='Se produjo un error inesperado'
  send:boolean=false
- isLogin$:Observable<boolean>
   constructor(
     private loginService:LoginService,
     private userService:UserService,
      private fp: FormBuilder
 
-  ) { 
-    /*this.isLogin$=this.loginService.isLogin$()
-    this.isLogin$.subscribe(
-      log=>{
-        if(log){
-         this.addProfile()
-        }
-      })*/}
+  ) { }
 
   ngOnInit() {
     this.createForm()
@@ -68,23 +60,23 @@ clearAll(){
  this.send=false
  this.error=false
  this.userInvalid=false
- this.passwordInvalid=false 
+ this.passwordInvalid=false
 }
 createForm() {
     this.logForm = this.fp.group({
       username:[null, Validators.compose([Validators.required, Validators.email])],
         password: [null, Validators.compose([Validators.required,/* Validators.minLength(6), */Validators.maxLength(20)])]})
-  
+
   }
-  addProfile(){
+  /*addProfile(){
     this.userService.getMyProfile2().subscribe(profile => {
-
+<<<<<<< HEAD
           this.userService.checkMyProfile();
-
+=======
           console.log(profile['data']);
           this.userService.checkMyProfile()
 
-
+>>>>>>> 566baed65c39f52555d090092ebaf0fda6871c2d
     });
-  }
+  }*/
 }
