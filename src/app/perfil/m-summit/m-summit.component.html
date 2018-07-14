@@ -33,8 +33,8 @@
 			<div class="col-md-2" style="">
 
 				<div style="margin-top:10px;">
-					<button type="submit" id="boton_grande" [disabled]="formTemplate.invalid || loading" class="btn btn-primary" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
-					<button type="button" id="boton_grande" class="btn btn-dark disabled"(click)="clearFile()">Cancelar</button>
+					<button type="submit"  [disabled]="formTemplate.invalid || loading" class="btn btn-primary boton_grande" (click)="onSubmit()"> Enviar <i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i></button>
+					<button type="button"  class="btn btn-dark disabled boton_grande"(click)="clearFile()">Cancelar</button>
 				</div>
 			</div>
 			<div class="col-md-1"></div>
