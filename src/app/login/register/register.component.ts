@@ -14,7 +14,10 @@ export class RegisterComponent implements OnInit {
   private esEmpresa: boolean;
   private isValidPersona: boolean;
   private type:String;
-  private isLogged:boolean;
+  //private isLogged:boolean;
+  isLogged : boolean;
+  isLogged$: Observable<boolean>;
+
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
   constructor( private userService:UserService, private loginServices: LoginService, private registerService:RegisterService) { }
@@ -31,18 +34,32 @@ export class RegisterComponent implements OnInit {
     this.esPersona = false;
     this.esEmpresa = false;
     this.isValidPersona = false;
-    this.loginServices.isLogin$().subscribe(isLoggin=>this.checkType(isLoggin))
+
+    this.isLogged$ = this.loginServices.isLogin$().subscribe(
+      isLoggin=>{
+        this.isLogged = isLoggin;
+        if(isLoggin==true)
+        {
+          this.userService.getMyProfile2().subscribe(myProfile=>{
+
+          if(myProfile.person!=null){
+            console.log("asigne persona")
+            this.type="Persona"}else if(myProfile.organization!=null){
+               console.log("asigne persona")
+              this.type="Empresa"
+            }}     )
+
+          this.userService.checkMyProfile();
+          this.checkType(isLoggin)
+        }
+      }
+    )
     this.loginServices.checkLogin();
-    this.userService.getMyProfile2().subscribe(myProfile=>{ 
-        
-    if(myProfile.person!=null){
-      console.log("asigne persona")
-      this.type="Persona"}else if(myProfile.organization!=null){
-         console.log("asigne persona")
-        this.type="Empresa"
-      }}     )
-    
-    this.userService.checkMyProfile();
+
+
+
+
+
     this.registerService.close().subscribe(data=>this.cerrar())
   }
   cerrar(){
@@ -90,7 +107,7 @@ export class RegisterComponent implements OnInit {
       this.esEmpresa = false;
       this.esInicio = true;
         break;
-      
+
       default:
         // code...
         break;

@@ -70,13 +70,13 @@ export class UserService {
       //this.changeUserValues(this.dummyJson);
       //if(this.myProfile.tipo=="Persona"){
 
-      form.controls['user'].patchValue( {email:this.myProfile.person.email});
+    /*  form.controls['user'].patchValue( {email:this.myProfile.person.email});
       form.controls['user'].patchValue( {password_confirmation:''});
       form.controls['user'].patchValue( {password:''});
       form.controls['person'].patchValue( {name:this.myProfile.person.name});
       form.controls['person'].patchValue( {surname:this.myProfile.person.surname})
       form.controls['person'].patchValue( {document_number:this.myProfile.person.document_number})
-
+*/
   //  }
       /*else if(this.myProfile.tipo=="Empresa"){
       form.patchValue( {email:this.myProfile.email});
@@ -107,23 +107,24 @@ export class UserService {
     return this.myProfileObservable$
   }
   checkMyProfile(){
-    this.Profile().subscribe(data=>this.changeMyProfile(data))
+    this.getMyProfile2().subscribe(data=>this.changeMyProfile(data))
+    //this.Profile().subscribe(data=>this.changeMyProfile(data))
 
   }
-  Profile(){
+  /*Profile(){
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
     return this.http.get(environment.apiUrl + 'persons/get', { headers: header })
     .map((response: Response) => response.json());
-      //.map((res: Response) => res.json().data.map((profile: Profile) => new Profile().deserialize(profile)));
-  }
+  }*/
   getMyProfile2():Observable<Profile>
-  {const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
+  {
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
     return this.http.get(environment.apiUrl + 'persons/get', { headers: header })
     .map((res: Response) =>this.myProfile=new Profile().deserialize(res.json().data)
     //.map((profile: Profile) => new Profile().deserialize(Profile) )
     );
-  ////////////////////////////--myDiary--//////////////////////////////////////////
-}
+
+  }
 }

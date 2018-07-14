@@ -3,6 +3,7 @@ import { Deserializable } from "./deserializable.model";
 import { Interests } from '../models/interests';
 import { Account } from '../models/account';
 import { Person } from '../models/person';
+import { Organization } from '../models/organization';
 
 export class Profile implements Deserializable{
 				public id:string
@@ -15,31 +16,11 @@ export class Profile implements Deserializable{
         public created_at:string
         public updated_at:string
 				public person:Person
-				public organization:string
+				//public organization:Organization
 				public interests: Interests[]
         public accounts: Account[]
 
 	constructor(
-  /*public email:string,
-  public name:string,
-  public dni:string,
-  public empleo:string,
-  public estudios:string,
-  public fechaDeNacimiento:string,
-  public telefono:string,
-  public pais:string,
-  public provincia:string,
-  public localidad:string,
-  public codigoPostal:string,
-  public calle:string,
-  public piso:string,
-  public tipo:string,
-  public listaIntereses:Interests[],
-  public agenda:Actividad[],
-  public twitter:string,
-  public facebook:string,
-  public linkedin:string,
-  public instagram:string,*/
   ){}
 
 	deserialize(input: any) {
@@ -47,6 +28,7 @@ export class Profile implements Deserializable{
 		this.accounts = input.accounts.map((account: Account) => new Account().deserialize(account));
 		this.interests = input.interests.map((interests: Interests) => new Interests().deserialize(interests));
 		this.person = new Person().deserialize(input.person);
+		//this.organization = new Organization().deserialize(input.organization);
 		return this;
 	}
 }

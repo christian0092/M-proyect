@@ -6,29 +6,29 @@
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 
 				</div>-->
-				<div class="col-md-10" >
+				<div class="col-lg" >
 					<div class="row" >
 						<div class="col-lg " >
 
 							<div class="row" style="margin-top:15px;">
 									<div class="col-lg">
-										<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left" *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil"></span></a></div>
+										<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
 									</div>
 							</div>
 						</div>
 					</div>
 					<div class="row" >
-						<div class="col-md-4 " style="margin-top:15px">
+								<div class="col-md-3 " style="margin-top:15px">
 
-								<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
-								<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
-								<div class="dato"><div class="titulo_dato">Email:</div> {{person?.email}}</div>
-								<div class="dato"><div class="titulo_dato">Profesión:</div> {{person?.profession.name}}</div>
-								<div class="dato"><div class="titulo_dato">Estudios:</div> {{person?.study_level.name}}</div>
-								<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
+									<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
+									<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
+									<div class="dato"><div class="titulo_dato">Email:</div> {{person?.email}}</div>
+									<div class="dato"><div class="titulo_dato">Profesión:</div> {{person?.profession.name}}</div>
+									<div class="dato"><div class="titulo_dato">Estudios:</div> {{person?.study_level.name}}</div>
+									<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
 
 								</div>
-								<div class="col-md-4" style="margin-top:15px">
+								<div class="col-md-3" style="margin-top:15px">
 
 										<div class="dato"><div class="titulo_dato">País:</div> {{person?.country.name}}</div>
 										<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
@@ -37,10 +37,10 @@
 										<div class="dato"><div class="titulo_dato">Calle:</div>{{person?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
 										<div class="dato"><div class="titulo_dato">Piso:</div> {{person?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
 
-										</div>
-										<div class="col-md-4 datos" style="margin-top:15px">
+								</div>
+								<div class="col-md-3 datos" style="margin-top:15px">
 
-											<div class="dato"><div class="titulo_dato">Intereses:</div></div>
+											<div class="dato"><div class="titulo_dato">Intereses</div></div>
 											<div style="clear:left">
 												<ul class="list-group">
 													<li style="border:none" class="list-group-item d-flex justify-content-between align-items-center" id="intereses" *ngFor="let interes of listaIntereses">
@@ -48,12 +48,19 @@
 													</li>
 												</ul>
 											</div>
-										</div>
+								</div>
+								<div class="col-md-3 " style="margin-top:15px">
+									<div class="dato"><div class="titulo_dato" style="margin-left:5px">Redes Sociales</div></div>
+									<div style="clear:left">
+											<div style="float:left" *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil"></span></a></div>
 									</div>
 								</div>
-								<div class="col-md-2 " style="margin-top:15px" >
-									<button type="button" class="btn btn-primary" id="boton_grande" data-toggle="modal" data-target="#modalRegistro" >Editar</button>
-								</div>
+							</div>
+						</div>
+								<!--<div class="col-md-2 " style="margin-top:15px" >
+
+									<button type="button" class="btn btn-primary boton_grande"  data-toggle="modal" data-target="#modalRegistro" >Editar</button>
+								</div>-->
 							</div>
 						</div>
 					</div>
@@ -93,7 +100,7 @@
 									</div>
 								</div>
 								<div class="col-md-2"  >
-										<button  type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
+										<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
 										<!--<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento?.id)">Asistir</button>
 										<div class="alert alert-danger" *ngIf="getError()" style="font-size:15px;margin-top:10px">Debe Loguearse para Inscribirse al Evento</div>
 										<div class="alert alert-success" *ngIf="getSend()" style="font-size:15px;margin-top:10px">Estás inscripto en el Evento</div>
@@ -188,7 +195,7 @@
 									</div>
 								</div>
 								<div class="col-md-1" >
-										<button type="button" class="btn btn-primary" id="boton_grande" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
+										<button type="button" class="btn btn-primary boton_grande"  *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
 								</div>
 								<div class="col-md-1" >
 								</div>
@@ -198,7 +205,7 @@
 							<div class="col-md-5"   >
 							</div>
 							<div class="col-md-2"  >
-								<button type="button" class="btn btn-primary" id="boton_grande" (click)="verAgendaCompleta()" >Ver Agenda Completa</button>
+								<button type="button" class="btn btn-primary boton_grande"  (click)="verAgendaCompleta()" >Ver Agenda Completa</button>
 							</div>
 							<div class="col-md-5"  >
 							</div>

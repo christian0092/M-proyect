@@ -70,9 +70,13 @@ createForm() {
   }
   /*addProfile(){
     this.userService.getMyProfile2().subscribe(profile => {
+<<<<<<< HEAD
+          this.userService.checkMyProfile();
+=======
           console.log(profile['data']);
           this.userService.checkMyProfile()
 
+>>>>>>> 566baed65c39f52555d090092ebaf0fda6871c2d
     });
   }*/
 }

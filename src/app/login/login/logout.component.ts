@@ -25,14 +25,29 @@ export class LogoutComponent implements OnInit {
   ngOnInit() {
     //this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
     //this.userService.checkMyProfile();
+    this.isLogged$ = this.loginService.isLogin$();
+    this.isLogged$.subscribe(
+      isLogged => {
+        if(isLogged==true)
+        {
+          this.myProfile$ = this.userService.getMyProfile2();
+          this.myProfile$.subscribe(
+              profile => {
+                this.myProfile = profile;
+                if(this.myProfile.person!=null){
+                  this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
+                }
+                else{
+                  this.user=this.myProfile.organization.name;
+                }
+                this.userService.checkMyProfile();
+          });
 
-    this.myProfile$ = this.userService.getMyProfile2();
-    this.myProfile$.subscribe(
-        profile => {
-          this.myProfile = profile;
-          console.log(this.myProfile.person.name)
-          this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
-    });
+        }
+      });
+
+
+
 
   }
   logout(){
