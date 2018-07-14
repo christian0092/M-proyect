@@ -57,8 +57,9 @@ export class MSummit2Component implements OnInit {
           data => {
 
             if(data['success']){
-              this.ok=true
+              
              	this.setQueryForm()
+               this.ok=true
                console.log(data['message'])
              } else{
             this.error=true
