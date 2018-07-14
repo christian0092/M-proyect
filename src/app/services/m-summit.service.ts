@@ -14,10 +14,11 @@ private header = new Headers();
    }
 
   send(data:FormGroup): Observable<object> {
-    this.header.append('Content-Type', 'application/json');
-  //  this.header.append('Authorization', 'Bearer ' + localStorage.getItem('userToken')['access_token']);
+    const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
+   // this.header.append('Content-Type', 'application/json');
+   //this.header.append('Authorization', 'Bearer ' + localStorage.getItem('userToken')['access_token']);
     return this.http.get(
-      environment.apiUrl + 'partnerContact', { headers: this.header, search: data }
+      environment.apiUrl + 'summitContact',{ headers: header, search: data }
     ).map((response: Response) => response.json())
     .catch((Error:any)=>Observable.throw(Error.json()))
   }
