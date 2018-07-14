@@ -41,6 +41,7 @@ export class PerfilComponent implements OnInit {
 
   public myProfile:Profile;
   public myProfile$: Observable<Profile>;
+  personLogged:boolean=false
 
   public person:Person=new Person();
   public organization:Organization=new Organization();
@@ -81,11 +82,25 @@ export class PerfilComponent implements OnInit {
       this.myProfile$ = this.userService.getMyProfile2();
       this.myProfile$.subscribe(
           profile => {
-            this.myProfile = profile;
-             this.person=this.myProfile.person;
-             this.organization=this.myProfile.organization;
-             this.listaIntereses=this.myProfile.interests;
-             this.listaAccounts=this.myProfile.accounts;
+            
+            if(profile.organization!=null){
+              this.organization=profile.organization
+              this.personLogged=false
+            }
+            if (profile!=null) {
+             this.myProfile = profile;
+             this.personLogged=true
+            }
+            if (profile.person!=null) {
+              this.person=profile.person
+            }
+           if(profile.interests!=null)
+            { this.listaIntereses=profile.interests;}
+          if(profile.accounts!=null)
+              {this.listaAccounts=profile.accounts;}
+          
+            
+
              this.loadMisEvento();
       });
 

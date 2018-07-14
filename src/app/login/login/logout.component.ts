@@ -34,13 +34,13 @@ export class LogoutComponent implements OnInit {
 
                 this.myProfile = profile;
                   console.log(this.myProfile)
-                if(this.myProfile.person.name!=null){
+                if(this.myProfile.person!=null){
 
                   this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
                    console.log(this.user)
 
                 }
-                else{
+                else if(this.myProfile.organization!=null){
                    console.log(this.myProfile)
                  this.user=this.myProfile.organization.name;
                 }

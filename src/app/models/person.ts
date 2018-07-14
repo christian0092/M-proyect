@@ -36,6 +36,7 @@ export class Person implements Deserializable{
 
 	deserialize(input: any) {
 		Object.assign(this, input);
+            
 		this.study_level = new StudyLevel().deserialize(input.study_level);
 		this.profession = new Profession().deserialize(input.profession);
     this.country=new Country().deserialize(input.country);

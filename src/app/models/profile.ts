@@ -24,15 +24,29 @@ export class Profile implements Deserializable{
   ){}
 
 	deserialize(input: any) {
-		console.log(input)
 		Object.assign(this, input);
-		if(input.person=!null){
-		this.accounts = input.accounts.map((account: Account) => new Account().deserialize(account));
-		this.interests = input.interests.map((interests: Interests) => new Interests().deserialize(interests));
-		this.person = new Person().deserialize(input.person);
-		}
+		//console.log(input)
+		if(input.accounts)
+			{this.accounts = input.accounts.map((account: Account) => new Account().deserialize(account));}
+		else
+			{this.accounts=null}
+
+		if(input.interests)
+		{this.interests = input.interests.map((interests: Interests) => new Interests().deserialize(interests));}
+	else
+		{this.interests=null}
+		if(input.person)
+			{this.person = new Person().deserialize(input.person);}
+		else
+			{this.person=null}
 		
-		this.organization = new Organization().deserialize(input.organization);
+		
+		if (input.organization) {
+				this.organization = new Organization().deserialize(input.organization);
+			}else{this.organization=null}	
+		
+		
+		
 		return this;
 	}
 }
