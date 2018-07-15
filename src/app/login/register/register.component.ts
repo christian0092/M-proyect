@@ -21,6 +21,7 @@ export class RegisterComponent implements OnInit {
   isLogged$: Observable<boolean>;
 
   close$: Observable<boolean>;
+  profile$:Observable<Profile>
 
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
@@ -31,7 +32,7 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   changePersona(valid){
-    console.log(valid);
+    //console.log(valid);
     if(valid)
       this.isValidPersona = true;
     else
@@ -49,25 +50,37 @@ export class RegisterComponent implements OnInit {
         this.isLogged = isLoggin;
         if(isLoggin==true)
         {
-          this.userService.getMyProfile2().subscribe(myProfile=>{
-
-          if(myProfile.person!=null){
-            console.log("asigne persona")
-            this.type="Persona"}else if(myProfile.organization!=null){
-               console.log("asigne persona")
-              this.type="Empresa"
-            }}     )
-
-          this.userService.checkMyProfile();
-          this.checkType(isLoggin)
+          this.setProfile()
+          
         }
       }
     )
-    this.loginServices.checkLogin();
+    if(this.loginServices.checkLogin()){
+    
+      this.setProfile()
+
+    }
 
 
     this.close$=this.registerService.close();
     this.close$.subscribe(data=>this.cerrar());
+  }
+
+  setProfile(){
+
+          this.profile$=this.userService.getMyProfile2()
+          this.profile$.subscribe(myProfile=>{
+
+          if(myProfile.person!=null){
+           // console.log("asigne persona")
+            this.type="Persona"}
+            else if(myProfile.organization!=null){
+               //console.log("asigne empresa")
+              this.type="Empresa"
+            }}     )
+          this.checkType(this.isLogged)  
+         this.userService.checkMyProfile();
+          
   }
   cerrar(){
 
@@ -79,7 +92,7 @@ export class RegisterComponent implements OnInit {
       }else if (!this.isLogged) {
     this.action(2)
       }
-    this.registerService.pushGoBack();
+    //this.registerService.pushGoBack();
 
   }
   checkType(log:boolean){

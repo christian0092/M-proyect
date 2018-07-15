@@ -17,6 +17,7 @@ import { passwordConfirming, passwordMatchValidator, validateAllFormFields } fro
 import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
 import { Observable } from 'rxjs/Observable'
 import { getLocaleDateFormat } from '@angular/common';
+import {Profile} from '../../models/profile'
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
@@ -45,6 +46,10 @@ export class RegisterAbstract implements OnInit {
   success: boolean;
   errorInfo: string;
   isLogged: boolean;
+
+  loginObservable$:Observable<boolean>
+  profileObservable$:Observable<Profile>
+  registerObservable$:Observable<boolean>
 
   maxDate: Date = new Date();
   minDate: Date = new Date();
@@ -88,12 +93,12 @@ export class RegisterAbstract implements OnInit {
     this.esRegistroPersonales = false;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
-    this.loginServices.isLogin$().subscribe(
-      loginStatus=> this.getForm(loginStatus)
-
-      )
-    this.loginServices.isLogin();
-    this.registerServices.goBack().subscribe(
+    this.loginObservable$=this.loginServices.isLogin$()
+    this.loginObservable$.subscribe(
+      loginStatus=> {this.getForm(loginStatus)})
+    this.getForm(this.loginServices.isLogin())
+    this.registerObservable$=this.registerServices.goBack()
+    this.registerObservable$.subscribe(
       data => this.discardChanges())
   }
 
@@ -121,7 +126,13 @@ export class RegisterAbstract implements OnInit {
   getForm(isLogged) {
     this.isLogged = isLogged
     if (this.isLogged) {
-      this.formulario = this.userService.getForm(this.formulario);
+      this.profileObservable$=this.userService.getMyProfile2()
+      this.profileObservable$.subscribe(
+          profile => {
+            if (profile!=null) {
+             this.userService.getForm(this.formulario, profile);  
+              }
+      })
     } else {
       this.formulario.reset();
     }
@@ -292,7 +303,27 @@ export class RegisterAbstract implements OnInit {
             }
           });
       } else if (this.isLogged) {
-        console.log("modificando usuario");
+        this.loginServices.edit(this.formulario.value).subscribe(
+          data => {
+            if (data['success'] === true) {
+              this.send = false
+              this.error = false;
+              this.success = true;
+
+              setTimeout(() => {
+                this.reset();
+                this.registerServices.pushClose()
+              }, 5000);
+            }
+          },
+          error => {
+            this.send = false;
+            this.error = true;
+            console.log(error)                  
+            this.errorInfo = error['message'];
+           
+          });
+        
       }
     }
     else {

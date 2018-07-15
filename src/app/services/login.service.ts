@@ -89,4 +89,17 @@ export class LoginService {
     ).map((response: Response) => response.json())    
     .catch((Error:any)=>Observable.throw(Error.json()));
   }
+
+  edit(data: object): Observable<object> {
+    const header = new Headers(
+        { 'content-type': 'application/json',
+          'Authorization': 'Bearer' + localStorage.getItem('token')
+        });
+    return this.http.post(
+      environment.apiUrl + 'registerUpdate',
+      data,
+      { headers: header }
+    ).map((response: Response) => response.json())    
+    .catch((Error:any)=>Observable.throw(Error.json()));
+  }
 }
