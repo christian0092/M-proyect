@@ -14,7 +14,7 @@
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
+					<img *ngIf="this.evento != null && this.evento!=undefined" src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
 					<div class="row" style="margin-top:20px;margin-left:1px">
 							<div *ngFor="let account of eventoAccounts">
                 <a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
