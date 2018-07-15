@@ -111,9 +111,12 @@
 
 					</div>
 				</div>
-				<div class="col-md-1" >
-						<button type="button" class="btn btn-primary" id="boton_grande" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
-				</div>
+				<div class="col-md-1 text-center" ><!--glyphicon glyphicon-plus-sign-->
+          <span class="fa fa-plus-circle" id="boton-ver" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal"></span>
+
+						<!--<button type="button" class="btn btn-primary" id="boton_grande" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
+-->
+      	</div>
         <div class="col-md-1" >
 				</div>
 			</div>

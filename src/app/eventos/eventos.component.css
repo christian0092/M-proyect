@@ -3,7 +3,14 @@
   /*padding:20px;*/
 
 }
-
+#boton-ver{
+  color:#007bff;
+  font-size:37px;
+}
+#boton-ver:hover{
+  color:#0a5686;
+  font-size:40px;
+}
 .fa {
   padding: 0px;
   font-size: 33px;
@@ -58,7 +65,7 @@
   margin-top: 15px;  color: #2057a2;
 }
 #imagen_patrocinador{
-  
+
   margin-top:10px;
   width:100%;
 }
