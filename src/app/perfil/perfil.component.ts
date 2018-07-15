@@ -61,7 +61,7 @@ export class PerfilComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private eventosServices: EventosService,
-    private actividadServices: ActividadService
+    public actividadServices: ActividadService
   ) { }
 
   ngOnInit() {
