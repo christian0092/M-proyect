@@ -1,7 +1,7 @@
 <div id="main">
 	<div class="contenido" >
 		<div class="container" >
-			
+
 				<!--<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 
@@ -107,7 +107,7 @@
 								<div class="col-md-7 titulo" >
 									<h2>{{evento?.name}}</h2>
 									<h6>{{evento?.start_date}} | {{evento?.event_place}}, Valparaíso, CHILE.</h6>
-									<p >
+									<p style="color:black">
 										 {{evento?.description}}
 									</p>
 
@@ -163,7 +163,9 @@
 									</div>
 								</div>
 								<div class="col-md-1" >
-										<button type="button" class="btn btn-primary boton_grande"  *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>
+									<span class="fa fa-plus-circle" id="boton-ver" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal"></span>
+
+										<!--<button type="button" class="btn btn-primary boton_grande"  *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>-->
 								</div>
 								<div class="col-md-1" >
 								</div>

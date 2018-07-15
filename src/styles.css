@@ -93,7 +93,7 @@ html, body {
 
 }
 .container{
-  text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px rgba(90, 90, 90, 1);
   font-size:20px;
   margin-bottom: 30px;
   padding: 5px;

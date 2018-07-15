@@ -1,3 +1,13 @@
+
+#boton-ver{
+  color:#007bff;
+  font-size:37px;
+}
+#boton-ver:hover{
+  color:#0a5686;
+  font-size:40px;
+}
+
 .titulo {
   font-size: 30px;
 color: #2057a2;
