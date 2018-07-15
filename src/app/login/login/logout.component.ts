@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-import {UserService} from '../../services/user.service';
-import {Profile} from '../../models/profile'
-import { Observable,Subject } from 'rxjs';
+import { UserService } from '../../services/user.service';
+import { Profile } from '../../models/profile'
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-logout',
@@ -11,57 +11,51 @@ import { Observable,Subject } from 'rxjs';
 })
 export class LogoutComponent implements OnInit {
 
-  user:String="Mi usuario";
+  user: String = "Mi usuario";
 
-  myProfile:Profile;
+  myProfile: Profile;
   myProfile$: Observable<Profile>;
-  isLogged$:Observable<boolean>
-
+  isLogged$: Observable<boolean>
+  isLogged: boolean;
 
   constructor(
-    private loginService:LoginService, private userService:UserService
+    private loginService: LoginService,
+    private userService: UserService
   ) {
-    
     //this.userService.getMyProfile().subscribe(profile=>this.user=profile.name)
-    //this.userService.checkMyProfile();
-    this.loginService.isLogin$().subscribe(
-      isLogged => {
-        if(isLogged==true)
-        {
-          this.myProfile$ = this.userService.getMyProfile2();
-          this.userService.getMyProfile2().subscribe(
-              profile => {
+    //this.userService.checkMyProfile();    
+    this.isLogged$ = this.loginService.isLogin$();
+    this.isLogged$.subscribe(isLogged => { this.isLogged = isLogged });
 
-                this.myProfile = profile;
-                  console.log(this.myProfile)
-                if(this.myProfile.person!=null){
+    if (this.isLogged == true) {
+    this.myProfile$ = this.userService.getMyProfile2();
+    this.myProfile$.subscribe(profile => { 
+      this.userService.changeMyProfile(profile);
+      this.setUserName(profile) });
+    this.isLogged = this.loginService.isLogin()
+    }
+  }
 
-                  this.user=this.myProfile.person.name+' '+this.myProfile.person.surname;
-                   console.log(this.user)
-
-                }
-                else if(this.myProfile.organization!=null){
-                   console.log(this.myProfile)
-                 this.user=this.myProfile.organization.name;
-                }
-               // this.user="hola"
-                //this.userService.checkMyProfile();
-          });
-
-        }
-      });
-
-
-
-   }
+  setUserName(profile: Profile) {
+    console.log(profile.person)
+    console.log(profile.organization)
+    if (profile.person != null) {
+      this.user = profile.person.name + ' ' + profile.person.surname;
+    }
+    else if (profile.organization != null) {
+      this.user = profile.organization.name;
+    }
+  }
 
   ngOnInit() {
 
   }
-  logout(){
+
+  logout() {
     this.loginService.logout();
   }
 }
+
 function replacer(key, value) {
   //console.log(typeof value);
   if (key === 'email') {

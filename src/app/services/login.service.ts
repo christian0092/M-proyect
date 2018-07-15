@@ -15,7 +15,7 @@ export class LoginService {
   constructor(
     private http: Http,
     private router: Router,
-   
+
   ) { }
 
 
@@ -86,7 +86,17 @@ export class LoginService {
       environment.apiUrl + 'register',
       data,
       { headers: header }
-    ).map((response: Response) => response.json())    
+    ).map((response: Response) => response.json())
+    .catch((Error:any)=>Observable.throw(Error.json()));
+  }
+
+  sendResetPassword(data) {
+    const header = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      environment.apiUrl + 'resetPassword',
+      data,
+      { headers: header }
+    ).map((response: Response) => response.json())
     .catch((Error:any)=>Observable.throw(Error.json()));
   }
 

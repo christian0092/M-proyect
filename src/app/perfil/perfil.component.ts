@@ -2,13 +2,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Participant } from '../models/participant';
 import { Actividad } from '../models/actividad';
 import { Interests } from '../models/interests';
-import {Observable} from 'rxjs/Observable';
-import {FormControl} from '@angular/forms';
-import {UserService} from '../services/user.service';
+import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
+import { UserService } from '../services/user.service';
 import { ParticipantComponent } from '../perfil/participant/participant.component';
-import {Profile} from '../models/profile';
-import {LoginService} from '../services/login.service'
-import {Router} from '@angular/router';
+import { Profile } from '../models/profile';
+import { LoginService } from '../services/login.service'
+import { Router, NavigationEnd } from '@angular/router';
 
 
 import { EventosService } from '../eventos/eventos.service';
@@ -24,6 +24,7 @@ import { Event_format } from '../models/event_format';
 
 import { Person } from '../models/person';
 import { Organization } from '../models/organization';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
@@ -31,199 +32,149 @@ import { Organization } from '../models/organization';
   styleUrls: ['./perfil.component.css']
 })
 export class PerfilComponent implements OnInit {
-
-  observable$:Observable<JSON>;
-  listaIntereses:Array<Interests>=[];
-
-  isLogged : boolean;
+  observable$: Observable<JSON>;
+  listaIntereses: Array<Interests> = [];
+  isLogged: boolean;
   isLogged$: Observable<boolean>;
 
-  public listaAccounts:Account[];
+  public listaAccounts: Account[];
+  ParticipantList: Participant[];
 
-  ParticipantList:Participant[];
-
-  public myProfile:Profile;
+  public myProfile: Profile;
   public myProfile$: Observable<Profile>;
 
-
-  public person:Person=new Person();
-  public organization:Organization=new Organization();
-  personLogged:boolean=false;
-  isMisEvent : Event[];
-  //isMisEvent$: Observable<Event[]>;
-
-
-  public actividad:Activity;
-
-  //public actividades:Activity[];
-
-  agenda:Activity[];
+  public person: Person = new Person();
+  public organization: Organization = new Organization();
+  personLogged: boolean = false;
+  isMisEvent: Event[];
+  public actividad: Activity;
+  agenda: Activity[];
   agenda$: Observable<Activity[]>;
 
   public evento: Event;
   public eventoAccounts: Account[];
-
   errorEvento;
-
   summitLogged;
 
   constructor(
-    private userService:UserService,
-    private loginService:LoginService,
+    private userService: UserService,
+    private loginService: LoginService,
     private router: Router,
-    private eventosServices:EventosService,
-    private actividadServices:ActividadService
-   ) { }
+    private eventosServices: EventosService,
+    private actividadServices: ActividadService
+  ) { }
 
   ngOnInit() {
-
     this.isLogged$ = this.loginService.isLogin$();
-    this.isLogged$.subscribe(
-      login=>{
-        this.doInit(login);
-      });
-
-      this.doInit(this.loginService.isLogin());
-
+    this.isLogged$.subscribe(login => { this.isLogged = login; });
+    this.isLogged = this.loginService.isLogin()
+    this.doInit();    
   }
 
-  doInit(val:boolean){
-    if(val==true){
-
+  doInit() {
+    if (this.isLogged == true) {
       this.myProfile$ = this.userService.getMyProfile2();
-      this.myProfile$.subscribe(
-          profile => {
-            if (profile!=null) {
-             this.myProfile = profile;
-             if(profile.organization!=null){
-               this.organization=profile.organization
-               this.personLogged=false
-             }
-
-             if (profile.person!=null) {
-               this.person=profile.person
-               this.personLogged=true
-             }
-             if(profile.interests!=null)
-               { this.listaIntereses=profile.interests;}
-             if(profile.accounts!=null)
-               {this.listaAccounts=profile.accounts;}
-
-               this.loadMisEvento();
-            }
-
-
-
-
-      });
-      this.userService.checkMyProfile();
-
-      this.agenda$ = this.actividadServices.getActivities();
-      this.agenda$.subscribe(
-          inActivities => {
-            this.agenda = inActivities;
-
-      });
-
+      this.myProfile$.subscribe(profile => { this.loadProfile(profile) });
+      // this.userService.changeMyProfile()
+      this.myProfile = this.userService.getProfile()
+      this.loadProfile(this.myProfile)
+      this.loadMisEvento();
+      this.agenda$ = this.actividadServices.subscribeActivitiesObserver();
+      this.agenda$.subscribe(inActivities => { this.agenda = inActivities; });
     }
-    else{
+    else {
       //this.router.navigate(['/home'])
     }
   }
 
-  loadMisEvento(){
+  loadProfile(profile: Profile) {
+    if (profile != null) {
+      this.myProfile = profile;
+      if (profile.organization != null) {
+        this.organization = profile.organization
+        this.personLogged = false
+      }
+      if (profile.person != null) {
+        this.person = profile.person
+        this.personLogged = true
+      }
+      if (profile.interests != null) { this.listaIntereses = profile.interests; }
+      if (profile.accounts != null) { this.listaAccounts = profile.accounts; }
+    }
+  }
+
+  loadMisEvento() {
     this.eventosServices.misEvent().subscribe(events => {
-          this.isMisEvent=events;
-
-          //this.eventosServices.changeMisEventValue(events);
-
-          if(this.isMisEvent.length>0){
-            this.loadEvento();
-            this.errorEvento=false;
-          }
-          else{
-            this.evento=null;
-            this.eventoAccounts=null;
-            this.errorEvento=true;
-          }
+      this.isMisEvent = events;
+      if (this.isMisEvent.length > 0) {
+        this.loadEvento();
+        this.errorEvento = false;
+      }
+      else {
+        this.evento = null;
+        this.eventoAccounts = null;
+        this.errorEvento = true;
+      }
     });
   }
 
-  getErrorEvento(){
+  getErrorEvento() {
     return this.errorEvento;
   }
 
-  loadEvento(){
+  loadEvento() {
     this.eventosServices.getEvent().subscribe(events => {
-
-          this.evento = events[0];
-          this.eventoAccounts = this.evento.accounts
-
-          if(events.length>0)
-            this.loadMiAgenda(this.evento.id);
-        });
-  }
-
-  loadMiAgenda(data){
-
-
-    //this.actividadServices.checkActivity(data).subscribe();
-    this.actividadServices.checkActivity(data).subscribe(activities => {
-          this.agenda = activities['data'];
-          this.actividadServices.checkActivities(this.agenda);
+      this.evento = events[0];
+      this.eventoAccounts = this.evento.accounts
+      this.agenda = this.actividadServices.getMyActivities();
+      if (this.agenda == null) {
+        this.actividadServices.loadMyActivities(this.evento.id).subscribe(
+          activities => {
+            this.agenda = activities['data']
+            this.actividadServices.ActivitiesChange(activities['data'])
+          }
+        );
+      }
+      //this.summitLogged = this.actividadServices.hasSummit();
     });
-
-    this.mostrarApartado();
-
   }
-  mostrarApartado(){
-
-    if(this.agenda!=null){
-          for(let act of this.agenda){
-
-            if(act.event_format_id==3){
-              this.summitLogged=true;
-              break;
-            }
-            else{
-              this.summitLogged=false;
-            }
-          }
+/*
+  mostrarApartado() {
+    if (this.agenda != null) {
+      let act = this.agenda.find(x => x.event_format_id === 3);
+      if (act !== undefined) {
+        if (act.event_format_id == 3) {
+          this.summitLogged = true;
+          return;
         }
-  }
-  onAbandonar(data){
+      }
+    }
+    this.summitLogged = false;
+  }*/
 
-     this.eventosServices.deleteEventUser(data).subscribe(
-        data => {
-          if(data['success']){
-
-                  this.errorEvento=true;
-
-                /*  this.actividadServices.checkActivity(data).subscribe(activities => {
-                  this.agenda = activities['data'];
-
-                  this.actividadServices.checkActivities(this.agenda);
-            });*/
-
-            this.loadMisEvento();
-          }
-        });
+  onAbandonar(data) {
+    this.eventosServices.deleteEventUser(data).subscribe(
+      data => {
+        if (data['success']) {
+          this.errorEvento = true;
+          this.agenda = [];
+          this.actividadServices.ActivitiesChange([]);
+          this.loadMisEvento();
+        }
+      });
   }
 
-  getVer(formato){
-    if(formato==7 || formato==8) return false;
+  getVer(formato) {
+    if (formato == 7 || formato == 8) return false;
     else return true;
   }
 
-  getActividad (actividad){
-    this.actividad=actividad;
+  getActividad(actividad) {
+    this.actividad = actividad;
     this.actividadServices.onActivityclickchange(this.actividad);
-
-    /*if(this.isLogged && this.subscripto)
-      this.checkActivity(this.actividad.id);*/
-
   }
-  verAgendaCompleta(){
+
+  verAgendaCompleta() {
     this.router.navigate(['/eventos'])
   }
 

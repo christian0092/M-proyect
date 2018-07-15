@@ -1,7 +1,7 @@
 <div id="main">
 	<div class="contenido" >
 		<div class="container" >
-			<div class="row" >
+			
 				<!--<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 
@@ -44,7 +44,7 @@
 								</div>
 								<div class="col-md-3" style="margin-top:15px" *ngIf="personLogged">
 
-										<div class="dato"><div class="titulo_dato">País:</div> {{person?.country.name}}</div>
+										<div class="dato"><div class="titulo_dato">País:</div> {{person?.country?.name}}</div>
 										<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
 										<div class="dato"><div class="titulo_dato">Localidad:</div> {{person?.city}} </div>
 										<div class="dato"><div class="titulo_dato">Código Postal:</div> {{person?.postal_code}} </div>
@@ -54,12 +54,12 @@
 								</div>
 								<div class="col-md-3" style="margin-top:15px" *ngIf="!personLogged">
 
-										<div class="dato"><div class="titulo_dato">País:</div> {{organization?.country.name}}</div>
+										<div class="dato"><div class="titulo_dato">País:</div> {{organization?.country?.name}}</div>
 										<div class="dato"><div class="titulo_dato">Provincia:</div> {{organization?.province}}</div>
 										<div class="dato"><div class="titulo_dato">Localidad:</div> {{organization?.city}} </div>
 										<div class="dato"><div class="titulo_dato">Código Postal:</div> {{organization?.postal_code}} </div>
-										<div class="dato"><div class="titulo_dato">Calle:</div>{{organization?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
-										<div class="dato"><div class="titulo_dato">Piso:</div> {{organization?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
+										<div class="dato"><div class="titulo_dato">Calle:</div>{{organization?.street}} <div class="titulo_dato"> N°:</div> {{organization?.number}}</div>
+										<div class="dato"><div class="titulo_dato">Piso:</div> {{organization?.floor}} <div class="titulo_dato"> Dto:</div> {{organization?.dept}}</div>
 
 								</div>
 								<div class="col-md-3 datos" style="margin-top:15px">
@@ -81,10 +81,9 @@
 								</div>
 							</div>
 
-							</div>
 						</div>
 					</div>
-					<div class="contenido" id="diagonal_centro">
+					<div *ngIf ="this.evento != null" class="contenido" id="diagonal_centro">
 						<div class="container"  >
 							<div class="titulo_divisor">
 								<div class="titulo_texto_divisor"><h2>MIS EVENTOS</h2></div>
@@ -126,7 +125,7 @@
 						</div>
 					</div>
 
-					<div class="contenido" id="diagonal_centro">
+					<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="contenido" id="diagonal_centro">
 						<div class="container"  >
 							<div class="titulo_divisor">
 								<div class="titulo_texto_divisor"><h2>MI AGENDA</h2></div>
@@ -170,7 +169,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="row">
 							<div class="col-md-5"   >
 							</div>
 							<div class="col-md-2"  >
@@ -182,7 +181,7 @@
 
 					</div>
 
-				<div *ngIf="summitLogged">
+				<div *ngIf="this.actividadServices.hasSummit()">
 				<div class="contenido" id="diagonal_centro">
 					<div class="container"  >
 						<div class="titulo_divisor">
@@ -192,7 +191,7 @@
 				</div>
 
 				<div class="contenido">
-					<div class="container"  style="">
+					<div class="container">
 						<m-summitDisplay ></m-summitDisplay>
 						<msummit></msummit>
 
