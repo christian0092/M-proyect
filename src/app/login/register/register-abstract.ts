@@ -37,7 +37,7 @@ export class RegisterAbstract implements OnInit {
   esRegistroRedes: boolean;
   esRegistroCondiciones: boolean;
 
-  esAnterior: boolean;
+  esAnterior: boolean=false;
   esSiguiente: boolean;
   esFinalizar: boolean;
   esCancelar: boolean;
@@ -46,6 +46,7 @@ export class RegisterAbstract implements OnInit {
   success: boolean;
   errorInfo: string;
   isLogged: boolean;
+  profile:Profile;
 
   loginObservable$:Observable<boolean>
   profileObservable$:Observable<Profile>
@@ -74,6 +75,7 @@ export class RegisterAbstract implements OnInit {
     this.loadInterests();
     this.loadAccounts();
     this.createForm();
+
   }
 
   createForm() { }
@@ -95,12 +97,14 @@ export class RegisterAbstract implements OnInit {
     this.esRegistroCondiciones = false;
     this.loginObservable$=this.loginServices.isLogin$()
     this.loginObservable$.subscribe(
-      loginStatus=> {this.getForm(loginStatus)})
-    this.getForm(this.loginServices.isLogin())
+      loginStatus=> {this.getForm(loginStatus)
+        if(!loginStatus){this.reset()}}      )
     this.registerObservable$=this.registerServices.goBack()
     this.registerObservable$.subscribe(
       data => this.discardChanges())
       this.getForm(this.loginServices.isLogin())
+  this.registerServices.close().subscribe(
+    data=> {if(data){this.reset()}})
   }
 
   discardChanges() {
@@ -126,13 +130,18 @@ export class RegisterAbstract implements OnInit {
 
   getForm(isLogged) {
     this.isLogged = isLogged
+    
+    this.searchPage()
+    //this.formulario.reset();
     if (this.isLogged) {
-      var profile=this.userService.getProfile()
-    if (profile!=null) {
-             this.userService.getForm(this.formulario, profile);  
+      this.formPage=1
+      this.profile=this.userService.getProfile()
+     //console.log(this.userService.getProfile())
+    if (this.profile!=null) {
+             this.userService.getForm(this.formulario, this.profile);  
               }
     } else {
-      this.formulario.reset();
+      
     }
   }
 
@@ -222,7 +231,7 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroPersonales = false;
         this.esRegistroRedes = false;
         this.esRegistroCondiciones = false;
-        this.esAnterior = true;
+        this.esAnterior = false;
         this.esSiguiente = true;
         this.esFinalizar = false;
         break;
@@ -231,9 +240,11 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroPersonales = true;
         this.esRegistroRedes = false;
         this.esRegistroCondiciones = false;
-        this.esAnterior = true;
         this.esSiguiente = true;
         this.esFinalizar = false;
+        if(!this.loginServices.isLogin()){
+          this.esAnterior = true;
+        }else { this.esAnterior = false}
         break;
       case 2:
         this.esRegistroUsuario = false;
@@ -241,8 +252,11 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroRedes = true;
         this.esRegistroCondiciones = false;
         this.esAnterior = true;
-        this.esSiguiente = true;
+        if(!this.loginServices.isLogin()){
+         this.esSiguiente = true;
         this.esFinalizar = false;
+        }else { this.esSiguiente = false;
+        this.esFinalizar = true;}
         break;
       case 3:
         this.esRegistroUsuario = false;
@@ -262,11 +276,16 @@ export class RegisterAbstract implements OnInit {
 
   onAnterior() {
     if (this.formPage > 0) {
+      console.log('formpage:'+this.formPage)
+      if((this.loginServices.isLogin() && this.formPage>1) || !this.loginServices.isLogin()){
       this.formPage--;
       this.searchPage();
+      this.error = false;}
+      else if(this.loginServices.isLogin() && this.formPage<=1)
+      {        
+      this.searchPage();
       this.error = false;
-    }
-    else if (this.formPage == 0) {
+      }
     }
   }
 
@@ -368,8 +387,18 @@ export class RegisterAbstract implements OnInit {
   }
 
   reset() {
-    this.formulario.reset();
+    console.log('reiniciando')
+    
+   
     this.formSubmitAttempt = false;
+    if(this.loginServices.isLogin()){
+      this.getForm(true)
+      this.formPage=1
+    }else{
+      this.formPage=0
+      this.formulario.reset();
+    }
+    this.searchPage()
   }
 }
 

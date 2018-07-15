@@ -14,7 +14,7 @@ export class ResetPasswordComponent implements OnInit {
   public loading: boolean = false;
 
   constructor(
-    private fb:FormBuilder,loginService:LoginService
+    private fb:FormBuilder,private loginService:LoginService
   ) {
     this.reset_form=fb.group({
   		email:['',Validators.compose([Validators.required,Validators.email])]

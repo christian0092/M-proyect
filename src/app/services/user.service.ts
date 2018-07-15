@@ -67,19 +67,22 @@ export class UserService {
       this.changeUserValues(this.dummyJson);
   }*/
     getForm(form: FormGroup, profile:Profile): FormGroup {
-      this.myProfile=profile
-      console.log("editando perfil")
+      //this.myProfile=profile
+      
       if(profile.organization!=null){
+       // console.log("editando organizacion")
                form=this.chargeFormOrganizationProfile(form,profile)
               
              }
 
              if (profile.person!=null) {
+              // console.log("editando persona")
               form=this.chargeFormPersonProfile(form,profile)
               }
 
    return form
  }
+ 
 
 chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
    form.controls['user'].patchValue( {email:this.myProfile.organization.email});
@@ -103,6 +106,7 @@ chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
 
              if(profile.interests!=null){
               for (var i =  form['controls']['organization']['controls']['interests']['controls'].length - 1; i >= 0; i--) {
+                form['controls']['organization']['controls']['interests']['controls'][i].patchValue({checked: false})
                 for (var j = profile.interests.length - 1; j >= 0; j--) {
                 
               if(profile.interests[j].id==form['controls']['organization']['controls']['interests']['controls'][i]['controls']['id'].value)
@@ -113,6 +117,7 @@ chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
                }
              if(profile.accounts!=null)
                {for (var i =  form['controls']['organization']['controls']['accounts']['controls'].length - 1; i >= 0; i--) {
+                 form['controls']['organization']['controls']['accounts']['controls'][i].patchValue({value:''})
                 for (var j = profile.accounts.length - 1; j >= 0; j--) {
                 
                 
@@ -149,16 +154,19 @@ chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
 
              if(profile.interests!=null){
               for (var i =  form['controls']['person']['controls']['interests']['controls'].length - 1; i >= 0; i--) {
+                 form['controls']['person']['controls']['interests']['controls'][i].patchValue({checked: false})
                 for (var j = profile.interests.length - 1; j >= 0; j--) {
                 
               if(profile.interests[j].id==form['controls']['person']['controls']['interests']['controls'][i]['controls']['id'].value)
               {             
-               form['controls']['person']['controls']['interests']['controls'][i].patchValue({checked: true, id: profile.interests[j].id, label: profile.interests[j].name})
-                }}
+               form['controls']['person']['controls']['interests']['controls'][i].patchValue({checked: true})
+                }
+              }
               }
                }
              if(profile.accounts!=null)
                {for (var i =  form['controls']['person']['controls']['accounts']['controls'].length - 1; i >= 0; i--) {
+                 form['controls']['person']['controls']['accounts']['controls'][i].patchValue({value:''})
                 for (var j = profile.accounts.length - 1; j >= 0; j--) {
                 
                 

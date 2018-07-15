@@ -63,7 +63,7 @@ export class RegisterComponent implements OnInit {
 
 
     this.close$=this.registerService.close();
-    this.close$.subscribe(data=>this.cerrar());
+    this.close$.subscribe(data=>{if(!data){this.cerrar()}});
   }
 
   setProfile(){
@@ -83,7 +83,6 @@ export class RegisterComponent implements OnInit {
           
   }
   cerrar(){
-
     if(this.type=="Persona" && this.isLogged){
       this.action(0)
     }
@@ -92,7 +91,7 @@ export class RegisterComponent implements OnInit {
       }else if (!this.isLogged) {
     this.action(2)
       }
-    //this.registerService.pushGoBack();
+    this.registerService.pushGoBack();
 
   }
   checkType(log:boolean){

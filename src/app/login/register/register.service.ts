@@ -42,7 +42,7 @@ export class RegisterService {
       return this.goBack$;
     }
     pushClose(){
-      this.goBack$.next(true);
+      this.goBack$.next(false);
     }
 
 }
