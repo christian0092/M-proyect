@@ -68,12 +68,12 @@ export class PerfilComponent implements OnInit {
     this.isLogged$ = this.loginService.isLogin$();
     this.isLogged$.subscribe(login => { this.isLogged = login; });
     this.isLogged = this.loginService.isLogin()
-    this.doInit();    
+    this.doInit();
   }
 
   doInit() {
     if (this.isLogged == true) {
-      this.myProfile$ = this.userService.getMyProfile2();
+      this.myProfile$ = this.userService.getMyProfile();
       this.myProfile$.subscribe(profile => { this.loadProfile(profile) });
       // this.userService.changeMyProfile()
       this.myProfile = this.userService.getProfile()
@@ -138,19 +138,19 @@ export class PerfilComponent implements OnInit {
       //this.summitLogged = this.actividadServices.hasSummit();
     });
   }
-/*
-  mostrarApartado() {
-    if (this.agenda != null) {
-      let act = this.agenda.find(x => x.event_format_id === 3);
-      if (act !== undefined) {
-        if (act.event_format_id == 3) {
-          this.summitLogged = true;
-          return;
+  /*
+    mostrarApartado() {
+      if (this.agenda != null) {
+        let act = this.agenda.find(x => x.event_format_id === 3);
+        if (act !== undefined) {
+          if (act.event_format_id == 3) {
+            this.summitLogged = true;
+            return;
+          }
         }
       }
-    }
-    this.summitLogged = false;
-  }*/
+      this.summitLogged = false;
+    }*/
 
   onAbandonar(data) {
     this.eventosServices.deleteEventUser(data).subscribe(

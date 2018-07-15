@@ -17,7 +17,7 @@ import { passwordConfirming, passwordMatchValidator, validateAllFormFields } fro
 import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
 import { Observable } from 'rxjs/Observable'
 import { getLocaleDateFormat } from '@angular/common';
-import {Profile} from '../../models/profile'
+import { Profile } from '../../models/profile'
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
@@ -37,7 +37,7 @@ export class RegisterAbstract implements OnInit {
   esRegistroRedes: boolean;
   esRegistroCondiciones: boolean;
 
-  esAnterior: boolean=false;
+  esAnterior: boolean = false;
   esSiguiente: boolean;
   esFinalizar: boolean;
   esCancelar: boolean;
@@ -46,11 +46,11 @@ export class RegisterAbstract implements OnInit {
   success: boolean;
   errorInfo: string;
   isLogged: boolean;
-  profile:Profile;
+  profile: Profile;
 
-  loginObservable$:Observable<boolean>
-  profileObservable$:Observable<Profile>
-  registerObservable$:Observable<boolean>
+  loginObservable$: Observable<boolean>
+  profileObservable$: Observable<Profile>
+  registerObservable$: Observable<boolean>
 
   maxDate: Date = new Date();
   minDate: Date = new Date();
@@ -81,7 +81,7 @@ export class RegisterAbstract implements OnInit {
   createForm() { }
 
   ngOnInit() {
-    this.minDate.setFullYear(this.minDate.getFullYear()-100); 
+    this.minDate.setFullYear(this.minDate.getFullYear() - 100);
     this.loadStudyLevels()
     this.loadProfessionLevels()
     this.loadCountries()
@@ -95,16 +95,19 @@ export class RegisterAbstract implements OnInit {
     this.esRegistroPersonales = false;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
-    this.loginObservable$=this.loginServices.isLogin$()
+    this.loginObservable$ = this.loginServices.isLogin$()
     this.loginObservable$.subscribe(
-      loginStatus=> {this.getForm(loginStatus)
-        if(!loginStatus){this.reset()}}      )
-    this.registerObservable$=this.registerServices.goBack()
+      loginStatus => {
+        this.getForm(loginStatus)
+        if (!loginStatus) { this.reset() }
+      })
+    this.registerObservable$ = this.registerServices.goBack()
     this.registerObservable$.subscribe(
       data => this.discardChanges())
-      this.getForm(this.loginServices.isLogin())
-  this.registerServices.close().subscribe(
-    data=> {if(data){this.reset()}})
+    this.getForm(this.loginServices.isLogin())
+    this.registerServices.close().subscribe(
+      data => { if (data) { this.reset() } })
+      this.formulario.reset();
   }
 
   discardChanges() {
@@ -114,6 +117,7 @@ export class RegisterAbstract implements OnInit {
     this.error = false;
     this.send = false;
   }
+
   ngAfterviewInit() {
   }
 
@@ -126,23 +130,25 @@ export class RegisterAbstract implements OnInit {
         return true;
     };
     return false;
-  }
+  }  
 
   getForm(isLogged) {
     this.isLogged = isLogged
-    
-    this.searchPage()
-    //this.formulario.reset();
+    this.searchPage()    
     if (this.isLogged) {
-      this.formPage=1
-      this.profile=this.userService.getProfile()
-     //console.log(this.userService.getProfile())
-    if (this.profile!=null) {
-             this.userService.getForm(this.formulario, this.profile);  
-              }
-    } else {
-      
-    }
+      this.formPage = 1
+      if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
+        this.profileObservable$ = this.userService.getMyProfile2()
+        this.profileObservable$.subscribe(myProfile => {
+          this.profile = myProfile
+          this.userService.getForm(this.formulario, this.profile);
+        })
+      }
+      this.profile = this.userService.getProfile()
+      if (this.profile != undefined) {
+        this.userService.getForm(this.formulario, this.profile);
+      }
+    } 
   }
 
   loadStudyLevels() {
@@ -242,9 +248,9 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroCondiciones = false;
         this.esSiguiente = true;
         this.esFinalizar = false;
-        if(!this.loginServices.isLogin()){
+        if (!this.loginServices.isLogin()) {
           this.esAnterior = true;
-        }else { this.esAnterior = false}
+        } else { this.esAnterior = false }
         break;
       case 2:
         this.esRegistroUsuario = false;
@@ -252,11 +258,13 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroRedes = true;
         this.esRegistroCondiciones = false;
         this.esAnterior = true;
-        if(!this.loginServices.isLogin()){
-         this.esSiguiente = true;
-        this.esFinalizar = false;
-        }else { this.esSiguiente = false;
-        this.esFinalizar = true;}
+        if (!this.loginServices.isLogin()) {
+          this.esSiguiente = true;
+          this.esFinalizar = false;
+        } else {
+        this.esSiguiente = false;
+          this.esFinalizar = true;
+        }
         break;
       case 3:
         this.esRegistroUsuario = false;
@@ -276,15 +284,15 @@ export class RegisterAbstract implements OnInit {
 
   onAnterior() {
     if (this.formPage > 0) {
-      console.log('formpage:'+this.formPage)
-      if((this.loginServices.isLogin() && this.formPage>1) || !this.loginServices.isLogin()){
-      this.formPage--;
-      this.searchPage();
-      this.error = false;}
-      else if(this.loginServices.isLogin() && this.formPage<=1)
-      {        
-      this.searchPage();
-      this.error = false;
+      console.log('formpage:' + this.formPage)
+      if ((this.loginServices.isLogin() && this.formPage > 1) || !this.loginServices.isLogin()) {
+        this.formPage--;
+        this.searchPage();
+        this.error = false;
+      }
+      else if (this.loginServices.isLogin() && this.formPage <= 1) {
+        this.searchPage();
+        this.error = false;
       }
     }
   }
@@ -326,7 +334,7 @@ export class RegisterAbstract implements OnInit {
               this.send = false
               this.error = false;
               this.success = true;
-
+              this.refreshProfile();
               setTimeout(() => {
                 this.reset();
                 this.registerServices.pushClose()
@@ -336,11 +344,11 @@ export class RegisterAbstract implements OnInit {
           error => {
             this.send = false;
             this.error = true;
-            console.log(error)                  
+            console.log(error)
             this.errorInfo = error['message'];
-           
+
           });
-        
+
       }
     }
     else {
@@ -351,6 +359,12 @@ export class RegisterAbstract implements OnInit {
     //let obj={loginServices:this.loginServices,formSubmitAttempt:this.formSubmitAttempt,send:this.send,error:this.error,isLogged:this.isLogged}=onSubmitAbstract(this.formulario,this.loginServices, this.formSubmitAttempt,this.send,this.error,this.isLogged);
   }
 
+  refreshProfile(){
+    this.userService.getMyProfile2().subscribe(
+      profile => this.userService.changeMyProfile(profile)
+    )
+  }
+
   isFieldValid(field: string) {
     return (!this.formulario.get(field).valid && this.formulario.get(field).touched) ||
       (this.formulario.get(field).untouched && this.formSubmitAttempt) ||
@@ -358,45 +372,42 @@ export class RegisterAbstract implements OnInit {
   }
 
   isFieldRequired(field: string) {
-    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    if (this.formulario.get(field).errors == null) return false; //si no tiene errores
     return (this.formulario.get(field).errors.required && this.formulario.get(field).touched) || //si tiene error y lo toco
       (this.formulario.get(field).untouched && this.formSubmitAttempt) || //
       (this.formulario.get(field).untouched && this.formulario.get(field).touched);
   }
 
-  isFieldMatchPass(pass: string, pass_confirmation:string) {    
-    if(this.formulario.get(pass_confirmation).errors == null) return false; //si no tiene errores    
-    return (!this.formulario.get(pass_confirmation).errors.required && this.formulario.get(pass_confirmation).touched && this.formulario.get(pass).value != this.formulario.get(pass_confirmation).value)      
+  isFieldMatchPass(pass: string, pass_confirmation: string) {
+    if (this.formulario.get(pass_confirmation).errors == null) return false; //si no tiene errores    
+    return (!this.formulario.get(pass_confirmation).errors.required && this.formulario.get(pass_confirmation).touched && this.formulario.get(pass).value != this.formulario.get(pass_confirmation).value)
   }
 
   isFieldPattern(field: string) {
-    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    if (this.formulario.get(field).errors == null) return false; //si no tiene errores
     return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.pattern)//si tiene error y lo toco     
   }
 
   isFieldEmail(field: string) {
-    if(this.formulario.get(field).errors == null) return false; //si no tiene errores
+    if (this.formulario.get(field).errors == null) return false; //si no tiene errores
     return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.email)
   }
 
-  isFieldBirthDate(field: string) {    
-    if(this.formulario.get(field).value == null) return false;
+  isFieldBirthDate(field: string) {
+    if (this.formulario.get(field).value == null) return false;
     var year = new Date();
-    var value =  new Date(this.formulario.get(field).value)
+    var value = new Date(this.formulario.get(field).value)
     return (this.formulario.get(field).touched && !(value.getFullYear() <= year.getFullYear() && value.getFullYear() >= (year.getFullYear() - 100)))
   }
 
   reset() {
-    console.log('reiniciando')
-    
-   
     this.formSubmitAttempt = false;
-    if(this.loginServices.isLogin()){
+    this.formulario.reset();
+    if (this.loginServices.isLogin()) {
       this.getForm(true)
-      this.formPage=1
-    }else{
-      this.formPage=0
-      this.formulario.reset();
+      this.formPage = 1
+    } else {
+      this.formPage = 0
     }
     this.searchPage()
   }

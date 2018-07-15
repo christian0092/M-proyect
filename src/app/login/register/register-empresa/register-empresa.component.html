@@ -23,7 +23,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña (*)"
+            <input formControlName="password" type="password" class="form-control " name="contraseña" placeholder="Contraseña (*)"
               ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('user.password')">Debes agregar una contraseña de entre 6-20 caracteres.</div>
           </div>
@@ -34,7 +34,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Confirma la contraseña (*)" ngModel>
+            <input formControlName="password_confirmation" type="password" class="form-control "  name="repite contraseña" placeholder="Confirma la contraseña (*)" ngModel>
             <div *ngIf="isFieldRequired('user.password_confirmation')" class="alert alert-danger">Debes agregar una confirmación de contraseña.</div>
             <div *ngIf="isFieldMatchPass('user.password', 'user.password_confirmation')" class="alert alert-danger">Las contraseñas no coinciden.</div>
           </div>
@@ -73,7 +73,7 @@
           </div>
           <div class="col-md-6">
             <!--<input formControlName="country_id" type="text" class="form-control" placeholder="Pais" >-->
-            <select formControlName="country_id" class="form-control" id="pais">
+            <select formControlName="country_id" class="form-control">
               <option [ngValue]="null">Seleccione su país (*)</option>
               <option *ngFor="let value of countries" [value]="value.id">{{ value.name }}
               </option>
@@ -88,13 +88,13 @@
             <div class="alert alert-danger" *ngIf="isFieldValid('organization.street')">Debe agregar la calle.</div>
             <div class="form-row">
               <div class="col">
-                <input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número (*)">
+                <input formControlName="number" type="text" class="form-control"  name="numero" placeholder="Número (*)">
               </div>
               <div class="col">
-                <input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso">
+                <input formControlName="floor" type="text" class="form-control"  name="piso" placeholder="Piso">
               </div>
               <div class="col">
-                <input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Dpto">
+                <input formControlName="dept" type="text" class="form-control"  name="departamento" placeholder="Dpto">
               </div>
             </div>
             <div class="alert alert-danger" *ngIf="isFieldValid('organization.number')">Debe agregar la altura de la localidad.</div>
