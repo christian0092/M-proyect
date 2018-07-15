@@ -99,12 +99,15 @@ export class UserService {
       this.changeMyParticipantList(this.dummyMyParticipantList)
   }
 //////////////////////////////////--User Profile--///////////////////////////////////
-  private changeMyProfile(val:Profile){
+  public changeMyProfile(val:Profile){
     this.myProfile=val;
     this.myProfileObservable$.next(this.myProfile)
   }
    getMyProfile():Observable<Profile>{
     return this.myProfileObservable$
+  }
+  getProfile() : Profile {
+    return this.myProfile;
   }
   checkMyProfile(){
     this.getMyProfile2().subscribe(data=>this.changeMyProfile(data))

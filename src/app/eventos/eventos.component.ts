@@ -9,8 +9,8 @@ import { Account } from '../models/account';
 import { Speaker } from '../models/speaker';
 import { Event_format } from '../models/event_format';
 
-import {Observable} from 'rxjs/Observable';
-import {FormControl} from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
 import { EventosService } from './eventos.service';
 import { ActividadService } from './actividad/actividad.service';
 import { LoginService } from '../services/login.service';
@@ -23,12 +23,12 @@ import { Subject } from 'rxjs';
 })
 export class EventosComponent implements OnInit {
 
-  error=false;
-  send=false;
-  isLogged : boolean;
+  error = false;
+  send = false;
+  isLogged: boolean;
   isLogged$: Observable<boolean>;
 
-  isMisEvent : Event[];
+  isMisEvent: Event[];
   isMisEvent$: Observable<Event[]>;
 
   /*agenda2: Actividad[]=[
@@ -39,12 +39,12 @@ export class EventosComponent implements OnInit {
     new Actividad('12:45','13:30','','','BREAK','','1',''),
     new Actividad('13:30','14:30','','','SUMMIT','Espacio de 10´ para presentar tu idea o prototipo a posibles socios clave','3','congress_c.jpg'),
   ];*/
-  public actividad:Activity;
+  public actividad: Activity;
 
-  public participaActividad=false;
+  public participaActividad = false;
   //public actividades:Activity[];
 
-  actividades:Activity[];
+  actividades: Activity[];
   actividades$: Observable<Activity[]>;
 
   public evento: Event;
@@ -52,60 +52,68 @@ export class EventosComponent implements OnInit {
   public eventoPartners: Partner[];
   public eventoOrganizers: Organizer[];
 
-  public agenda:Activity[];
+  public agenda: Activity[];
   public agendaSpeakers: Speaker[];
 
-  public subscripto=false;
+  public subscripto = false;
 
   constructor(
-    private eventosServices:EventosService,
-    private actividadServices:ActividadService,
-    private loginService:LoginService
+    private eventosServices: EventosService,
+    private actividadServices: ActividadService,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
-  //this.isMisEvent$ = this.loginService.isMisEvent$();
+    //this.isMisEvent$ = this.loginService.isMisEvent$();
 
     this.isLogged$ = this.loginService.isLogin$();
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        if(isLogged==true)
-        {
-          this.error=false;
-          this.loadMisEvento();
-        }
-        this.loadEvento();
+        /* if(isLogged==true)
+         {
+           this.error=false;
+           this.loadMisEvento();          
+         }
+         this.loadEvento();*/
 
 
       });
     //this.loginService.checkLogin();
-
+    this.isLogged = this.loginService.isLogin()
+    if (this.isLogged == true) {
+      this.error = false;
+      this.loadMisEvento();
+    }
+    this.loadEvento();
   }
-  getSend(){
+
+  getSend() {
     return this.send;
   }
-  getError(){
+
+  getError() {
     return this.error;
   }
-  resetSend(){
-    this.send=false;
-    this.error=false;
+  
+  resetSend() {
+    this.send = false;
+    this.error = false;
   }
 
-  checkEvent(data){
+  checkEvent(data) {
     this.eventosServices.checkEvent(data).subscribe(
       data => {
         if (data['success']) {
-          this.subscripto=true;
+          this.subscripto = true;
         } else {
-            this.subscripto=false;
+          this.subscripto = false;
         }
       }
     );
   }
 
-  checkActivity(id){
+  checkActivity(id) {
 
     //alert('checkActivity'+id);
     //this.participaActividad=false;
@@ -139,29 +147,29 @@ export class EventosComponent implements OnInit {
       }
     );*/
 
-      /*if(this.actividades!=null){
-        for(let act of this.actividades){
+    /*if(this.actividades!=null){
+      for(let act of this.actividades){
 
-          alert('formato'+act.id);
-          if(act.id==id){
-            this.participaActividad=true;
-            break;
-          }
-          else{
-            this.participaActividad=false;
-          }
+        alert('formato'+act.id);
+        if(act.id==id){
+          this.participaActividad=true;
+          break;
         }
-        alert('participaActividad'+this.participaActividad);
+        else{
+          this.participaActividad=false;
+        }
       }
-      else{
-        this.participaActividad=false;
-      }*/
+      alert('participaActividad'+this.participaActividad);
+    }
+    else{
+      this.participaActividad=false;
+    }*/
 
 
   }
 
-  getActividad (actividad){
-    this.actividad=actividad;
+  getActividad(actividad) {
+    this.actividad = actividad;
     this.actividadServices.onActivityclickchange(this.actividad);
 
     /*if(this.isLogged==true && this.subscripto==true)
@@ -169,104 +177,106 @@ export class EventosComponent implements OnInit {
 
   }
 
-  loadEvento(){
+  loadEvento() {
     this.eventosServices.getEvent().subscribe(events => {
-          this.evento = events[0];
+      this.evento = events[0];
 
-          this.eventoAccounts = this.evento.accounts
-          this.eventoPartners = this.evento.partners
-          this.eventoOrganizers = this.evento.organizers
+      this.eventoAccounts = this.evento.accounts
+      this.eventoPartners = this.evento.partners
+      this.eventoOrganizers = this.evento.organizers
 
-          this.loadAgenda(this.evento.id);
-          /*if(this.isLogged==true){
+      this.loadAgenda(this.evento.id);
+      /*if(this.isLogged==true){
 
-            this.subscripto=this.eventosServices.participoEvent(this.evento.id);
-          }*/
+        this.subscripto=this.eventosServices.participoEvent(this.evento.id);
+      }*/
 
-        });
+    });
   }
 
-  loadMisEvento(){
+  loadMisEvento() {
 
     this.eventosServices.misEvent().subscribe(events => {
-          //this.eventosServices.changeMisEventValue(events)
-          if(events.length>0){
-            this.subscripto=true;
-            //this.loadMisActividades(events[0].id);
-          }
-        });
+      //this.eventosServices.changeMisEventValue(events)
+      if (events.length > 0) {
+        this.subscripto = true;
+        this.actividadServices.loadMyActivities(events[0].id).subscribe(
+          activities => this.actividadServices.ActivitiesChange(activities['data'])
+        );
+      }
+    });
   }
 
-/*loadMisActividades(id){
-  this.actividades$ = this.actividadServices.getActivities();
-  this.actividades$.subscribe(
-      inActivities => {
-        this.actividades = inActivities;
-  });
+  /*loadMisActividades(id){
+    this.actividades$ = this.actividadServices.getActivities();
+    this.actividades$.subscribe(
+        inActivities => {
+          this.actividades = inActivities;
+    });
+  
+          this.actividadServices.checkActivity(id).subscribe(activities => {
+          this.actividades = activities['data'];
+          console.log(this.actividades);
+          this.actividadServices.checkActivities(this.actividades);
+  
+  
+    });*/
 
-        this.actividadServices.checkActivity(id).subscribe(activities => {
-        this.actividades = activities['data'];
-        console.log(this.actividades);
-        this.actividadServices.checkActivities(this.actividades);
-
-
-  });*/
-
-//this.actividadServices.checkActivity(id).subscribe();
+  //this.actividadServices.checkActivity(id).subscribe();
   //this.actividadServices.checkActivities(this.actividades);
-/*}*/
-  loadAgenda(data){
+  /*}*/
+  loadAgenda(data) {
     this.eventosServices.getEventActivities(data).subscribe(activities => {
-          this.agenda = activities;
-          //console.log(this.agenda);
-          //this.agendaSpeakers = this.agenda.speakers
-        });
+      this.agenda = activities;
+      //console.log(this.agenda);
+      //this.agendaSpeakers = this.agenda.speakers
+    });
   }
 
-  onParticipar(data){
+  onParticipar(data) {
 
-    if(this.isLogged==true){
+    if (this.isLogged == true) {
       this.eventosServices.addEventUser(data).subscribe(
-         data => {
-           if(data['success']){
-             this.subscripto=true;
-             this.error=false;
-             this.send=true;
-           }
+        data => {
+          if (data['success']) {
+            this.subscripto = true;
+            this.error = false;
+            this.send = true;
+          }
 
-         }
-       );
+        }
+      );
     }
-    else{
-      this.error=true;
-      this.send=false;
+    else {
+      this.error = true;
+      this.send = false;
     }
 
   }
 
-  onAbandonar(data){
-    if(this.isLogged==true){
-     this.eventosServices.deleteEventUser(data).subscribe(
+  onAbandonar(data) {
+    if (this.isLogged == true) {
+      this.eventosServices.deleteEventUser(data).subscribe(
         data => {
-          if(data['success']){
-            this.subscripto=false;
+          if (data['success']) {
+            this.subscripto = false;
             /*this.actividades = [];
             this.actividadServices.checkActivities(this.actividades);*/
           }
         });
     }
-    else{
+    else {
       alert('Debe loguearse para poder Abandonar los Eventos');
     }
 
   }
 
-  getVer(formato){
+  getVer(formato) {
 
-    if(formato==7 || formato==8) return false
+    if (formato == 7 || formato == 8) return false
     else return true;
   }
 
 
 
-  }
+}
