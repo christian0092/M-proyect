@@ -130,11 +130,11 @@ export class RegisterAbstract implements OnInit {
         return true;
     };
     return false;
-  }  
+  }
 
   getForm(isLogged) {
     this.isLogged = isLogged
-      
+
     if (this.isLogged) {
       this.formPage = 1
       if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
@@ -142,7 +142,7 @@ export class RegisterAbstract implements OnInit {
         this.profileObservable$.subscribe(myProfile => {
           this.profile = myProfile
          // this.userService.getForm(this.formulario, this.profile);
-          console.log('cargo desde el observer')
+          //console.log('cargo desde el observer')
         })
       }
       this.profile = this.userService.getProfile()
@@ -151,7 +151,7 @@ export class RegisterAbstract implements OnInit {
        //this.reset()
       }
     }
-    this.searchPage()   
+    this.searchPage()
   }
 
   loadStudyLevels() {
@@ -287,7 +287,7 @@ export class RegisterAbstract implements OnInit {
 
   onAnterior() {
     if (this.formPage > 0) {
-      console.log('formpage:' + this.formPage)
+      //console.log('formpage:' + this.formPage)
       if ((this.loginServices.isLogin() && this.formPage > 1) || !this.loginServices.isLogin()) {
         this.formPage--;
         this.searchPage();
@@ -347,7 +347,7 @@ export class RegisterAbstract implements OnInit {
           error => {
             this.send = false;
             this.error = true;
-            console.log(error)
+            //console.log(error)
             this.errorInfo = error['message'];
 
           });
@@ -382,13 +382,13 @@ export class RegisterAbstract implements OnInit {
   }
 
   isFieldMatchPass(pass: string, pass_confirmation: string) {
-    if (this.formulario.get(pass_confirmation).errors == null) return false; //si no tiene errores    
+    if (this.formulario.get(pass_confirmation).errors == null) return false; //si no tiene errores
     return (!this.formulario.get(pass_confirmation).errors.required && this.formulario.get(pass_confirmation).touched && this.formulario.get(pass).value != this.formulario.get(pass_confirmation).value)
   }
 
   isFieldPattern(field: string) {
     if (this.formulario.get(field).errors == null) return false; //si no tiene errores
-    return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.pattern)//si tiene error y lo toco     
+    return (!this.formulario.get(field).errors.required && this.formulario.get(field).touched && this.formulario.get(field).errors.pattern)//si tiene error y lo toco
   }
 
   isFieldEmail(field: string) {
@@ -405,7 +405,7 @@ export class RegisterAbstract implements OnInit {
 
   reset() {
     this.formSubmitAttempt = false;
-    
+
     if (this.loginServices.isLogin()) {
       this.getForm(true)
       this.formPage = 1
@@ -416,10 +416,3 @@ export class RegisterAbstract implements OnInit {
     this.searchPage()
   }
 }
-
-
-
-
-
-
-
