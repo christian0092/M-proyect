@@ -100,6 +100,7 @@ export class RegisterAbstract implements OnInit {
     this.registerObservable$=this.registerServices.goBack()
     this.registerObservable$.subscribe(
       data => this.discardChanges())
+      this.getForm(this.loginServices.isLogin())
   }
 
   discardChanges() {
@@ -126,13 +127,10 @@ export class RegisterAbstract implements OnInit {
   getForm(isLogged) {
     this.isLogged = isLogged
     if (this.isLogged) {
-      this.profileObservable$=this.userService.getMyProfile2()
-      this.profileObservable$.subscribe(
-          profile => {
-            if (profile!=null) {
+      var profile=this.userService.getProfile()
+    if (profile!=null) {
              this.userService.getForm(this.formulario, profile);  
               }
-      })
     } else {
       this.formulario.reset();
     }
