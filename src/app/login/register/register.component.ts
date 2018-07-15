@@ -11,11 +11,11 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private esInicio: boolean;
-  private esPersona: boolean;
-  private esEmpresa: boolean;
-  private isValidPersona: boolean;
-  private type: String;
+  public esInicio: boolean;
+  public esPersona: boolean;
+  public esEmpresa: boolean;
+  public isValidPersona: boolean;
+  public type: String;
   //private isLogged:boolean;
   isLogged: boolean;
   isLogged$: Observable<boolean>;
