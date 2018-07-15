@@ -107,6 +107,7 @@ color: #2057a2;
   font-size: 15px;
 /*  border:solid red 1px;*/
   padding:3px;
+  clear:left;
 }
 .titulo_dato{
   color:#2057a2;
