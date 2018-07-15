@@ -2,7 +2,7 @@
   <div class="contenido" style="min-height:415px">
     <div class="alert alert-info" *ngIf="send">Formulario enviado! Por favor espere..</div>
     <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
-    <div class="alert alert-success" *ngIf="success">Registro exitoso! Por favor revise su correo</div>
+    <div class="alert alert-success" *ngIf="success">{{errorInfo}}</div>
     <div [hidden]="!esRegistroUsuario">
       <div class="form-row" id="header_titulo">
         <legend>Usuario</legend>

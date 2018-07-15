@@ -309,6 +309,9 @@ export class RegisterAbstract implements OnInit {
         this.loginServices.register(this.formulario.value).subscribe(
           data => {
             if (data['success'] === true) {
+             // console.log(data)
+              this.errorInfo=data['message']
+              //console.log(this.errorInfo)
               this.send = false
               this.error = false;
               this.success = true;
@@ -320,9 +323,11 @@ export class RegisterAbstract implements OnInit {
             }
           },
           error => {
+           // console.log(error)
             this.send = false;
             this.error = true;
             var serverError = error['data'];
+            this.errorInfo=error['message']
             if (serverError['email']) {
               this.errorInfo = serverError['email'];
             }
@@ -334,6 +339,7 @@ export class RegisterAbstract implements OnInit {
         this.loginServices.edit(this.formulario.value).subscribe(
           data => {
             if (data['success'] === true) {
+              this.errorInfo=data['message']
               this.send = false
               this.error = false;
               this.success = true;
@@ -345,6 +351,7 @@ export class RegisterAbstract implements OnInit {
             }
           },
           error => {
+           // console.log(error)
             this.send = false;
             this.error = true;
             //console.log(error)
@@ -405,6 +412,8 @@ export class RegisterAbstract implements OnInit {
 
   reset() {
     this.formSubmitAttempt = false;
+    this.error=false
+    this.success=false
 
     if (this.loginServices.isLogin()) {
       this.getForm(true)
