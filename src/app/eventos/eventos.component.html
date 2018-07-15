@@ -30,8 +30,8 @@
 					</p>
 
 					<div class="row">
-						<div class="col" *ngFor="let organizer of eventoOrganizers">
-							<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
+						<div class="col" *ngFor="let organizer of eventoOrganizers" style="display:flex;align-items: center">
+							<a href="{{organizer.link_page}}" target="_blank"><img  src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
 						</div>
 
 					</div>
@@ -204,8 +204,8 @@
 	</div>
 </div>
 
-<div class="contenido" style="margin-top:45px">
-  <div class="container" style="margin-bottom:0">
+<div class="contenido" style="margin-top:0px">
+  <div class="container" style="margin-top:0px;margin-bottom:0">
 
     <div class="row" >
       <div  class="col-md-4" >
@@ -216,33 +216,9 @@
 
             <div class="carousel-item active" >
             </div>
-            <div class="carousel-item" *ngFor="let partner of eventoPartners">
-              <a href="{{partner.link_page}}" target="_blank"><img src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
+            <div class="carousel-item" *ngFor="let partner of eventoPartners" >
+              <div style="height:280px;display:flex;align-items: center"><a href="{{partner.link_page}}" target="_blank"><img src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a></div>
             </div>
-            <!--<div class="carousel-item" >
-              <a href="https://www.asebal.com/" target="_blank"><img src="assets/eventos/asebal.jpg" id="imagen_patrocinador"></a>
-            </div>
-            <div class="carousel-item" >
-              <a href="http://www.pat-apat.org/" target="_blank"><img src="assets/eventos/pat1.png" id="imagen_patrocinador"></a>
-					  </div>
-            <div class="carousel-item">
-							<a href="https://www.auditoresdeseguridadvial.com/" target="_blank"><img src="assets/eventos/auditores.jpg" id="imagen_patrocinador"></a>
-            </div>
-            <div class="carousel-item">
-              <a href="https://www.habidom.com/" target="_blank"><img src="assets/eventos/habidom.jpg" id="imagen_patrocinador"></a>
-						</div>
-            <div class="carousel-item">
-              <a href="http://www.tiendaetrasa.com/" target="_blank"><img src="assets/eventos/etrasa.jpg" id="imagen_patrocinador"></a>
-            </div>
-            <div class="carousel-item">
-              <a href="https://www.mwork.com.ar/" target="_blank"><img src="assets/eventos/mwork.jpg" id="imagen_patrocinador"></a>
-            </div>
-						<div class="carousel-item">
-							<a target="_blank"><img src="assets/eventos/bsp.jpg" id="imagen_patrocinador"></a>
-            </div>
-            <div class="carousel-item">
-							<a target="_blank"><img src="assets/eventos/cota.jpg" id="imagen_patrocinador"></a>
-            </div>-->
 
           </div>
         </div>
@@ -272,7 +248,7 @@
 	</div>
 </div>
 -->
-	<div class="contenido" style="margin-top:40px">
+	<div class="contenido" style="margin-top:5px">
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-10">
