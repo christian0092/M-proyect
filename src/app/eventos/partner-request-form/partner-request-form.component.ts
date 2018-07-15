@@ -28,13 +28,14 @@ export class PartnerRequestFormComponent implements OnInit {
   }
 
   onSubmit() {
-      
+
       if (this.partner_form.valid) {
+
         this.partnerService.send(this.partner_form.value).subscribe(
           data => {
             this.send=true;
             this.loading = true;
-            if(data['status']){              
+            if(data['success']){
               this.noError=true;
               this.reset();
             } else{
