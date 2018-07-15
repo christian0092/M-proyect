@@ -43,15 +43,15 @@ export class MSummitComponent implements OnInit {
     if(event.target.files && event.target.files.length > 0) {
      this.file = event.target.files[0];
      //this.file2=event.target.files[1];
-     
+
     this.formTemplate.get('template').setValue({
           fileName: this.file.name,
           fileType: this.file.type,
           fileSize:this.file.size,
         })
-      console.log(this.file.name)
-      console.log(this.file2.name)
-        console.log(this.formTemplate);
+      //console.log(this.file.name)
+      //console.log(this.file2.name)
+        //console.log(this.formTemplate);
     }else{
       this.noError=false
       this.errorInfo="Se produjo un error al cargar, vuelva a intentarlo.."
@@ -74,7 +74,7 @@ export class MSummitComponent implements OnInit {
    //const formModel = this.formTemplate.value;
     this.loading = true;
        this.fileUploadService.addfile(
-                this.file, 
+                this.file,
                 this.formTemplate).subscribe(
                     event=>{
                       this.send=false
@@ -82,14 +82,14 @@ export class MSummitComponent implements OnInit {
                       this.loading=false
                       this.noError=true
                       this.fileInput.nativeElement.value=""
-                      this.formTemplate.reset()}, 
+                      this.formTemplate.reset()},
                     error=>{
                        this.send=false
                       this.success=false
                       this.noError=false;
                       this.loading = false;
                       this.errorInfo=error.message
-                        console.log(error)
+                        //console.log(error)
                     });}else if(this.formTemplate.invalid && this.file==null){
                     this.success=true
                     this.loading=false
