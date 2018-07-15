@@ -405,12 +405,13 @@ export class RegisterAbstract implements OnInit {
 
   reset() {
     this.formSubmitAttempt = false;
-    this.formulario.reset();
+    
     if (this.loginServices.isLogin()) {
       this.getForm(true)
       this.formPage = 1
     } else {
       this.formPage = 0
+      this.formulario.reset();
     }
     this.searchPage()
   }
