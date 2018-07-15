@@ -47,7 +47,7 @@ logForm:FormGroup
 
       },
       error =>  {
-        console.log(error)
+        //console.log(error)
          this.send=false
         this.error=true
         this.errorInfo=error.message
