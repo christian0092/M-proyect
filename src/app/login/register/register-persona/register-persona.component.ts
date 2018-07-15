@@ -156,7 +156,7 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         floor: [null],
         dept: [null],
         terms: [null, Validators.compose([Validators.required, trueCheck])],
-        share_data: [true, Validators.required],
+        share_data: [true],
         //interests: this.allInterests,
         interests: this.fp.array([]),
         //socials: allSocials

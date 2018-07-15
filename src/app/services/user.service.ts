@@ -131,8 +131,8 @@ export class UserService {
   chargeFormPersonProfile(form: FormGroup, profile: Profile): FormGroup {
     if (form.controls['person'] == undefined) return;
     form.controls['user'].patchValue({ email: profile.person.email });
-    //  form.controls['user'].patchValue( {password:'pepito'});
-    //    form.controls['user'].patchValue( {password_confirmation:'pepito'});
+    form.controls['user'].patchValue( {password:'pepito'});
+    form.controls['user'].patchValue( {password_confirmation:'pepito'});
     form.controls['person'].patchValue({ name: profile.person.name });
     form.controls['person'].patchValue({ surname: profile.person.surname })
     form.controls['person'].patchValue({ birth_date: profile.person.birth_date })
