@@ -12,7 +12,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="email" type="email" class="form-control" name="email" id="person_email" placeholder="Email (*)" ngModel>
+            <input formControlName="email" type="email" class="form-control" name="email"  placeholder="Email (*)" ngModel>
             <div *ngIf="isFieldRequired('user.email')" class="alert alert-danger">Debes agregar un correo electrónico.</div>
             <div *ngIf="isFieldEmail('user.email')" class="alert alert-danger">El formato debe ser <i> nombre@dom.com </i>.</div>
           </div>
@@ -23,7 +23,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password" type="password" class="form-control " id="contraseña" name="contraseña" placeholder="Contraseña (*)" ngModel>
+            <input formControlName="password" type="password" class="form-control " name="contraseña" placeholder="Contraseña (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('user.password')">Debes agregar una contraseña de entre 6-20 caracteres.</div>
           </div>
           <div class="col-md-3">
@@ -33,7 +33,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-6">
-            <input formControlName="password_confirmation" type="password" class="form-control " id="repite contraseña" name="repite contraseña" placeholder="Confirma la contraseña (*)" ngModel>
+            <input formControlName="password_confirmation" type="password" class="form-control "  name="repite contraseña" placeholder="Confirma la contraseña (*)" ngModel>
             <div *ngIf="isFieldRequired('user.password_confirmation')" class="alert alert-danger">Debes agregar una confirmación de contraseña.</div>
             <div *ngIf="isFieldMatchPass('user.password', 'user.password_confirmation')" class="alert alert-danger">Las contraseñas no coinciden.</div>
           </div>
@@ -51,20 +51,20 @@
           <div class="col-md-6">
             <input formControlName="name" class="form-control" type="text" placeholder="Nombre (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.name')">Debes agregar su nombre.</div>
-            <input formControlName="surname" type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido (*)"
+            <input formControlName="surname" type="text" class="form-control"  name="apellido" placeholder="Apellido (*)"
             ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.surname')">* Debes agregar su apellido</div>
-            <input formControlName="document_number" type="text" class="form-control" id="dni" name="dni" placeholder="DNI (*)" ngModel>
+            <input formControlName="document_number" type="text" class="form-control"  name="dni" placeholder="DNI (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.document_number')">Debes agregar su documento.</div>
-            <input formControlName="birth_date" type="text" onfocus="(this.type='date')" id="date" class="form-control" id="fechaDeNacimiento" name="fechaDeNacimiento" placeholder="Fecha de nacimiento (*)" ngModel>
+            <input formControlName="birth_date" type="text" onfocus="(this.type='date')"  class="form-control"  name="fechaDeNacimiento" placeholder="Fecha de nacimiento (*)" ngModel>
             <div class="alert alert-danger" *ngIf="isFieldPattern('person.birth_date') || isFieldBirthDate('person.birth_date')">La fecha elegida no es válida.</div>
             <div class="alert alert-danger" *ngIf="isFieldValid('person.birth_date')">Debes agregar su fecha de nacimiento.</div>
-            <select formControlName="profession_id" class="form-control" id="empleo">
+            <select formControlName="profession_id" class="form-control" >
               <option [ngValue]="null">Seleccione su profesión</option>
               <option *ngFor="let value of professionLevels" [value]="value.id">{{ value.name }}
               </option>
             </select>
-            <select formControlName="study_level_id" class="form-control" id="exampleFormControlSelect1">
+            <select formControlName="study_level_id" class="form-control" >
               <option [ngValue]="null">Seleccione su estudio</option>
               <option *ngFor="let value of studyLevels" [value]="value.id">{{ value.name }}
               </option>
@@ -79,27 +79,27 @@
               <div *ngIf="isFieldRequired('person.phone')" class="alert alert-danger">Debes agregar el teléfono.</div>
               <div *ngIf="isFieldPattern('person.phone')" class="alert alert-danger">Formato de teléfono inválido. Ej: +99-9999-999999 (los guiones pueden obviarse).</div>
             </div>
-            <!--<input formControlName="country_id" type="text" class="form-control" id="pais" name="pais" placeholder="Pais" ngModel>-->
-            <select formControlName="country_id" class="form-control" id="pais" autocomplete="on">
+            <!--<input formControlName="country_id" type="text" class="form-control"  name="pais" placeholder="Pais" ngModel>-->
+            <select formControlName="country_id" class="form-control"  autocomplete="on">
               <option [ngValue]="null">Seleccione su país</option>
               <option *ngFor="let value of countries" [value]="value.id">{{ value.name }}
               </option>
             </select>
-            <input formControlName="province" type="text" class="form-control" id="provincia" name="provincia" placeholder="Provincia"
+            <input formControlName="province" type="text" class="form-control" name="provincia" placeholder="Provincia"
             ngModel>
-            <input formControlName="city" type="text" class="form-control" id="localidad" name="localidad" placeholder="Localidad" ngModel>
-            <input formControlName="postal_code" type="text" class="form-control" id="codigoPostal" name="codigoPostal" placeholder="Codigo postal"
+            <input formControlName="city" type="text" class="form-control"  name="localidad" placeholder="Localidad" ngModel>
+            <input formControlName="postal_code" type="text" class="form-control"  name="codigoPostal" placeholder="Codigo postal"
             ngModel>
-            <input formControlName="street" type="text" class="form-control" id="calle" name="calle" placeholder="Calle" ngModel>
+            <input formControlName="street" type="text" class="form-control"  name="calle" placeholder="Calle" ngModel>
             <div class="form-row">
               <div class="col">
-                <input formControlName="number" type="text" class="form-control" id="numero" name="numero" placeholder="Número" ngModel>
+                <input formControlName="number" type="text" class="form-control"  name="numero" placeholder="Número" ngModel>
               </div>
               <div class="col">
-                <input formControlName="floor" type="text" class="form-control" id="piso" name="piso" placeholder="Piso" ngModel>
+                <input formControlName="floor" type="text" class="form-control"  name="piso" placeholder="Piso" ngModel>
               </div>
               <div class="col">
-                <input formControlName="dept" type="text" class="form-control" id="departamento" name="departamento" placeholder="Dpto" ngModel>
+                <input formControlName="dept" type="text" class="form-control"  name="departamento" placeholder="Dpto" ngModel>
               </div>
             </div>
           </div>

@@ -164,7 +164,8 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         avatar: [null],
         document_type_id: 1
       })
-    }, { validators: passwordMatchValidator });
+    }, { validators: passwordMatchValidator });   
+
   }
 
   /*createFormPersona() {

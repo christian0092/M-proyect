@@ -98,7 +98,7 @@ export class RegisterAbstract implements OnInit {
     this.loginObservable$ = this.loginServices.isLogin$()
     this.loginObservable$.subscribe(
       loginStatus => {
-        this.getForm(loginStatus)
+       // this.getForm(loginStatus)
         if (!loginStatus) { this.reset() }
       })
     this.registerObservable$ = this.registerServices.goBack()
@@ -134,21 +134,24 @@ export class RegisterAbstract implements OnInit {
 
   getForm(isLogged) {
     this.isLogged = isLogged
-    this.searchPage()    
+      
     if (this.isLogged) {
       this.formPage = 1
       if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
         this.profileObservable$ = this.userService.getMyProfile2()
         this.profileObservable$.subscribe(myProfile => {
           this.profile = myProfile
-          this.userService.getForm(this.formulario, this.profile);
+         // this.userService.getForm(this.formulario, this.profile);
+          console.log('cargo desde el observer')
         })
       }
       this.profile = this.userService.getProfile()
       if (this.profile != undefined) {
         this.userService.getForm(this.formulario, this.profile);
+       //this.reset()
       }
-    } 
+    }
+    this.searchPage()   
   }
 
   loadStudyLevels() {
