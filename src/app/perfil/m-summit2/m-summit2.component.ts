@@ -33,8 +33,8 @@ export class MSummit2Component implements OnInit {
   ngOnInit() {
 
   	this.queryForm.get('event_id').patchValue("1")
-    console.log("Estoy en summit")
- 
+    //console.log("Estoy en summit")
+
   }
  isFieldValid(query:string){
   	return isFieldValidation(query,this.queryForm)
@@ -46,7 +46,7 @@ export class MSummit2Component implements OnInit {
   	this.queryForm.reset()
     this.queryForm.get('event_id').patchValue("1")
   }
-  
+
 
   onSubmit() {
 
@@ -57,10 +57,10 @@ export class MSummit2Component implements OnInit {
           data => {
 
             if(data['success']){
-              
+
              	this.setQueryForm()
                this.ok=true
-               console.log(data['message'])
+               //console.log(data['message'])
              } else{
             this.error=true
       		this.errorData=data['message']
@@ -69,7 +69,7 @@ export class MSummit2Component implements OnInit {
           error =>{ this.send=false
                     this.error=true
                     this.errorData=error['message']
-                    console.log(error)
+                    //console.log(error)
                     }
           );
       }else if(this.queryForm.valid==false){
