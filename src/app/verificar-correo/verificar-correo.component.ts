@@ -10,7 +10,8 @@ import { VerificarCorreoService } from './verificar-correo.service';
 export class VerificarCorreoComponent implements OnInit {
 
 public code;
-public message;
+public message="";
+public message2="";
   constructor(
     private route:ActivatedRoute,
     private correoService:VerificarCorreoService
@@ -23,14 +24,16 @@ public message;
   }
 
   verificar(){
-
+    //this.message="Bienvenido, su registro ha sido verificado con éxito";
      this.correoService.addVerificar(this.code).subscribe(
         data => {
           if(data['success']){
-            this.message="Bienvenido, su registro ha sido verificado con éxito";
+            this.message="Tu registro ha sido verificado con éxito";
+            this.message2="Ya puedes empezar a disfrutar de los eventos";
           }
           else{
-            this.message="Error de verificación de registro";
+            this.message="Ha ocurrido un error con al verificacion del registro, por favor, comuniquese con nosotros.";
+            this.message2="";
           }
 
         }
