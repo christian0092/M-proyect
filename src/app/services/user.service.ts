@@ -204,8 +204,8 @@ chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
   checkMyProfile(){
     this.getMyProfile2().subscribe(data=>this.changeMyProfile(data))
     //this.Profile().subscribe(data=>this.changeMyProfile(data))
-
   }
+
   /*Profile(){
     const header = new Headers({ 'Content-Type': 'application/json','Authorization': 'Bearer' + localStorage.getItem('token')});
 
@@ -221,5 +221,11 @@ chargeFormOrganizationProfile(form:FormGroup, profile:Profile):FormGroup{
     //.map((profile: Profile) => new Profile().deserialize(Profile) )
     );
 
+  }
+
+  isPerson() : boolean{
+    if(this.myProfile == null) return;
+    if(this.myProfile.person == undefined || this.myProfile.person == null) return false;
+    return true;
   }
 }

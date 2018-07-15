@@ -1,10 +1,10 @@
-import { Component, OnInit, Input , ViewChild, ElementRef} from '@angular/core';
-import {Profile} from '../../models/profile';
-import {UserService} from '../../services/user.service';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Profile } from '../../models/profile';
+import { UserService } from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
-import {RegisterService} from '../../login/register/register.service';
+import { RegisterService } from '../../login/register/register.service';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,29 +15,29 @@ export class RegisterComponent implements OnInit {
   private esPersona: boolean;
   private esEmpresa: boolean;
   private isValidPersona: boolean;
-  private type:String;
+  private type: String;
   //private isLogged:boolean;
-  isLogged : boolean;
+  isLogged: boolean;
   isLogged$: Observable<boolean>;
 
   close$: Observable<boolean>;
-  profile$:Observable<Profile>
+  profile$: Observable<Profile>
 
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
   constructor(
-    private userService:UserService,
+    private userService: UserService,
     private loginServices: LoginService,
-    private registerService:RegisterService
+    private registerService: RegisterService
   ) { }
 
-  changePersona(valid){
-    //console.log(valid);
-    if(valid)
+  changePersona(valid) {
+    if (valid)
       this.isValidPersona = true;
     else
       this.isValidPersona = false;
   }
+
   ngOnInit() {
     this.esInicio = true;
     this.esPersona = false;
@@ -46,91 +46,111 @@ export class RegisterComponent implements OnInit {
 
     this.isLogged$ = this.loginServices.isLogin$();
     this.isLogged$.subscribe(
-      isLoggin=>{
+      isLoggin => {
         this.isLogged = isLoggin;
-        if(isLoggin==true)
-        {
+        if (isLoggin == true) {
           this.setProfile()
-          
         }
       }
     )
-    if(this.loginServices.checkLogin()){
-    
-      this.setProfile()
 
+    this.isLogged = this.loginServices.isLogin();
+    if (this.loginServices.isLogin()) {
+      if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
+        this.profile$ = this.userService.getMyProfile2()
+        this.profile$.subscribe(myProfile => {
+          this.userService.changeMyProfile(myProfile)
+          this.checkType(this.isLogged)
+        })
+      }
+      this.setProfile()
     }
 
-
-    this.close$=this.registerService.close();
-    this.close$.subscribe(data=>{if(!data){this.cerrar()}});
+    this.close$ = this.registerService.close();
+    this.close$.subscribe(data => { if (!data) { this.cerrar() } });
   }
 
-  setProfile(){
+  setProfile() {
 
-          this.profile$=this.userService.getMyProfile2()
-          this.profile$.subscribe(myProfile=>{
+    /*  this.profile$=this.userService.getMyProfile2()
+      this.profile$.subscribe(myProfile=>{
 
-          if(myProfile.person!=null){
-           // console.log("asigne persona")
-            this.type="Persona"}
-            else if(myProfile.organization!=null){
-               //console.log("asigne empresa")
-              this.type="Empresa"
-            }}     )
-          this.checkType(this.isLogged)  
-         this.userService.checkMyProfile();
-          
+      if(myProfile.person!=null){
+       // console.log("asigne persona")
+        this.type="Persona"}
+        else if(myProfile.organization!=null){
+           //console.log("asigne empresa")
+          this.type="Empresa"
+        }}     )*/
+
+
+    /*  if (this.userService.getProfile().person != null) {
+        // console.log("asigne persona")
+        this.type = "Persona"
+      }
+      else if (this.userService.getProfile().organization != null) {
+        //console.log("asigne empresa")
+        this.type = "Empresa"
+     }
+  */
+    this.checkType(this.isLogged)
+
+
+
+    //this.userService.checkMyProfile();
+
   }
-  cerrar(){
-    if(this.type=="Persona" && this.isLogged){
+
+  cerrar() {
+    if (this.userService.isPerson() && this.isLogged) {
       this.action(0)
     }
-      else if (this.type=="Empresa" && this.isLogged) {
+    else if (!this.userService.isPerson() && this.isLogged) {
       this.action(1)
-      }else if (!this.isLogged) {
-    this.action(2)
-      }
+    } else if (!this.isLogged) {
+      this.action(2)
+    }
     this.registerService.pushGoBack();
 
   }
-  checkType(log:boolean){
-    this.isLogged=log
-    if(this.type=="Persona" && this.isLogged){
+
+  checkType(log: boolean) {
+    this.isLogged = log
+    if (this.userService.isPerson() && this.isLogged) {
       this.action(0)
-    console.log("persona logeada");
+      //console.log("persona logeada");
     }
-      else if (this.type=="Empresa"&& this.isLogged) {
-         this.action(1)
-       console.log("empresa logeada");
-      }else if (!this.isLogged) {
-        this.action(2)
-       console.log("forastero");
-      }
+    else if (!this.userService.isPerson() && this.isLogged) {
+      this.action(1)
+     // console.log("empresa logeada");
+    } else if (!this.isLogged) {
+      this.action(2)
+    //  console.log("forastero");
+    }
   }
 
-  action(val){
+  action(val) {
     switch (val) {
       case 0:
-       this.esPersona = true;
-      this.esEmpresa = false;
-      this.esInicio = false;
+        this.esPersona = true;
+        this.esEmpresa = false;
+        this.esInicio = false;
         break;
-         case 1:
-     this.esPersona = false;
-      this.esEmpresa = true;
-      this.esInicio = false;
+      case 1:
+        this.esPersona = false;
+        this.esEmpresa = true;
+        this.esInicio = false;
         break;
-         case 2:
-       this.esPersona = false;
-      this.esEmpresa = false;
-      this.esInicio = true;
+      case 2:
+        this.esPersona = false;
+        this.esEmpresa = false;
+        this.esInicio = true;
         break;
 
       default:
         // code...
         break;
     }
- this.isValidPersona = false;
+    this.isValidPersona = false;
   }
 }
