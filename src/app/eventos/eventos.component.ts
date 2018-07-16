@@ -70,12 +70,11 @@ export class EventosComponent implements OnInit {
     this.isLogged$.subscribe(
       isLogged => {
         this.isLogged = isLogged;
-        /* if(isLogged==true)
+        if(isLogged==true)
          {
-           this.error=false;
-           this.loadMisEvento();          
+          this.error=false;
+          this.subscripto = this.eventosServices.participoEvent(1);
          }
-         this.loadEvento();*/
 
 
       });
@@ -83,7 +82,10 @@ export class EventosComponent implements OnInit {
     this.isLogged = this.loginService.isLogin()
     if (this.isLogged == true) {
       this.error = false;
+      //console.log(this.subscripto);
+      this.subscripto=false;
       this.loadMisEvento();
+      //console.log(this.subscripto);
     }
     this.loadEvento();
   }
@@ -95,7 +97,7 @@ export class EventosComponent implements OnInit {
   getError() {
     return this.error;
   }
-  
+
   resetSend() {
     this.send = false;
     this.error = false;
@@ -197,9 +199,10 @@ export class EventosComponent implements OnInit {
   loadMisEvento() {
 
     this.eventosServices.misEvent().subscribe(events => {
-      //this.eventosServices.changeMisEventValue(events)
+      this.eventosServices.changeMisEventValue(events)
       if (events.length > 0) {
         this.subscripto = true;
+        //console.log(this.subscripto);
         this.actividadServices.loadMyActivities(events[0].id).subscribe(
           activities => this.actividadServices.ActivitiesChange(activities['data'])
         );
@@ -213,13 +216,13 @@ export class EventosComponent implements OnInit {
         inActivities => {
           this.actividades = inActivities;
     });
-  
+
           this.actividadServices.checkActivity(id).subscribe(activities => {
           this.actividades = activities['data'];
           console.log(this.actividades);
           this.actividadServices.checkActivities(this.actividades);
-  
-  
+
+
     });*/
 
   //this.actividadServices.checkActivity(id).subscribe();
@@ -260,6 +263,7 @@ export class EventosComponent implements OnInit {
         data => {
           if (data['success']) {
             this.subscripto = false;
+            this.send=false;
             /*this.actividades = [];
             this.actividadServices.checkActivities(this.actividades);*/
           }

@@ -37,8 +37,8 @@
 					</div>
 				</div>
 				<div class="col-md-2"  >
-            <button *ngIf="subscripto" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
-						<button *ngIf="!subscripto" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento?.id)">Asistir</button>
+            <button *ngIf="subscripto!=null && subscripto==true" type="button" class="btn btn-danger" id="boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
+						<button *ngIf="subscripto!=null && subscripto!=true" type="button" class="btn btn-primary" id="boton_grande" (click)="onParticipar(evento?.id)">Asistir</button>
             <div class="alert alert-danger" *ngIf="getError()" style="font-size:15px;margin-top:10px">Debe Loguearse para Inscribirse al Evento</div>
             <div class="alert alert-success" *ngIf="getSend()" style="font-size:15px;margin-top:10px">Estás inscripto en el Evento</div>
 
@@ -225,8 +225,8 @@
           </div>
         </div>-->
 
-        <div class="row" style="margin-top:15px">
-          <div class="col-md-3" *ngFor="let partner of eventoPartners" style="display:flex;align-items: center;padding:20px">
+        <div class="row" style="margin-top:15px;display:flex;align-items: center">
+          <div class="col-md-3" *ngFor="let partner of eventoPartners" style="padding:30px">
             <a href="{{partner.link_page}}" target="_blank"><img  *ngIf="partner!=null && partner!=undefined" src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
           </div>
         </div>

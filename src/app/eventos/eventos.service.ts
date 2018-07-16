@@ -21,11 +21,9 @@ export class EventosService {
   }
 
   participoEvent(id) {
-
     if (this.MisEventIn == null) return false
-    for (let e of this.MisEventIn) {
-      if (e.id == id) return true;
-    }
+    let ev = this.MisEventIn.find(x => x.id === id);
+    if (ev != undefined) return true;
     return false;
   }
 
