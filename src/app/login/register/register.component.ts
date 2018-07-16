@@ -127,6 +127,7 @@ export class RegisterComponent implements OnInit {
       this.action(2)
     //  console.log("forastero");
     }
+    this.registerService.pushGoBack();
   }
 
   action(val) {
@@ -142,6 +143,7 @@ export class RegisterComponent implements OnInit {
         this.esInicio = false;
         break;
       case 2:
+      //console.log('inicio')
         this.esPersona = false;
         this.esEmpresa = false;
         this.esInicio = true;
