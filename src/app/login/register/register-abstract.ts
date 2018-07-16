@@ -98,6 +98,7 @@ export class RegisterAbstract implements OnInit {
     this.loginObservable$ = this.loginServices.isLogin$()
     this.loginObservable$.subscribe(
       loginStatus => {
+        this.isLogged=loginStatus
        // this.getForm(loginStatus)
         if (!loginStatus) { this.reset() }
       })
@@ -108,8 +109,9 @@ export class RegisterAbstract implements OnInit {
     this.registerServices.close().subscribe(
       data => { if (data) { this.reset() } })
       this.formulario.reset();
+     
   }
-
+ ngAfterViewInit(){ this.registerServices.pushGoBack()}
   discardChanges() {
     this.getForm(this.isLogged);
     this.formPage = 0;
@@ -137,12 +139,14 @@ export class RegisterAbstract implements OnInit {
 
     if (this.isLogged) {
       this.formPage = 1
+      this.searchPage()
       if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
         this.profileObservable$ = this.userService.getMyProfile2()
         this.profileObservable$.subscribe(myProfile => {
+
           this.profile = myProfile
          // this.userService.getForm(this.formulario, this.profile);
-          //console.log('cargo desde el observer')
+          console.log('cargo desde el observer')
         })
       }
       this.profile = this.userService.getProfile()
@@ -414,14 +418,17 @@ export class RegisterAbstract implements OnInit {
     this.formSubmitAttempt = false;
     this.error=false
     this.success=false
-
+    this.searchPage()
     if (this.loginServices.isLogin()) {
+     
       this.getForm(true)
       this.formPage = 1
-    } else {
+       //console.log(this.formPage)
+    } else if (!this.loginServices.isLogin()){
+      //console.log(this.loginServices.isLogin())
       this.formPage = 0
-      this.formulario.reset();
+      //this.formulario.reset();
     }
-    this.searchPage()
+    
   }
 }

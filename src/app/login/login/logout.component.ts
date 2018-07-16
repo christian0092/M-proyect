@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { UserService } from '../../services/user.service';
 import { Profile } from '../../models/profile'
 import { Observable, Subject } from 'rxjs';
+import { RegisterService } from '../../login/register/register.service';
 
 @Component({
   selector: 'app-logout',
@@ -20,7 +21,8 @@ export class LogoutComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private userService: UserService
+    private userService: UserService,
+    private registerServices:RegisterService
   ) {
     this.isLogged = this.loginService.isLogin()
     if (this.isLogged == true) {
@@ -41,10 +43,14 @@ export class LogoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.registerServices.pushGoBack()
   }
 
   logout() {
+
     this.loginService.logout();
+    this.registerServices.pushClose();
+
   }
 }
 
