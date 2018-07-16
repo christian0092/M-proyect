@@ -54,14 +54,14 @@ export class PerfilComponent implements OnInit {
   public evento: Event;
   public eventoAccounts: Account[];
   errorEvento;
-  summitLogged;
+  public summitLogged;
 
   constructor(
     private userService: UserService,
     private loginService: LoginService,
     private router: Router,
     private eventosServices: EventosService,
-    public actividadServices: ActividadService
+    private actividadServices: ActividadService
   ) { }
 
   ngOnInit() {
@@ -135,7 +135,7 @@ export class PerfilComponent implements OnInit {
           }
         );
       }
-      //this.summitLogged = this.actividadServices.hasSummit();
+      this.summitLogged = this.actividadServices.hasSummit();
     });
   }
   /*
@@ -157,7 +157,9 @@ export class PerfilComponent implements OnInit {
       data => {
         if (data['success']) {
           this.errorEvento = true;
+          this.summitLogged=false;
           this.agenda = [];
+          this.eventosServices.changeMisEventValue([]);
           this.actividadServices.ActivitiesChange([]);
           this.loadMisEvento();
         }
