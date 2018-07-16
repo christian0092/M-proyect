@@ -90,7 +90,7 @@ export class ActividadComponent implements OnInit {
             this.refreshMyActivities();
           }
           else {
-            console.log(data['message']);
+            //console.log(data['message']);
           }
         }
       );
@@ -102,7 +102,7 @@ export class ActividadComponent implements OnInit {
   }
 
   onAbandonar(data) {
-    console.log(data);
+    //console.log(data);
     this.actividadServices.deleteActivityUser(data).subscribe(
       data => {
         if (data['success']) {
@@ -111,7 +111,7 @@ export class ActividadComponent implements OnInit {
           this.refreshMyActivities();
           /*     this.actividadServices.checkActivity(this.actividad.event_id).subscribe(activities => {
                  this.actividadServices.checkActivities(activities['data']);
-     
+
                });*/
         }
       }
@@ -140,7 +140,7 @@ export class ActividadComponent implements OnInit {
         break;
       case 5:
         this.cabecera = "coffee_c.jpg";
-        this.textSummit = "";
+        this.textSummit = "A partir del 1 de Agosto encontrarás en tu Perfil la sección M_COFFEE para realizar las invitaciones";
         break;
     }
     return true;
