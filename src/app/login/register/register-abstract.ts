@@ -109,7 +109,7 @@ export class RegisterAbstract implements OnInit {
     this.registerServices.close().subscribe(
       data => { if (data) { this.reset() } })
       this.formulario.reset();
-     
+
   }
  ngAfterViewInit(){ this.registerServices.pushGoBack()}
   discardChanges() {
@@ -146,7 +146,7 @@ export class RegisterAbstract implements OnInit {
 
           this.profile = myProfile
          // this.userService.getForm(this.formulario, this.profile);
-          console.log('cargo desde el observer')
+          //console.log('cargo desde el observer')
         })
       }
       this.profile = this.userService.getProfile()
@@ -338,6 +338,9 @@ export class RegisterAbstract implements OnInit {
             if (serverError['password'] != null) {
               this.errorInfo = serverError['password'];
             }
+            if (serverError['document_number'] != null) {
+              this.errorInfo = serverError['document_number'];
+            }
           });
       } else if (this.isLogged) {
         this.loginServices.edit(this.formulario.value).subscribe(
@@ -420,7 +423,7 @@ export class RegisterAbstract implements OnInit {
     this.success=false
     this.searchPage()
     if (this.loginServices.isLogin()) {
-     
+
       this.getForm(true)
       this.formPage = 1
        //console.log(this.formPage)
@@ -429,6 +432,6 @@ export class RegisterAbstract implements OnInit {
       this.formPage = 0
       //this.formulario.reset();
     }
-    
+
   }
 }
