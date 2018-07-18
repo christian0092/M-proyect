@@ -3,6 +3,8 @@ import { Http, ResponseContentType } from '@angular/http';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FileUploadClientServiceService} from "../../services/file-upload-client-service.service"
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
+import { trueCheck, maxFileSize } from '../../customValidators/customValidators';
+import { checkSize } from '../../Decorators/fileUploadDecorator';
 
 
 
@@ -27,10 +29,11 @@ export class MSummitComponent implements OnInit {
    this.formTemplate=fb.group({
      title: ['', Validators.compose([Validators.required])],
       description: ['', Validators.compose([Validators.required])],
+      terms:['', Validators.compose([Validators.required, trueCheck])],
       template: fb.group({
         fileName: ['', Validators.compose([Validators.required])],
         fileType: ['', Validators.compose([Validators.required])],
-        fileSize: ['', Validators.compose([Validators.required])],
+        fileSize: ['', Validators.compose([Validators.required, maxFileSize(1024*1024*15)])],
       })
     })}
 
@@ -52,10 +55,14 @@ export class MSummitComponent implements OnInit {
       //console.log(this.file.name)
       //console.log(this.file2.name)
         //console.log(this.formTemplate);
+
     }else{
-      this.noError=false
-      this.errorInfo="Se produjo un error al cargar, vuelva a intentarlo.."
-    }}
+      //this.noError=false
+      //this.errorInfo="Se produjo un error al cargar, vuelva a intentarlo.."
+    }
+    //console.log(this.formTemplate.controls['template'].get('fileSize').hasError('maxFileSize'))
+  }
+    
       clearFile() {
     this.formTemplate.reset()
     this.file=null;
@@ -102,7 +109,11 @@ export class MSummitComponent implements OnInit {
   	return this.noError;
   }
   getSend(){
-  	return this.send;}}
+  	return this.send;}
+checkSize(){
+      return checkSize('template','fileSize',this.formTemplate)
+  }
+
 
      /* handleProgress(event){
     if (event.type === HttpEventType.DownloadProgress) {
