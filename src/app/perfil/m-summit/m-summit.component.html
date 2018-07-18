@@ -24,6 +24,9 @@
 			<div class="col-md-8">
 					<input formControlName="title" type="text" class="form-control" id="mCoffeTittle" name="title" placeholder="Titulo"  ngModel>
 					<textarea formControlName="description" class="form-control" id="descriptionArea" placeholder="Descripcion" rows="5" ngModel></textarea>
+					<label>
+            <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
+          </label>
 					<div style="">
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
 					</div>
