@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChild, ElementRef } from '@angular/core';
 import { Participant } from '../models/participant';
 import { Actividad } from '../models/actividad';
 import { Interests } from '../models/interests';
@@ -25,6 +25,11 @@ import { Event_format } from '../models/event_format';
 import { Person } from '../models/person';
 import { Organization } from '../models/organization';
 import { Subscription } from 'rxjs';
+
+import {onFileChange, checkSize} from '../Decorators/fileUploadDecorator'
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {maxFileSize} from '../customValidators/customValidators'
+
 
 @Component({
   selector: 'app-perfil',
@@ -56,13 +61,19 @@ export class PerfilComponent implements OnInit {
   errorEvento;
   public summitLogged;
 
+   @ViewChild('avatarInput') avatarInput: ElementRef;
+   avatarFile:File
+   formAvatar:FormGroup;
+
   constructor(
     private userService: UserService,
     private loginService: LoginService,
     private router: Router,
     private eventosServices: EventosService,
-    private actividadServices: ActividadService
-  ) { }
+    private actividadServices: ActividadService,
+    private fb: FormBuilder
+  ) {
+  this.createAvatarForm() }
 
   ngOnInit() {
     this.isLogged$ = this.loginService.isLogin$();
@@ -179,5 +190,25 @@ export class PerfilComponent implements OnInit {
   verAgendaCompleta() {
     this.router.navigate(['/eventos'])
   }
+  onFileChange(event) {
 
-}
+    let {file:avatarFile, form:formAvatar}=onFileChange(event,this.avatarFile,this.formAvatar)
+    this.avatarFile=avatarFile
+    this.formAvatar=formAvatar
+    //console.log(this.formAvatar)
+    //console.log(this.avatarFile)
+    //console.log(this.formAvatar.controls['fileData'].get('fileSize').invalid)
+  }
+  createAvatarForm(){
+    this.formAvatar=this.fb.group({  
+   fileData: this.fb.group({
+        fileName: [''],
+        fileType: [''],
+        fileSize: ['', Validators.compose([Validators.required, maxFileSize(1024*1024*15)])],
+      })
+    })}
+    checkSize(){
+     return checkSize('fileData','fileSize',this.formAvatar)}}
+      
+ 
+

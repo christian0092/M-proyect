@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup, FormControl } from '@angular/forms';
+import { AbstractControl, FormGroup, FormControl, Validator} from '@angular/forms';
 
 export function passwordConfirming(c: AbstractControl): any {
         if(!c.parent || !c) return;
@@ -31,5 +31,13 @@ export function validateAllFormFields(formGroup: FormGroup) {
         if (check.value !== true) {
             return { invalid: true };
 
-    }
-  }
+    }}
+    export function maxFileSize(max:number){
+       return function(c: FormControl) {
+        
+        
+        console.log(c.value)
+        console.log(max)
+         return c.value<max ? null : { maxFileSize: true };}
+       }
+

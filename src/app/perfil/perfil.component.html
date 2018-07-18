@@ -2,10 +2,15 @@
 	<div class="contenido" >
 		<div class="container" >
 
-				<!--<div class="col-md-2 float-left" >
+				<div class="col-md-2 float-left" >
 					<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
+					<div style="">
+						<div *ngIf="checkSize()" class="alert alert-danger">El archivo es muy grande!</div>
+						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #avatarInput>
+					</div>
 
-				</div>-->
+
+				</div>
 
 					<div class="row" >
 						<div class="col-lg " >

@@ -28,6 +28,7 @@
             <input type="checkbox" formControlName="terms"> Acepto los términos y condiciones
           </label>
 					<div style="">
+						<div *ngIf="checkSize()" class="alert alert-danger">Compruebe que su archivo pesas menos de 15 Mega Bytes</div>
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
 					</div>
 
