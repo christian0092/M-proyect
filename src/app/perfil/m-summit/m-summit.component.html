@@ -29,6 +29,7 @@
           </label>
 					<div style="">
 						<div *ngIf="checkSize()" class="alert alert-danger">Compruebe que su archivo pesas menos de 15 Mega Bytes</div>
+						<div *ngIf="checkType()" class="alert alert-danger">Compruebe que el formato de su archivo pptx,ppt,doc o docx</div>
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #fileInput multiple>
 					</div>
 

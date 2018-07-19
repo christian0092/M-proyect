@@ -3,8 +3,8 @@ import { Http, ResponseContentType } from '@angular/http';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FileUploadClientServiceService} from "../../services/file-upload-client-service.service"
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
-import { trueCheck, maxFileSize } from '../../customValidators/customValidators';
-import { checkSize } from '../../Decorators/fileUploadDecorator';
+import { trueCheck, maxFileSize,fileType } from '../../customValidators/customValidators';
+import { checkSize, checkFileType } from '../../Decorators/fileUploadDecorator';
 
 
 
@@ -23,6 +23,8 @@ export class MSummitComponent implements OnInit {
   success:boolean=false
 	public noError:Boolean;
 	public send:Boolean=false;
+  errorType:string
+  errorSize:string
 
  @ViewChild('fileInput') fileInput: ElementRef;
   constructor(private fb: FormBuilder, private fileUploadService:FileUploadClientServiceService) {
@@ -31,7 +33,7 @@ export class MSummitComponent implements OnInit {
       description: ['', Validators.compose([Validators.required])],
       terms:['', Validators.compose([Validators.required, trueCheck])],
       template: fb.group({
-        fileName: ['', Validators.compose([Validators.required])],
+        fileName: ['', Validators.compose([Validators.required,fileType(['pptx','ppt','doc','docx'])])],
         fileType: ['', Validators.compose([Validators.required])],
         fileSize: ['', Validators.compose([Validators.required, maxFileSize(1024*1024*15)])],
       })
@@ -111,8 +113,22 @@ export class MSummitComponent implements OnInit {
   getSend(){
   	return this.send;}
 checkSize(){
-      return checkSize('template','fileSize',this.formTemplate)
-  }
+     let { error: error, errorInfo: errorInfo } = checkSize('template','fileSize',this.formTemplate)
+     if(error){
+       this.errorSize=errorInfo
+     }
+     return error
+        }
+     checkType(){
+       let { error: error, errorInfo: errorInfo } = checkFileType('template','fileName',this.formTemplate)
+     if(error){
+       this.errorType=errorInfo
+     }
+     //console.log('error de formato'+error)
+     //console.log('Info de error'+errorInfo)
+     return error
+        }
+}
 
 
      /* handleProgress(event){
