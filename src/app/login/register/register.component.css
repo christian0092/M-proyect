@@ -52,7 +52,7 @@
   -ms-transition: all 500ms ease-in-out;
   -o-transition: all 500ms ease-in-out;
   /*top:30%;*/
-  opacity:0;
+  /*opacity:0;*/
   width:100%;
   text-align:center;
   /*vertical-align: center;*/
@@ -64,7 +64,7 @@
             -moz-transform:scale(1.2);
             -webkit-transform:scale(1.2);
             -o-transform:scale(1.2);
-            opacity: 0.9;
+            /*opacity: 0.9;*/
  }
 
  .img_redonda:hover + #text_aparece{
