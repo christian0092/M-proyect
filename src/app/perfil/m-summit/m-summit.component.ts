@@ -112,7 +112,7 @@ export class MSummitComponent implements OnInit {
   	return this.send;}
 checkSize(){
       return checkSize('template','fileSize',this.formTemplate)
-  }
+  }}
 
 
      /* handleProgress(event){
