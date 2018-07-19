@@ -52,7 +52,7 @@ export class PerfilComponent implements OnInit {
 
   public person: Person = new Person();
   public organization: Organization = new Organization();
-  personLogged: boolean = false;
+  personLogged: boolean //= false;
   isMisEvent: Event[];
   public actividad: Activity;
   agenda: Activity[];
@@ -284,6 +284,7 @@ clearFile() {
   editAdvatar(){
    this.buttonEditAvatar=!this.buttonEditAvatar
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      }
      
       

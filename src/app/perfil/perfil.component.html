@@ -1,11 +1,19 @@
 <div id="main">
 	<div class="contenido" >
-		<div class="container" >
+		<div class="row container" [hidden]="myProfile!=null">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<p>Cargando Perfil..</p>
+				<i class="fa fa-refresh fa-spin" style="font-size:48px;color:blue"></i>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<div class="container" [hidden]="myProfile==null">
 			<div class="col-md-2 float-left" >
+				<div  style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" (click)="editAdvatar()"></span></div>
 				<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 				<div style="">
-					<div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" (click)="editAdvatar()"></span></div>
-					<div [hidden]="buttonEditAvatar">
+					<div>
 						<div *ngIf="checkSize()" class="alert alert-danger">{{errorSize}}</div>
 						<div *ngIf="checkType()" class="alert alert-danger">{{errorType}}</div>
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #avatarInput>
@@ -17,7 +25,7 @@
 			<div class="row" >
 				<div class="col-lg " >
 					<div class="row" style="margin-top:15px;" >
-						<div class="col-lg" *ngIf="personLogged">
+						<div class="col-lg" *ngIf="personLogged" >
 							<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
 						</div>
 						<div class="col-lg" *ngIf="!personLogged">
@@ -26,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" >
+			<div class="row">
 				<div class="col-md-3 " style="margin-top:15px" *ngIf="personLogged">
 					<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
 					<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
@@ -76,6 +84,14 @@
 			</div>
 		</div>
 	</div>
+	<div class="row container" [hidden]="this.evento != null">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<p>Cargando Evento..</p>
+				<i class="fa fa-refresh fa-spin" style="font-size:48px;color:blue"></i>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
 	<div *ngIf ="this.evento != null" class="contenido" id="diagonal_centro">
 		<div class="container"  >
 			<div class="titulo_divisor">
@@ -83,7 +99,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="contenido" *ngIf="!getErrorEvento()">
+	<div class="contenido" *ngIf="this.evento !=null">
 		<div class="container" >
 			<div class="row">
 				<div class="col-md-3 float-left" >
