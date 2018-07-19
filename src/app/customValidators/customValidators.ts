@@ -33,11 +33,24 @@ export function validateAllFormFields(formGroup: FormGroup) {
 
     }}
     export function maxFileSize(max:number){
-       return function(c: FormControl) {
-        
-        
-        console.log(c.value)
-        console.log(max)
+       return function(c: FormControl) { 
+        //console.log(c.value)
+        //console.log(max)
          return c.value<max ? null : { maxFileSize: true };}
        }
+ export function fileType (type:string[]){
+       return function(c: FormControl) {        
+        var ext = c.value.substring(c.value.lastIndexOf('.') + 1);
+        var valid=false  
+        //console.log('valor enviado:'+c.value)       
+        for (var i = type.length - 1; i >= 0; i--) {
+           //console.log('Extension requerida:'+type[i])        
+           if(ext.toLowerCase()==type[i]){ 
+             //console.log('Extension leida:'+ext)
+             valid=true}
+        }
+         return (valid) ? null : { checkFileType: true };}
+       }
+
+
 

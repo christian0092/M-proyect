@@ -15,7 +15,27 @@ import {FileUploadClientServiceService} from "../services/file-upload-client-ser
   }
   return {file:file,form:form}
 }
-export function checkSize(controls:string, get:string, form:FormGroup):boolean{
-      if(form.controls[controls].get(get).valid) {return false}
-      if(form.controls[controls].get(get).errors.maxFileSize){return true} 
+export function checkSize(controls:string, get:string, form:FormGroup){
+      var error:boolean=false
+      var errorInfo:string=null
+      if(form.controls[controls].get(get).invalid)
+        {
+      if(form.controls[controls].get(get).errors.maxFileSize)
+        {error=true
+          errorInfo='El archivo es muy grande!'}}
+          let obj={error:error,errorInfo:errorInfo}
+          return obj
+    }
+ export function checkFileType(controls:string, get:string, form:FormGroup){
+      var error:boolean=false
+      var errorInfo:string=null
+      if(form.controls[controls].get(get).invalid)
+       {  if(form.controls[controls].get(get).errors.required){
+
+       }else{
+         error=true
+          errorInfo='El formato del archivo es incorrecto!'}
+        }
+          let obj={error:error,errorInfo:errorInfo}
+          return obj
     }
