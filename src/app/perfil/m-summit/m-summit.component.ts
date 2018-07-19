@@ -33,7 +33,7 @@ export class MSummitComponent implements OnInit {
       description: ['', Validators.compose([Validators.required])],
       terms:['', Validators.compose([Validators.required, trueCheck])],
       template: fb.group({
-        fileName: ['', Validators.compose([Validators.required,fileType(['pptx','ppt'])])],
+        fileName: ['', Validators.compose([Validators.required,fileType(['pptx','ppt','doc','docx'])])],
         fileType: ['', Validators.compose([Validators.required])],
         fileSize: ['', Validators.compose([Validators.required, maxFileSize(1024*1024*15)])],
       })
