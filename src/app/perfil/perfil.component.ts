@@ -26,9 +26,11 @@ import { Person } from '../models/person';
 import { Organization } from '../models/organization';
 import { Subscription } from 'rxjs';
 
-import {onFileChange, checkSize} from '../Decorators/fileUploadDecorator'
+import {onFileChange, checkSize, checkFileType} from '../Decorators/fileUploadDecorator'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {maxFileSize} from '../customValidators/customValidators'
+import {maxFileSize, fileType} from '../customValidators/customValidators'
+import {FileUploadClientServiceService} from '../services/file-upload-client-service.service'
+
 
 
 @Component({
@@ -60,18 +62,27 @@ export class PerfilComponent implements OnInit {
   public eventoAccounts: Account[];
   errorEvento;
   public summitLogged;
-
+////////////////////////variables para cambiar avatar///////////////////////////
    @ViewChild('avatarInput') avatarInput: ElementRef;
    avatarFile:File
    formAvatar:FormGroup;
-
+   errorSize:string
+   errorType:string
+   loading:boolean=false
+   send:boolean=false
+   success:boolean=false
+   noError:boolean=true
+   errorInfo:string=''
+   buttonEditAvatar:boolean=true
+   ///////////////////////////////////////////////////////////////////////////
   constructor(
     private userService: UserService,
     private loginService: LoginService,
     private router: Router,
     private eventosServices: EventosService,
     private actividadServices: ActividadService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private fileUploadClientService:FileUploadClientServiceService
   ) {
   this.createAvatarForm() }
 
@@ -190,25 +201,91 @@ export class PerfilComponent implements OnInit {
   verAgendaCompleta() {
     this.router.navigate(['/eventos'])
   }
-  onFileChange(event) {
 
+
+  //////////////////////////////////////funciones para cambiar imagen//////////////////////////////////
+  onFileChange(event) {
     let {file:avatarFile, form:formAvatar}=onFileChange(event,this.avatarFile,this.formAvatar)
     this.avatarFile=avatarFile
     this.formAvatar=formAvatar
-    //console.log(this.formAvatar)
-    //console.log(this.avatarFile)
-    //console.log(this.formAvatar.controls['fileData'].get('fileSize').invalid)
+    console.log(this.formAvatar)
+    console.log(this.avatarFile)
+    //console.log('Tamaño de Archivos'+this.formAvatar.controls['fileData'].get('fileSize').valid)
+    //console.log('Formato de archivo:'+this.formAvatar.controls['fileData'].get('fileName').valid)
   }
   createAvatarForm(){
     this.formAvatar=this.fb.group({  
    fileData: this.fb.group({
-        fileName: [''],
+        fileName: ['',Validators.compose([Validators.required,fileType(['png','jpg','jpeg','gif'])])],
         fileType: [''],
         fileSize: ['', Validators.compose([Validators.required, maxFileSize(1024*1024*15)])],
       })
     })}
     checkSize(){
-     return checkSize('fileData','fileSize',this.formAvatar)}}
+     let { error: error, errorInfo: errorInfo } = checkSize('fileData','fileSize',this.formAvatar)
+     if(error){
+       this.errorSize=errorInfo
+     }
+     return error
+        }
+     checkType(){
+       let { error: error, errorInfo: errorInfo } = checkFileType('fileData','fileName',this.formAvatar)
+     if(error){
+       this.errorType=errorInfo
+     }
+     //console.log('error de formato'+error)
+     //console.log('Info de error'+errorInfo)
+     return error
+        }
+
+
+        changeAvatar() {
+    if(this.formAvatar.valid && this.avatarFile){
+    this.send=true;
+    this.noError=true
+    this.success=false
+   this.loading = true;
+      this.fileUploadClientService.changeAvatar(
+                this.avatarFile,
+                this.formAvatar).subscribe(
+                    event=>{
+                      this.send=false
+                      this.success=true
+                      this.loading=false
+                      this.noError=true
+                      this.avatarInput.nativeElement.value=""
+                      this.formAvatar.reset()},
+                    error=>{
+                       this.send=false
+                      this.success=false
+                      this.noError=false;
+                      this.loading = false;
+                      this.errorInfo=error.message
+                        //console.log(error)
+                    });}else if(this.formAvatar.invalid && this.avatarFile==null){
+                    this.success=true
+                    this.loading=false
+                    this.noError=false
+                    this.errorInfo="Se produjo un error, compruebe que esta logueado y los campos estan completos"
+                }
+
+  }
+clearFile() {
+    this.formAvatar.reset()
+    this.avatarFile=null;
+    this.send=false;
+    this.success=false
+    this.noError=true;
+    this.avatarInput.nativeElement.value=""
+    console.log(this.formAvatar)
+    console.log(this.avatarFile)
+    this.editAdvatar()
+  }
+  editAdvatar(){
+   this.buttonEditAvatar=!this.buttonEditAvatar
+  }
+     }
+     
       
  
 

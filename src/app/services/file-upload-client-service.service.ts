@@ -32,6 +32,18 @@ addfile(fileItem:File, form:FormGroup): Observable<object> {
       ).map((response: Response) => response.json())
       .catch((Error:any)=>Observable.throw(Error.json()))      
     }
+    changeAvatar(fileItem:File, form:FormGroup): Observable<object> {
+      const header = new Headers(
+        { 'Accept': 'application/json',
+          'Authorization': 'Bearer' + localStorage.getItem('token')
+        });
+      const formData: FormData = new FormData();
+      formData.append('Avatar', fileItem, fileItem.name)
+      return this.http.post(
+        environment.apiUrl + 'summitUploadTemplete', formData, { headers: header }
+      ).map((response: Response) => response.json())
+      .catch((Error:any)=>Observable.throw(Error.json()))      
+    }
     /* fileUpload(fileItem:File, extraData?:object):any{
       let apiCreateEndpoint = `${this.apiBaseURL}files/create/`
       const formData: FormData = new FormData();
