@@ -13,7 +13,7 @@
 				<div  style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" (click)="editAdvatar()"></span></div>
 				<img src="assets/nosotros/jona2.jpg" id="imagen_logo">
 				<div style="">
-					<div>
+					<div [hidden]=buttonEditAvatar>
 						<div *ngIf="checkSize()" class="alert alert-danger">{{errorSize}}</div>
 						<div *ngIf="checkType()" class="alert alert-danger">{{errorType}}</div>
 						<input type="file" style="width:100%" class="filestyle" id="template" (change)="onFileChange($event)" #avatarInput>
