@@ -14,7 +14,9 @@ import { NosotrosComponent } from './nosotros/nosotros.component';
 import { HomeComponent } from './home/home.component';
 import { ContactoComponent } from './contacto/contacto.component';
 import { EventosComponent } from './eventos/eventos.component';
+////////////////////////////////////////////////////////////////////////////
 
+//////////////////////////////Servicios//////////////////////////////////////////////
 import { PartnerRequestService } from './eventos/partner-request-form/partner-request.service';
 import { LoginService } from './services/login.service';
 import { RegisterService } from './login/register/register.service';
@@ -29,6 +31,8 @@ import { VerificarCorreoService } from "./verificar-correo/verificar-correo.serv
 import {MSummitService} from "./services/m-summit.service"
 import {FileUploadClientServiceService} from "./services/file-upload-client-service.service"
 import {FileServiceService} from "./services/file-service.service"
+import {MCoffeeService} from "./services/m-coffee.service"
+/////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -99,7 +103,8 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     CountriesService, 
     MSummitService,
     FileUploadClientServiceService,
-    FileServiceService
+    FileServiceService,
+    MCoffeeService
   ],
   bootstrap: [AppComponent]
 })

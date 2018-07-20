@@ -74,7 +74,9 @@ export class PerfilComponent implements OnInit {
    noError:boolean=true
    errorInfo:string=''
    buttonEditAvatar:boolean=true
-   ///////////////////////////////////////////////////////////////////////////
+   ///////////////////////////////variables para coffee////////////////////////////
+   public coffeeLogged
+   ////////////////////////////////////////////////////////////////////////////////
   constructor(
     private userService: UserService,
     private loginService: LoginService,
@@ -154,10 +156,13 @@ export class PerfilComponent implements OnInit {
           activities => {
             this.agenda = activities['data']
             this.actividadServices.ActivitiesChange(activities['data'])
+            this.summitLogged = this.actividadServices.hasSummit();
+            this.coffeeLogged=this.actividadServices.hasCoffe()
           }
         );
       }
       this.summitLogged = this.actividadServices.hasSummit();
+      this.coffeeLogged=this.actividadServices.hasCoffe()
     });
   }
   /*

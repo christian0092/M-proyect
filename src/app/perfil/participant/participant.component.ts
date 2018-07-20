@@ -8,7 +8,7 @@ import { Participant} from  '../../models/participant'
   styleUrls: ['./participant.component.css']
 })
 export class ParticipantComponent implements OnInit {
-@Input() Participant:Participant;
+@Input() participant:Participant;
 	Show:boolean=false;
   constructor() { }
 
@@ -18,7 +18,16 @@ export class ParticipantComponent implements OnInit {
   	return  this.Show;
   }
 
-  invitation(){
-
+  abortInvitation(){
+console.log('estoy cancelando la invitacion')
+  }
+  sendInvitation(){
+console.log('estoy enviando la invitacion')
+  }
+  acceptInvitation(){
+console.log('estoy aceptando la invitacion')
+  }
+  declineInvitation(){
+console.log('estoy declinando la invitacion')
   }
 }
