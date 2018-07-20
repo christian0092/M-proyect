@@ -98,11 +98,11 @@ export class MCoffeeService {
 
   getParticipantList() {
      if(this.participantList==null){
-     	this.loadMyActivities()    	
+     	this.loadParticipantList()    	
     }else {this.participantListChange(this.participantList)}
     
   }
-	loadMyActivities() {
+	loadParticipantList() {
 		//////aca va el http request
     this.participantListChange(this.DummyParticipantList)
   }
