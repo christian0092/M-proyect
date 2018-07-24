@@ -6,6 +6,7 @@ import { EventosComponent } from './eventos/eventos.component';
 import { FormatosComponent } from './formatos/formatos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
+import { LoginComponent } from './login/login/login.component';
 
 const appRoutes: Routes=[
   {path:'',redirectTo:'/home', pathMatch: 'full'},
@@ -16,6 +17,7 @@ const appRoutes: Routes=[
   {path:'formatos',component:FormatosComponent},
   {path:'perfil',component:PerfilComponent},
   {path:'verificar-correo/:code',component:VerificarCorreoComponent},
+  {path:'login',component:LoginComponent},
 ];
 
 export const routes:ModuleWithProviders=RouterModule.forRoot(appRoutes);
