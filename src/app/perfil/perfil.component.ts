@@ -76,6 +76,7 @@ export class PerfilComponent implements OnInit {
    buttonEditAvatar:boolean=true
    ///////////////////////////////variables para coffee////////////////////////////
    public coffeeLogged
+   public coffeeId
    ////////////////////////////////////////////////////////////////////////////////
   constructor(
     private userService: UserService,
@@ -158,11 +159,13 @@ export class PerfilComponent implements OnInit {
             this.actividadServices.ActivitiesChange(activities['data'])
             this.summitLogged = this.actividadServices.hasSummit();
             this.coffeeLogged=this.actividadServices.hasCoffe()
+            if(this.coffeeLogged){this.coffeeId=this.actividadServices.getCoffe()}
           }
         );
       }
       this.summitLogged = this.actividadServices.hasSummit();
       this.coffeeLogged=this.actividadServices.hasCoffe()
+      if(this.coffeeLogged){this.coffeeId=this.actividadServices.getCoffe()}
     });
   }
   /*

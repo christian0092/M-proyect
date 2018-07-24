@@ -197,16 +197,16 @@
 		</div>
 	</div>
 	<div>
-		<div *ngIf="coffeeLogged" class="contenido" id="diagonal_centro">
+		<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">
 					<div class="titulo_texto_divisor"><h2>M-COFEE</h2></div>
 				</div>
 			</div>
 		</div>
-		<div *ngIf="coffeeLogged" class="contenido">
+		<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido">
 			<div class="container">
-				<modal-coffee></modal-coffee>
+				<modal-coffee [coffeeId]="coffeeId"></modal-coffee>
 			</div>
 		</div>
 	</div>	

@@ -23,7 +23,7 @@ export class UserService {
  new Interests('2','Robótica'),
  new Interests('3','Tecnología'),
  new Interests('4','Innovación')]*/
-  private dummyMyParticipantList = [
+ /* private dummyMyParticipantList = [
     new Participant('1', 'Christian Molina', 1),
     new Participant('2', 'Fernanda Micakosky', 1),
     new Participant('3', 'Jonathan Gomez', 2),
@@ -186,9 +186,9 @@ export class UserService {
   getMyParticipantList(): Observable<Participant[]> {
     return this.myParticipantListObservable$
   }
-  checkMyParticipantList() {
+ /* checkMyParticipantList() {
     this.changeMyParticipantList(this.dummyMyParticipantList)
-  }
+  }*/
   //////////////////////////////////--User Profile--///////////////////////////////////
   public changeMyProfile(val: Profile) {
     this.myProfile = val;
