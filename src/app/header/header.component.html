@@ -15,7 +15,9 @@
     </ul>
     <ul class="nav navbar-nav flex-row justify-content-between ml-auto" >
       <div *ngIf="(!isLogged)">
-        <app-login></app-login>
+        <button type="button" [routerLink]="['login']"   data-toggle="dropdown" class="btn botonlogin "><span class="fa fa-user-circle-o fa-login"></span>Login</button>
+
+        <!--<app-login></app-login>-->
       </div>
       <div *ngIf="(isLogged)">
         <app-logout></app-logout>
@@ -24,5 +26,5 @@
 
 </div>
 </nav>
-<app-reset-password></app-reset-password>
-<app-register></app-register>
+<!--<app-reset-password></app-reset-password>
+<app-register></app-register>-->
