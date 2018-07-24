@@ -73,11 +73,32 @@ export class LoginService {
   }
 
   logout() {
-    this.changeLoginValue(false);
+    this.dbLogOut().subscribe(response=>{
+    if(response['success']){
     localStorage.removeItem("email");
     localStorage.removeItem("name");
     localStorage.removeItem("token");
+    this.changeLoginValue(false);
     this.router.navigate(['home']);
+    console.log(response['message'])
+    }  
+    },
+    error=>{console.log('error en logout:'+error)})
+       
+  }
+
+  dbLogOut():Observable<Object>{
+    const header = new Headers(
+        { 'content-type': 'application/json',
+          'Authorization': 'Bearer' + localStorage.getItem('token')
+        });
+    return this.http.get(
+      environment.apiUrl + 'logout',     
+      { headers: header }
+    ).map((response: Response) =>
+      response.json()
+    )    
+    .catch((Error:any)=>Observable.throw(Error.json()));
   }
 
   register(data: object): Observable<object> {

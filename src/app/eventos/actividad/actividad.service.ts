@@ -83,10 +83,28 @@ export class ActividadService {
   }
 
   hasSummit(): boolean {
-    if (this.inActivities == null) return false;
+    //console.log('estoy en hassummit')
+    if (this.inActivities == null) {
+      //console.log('las actividades son nulas')
+      return false;}
     let act = this.inActivities.find(x => x.event_format_id === 3);
     if (act !== undefined)
       return true;
+   // console.log('las actividades son indefinidas')
+    return false;    
+  }
+  hasCoffe(): boolean {      
+    //console.log('estoy en hasCoffe()')
+    if (this.inActivities == null) {
+      //console.log('las cafesitas son nulas')
+      return false;}
+    let act = this.inActivities.find(x => x.event_format_id === 5);//si alguna vez lees esto lucas me hiciste hacer una funcion para encontrar el numero marica ja
+    if (act !== undefined){
+      //console.log('lo encontre')
+      return true;
+    }
+   //console.log('las cafesitas son indefinidas')
+   //console.log('no lo encontre')
     return false;    
   }
 }

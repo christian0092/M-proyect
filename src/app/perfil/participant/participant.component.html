@@ -1,6 +1,8 @@
-<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes">
-	<p>{{Participant.name}}</p>
-	<!--<button *ngIf="Participant.status==0" type="button" (click)="invitation(Participant.id,Participant.status)" class="btn btn-danger">Cancelar Invitacion</button>-->
-	<button *ngIf="Participant.status==1 "type="button" (click)="invitation(Participant.id,Participant.status)" class="btn btn-primary">Aceptado</button>
-	<button *ngIf="Participant.status==2" type="button" class="btn btn-dark disabled">Pendiente</button>
+<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
+<p>{{participant.name}}</p>
+<button *ngIf="participant.status==0" type="button" (click)="abortInvitation()" class="btn btn-danger">Cancelar Invitacion</button>
+<button *ngIf="participant.status==1 "type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button>
+<button *ngIf="participant.status==2" type="button" class="btn btn-dark disabled">No disponible</button>
+<button *ngIf="participant.status==4 "type="button" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitacion</button>
+<button *ngIf="participant.status==4" type="button" (click)="declineInvitation()" class="btn btn-dark">Declinar invitacion</button>
 </li>

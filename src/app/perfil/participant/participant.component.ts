@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Participant} from  '../../models/participant'
+import {MCoffeeService} from '../../services/m-coffee.service'
 
 
 @Component({
@@ -8,9 +9,9 @@ import { Participant} from  '../../models/participant'
   styleUrls: ['./participant.component.css']
 })
 export class ParticipantComponent implements OnInit {
-@Input() Participant:Participant;
+@Input() participant:Participant;
 	Show:boolean=false;
-  constructor() { }
+  constructor(private mCoffeeService:MCoffeeService) { }
 
   ngOnInit() {
   }
@@ -18,7 +19,20 @@ export class ParticipantComponent implements OnInit {
   	return  this.Show;
   }
 
-  invitation(){
-
+  abortInvitation(){
+console.log('estoy cancelando la invitacion')
+this.mCoffeeService.loadParticipantList()
+  }
+  sendInvitation(){
+console.log('estoy enviando la invitacion')
+this.mCoffeeService.loadParticipantList()
+  }
+  acceptInvitation(){
+console.log('estoy aceptando la invitacion')
+this.mCoffeeService.loadParticipantList()
+  }
+  declineInvitation(){
+console.log('estoy declinando la invitacion')
+this.mCoffeeService.loadParticipantList()
   }
 }
