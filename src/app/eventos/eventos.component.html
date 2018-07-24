@@ -219,7 +219,8 @@
 
         <div class="row" style="margin-top:15px;display:flex;align-items: center">
           <div class="col-md-3" *ngFor="let partner of eventoPartners" style="padding:30px">
-            <a href="{{partner.link_page}}" target="_blank"><img  *ngIf="partner!=null && partner!=undefined" src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
+						<a *ngIf="partner.link_page!=null" href="{{partner.link_page}}" target="_blank"><img  *ngIf="partner!=null && partner!=undefined" src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
+  					<a *ngIf="partner.link_page==null"><img  *ngIf="partner!=null && partner!=undefined" src="assets/eventos/{{partner.logo}}" id="imagen_patrocinador"></a>
           </div>
         </div>
 
