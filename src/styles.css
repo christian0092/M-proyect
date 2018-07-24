@@ -35,7 +35,15 @@
     width:100%;
     margin-top:10px;
 }
-
+.boton_chico{
+    padding:3px;
+    /*position: relative;*/
+    /*width: 50px;*/
+    height: 38px;
+    /*border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;*/
+}
 #icon-input{
   padding:0px;
 }
