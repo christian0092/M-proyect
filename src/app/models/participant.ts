@@ -1,7 +1,15 @@
-export class Participant {
-	constructor(
-		public id:string,
-    public name:string,
-    public status:number//0=sin invitar,1=Invitado,2=No disponible(Por la onda esa que no te molesten)
-  ){}
+import { Deserializable } from "./deserializable.model";
+
+export class Participant implements Deserializable {
+  public user_id: number
+  public avatar: string
+  public name: string
+  public surname: string
+  public status_id: number
+  public status: string
+
+  deserialize(input: any) {
+    Object.assign(this, input);
+    return this;
+  }
 }

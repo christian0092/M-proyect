@@ -107,4 +107,11 @@ export class ActividadService {
    //console.log('no lo encontre')
     return false;    
   }
+  getCoffe(): number {      
+    let act = this.inActivities.find(x => x.event_format_id === 5);//si alguna vez lees esto lucas me hiciste hacer una funcion para encontrar el numero marica ja
+    if (act !== undefined){
+      return act.id;
+    }  
+  }
 }
+

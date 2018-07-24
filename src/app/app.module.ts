@@ -31,13 +31,19 @@ import { VerificarCorreoService } from "./verificar-correo/verificar-correo.serv
 import {MSummitService} from "./services/m-summit.service"
 import {FileUploadClientServiceService} from "./services/file-upload-client-service.service"
 import {FileServiceService} from "./services/file-service.service"
+<<<<<<< HEAD
 
+=======
+>>>>>>> ffe265605cc63b035e6ba4d4e0c5742dde17fb3b
 import {PreviousRouteService} from "./services/previous-route.service"
 import {MCoffeeService} from "./services/m-coffee.service"
 /////////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> ffe265605cc63b035e6ba4d4e0c5742dde17fb3b
 import { LoginComponent } from './login/login/login.component';
 import { FormatosComponent } from './formatos/formatos.component';
 import { LogoutComponent } from './login/login/logout.component';
@@ -105,8 +111,13 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     MSummitService,
     FileUploadClientServiceService,
     FileServiceService,
+<<<<<<< HEAD
     MCoffeeService,
     PreviousRouteService
+=======
+    PreviousRouteService,
+    MCoffeeService,
+>>>>>>> ffe265605cc63b035e6ba4d4e0c5742dde17fb3b
   ],
   bootstrap: [AppComponent]
 })
