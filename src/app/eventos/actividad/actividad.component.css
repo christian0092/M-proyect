@@ -9,4 +9,7 @@
 .titulo h5{
   color: #2057a2;
   float:left;
+  display: flex;
+   justify-content: center;
+   align-items: center;
 }
