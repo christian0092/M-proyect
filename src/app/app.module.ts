@@ -31,9 +31,13 @@ import { VerificarCorreoService } from "./verificar-correo/verificar-correo.serv
 import {MSummitService} from "./services/m-summit.service"
 import {FileUploadClientServiceService} from "./services/file-upload-client-service.service"
 import {FileServiceService} from "./services/file-service.service"
+<<<<<<< HEAD
+import {PreviousRouteService} from "./services/previous-route.service"
+=======
 import {MCoffeeService} from "./services/m-coffee.service"
 /////////////////////////////////////////////////////////////////////////////
 
+>>>>>>> 580a80084f5dc1526f431516b968a269d8b03680
 
 
 import { LoginComponent } from './login/login/login.component';
@@ -52,7 +56,6 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
 import { ActividadComponent } from './eventos/actividad/actividad.component';
 import { ParticipantComponent } from './perfil/participant/participant.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
-
 
 
 @NgModule({
@@ -100,11 +103,15 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
     ActividadService,
     VerificarCorreoService,
     ProfessionLevelsService,
-    CountriesService, 
+    CountriesService,
     MSummitService,
     FileUploadClientServiceService,
     FileServiceService,
+<<<<<<< HEAD
+    PreviousRouteService
+=======
     MCoffeeService
+>>>>>>> 580a80084f5dc1526f431516b968a269d8b03680
   ],
   bootstrap: [AppComponent]
 })

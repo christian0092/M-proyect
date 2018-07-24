@@ -130,7 +130,7 @@ export class LoginService {
       environment.apiUrl + 'registerUpdate',
       data,
       { headers: header }
-    ).map((response: Response) => response.json())    
+    ).map((response: Response) => response.json())
     .catch((Error:any)=>Observable.throw(Error.json()));
   }
 }

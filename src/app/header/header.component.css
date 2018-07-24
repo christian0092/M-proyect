@@ -31,3 +31,26 @@ nav.navbar {
     -ms-transition: all 200ms ease-in-out;
     -o-transition: all 200ms ease-in-out;
 }
+
+
+.botonlogin {
+    background-color: white; /*#4CAF50; /* Green */
+    color: LightSeaGreen;
+    padding-right: 15px;
+}
+.botonlogin:hover, .botonlogin:focus,.botonlogin.active, .botonlogin.dropdown-toggle:focus{
+  /*  background-color: white;
+    color: #4CAF50;*/
+    	border: 3px double LightSeaGreen;
+}
+.botonlogin:active{
+	/*background-color: white;
+    color: #4CAF50;
+	border: 2px double #4CAF50;*/
+
+  	border: 3px double LightSeaGreen;
+}
+
+.fa-login{
+  color:LightSeaGreen;
+}

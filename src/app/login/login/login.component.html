@@ -1,8 +1,7 @@
-<li class="dropdown order-3 ">
+<!--<li class="dropdown order-3 ">
     <button type="button" id="dropdownMenu1" (click)="clearAll()" data-toggle="dropdown" class="btn  dropdown-toggle botonlogin "><span class="fa fa-user-circle-o fa-login"></span>Login <span class="caret"></span></button>
     <ul class="dropdown-menu dropdown-menu-right mt-2">
         <li style="padding:15px;width:250px">
-            <!-- <div (ngSubmit)="login(loginForm.value)" #loginForm="ngForm"></div>-->
             <form class="form" role="form" [formGroup]="logForm">
                 <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
                 <div class="form-group">
@@ -25,11 +24,119 @@
             <div class="form-group text-center">
                 <span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
             </div>
-            <!--   {{logForm.value | json}}-->
-            <!--  <a class="btn btn-block btn-social btn-lg btn-linkedin">
-                <span class="fa fa-linkedin"></span> <small><a>Login con linkedin</a></small>
-            </a>-->
-
         </li>
     </ul>
-</li>
+</li>-->
+
+
+<!--
+<form class="form" role="form" [formGroup]="logForm">
+    <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
+    <div class="form-group">
+        <input formControlName="username" id="username" name='username'  placeholder="Email" class="form-control form-control-sm" type="text" required="" ngModel>
+        <div *ngIf="userInvalid" class="alert alert-warning">Debes agregar un correo electrónico valido.</div>
+    </div>
+    <div class="form-group" >
+        <input id="password" formControlName="password" type="password" name='password'  placeholder="Contraseña" class="form-control form-control-sm"  required="" ngModel>
+        <div class="alert alert-warning" *ngIf="passwordInvalid">Debes agregar una contraseña de entre 6-20 caracteres.</div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="send" type="submit" class="btn btn-primary btn-block" (click)="login()" >Login</button>
+
+        </div>
+    </form>
+
+<div class="form-group text-center">
+    <span class="fa fa-unlock-alt fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalPassword" class="botones">¿Olvidaste tu Contraseña?</a></small>
+</div>
+<div class="form-group text-center">
+    <span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
+</div>
+-->
+
+<div id="main" style="background: url('./assets/fondos/1.jpg') no-repeat fixed center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+
+<div class="contenido" >
+
+  <form class="form" role="form" [formGroup]="logForm">
+    <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
+
+    <div class="contenido" >
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg" style="height:40px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contenido" style="background: rgba(40, 80, 130,0.5)">
+  		<div class="container loginform" style="margin-top:20px;">
+  		  <div class="row">
+          <div class="col-md-4" >
+          </div>
+  				<div class="col-md-4 " style="text-align:center;color:white">
+            <div class="form-group">
+                <input formControlName="username" id="username" name='username'  placeholder="Email" class="form-control form-control-sm" type="text" required="" ngModel>
+                <div *ngIf="userInvalid" class="alert alert-danger">Debes agregar un correo electrónico valido.</div>
+            </div>
+          </div>
+          <div class="col-md-4" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" >
+          </div>
+  				<div class="col-md-4 " style="text-align:center;color:white">
+            <div class="form-group" >
+                <input id="password" formControlName="password" type="password" name='password'  placeholder="Contraseña" class="form-control form-control-sm"  required="" ngModel>
+                <div class="alert alert-danger" *ngIf="passwordInvalid">Debes agregar una contraseña de entre 6-20 caracteres.</div>
+            </div>
+          </div>
+          <div class="col-md-4" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" >
+          </div>
+  				<div class="col-md-4 " style="text-align:center;color:white">
+              <div class="form-group">
+                <button [disabled]="send" type="submit" class="btn btn-primary btn-block" (click)="login()" >Login</button>
+              </div>
+          </div>
+          <div class="col-md-4" >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4" >
+          </div>
+  				<div class="col-md-4 " style="text-align:center;color:white">
+            <div class="form-group text-center">
+                <span class="fa fa-unlock-alt fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalPassword" class="botones">¿Olvidaste tu Contraseña?</a></small>
+            </div>
+            <div class="form-group text-center">
+                <span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
+            </div>
+          </div>
+          <div class="col-md-4" >
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="contenido" >
+      <div class="container" >
+        <div class="row">
+          <div class="col-lg" style="height:120px">
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+</div>
+
+<app-reset-password></app-reset-password>
+<app-register></app-register>

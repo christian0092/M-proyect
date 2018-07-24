@@ -3,7 +3,8 @@ import { LoginService } from '../../services/login.service';
 import { User } from '../../login/user.model';
 import {UserService} from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS, AbstractControl } from '@angular/forms';
-
+import {PreviousRouteService} from '../../services/previous-route.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,16 +19,20 @@ logForm:FormGroup
  error:boolean=false
  errorInfo:string='Se produjo un error inesperado'
  send:boolean=false
+ prev:string
   constructor(
     private loginService:LoginService,
     private userService:UserService,
-     private fp: FormBuilder
-
+    private fp: FormBuilder,
+    private previousRouteService: PreviousRouteService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.createForm()
   }
+
+
 
   login(){
      this.userInvalid=this.logForm.get('username').invalid
@@ -44,6 +49,12 @@ logForm:FormGroup
         this.error=false
         this.loginService.setLogin(data);
         //this.addProfile();
+
+        this.prev=this.previousRouteService.getPreviousUrl();
+        if(this.prev=='/login')
+          this.router.navigate(['home']);
+        else
+          this.router.navigate([this.prev]);
 
       },
       error =>  {
@@ -68,6 +79,10 @@ createForm() {
         password: [null, Validators.compose([Validators.required,/* Validators.minLength(6), */Validators.maxLength(20)])]})
 
   }
+getPrevious(){
+
+     console.log(this.previousRouteService.getPreviousUrl());
+}
   /*addProfile(){
     this.userService.getMyProfile2().subscribe(profile => {
 <<<<<<< HEAD
