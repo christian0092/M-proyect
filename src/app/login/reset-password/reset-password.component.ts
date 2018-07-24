@@ -11,6 +11,8 @@ export class ResetPasswordComponent implements OnInit {
   reset_form:FormGroup;
   send:boolean;
   noError:boolean;
+  error:boolean;
+
   public loading: boolean = false;
 
   constructor(
@@ -24,10 +26,13 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit() {
     this.send=false;
     this.noError=false;
+    this.error=false;
   }
 
     onSubmit() {
+
         if (this.reset_form.valid) {
+          this.error=false;
           this.loginService.sendResetPassword(this.reset_form.value).subscribe(
             data => {
               this.send=true;
@@ -39,6 +44,9 @@ export class ResetPasswordComponent implements OnInit {
                 this.noError=false;
               }
             });
+        }
+        else{
+          this.error=true;
         }
     }
 
@@ -55,6 +63,10 @@ export class ResetPasswordComponent implements OnInit {
     close(){
          this.noError=false;
          this.send=false;
+         this.error=false;
          this.reset_form.reset();
+    }
+    getError(){
+      return this.error;
     }
 }
