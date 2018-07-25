@@ -29,6 +29,7 @@ export class ModalCoffeeComponent implements OnInit {
              console.log('estoy actualizando participantes')
            })
     this.mCoffeeService.getParticipantList(this.coffeeId)
+    //this.mCoffeeService.getParticipantList(1)
     //console.log('estoy en el oninit'+this.ParticipantList)
      //console.log('la id del evento es: '+ this.coffeeId)
     this.mCoffeeService.getParticipantInvitationsListObservable$().subscribe(
