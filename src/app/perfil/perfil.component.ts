@@ -74,6 +74,7 @@ export class PerfilComponent implements OnInit {
    noError:boolean=true
    errorInfo:string=''
    buttonEditAvatar:boolean=true
+   imageSrc
    ///////////////////////////////variables para coffee////////////////////////////
    public coffeeLogged
    public coffeeId
@@ -219,7 +220,11 @@ export class PerfilComponent implements OnInit {
     console.log(this.formAvatar)
     console.log(this.avatarFile)
     //console.log('Tamaño de Archivos'+this.formAvatar.controls['fileData'].get('fileSize').valid)
-    //console.log('Formato de archivo:'+this.formAvatar.controls['fileData'].get('fileName').valid)
+    //console.log('Formato de archivo:'+this.formAvatar.controls['fileData'].get('fileName'i).vald)
+    if(this.formAvatar.valid){
+    const reader = new FileReader();
+    reader.onload = e => this.imageSrc = reader.result;
+    reader.readAsDataURL(event.target.files[0]);}
   }
   createAvatarForm(){
     this.formAvatar=this.fb.group({  
@@ -284,6 +289,7 @@ clearFile() {
     this.send=false;
     this.success=false
     this.noError=true;
+    this.imageSrc=null
     this.avatarInput.nativeElement.value=""
     console.log(this.formAvatar)
     console.log(this.avatarFile)

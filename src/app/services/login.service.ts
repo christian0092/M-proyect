@@ -75,16 +75,16 @@ export class LoginService {
   logout() {
     this.dbLogOut().subscribe(response=>{
     if(response['success']){
-    localStorage.removeItem("email");
-    localStorage.removeItem("name");
-    localStorage.removeItem("token");
-    this.changeLoginValue(false);
-    this.router.navigate(['home']);
+   
     console.log(response['message'])
     }  
     },
     error=>{console.log('error en logout:'+error)})
-       
+      localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    localStorage.removeItem("token");
+    this.changeLoginValue(false);
+    this.router.navigate(['home']);  
   }
 
   dbLogOut():Observable<Object>{
