@@ -1,8 +1,11 @@
-<li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
-<p>{{participant.name}}</p>
-<button *ngIf="participant.status_id==0" type="button" class="btn btn-info disabled">Esperando respuesta</button>
-<button *ngIf="participant.status_id==1 "type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button>
-<button *ngIf="participant.status_id==2" type="button" class="btn btn-danger disabled">No disponible</button>
-<button *ngIf="participant.status_id==4 "type="button" (click)="acceptInvitation()" class="btn btn-success">Aceptar invitacion</button>
+<li *ngIf="participant" class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
+	<p>{{participant.name}} {{participant.surname}}</p>
+	<button *ngIf="participant.status=='Disponible'" type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button>
+	<button *ngIf="participant.status!='Disponible'" type="button" class="btn btn-danger disabled">No disponible</button>
 
+</li>
+<li *ngIf="participantInvitations" class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
+	<p>{{participantInvitations.name}} {{participantInvitations.surname}}</p>
+	<button *ngIf="participantInvitations.sent==1" type="button" class="btn btn-info disabled">Esperando respuesta</button>
+	<button type="button" *ngIf="participantInvitations.sent==0" (click)="acceptInvitation()" class="btn btn-success">Aceptar invitacion</button>
 </li>

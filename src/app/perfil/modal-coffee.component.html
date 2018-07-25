@@ -3,24 +3,24 @@
 		<h1>Invitar:</h1>
 		<ul class="list-group" style="overflow-y:auto;">
 			<ng-container *ngFor="let participant of ParticipantList">
-		<app-participant *ngIf="participant.status_id==1 || participant.status_id==2" [participant]="participant" [coffeeId]="coffeeId"></app-participant>
+		<app-participant  [participant]="participant" [coffeeId]="coffeeId"></app-participant>
 		</ng-container>
 	</ul>
 </div>
 <div class="col-md-6" >
 	<h1>Mis invitaciones:</h1>
 	<ul class="list-group" style="overflow-y:auto;">
-		<ng-container *ngFor="let participant of ParticipantList">
-	<app-participant *ngIf="participant.status_id==0 ||participant.status_id==4" [participant]="participant" [coffeeId]="coffeeId"></app-participant>
+		<ng-container *ngFor="let participantInvitations of ParticipantInvitationsList">
+	<app-participant [participantInvitations]="participantInvitations" [coffeeId]="coffeeId"></app-participant>
 	</ng-container>
 </ul>
 </div>
 </div>
 <div class="row">
 <div class="col-md-12" id="instruccion">
-	<p>Ud. tiene la opción de generar un contacto "Persona a Persona" para dialogar en privado con alguno de los participantes, café mediante.</p>
-	<p>1. Elija una Persona que se encuentre disponible (en azul) y oprima el botón "invitar".</p>
-	<p>2. Corrobore "aquí" si la persona aceptó la invitación.</p>
-	<p>3. 72 hs luego de enviada la invitación, si aún no ha sido aceptada, queda sin efecto y Ud. puede elegir otra Persona.</p>
+<p>Ud. tiene la opción de generar un contacto "Persona a Persona" para dialogar en privado con alguno de los participantes, café mediante.</p>
+<p>1. Elija una Persona que se encuentre disponible (en azul) y oprima el botón "invitar".</p>
+<p>2. Corrobore "aquí" si la persona aceptó la invitación.</p>
+<p>3. 72 hs luego de enviada la invitación, si aún no ha sido aceptada, queda sin efecto y Ud. puede elegir otra Persona.</p>
 </div>
 </div>

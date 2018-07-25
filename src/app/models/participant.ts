@@ -7,6 +7,7 @@ export class Participant implements Deserializable {
   public surname: string
   public status_id: number
   public status: string
+ 
 
   deserialize(input: any) {
     Object.assign(this, input);
