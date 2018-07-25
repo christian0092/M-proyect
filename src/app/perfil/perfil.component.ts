@@ -224,7 +224,7 @@ export class PerfilComponent implements OnInit {
     if(this.formAvatar.valid){
     const reader = new FileReader();
     reader.onload = e => this.imageSrc = reader.result;
-    reader.readAsDataURL(event.target.files[0]);}
+    reader.readAsDataURL(this.avatarFile);}
   }
   createAvatarForm(){
     this.formAvatar=this.fb.group({  
