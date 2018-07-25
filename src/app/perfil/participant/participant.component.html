@@ -1,8 +1,8 @@
 <li class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
 <p>{{participant.name}}</p>
-<button *ngIf="participant.status_id==0" type="button" (click)="abortInvitation()" class="btn btn-danger">Cancelar Invitacion</button>
+<button *ngIf="participant.status_id==0" type="button" class="btn btn-info disabled">Esperando respuesta</button>
 <button *ngIf="participant.status_id==1 "type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button>
-<button *ngIf="participant.status_id==2" type="button" class="btn btn-dark disabled">No disponible</button>
-<button *ngIf="participant.status_id==4 "type="button" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitacion</button>
-<button *ngIf="participant.status_id==4" type="button" (click)="declineInvitation()" class="btn btn-dark">Declinar invitacion</button>
+<button *ngIf="participant.status_id==2" type="button" class="btn btn-danger disabled">No disponible</button>
+<button *ngIf="participant.status_id==4 "type="button" (click)="acceptInvitation()" class="btn btn-success">Aceptar invitacion</button>
+
 </li>

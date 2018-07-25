@@ -19,12 +19,7 @@ export class ParticipantComponent implements OnInit {
   }
  displayshow(){
   	return  this.Show;
-  }
-
-  abortInvitation(){
-console.log('estoy cancelando la invitacion')
-this.mCoffeeService.loadParticipantList(this.coffeeId)
-  }
+  }  
   sendInvitation(){
 console.log('estoy enviando la invitacion')
 this.mCoffeeService.loadParticipantList(this.coffeeId)
@@ -33,8 +28,5 @@ this.mCoffeeService.loadParticipantList(this.coffeeId)
 console.log('estoy aceptando la invitacion')
 this.mCoffeeService.loadParticipantList(this.coffeeId)
   }
-  declineInvitation(){
-console.log('estoy declinando la invitacion')
-this.mCoffeeService.loadParticipantList(this.coffeeId)
-  }
+  
 }

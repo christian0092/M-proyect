@@ -3,7 +3,7 @@
 		<h1>Invitar:</h1>
 		<ul class="list-group" style="overflow-y:auto;">
 			<ng-container *ngFor="let participant of ParticipantList">
-		<app-participant *ngIf="participant.status_id==1 || participant.status==2" [participant]="participant" [coffeeId]="coffeeId"></app-participant>
+		<app-participant *ngIf="participant.status_id==1 || participant.status_id==2" [participant]="participant" [coffeeId]="coffeeId"></app-participant>
 		</ng-container>
 	</ul>
 </div>
