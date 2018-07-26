@@ -25,12 +25,14 @@ export class ParticipantComponent implements OnInit {
   }  
   sendInvitation(){
 console.log('estoy enviando la invitacion')
-this.mCoffeeService.sendInvitation(this.participant.user_id)
+//this.mCoffeeService.sendInvitation(this.participant.user_id).subscribe()
+this.mCoffeeService.sendInvitation(this.participant.user_id);
 this.mCoffeeService.loadParticipantList(this.coffeeId)
   }
   acceptInvitation(){
 console.log('estoy aceptando la invitacion')
-this.mCoffeeService.acceptInvitation(this.participantInvitations.invitation_id)
+this.mCoffeeService.acceptInvitation(this.participantInvitations.invitation_id);
+//this.mCoffeeService.acceptInvitation(this.participantInvitations.invitation_id).subscribe()
 this.mCoffeeService.loadParticipantList(this.coffeeId)
   }
   
