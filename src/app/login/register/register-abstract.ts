@@ -37,13 +37,13 @@ export class RegisterAbstract implements OnInit {
   esRegistroRedes: boolean;
   esRegistroCondiciones: boolean;
 
-  esAnterior: boolean = false;
+  esAnterior: boolean;
   esSiguiente: boolean;
   esFinalizar: boolean;
   esCancelar: boolean;
-  send: boolean;
-  error: boolean;
-  success: boolean;
+  send: boolean=false;
+  error: boolean=false;
+  success: boolean=false;
   errorInfo: string;
   isLogged: boolean;
   profile: Profile;
@@ -87,7 +87,7 @@ export class RegisterAbstract implements OnInit {
     this.loadCountries()
     this.formSubmitAttempt = false;
     this.formPage = 0;
-    this.esAnterior = true;
+    this.esAnterior = false;
     this.esSiguiente = true;
     this.esFinalizar = false;
     this.esCancelar = true;
@@ -105,7 +105,7 @@ export class RegisterAbstract implements OnInit {
     this.registerObservable$ = this.registerServices.goBack()
     this.registerObservable$.subscribe(
       data => this.discardChanges())
-    this.getForm(this.loginServices.isLogin())
+    //this.getForm(this.loginServices.isLogin())
     this.registerServices.close().subscribe(
       data => { if (data) { this.reset() } })
       this.formulario.reset();
@@ -137,7 +137,7 @@ export class RegisterAbstract implements OnInit {
   getForm(isLogged) {
     this.isLogged = isLogged
 
-    if (this.isLogged) {
+    if (this.isLogged && this.countries && this.listaIntereses && this.studyLevels && this.professionLevels && this.listaSocial) {
       this.formPage = 1
       this.searchPage()
       if (this.userService.getProfile() == null || this.userService.getProfile() == undefined) {
@@ -160,21 +160,24 @@ export class RegisterAbstract implements OnInit {
 
   loadStudyLevels() {
     this.studyLevelsService.getStudyLevels().subscribe(
-      levels => { this.studyLevels = levels.data },
+      levels => { this.studyLevels = levels.data
+      this.getForm(this.isLogged) },
       err => { console.log(err); }
     );
   }
 
   loadProfessionLevels() {
     this.professionLevelsService.getProfessionLevels().subscribe(
-      levels => { this.professionLevels = levels.data },
+      levels => { this.professionLevels = levels.data
+      this.getForm(this.isLogged) },
       err => { console.log(err); }
     );
   }
 
   loadCountries() {
     this.countriesService.getCountries().subscribe(
-      levels => { this.countries = levels.data },
+      levels => { this.countries = levels.data
+      this.getForm(this.isLogged) },
       err => { console.log(err); }
     );
   }
@@ -202,6 +205,7 @@ export class RegisterAbstract implements OnInit {
           for (let i = 0; i < this.listaIntereses.length; i++) {
             this.addIterestItem(this.listaIntereses[i].id, this.listaIntereses[i].name);
           }
+          this.getForm(this.isLogged);
         }
       }
     );
@@ -224,6 +228,7 @@ export class RegisterAbstract implements OnInit {
           for (let i = 0; i < this.listaSocial.length; i++) {
             this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name);
           }
+          this.getForm(this.isLogged);
         }
       }
     );
