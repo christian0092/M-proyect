@@ -11,7 +11,7 @@ export class MCoffeeService {
         "success": true, "data": [{
             "user_id": 1, "avatar": null, "name": "Juan",
             "surname": "Perez",
-            "status_id": 0,
+            "status_id": 1,
             "status": "No disponible"
         },
         {
@@ -35,14 +35,14 @@ export class MCoffeeService {
             "avatar": "avatar_default.gif",
             "name": "Matias",
             "surname": "Pavon",
-            "status_id": 3,
+            "status_id": 1,
             "status": "Disponible"
         }, {
             "user_id": 8,
             "avatar": "avatar_default.gif",
             "name": "Matias",
             "surname": "Pavon",
-            "status_id": 4,
+            "status_id": 2,
             "status": "Disponible"
         }
         ],
@@ -78,6 +78,26 @@ export class MCoffeeService {
                 "name": "Maria",
                 "surname": "Torres",
                 "status_id": 3,
+                "status": "Pendiente",
+                "sent": 1
+            },
+            {
+                "invitation_id": 14,
+                "user_id": 46,
+                "avatar": "avatar_default.gif",
+                "name": "Maria",
+                "surname": "Torres",
+                "status_id": 4,
+                "status": "Pendiente",
+                "sent": 1
+            },
+            {
+                "invitation_id": 14,
+                "user_id": 46,
+                "avatar": "avatar_default.gif",
+                "name": "Maria",
+                "surname": "Torres",
+                "status_id": 5,
                 "status": "Pendiente",
                 "sent": 1
             }
