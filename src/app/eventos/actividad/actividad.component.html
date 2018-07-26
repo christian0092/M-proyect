@@ -17,52 +17,35 @@
                   <h3>{{actividad?.name}}</h3>
 								</div>
 							</div>
-							<!--<div class="row" *ngIf="getFormatExpone()">
-								<div class="col-lg titulo">
-                  <h5 >Expone:</h5>
-								</div>
-							</div>-->
 							<div class="row" *ngIf="getFormatExpone()">
 
 								<div class="col-md-6" *ngFor="let listaSpeaker of actividad.speakers" style="margin-top:5px">
-									<div style="width:15%;float:left">
+									<div style="width:20%;float:left">
 											<img *ngIf="listaSpeaker.image!=''" src="assets/eventos/speakers/{{listaSpeaker.image}}" style="width:100%"/>
 											<img *ngIf="listaSpeaker.image==''" src="assets/icon/avatar.png" style="width:100%"/>
 									</div>
-									<div style="width:85%;float:left;margin-left:5px">
+									<div style="width:75%;float:left;margin-left:5px">
 											<h6 >{{listaSpeaker.name}}</h6>
 									</div>
 
 								</div>
 
-								<!--<div class="row" *ngFor="let listaSpeaker of actividad.speakers" style="margin-left:5px;border:solid red 1px">
-									<div class="col-md-2">
-										<img src="assets/eventos/speakers/{{listaSpeaker.image}}" style="width:100%;;border:solid red 1px"/>
-									</div>
-									<div class="col-md-10 titulo" style="vertical-align:middle;border:solid red 1px">
-										<h5 >{{listaSpeaker.name}}</h5>
-									</div>
-								</div>-->
-
 							</div>
 
 							<div class="row" *ngIf="getFormatExpone()" style="margin-top:10px">
-								<div class="col-lg titulo">
+								<div class="col-lg titulo" >
 									<h6>Hora de Inicio: {{actividad?.start_time}}</h6>
 								</div>
 							</div>
-              <div class="row" style="margin-top:10px">
-								<div class="col-lg titulo">
-                  <p>
+              <div class="row" >
+								<div class="col-lg titulo" >
+                  <p style="white-space: pre-line;">
                     {{actividad?.description}}
                   </p>
+
               	</div>
 							</div>
-              	<!--<div class="row">
-								<div class="col-lg titulo">
-                  <h6>Hora de Inicio: {{actividad.start_time}}</h6>
-								</div>
-							</div>-->
+
               </div>
 					</div>
 				<!--</form>-->
