@@ -51,6 +51,7 @@ import { MSummit2Component } from './perfil/m-summit2/m-summit2.component';
 import { ActividadComponent } from './eventos/actividad/actividad.component';
 import { ParticipantComponent } from './perfil/participant/participant.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
+import { RegistrationComponent } from './login/registration/registration.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.co
 
     ActividadComponent,
     ParticipantComponent,
-    VerificarCorreoComponent
+    VerificarCorreoComponent,
+    RegistrationComponent
   ],
   imports: [
     routes,
