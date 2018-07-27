@@ -1,0 +1,22 @@
+.botones{
+  font-size:15px;
+  text-decoration: none;
+  /*color:LightSeaGreen;*/
+color:white;
+}
+
+.botones:hover{
+  color:#007bff;
+  text-shadow: 0.5px 0.5px 0.5px grey;
+  /*font-weight:bold;*/
+}
+.registrationform{
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  -webkit-animation: fadein 3s;
+  -o-animation: fadein 3s;
+}
+
+.alert-danger{
+  font-size: 15px;
+}
