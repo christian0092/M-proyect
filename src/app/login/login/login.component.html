@@ -115,7 +115,9 @@
                 <span class="fa fa-unlock-alt fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalPassword" class="botones">¿Olvidaste tu Contraseña?</a></small>
             </div>
             <div class="form-group text-center">
-                <span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
+                <span class="fa fa-user-plus fa-login-2"></span><a [routerLink]="['/registration']"  class="botones">Registrarse</a>
+                <!--<span class="fa fa-user-plus fa-login-2"></span><small><a href="#" data-toggle="modal" data-target="#modalRegistro" class="botones">Registrarse</a></small>
+                -->
             </div>
           </div>
           <div class="col-md-4" >
@@ -139,4 +141,4 @@
 </div>
 
 <app-reset-password></app-reset-password>
-<app-register></app-register>
+<!--<app-register></app-register>-->
