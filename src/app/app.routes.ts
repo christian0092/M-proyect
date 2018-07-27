@@ -7,6 +7,7 @@ import { FormatosComponent } from './formatos/formatos.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
 import { LoginComponent } from './login/login/login.component';
+import { RegistrationComponent } from './login/registration/registration.component';
 
 const appRoutes: Routes=[
   {path:'',redirectTo:'/home', pathMatch: 'full'},
@@ -18,6 +19,7 @@ const appRoutes: Routes=[
   {path:'perfil',component:PerfilComponent},
   {path:'verificar-correo/:code',component:VerificarCorreoComponent},
   {path:'login',component:LoginComponent},
+  {path:'registration',component:RegistrationComponent}
 ];
 
 export const routes:ModuleWithProviders=RouterModule.forRoot(appRoutes);
