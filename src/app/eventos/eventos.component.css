@@ -56,7 +56,7 @@
 .titulo p{
   font-size: 18px;
   text-align: justify;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 .titulo h2{
   margin-top: 15px; color: #2057a2;
@@ -87,7 +87,7 @@
 }
 #imagen_organizan{
   width:100%;
-  margin-top: 10px;
+  margin-top: 1px;
 }
 .img_redonda{
     position: relative;
