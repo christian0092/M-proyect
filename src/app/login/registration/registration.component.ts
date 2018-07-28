@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS } from '@angular/forms';
 import { passwordConfirming, passwordMatchValidator, validateAllFormFields, trueCheck } from '../../customValidators/customValidators';
 import { UserService } from '../../services/user.service';
-
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -21,7 +22,9 @@ formSubmitAttempt: boolean;
 
   constructor(
     protected fp: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private loginServices: LoginService,
+      private router: Router
   ) { }
 
   ngOnInit() {
@@ -101,8 +104,11 @@ formSubmitAttempt: boolean;
 
     reset() {
       this.formSubmitAttempt = false;
-      this.error=false
-      this.success=false
+      this.error=false;
+      this.success=false;
+
+      this.router.navigate(['home']);
+
 
     /*  if (this.loginServices.isLogin()) {
 
@@ -121,9 +127,9 @@ formSubmitAttempt: boolean;
           this.send = true;
           this.error = false;
 
-          console.log(this.formulario.value);
+          //console.log(this.formulario.value);
 
-            /*this.loginServices.register(this.formulario.value).subscribe(
+            this.loginServices.register(this.formulario.value).subscribe(
               data => {
                 if (data['success'] === true) {
                   this.errorInfo=data['message']
@@ -150,7 +156,7 @@ formSubmitAttempt: boolean;
                   this.errorInfo = serverError['password'];
                 }
 
-              });*/
+              });
 
         }
         else {
