@@ -30,7 +30,7 @@ addfile(fileItem:File, form:FormGroup): Observable<object> {
       return this.http.post(
         environment.apiUrl + 'summitUploadTemplete', formData, { headers: header }
       ).map((response: Response) => response.json())
-      .catch((Error:any)=>Observable.throw(Error.json()))      
+      .catch((Error:any)=>Observable.throw(Error.json()))
     }
     changeAvatar(fileItem:File, form:FormGroup): Observable<object> {
       const header = new Headers(
@@ -38,11 +38,11 @@ addfile(fileItem:File, form:FormGroup): Observable<object> {
           'Authorization': 'Bearer' + localStorage.getItem('token')
         });
       const formData: FormData = new FormData();
-      formData.append('Avatar', fileItem, fileItem.name)
+      formData.append('avatar', fileItem, fileItem.name)
       return this.http.post(
-        environment.apiUrl + 'summitUploadTemplete', formData, { headers: header }
+        environment.apiUrl + 'changeAvatar', formData, { headers: header }
       ).map((response: Response) => response.json())
-      .catch((Error:any)=>Observable.throw(Error.json()))      
+      .catch((Error:any)=>Observable.throw(Error.json()))
     }
     /* fileUpload(fileItem:File, extraData?:object):any{
       let apiCreateEndpoint = `${this.apiBaseURL}files/create/`
