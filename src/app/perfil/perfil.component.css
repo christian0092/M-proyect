@@ -102,6 +102,15 @@ color: #2057a2;
   margin:0px;
 
 }
+.fa_perfil2{
+    color:#2057a2;
+    font-size:27px;
+    margin-top:12px;
+}
+.fa_perfil2:hover{
+    cursor: pointer;
+}
+
 .fa_perfil{
     color:#2057a2;
     font-size:27px;
@@ -143,7 +152,7 @@ color: #2057a2;
 }
 #intereses {
 
-  height:20px;
+  height:22px;
   padding:3px;
 }
 

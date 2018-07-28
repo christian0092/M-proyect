@@ -58,6 +58,8 @@ export class PerfilComponent implements OnInit {
   agenda: Activity[];
   agenda$: Observable<Activity[]>;
 
+  ocultar;
+
   public evento: Event;
   public eventoAccounts: Account[];
   errorEvento;
@@ -140,6 +142,7 @@ export class PerfilComponent implements OnInit {
         this.evento = null;
         this.eventoAccounts = null;
         this.errorEvento = true;
+        this.ocultar=true;
       }
     });
   }
@@ -217,8 +220,8 @@ export class PerfilComponent implements OnInit {
     let {file:avatarFile, form:formAvatar}=onFileChange(event,this.avatarFile,this.formAvatar)
     this.avatarFile=avatarFile
     this.formAvatar=formAvatar
-    console.log(this.formAvatar)
-    console.log(this.avatarFile)
+    //console.log(this.formAvatar)
+    //console.log(this.avatarFile)
     //console.log('Tamaño de Archivos'+this.formAvatar.controls['fileData'].get('fileSize').valid)
     //console.log('Formato de archivo:'+this.formAvatar.controls['fileData'].get('fileName'i).vald)
     if(this.formAvatar.valid){
@@ -227,7 +230,7 @@ export class PerfilComponent implements OnInit {
     reader.readAsDataURL(this.avatarFile);}
   }
   createAvatarForm(){
-    this.formAvatar=this.fb.group({  
+    this.formAvatar=this.fb.group({
    fileData: this.fb.group({
         fileName: ['',Validators.compose([Validators.required,fileType(['png','jpg','jpeg','gif'])])],
         fileType: [''],
@@ -251,13 +254,18 @@ export class PerfilComponent implements OnInit {
      return error
         }
 
-
-        changeAvatar() {
+  refreshProfile(){
+    this.userService.getMyProfile2().subscribe(
+      profile => this.userService.changeMyProfile(profile)
+    )
+  }
+  changeAvatar() {
     if(this.formAvatar.valid && this.avatarFile){
     this.send=true;
     this.noError=true
     this.success=false
-   this.loading = true;
+    this.loading = true;
+
       this.fileUploadClientService.changeAvatar(
                 this.avatarFile,
                 this.formAvatar).subscribe(
@@ -267,6 +275,8 @@ export class PerfilComponent implements OnInit {
                       this.loading=false
                       this.noError=true
                       this.avatarInput.nativeElement.value=""
+                      this.editAdvatar()
+                      this.refreshProfile()
                       this.formAvatar.reset()},
                     error=>{
                        this.send=false
@@ -300,7 +310,3 @@ clearFile() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      }
-     
-      
- 
-
