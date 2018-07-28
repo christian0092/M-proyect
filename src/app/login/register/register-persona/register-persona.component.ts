@@ -111,18 +111,18 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
           break;
         }
       case 2:
-        if(this.checkSomeInterest()){
+        /*if(this.checkSomeInterest()){*/
         this.formPage++;
         this.searchPage();
         this.error = false;
         this.formSubmitAttempt = false;
         break;
-      }
-      else {        
+    /*  }*/
+      /*else {
           this.errorInfo = "Tilde al menos un interés";
           this.error = true;
-          break;      
-      }
+          break;
+      }*/
       case 3:
         this.formPage++;
         this.searchPage();
@@ -142,11 +142,11 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
       person: this.fp.group({
         name: [null, Validators.required],
         surname: [null, Validators.required],
-        birth_date: [null, Validators.compose([Validators.required, Validators.pattern(this.datePattern)])],
-        document_number: [null, Validators.required],
+        birth_date: [null],
+        document_number: [null],
         profession_id: [null],
         study_level_id: [null],
-        phone: [null, Validators.pattern(this.mobnumPattern)],
+        phone: [null],
         country_id: [null],
         province: [null],
         city: [null],
@@ -155,7 +155,7 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         postal_code: [null],
         floor: [null],
         dept: [null],
-        terms: [null, Validators.compose([Validators.required, trueCheck])],
+        terms: [true],
         share_data: [true],
         //interests: this.allInterests,
         interests: this.fp.array([]),
@@ -164,7 +164,7 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
         avatar: [null],
         document_type_id: 1
       })
-    }, { validators: passwordMatchValidator });   
+    }, { validators: passwordMatchValidator });
 
   }
 
@@ -228,7 +228,7 @@ ngOnInit() {
     )
   //this.loginServices.isLogin();
   this.registerServices.goBack().subscribe(
-    data=>this.discardChanges())        
+    data=>this.discardChanges())
 }
 
 discardChanges(){
@@ -267,7 +267,7 @@ newIterestItem(id: string, name: string): FormGroup {
 
 addIterestItem(id: string, name: string): void {
   var item = this.formulario_persona.controls['person']['controls']['interests'] as FormArray;
-  item.push(this.newIterestItem(id, name));    
+  item.push(this.newIterestItem(id, name));
 }
 
 loadInterests() {
@@ -298,18 +298,18 @@ loadInterests() {
        value: null
      });
    }
- 
+
    addAccountItem(id: string, name: string, imagen: string): void {
      var item = this.formulario_persona.controls['person']['controls']['accounts'] as FormArray;
-     item.push(this.newAccountItem(id, name, imagen));  
-     //console.log(imagen);  
+     item.push(this.newAccountItem(id, name, imagen));
+     //console.log(imagen);
    }
- 
+
    loadAccounts() {
      this.accountService.getAccounts().subscribe(
        data => {
          if (data['success']) {
-           this.listaSocial = data['data'];         
+           this.listaSocial = data['data'];
            for (let i = 0; i < this.listaSocial.length; i++) {
            /*  let fg = new FormGroup({});
              fg.addControl(this.listaIntereses[i].name, new FormControl(false));
@@ -377,7 +377,7 @@ this.formPage--;
 this.searchPage();
 this.error = false;}
 else if(this.formPage==0){
- 
+
 
 }
 }
@@ -452,6 +452,3 @@ this.formSubmitAttempt = false;
 //let obj={form:this.formulario_persona,formSubmitAttempt:this.formSubmitAttempt}=resetAbstract(this.formulario_persona,this.isFieldValid)
 }*/
 }
-
-
-
