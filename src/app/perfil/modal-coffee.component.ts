@@ -19,14 +19,14 @@ export class ModalCoffeeComponent implements OnInit {
   ParticipantInvitationsList:ParticipantInvitations[]
   constructor(private mCoffeeService:MCoffeeService) {
 
-   //console.log(JSON.stringify(this.ParticipantList)); 
+   //console.log(JSON.stringify(this.ParticipantList));
  }
 
   ngOnInit() {
     //console.log('la id del evento es: '+ this.coffeeId)
     this.mCoffeeService.getParticipantListObservable$().subscribe(
       data=>{this.ParticipantList=data
-             console.log('estoy actualizando participantes')
+             //console.log('estoy actualizando participantes')
            })
     this.mCoffeeService.getParticipantList(this.coffeeId)
     //this.mCoffeeService.getParticipantList(1)
@@ -34,9 +34,9 @@ export class ModalCoffeeComponent implements OnInit {
      //console.log('la id del evento es: '+ this.coffeeId)
     this.mCoffeeService.getParticipantInvitationsListObservable$().subscribe(
       data=>{
-        console.log('estoy actualizando invitaciones')
+        //console.log('estoy actualizando invitaciones')
         this.ParticipantInvitationsList=data
-            
+
            })
     this.mCoffeeService.getParticipantInvitationsList(this.coffeeId)
     //console.log('estoy en el oninit'+this.ParticipantList)
