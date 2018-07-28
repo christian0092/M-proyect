@@ -91,7 +91,7 @@ export class RegisterAbstract implements OnInit {
     this.esSiguiente = true;
     this.esFinalizar = false;
     this.esCancelar = true;
-    this.esRegistroUsuario = true;
+    this.esRegistroUsuario = false;
     this.esRegistroPersonales = false;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
@@ -245,8 +245,8 @@ export class RegisterAbstract implements OnInit {
   searchPage() {
     switch (this.formPage) {
       case 0:
-        this.esRegistroUsuario = true;
-        this.esRegistroPersonales = false;
+        this.esRegistroUsuario = false;
+        this.esRegistroPersonales = true;
         this.esRegistroRedes = false;
         this.esRegistroCondiciones = false;
         this.esAnterior = false;
@@ -282,7 +282,7 @@ export class RegisterAbstract implements OnInit {
         this.esRegistroUsuario = false;
         this.esRegistroPersonales = false;
         this.esRegistroRedes = false;
-        this.esRegistroCondiciones = true;
+        this.esRegistroCondiciones = false;
         this.esAnterior = true;
         this.esSiguiente = false;
         this.esFinalizar = true;
@@ -428,14 +428,10 @@ export class RegisterAbstract implements OnInit {
     this.success=false
     this.searchPage()
     if (this.loginServices.isLogin()) {
-
       this.getForm(true)
       this.formPage = 1
-       //console.log(this.formPage)
     } else if (!this.loginServices.isLogin()){
-      //console.log(this.loginServices.isLogin())
       this.formPage = 0
-      //this.formulario.reset();
     }
 
   }
