@@ -5,6 +5,9 @@ import { Profile } from '../../models/profile'
 import { Observable, Subject } from 'rxjs';
 import { RegisterService } from '../../login/register/register.service';
 
+declare var jQuery:any;
+declare var $:any;
+
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -27,13 +30,13 @@ export class LogoutComponent implements OnInit {
     this.isLogged = this.loginService.isLogin()
     if (this.isLogged == true) {
     this.myProfile$ = this.userService.getMyProfile2();
-    this.myProfile$.subscribe(profile => { 
+    this.myProfile$.subscribe(profile => {
       this.userService.changeMyProfile(profile);
-      this.setUserName(profile) });      
+      this.setUserName(profile) });
     }
   }
 
-  setUserName(profile: Profile) {   
+  setUserName(profile: Profile) {
     if (profile.person != null) {
       this.user = profile.person.name + ' ' + profile.person.surname;
     }
@@ -51,6 +54,13 @@ export class LogoutComponent implements OnInit {
     this.loginService.logout();
     this.registerServices.pushClose();
 
+    //CIERRA EL MENU
+    this.btnLogin()
+
+
+  }
+  btnLogin(){ //CIERRA EL MENU
+      $('.navbar-collapse').collapse('hide');
   }
 }
 
