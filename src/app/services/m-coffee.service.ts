@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class MCoffeeService {
-    private dummyRes = {
+  /*  private dummyRes = {
         "success": true, "data": [{
             "user_id": 1, "avatar": null, "name": "Juan",
             "surname": "Perez",
@@ -176,26 +176,35 @@ export class MCoffeeService {
             }
         ],
         "message": "Lista recuperada correctamente"
-    }
+    }*/
 
     private participantList: Participant[]
     private participantListObservable$ = new Subject<Participant[]>();
     private participantInvitationsList: ParticipantInvitations[]
     private participantInvitationsListObservable$ = new Subject<ParticipantInvitations[]>();
-    constructor(private http: Http) { }
+    private isAvailable: boolean;
+    private subscriptionTimer;
+    private acceptedInvitation$ = new Subject<boolean>();
+    constructor(private http: Http) {
+      /*  this.subscriptionTimer = Observable.interval(1000 * 60).subscribe(x => {
+            this.refreshLists(1);
+        });*/
+        this.subscriptionTimer = Observable.interval(5000).subscribe(x => {
+            this.refreshLists(1);
+        });
+    }
 
 
     /////////////////////////////participantes//////////////////////////////////////////////
     getParticipantList(coffeeId: number) {
         if (this.participantList == null) {
-            //this.loadParticipantList(coffeeId).subscribe(data => { });
-            this.loadParticipantList(coffeeId);
+            this.loadParticipantList(coffeeId).subscribe(data => { });
+            //this.loadParticipantList(coffeeId);
         } else { this.participantListChange(this.participantList) }
 
     }
-    loadParticipantList(coffeeId: number)/*: Observable<any>*/ {
-        //console.log('Estoy en load, la id es:' + coffeeId)
-     /*   const header = new Headers({
+    loadParticipantList(coffeeId: number): Observable<any> {
+        const header = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + localStorage.getItem('token')
         });
@@ -203,10 +212,9 @@ export class MCoffeeService {
         return this.http.get(environment.apiUrl + 'coffeeParticipants',
             { headers: header, params: { activity_id: coffeeId } })
             .map((res: Response) => {
-                console.log("cargue!!!")
                 this.participantListChange(res.json().data.map((participant: Participant) => new Participant().deserialize(participant)))
-            });*/
-         this.participantListChange(this.dummyRes.data.map((participant: Participant) => new Participant().deserialize(participant)))
+            });
+        // this.participantListChange(this.dummyRes.data.map((participant: Participant) => new Participant().deserialize(participant)))
     }
     getParticipantListObservable$(): Observable<Participant[]> {
         return this.participantListObservable$.asObservable();
@@ -220,16 +228,13 @@ export class MCoffeeService {
 
     //////////////////////////////invitaciones//////////////////////////////////////
     getParticipantInvitationsList(coffeeId: number) {
-        //console.log('estoy en invitacioness')
         if (this.participantInvitationsList == null) {
-            //console.log('estoy en invitaciones cargando desde el server')
-            //this.loadParticipantInvitationsList(coffeeId).subscribe(data => { })
-            this.loadParticipantInvitationsList(coffeeId);
+            this.loadParticipantInvitationsList(coffeeId).subscribe(data => { })
+            //this.loadParticipantInvitationsList(coffeeId);
         } else { this.participantInvitationsListChange(this.participantInvitationsList) }
 
     }
-    loadParticipantInvitationsList(coffeeId: number)/*: Observable<any> */{
-       /* console.log('Estoy en load, la id es:' + coffeeId)
+    loadParticipantInvitationsList(coffeeId: number): Observable<any> {
         const header = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + localStorage.getItem('token')
@@ -239,38 +244,40 @@ export class MCoffeeService {
             { headers: header, params: { activity_id: coffeeId } })
             .map((res: Response) => {
                 this.participantInvitationsListChange(res.json().data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
-            });*/
-          this.participantInvitationsListChange(this.dummyRes2.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
+            });
+        // this.participantInvitationsListChange(this.dummyRes2.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
     }
     getParticipantInvitationsListObservable$(): Observable<ParticipantInvitations[]> {
         return this.participantInvitationsListObservable$.asObservable();
     }
     public participantInvitationsListChange(participantInvitationsList: ParticipantInvitations[]) {
         this.participantInvitationsList = participantInvitationsList;
-        //console.log('estoy en invitacioness empujando valores')
         this.participantInvitationsListObservable$.next(this.participantInvitationsList);
     }
 
     /////////////////////////////////////////////Acciones////////////////////////////////////////////
 
-    sendInvitation(user_id: number)/*: Observable<any>*/ {
-      /*  const header = new Headers({
+    sendInvitation(user_id: number, coffeeId: number): Observable<any> {
+        const header = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + localStorage.getItem('token')
         });
 
         return this.http.post(environment.apiUrl + 'sendInvitation',
-            { user_id: user_id }
+            {
+                user_id: user_id,
+                activity_id: coffeeId
+            }
             , { headers: header })
             .map((res: Response) => {
                 this.participantInvitationsListChange(res.json().data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
-            });*/
-         this.participantInvitationsListChange(this.dummyRes3.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
+            });
+        //this.participantInvitationsListChange(this.dummyRes3.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
 
     }
-
-    acceptInvitation(invitation_id: number)/*: Observable<any>*/ {
-     /*   const header = new Headers({
+    
+    acceptInvitation(invitation_id: number): Observable<any> {
+        const header = new Headers({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer' + localStorage.getItem('token')
         });
@@ -280,7 +287,43 @@ export class MCoffeeService {
             { headers: header })
             .map((res: Response) => {
                 this.participantInvitationsListChange(res.json().data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
-            });*/
-        this.participantInvitationsListChange(this.dummyRes4.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
+            });
+        //  this.participantInvitationsListChange(this.dummyRes4.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
+    }
+
+    refreshLists(coffeeId: number) {
+        console.log("timer load")
+        this.loadParticipantList(coffeeId).subscribe(data => { })
+        this.loadParticipantInvitationsList(coffeeId).subscribe(data => { })
+        if(this.hasInvitationAccepted()){
+            console.log("timer off")
+            this.subscriptionTimer.unsubscribe();
+        }
+    }
+
+    hasInvitationSent() {
+        if (this.participantInvitationsList == null) {
+            return false;
+        }
+        let act = this.participantInvitationsList.find(x => x.sent === 1);
+        if (act !== undefined)
+            return true;
+        return false;
+    }
+
+    hasInvitationAccepted() {
+        if (this.participantInvitationsList == null) {
+            return false;
+        }
+        let act = this.participantInvitationsList.find(x => x.status_id === 4);
+        if (act !== undefined){
+            this.acceptedInvitation$.next(true);
+            return true;
+        }
+        return false;
+    }
+
+    getAcceptedInvitation(): Observable<boolean> {
+        return this.acceptedInvitation$.asObservable();
     }
 }
