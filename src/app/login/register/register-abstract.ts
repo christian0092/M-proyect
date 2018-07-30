@@ -92,7 +92,7 @@ export class RegisterAbstract implements OnInit {
     this.esFinalizar = false;
     this.esCancelar = true;
     this.esRegistroUsuario = false;
-    this.esRegistroPersonales = false;
+    this.esRegistroPersonales = true;
     this.esRegistroRedes = false;
     this.esRegistroCondiciones = false;
     this.loginObservable$ = this.loginServices.isLogin$()
@@ -211,11 +211,12 @@ export class RegisterAbstract implements OnInit {
     );
   }
 
-  newAccountItem(id: string, name: string, imagen: string): FormGroup {
+  newAccountItem(id: string, name: string, imagen: string, url: string): FormGroup {
     return this.fp.group({
       image: imagen,
       id: id,
       label: name,
+      url: url,
       value: null
     });
   }
@@ -226,7 +227,7 @@ export class RegisterAbstract implements OnInit {
         if (data['success']) {
           this.listaSocial = data['data'];
           for (let i = 0; i < this.listaSocial.length; i++) {
-            this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name);
+            this.addAccountItem(this.listaSocial[i].id, this.listaSocial[i].name, this.listaSocial[i].image_name, this.listaSocial[i].url);
           }
           this.getForm(this.isLogged);
         }
@@ -234,12 +235,12 @@ export class RegisterAbstract implements OnInit {
     );
   }
 
-  addAccountItem(id: string, name: string, imagen: string): void {
+  addAccountItem(id: string, name: string, imagen: string, url: string): void {
     var namefield = 'person'
     if (this.formulario.controls['organization'])
       namefield = 'organization'
     var item = this.formulario.controls[namefield]['controls']['accounts'] as FormArray;
-    item.push(this.newAccountItem(id, name, imagen));
+    item.push(this.newAccountItem(id, name, imagen, url));
   }
 
   searchPage() {
