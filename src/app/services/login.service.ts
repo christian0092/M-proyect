@@ -36,7 +36,7 @@ export class LoginService {
         body,
         { headers: header }
       ).map((response: Response) => response.json())
-      .catch((Error:any)=>Observable.throw(Error.json()));
+        .catch((Error: any) => Observable.throw(Error.json()));
     }
   }
 
@@ -73,32 +73,26 @@ export class LoginService {
   }
 
   logout() {
-    this.dbLogOut().subscribe(response=>{
-    if(response['success']){
-   
-    console.log(response['message'])
-    }  
-    },
-    error=>{console.log('error en logout:'+error)})
-      localStorage.removeItem("email");
-    localStorage.removeItem("name");
-    localStorage.removeItem("token");
-    this.changeLoginValue(false);
-    this.router.navigate(['home']);  
+    this.dbLogOut().subscribe(response => {
+      localStorage.clear();
+      this.changeLoginValue(false);
+      this.router.navigate(['home']);      
+    })
   }
 
-  dbLogOut():Observable<Object>{
+  dbLogOut(): Observable<Object> {
     const header = new Headers(
-        { 'content-type': 'application/json',
-          'Authorization': 'Bearer' + localStorage.getItem('token')
-        });
+      {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer' + localStorage.getItem('token')
+      });
     return this.http.get(
-      environment.apiUrl + 'logout',     
+      environment.apiUrl + 'logout',
       { headers: header }
     ).map((response: Response) =>
       response.json()
-    )    
-    .catch((Error:any)=>Observable.throw(Error.json()));
+    )
+      .catch((Error: any) => Observable.throw(Error.json()));
   }
 
   register(data: object): Observable<object> {
@@ -108,7 +102,7 @@ export class LoginService {
       data,
       { headers: header }
     ).map((response: Response) => response.json())
-    .catch((Error:any)=>Observable.throw(Error.json()));
+      .catch((Error: any) => Observable.throw(Error.json()));
   }
 
   sendResetPassword(data) {
@@ -118,19 +112,20 @@ export class LoginService {
       data,
       { headers: header }
     ).map((response: Response) => response.json())
-    .catch((Error:any)=>Observable.throw(Error.json()));
+      .catch((Error: any) => Observable.throw(Error.json()));
   }
 
   edit(data: object): Observable<object> {
     const header = new Headers(
-        { 'content-type': 'application/json',
-          'Authorization': 'Bearer' + localStorage.getItem('token')
-        });
+      {
+        'content-type': 'application/json',
+        'Authorization': 'Bearer' + localStorage.getItem('token')
+      });
     return this.http.post(
       environment.apiUrl + 'registerUpdate',
       data,
       { headers: header }
     ).map((response: Response) => response.json())
-    .catch((Error:any)=>Observable.throw(Error.json()));
+      .catch((Error: any) => Observable.throw(Error.json()));
   }
 }

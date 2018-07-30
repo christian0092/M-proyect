@@ -1,13 +1,16 @@
-<li *ngIf="participant" class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
-	<p>{{participant.name}} {{participant.surname}}</p>
-	<button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button>
+
+<li *ngIf="participant"  class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
+	<p>{{participant.name}} {{participant.surname}} </p>	
+	<div *ngIf="disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="No se puede invitar otra persona mientras tengas una solicitud pendiente">Invitar</button></div>
+	<div *ngIf="acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="¡Ya tienes una solicitud aceptada!">Invitar</button></div>
+	<div *ngIf="!disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button></div>
 	<button *ngIf="participant.status_id==2" type="button" class="btn btn-danger disabled">No disponible</button>
 
 </li>
 <li *ngIf="participantInvitations" class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
-	<p>{{participantInvitations.name}} {{participantInvitations.surname}}</p>
+	<p>{{participantInvitations.name}} {{participantInvitations.surname}}</p>	
 	<button *ngIf="participantInvitations.sent==1 && participantInvitations.status_id==3" type="button" class="btn btn-info disabled">Esperando respuesta</button>
-	<button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitacion</button>
+	<div *ngIf="acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" disabled class="btn btn-primary">Aceptar invitación</button></div>
+	<div *ngIf="!acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitación</button></div>
 	<button *ngIf="participantInvitations.status_id==4" type="button" class="btn btn-success disabled">Solicitud aceptada!</button>
-	<button *ngIf="participantInvitations.status_id==5" type="button" class="btn btn-warning disabled">Solicitud rechazada</button>
 </li>

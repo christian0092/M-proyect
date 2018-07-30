@@ -20,7 +20,6 @@ private header = new Headers();
     return this.http.get(
       environment.apiUrl + 'summitContact',{ headers: header, search: data }
     ).map((response: Response) => response.json())
-    .catch((Error:any)=>Observable.throw(Error.json()))
   }
 
 }
