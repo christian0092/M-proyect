@@ -54,12 +54,11 @@
 </div>
 -->
 
-<div id="main" style="background: url('./assets/fondos/1.jpg') no-repeat fixed center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
+<div id="main">
 
-<div class="contenido" >
+<div class="contenido"  style="background: url('./assets/fondos/1.jpg') no-repeat fixed center;-webkit-background-size: cover;-moz-background-size: cover;-o-background-size: cover;background-size: cover;">
 
   <form class="form" role="form" [formGroup]="logForm">
-    <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
 
     <div class="contenido" >
       <div class="container" >
@@ -71,6 +70,8 @@
     </div>
 
     <div class="contenido" style="background: rgba(40, 80, 130,0.5)">
+
+      <div class="alert alert-danger" *ngIf="error">{{errorInfo}}</div>
   		<div class="container loginform" style="margin-top:20px;">
   		  <div class="row">
           <div class="col-md-4" >
@@ -130,13 +131,16 @@
     <div class="contenido" >
       <div class="container" >
         <div class="row">
-          <div class="col-lg" style="height:120px">
+          <div class="col-lg" style="height:150px">
           </div>
         </div>
       </div>
     </div>
 
   </form>
+
+  <app-footer></app-footer>
+
 </div>
 </div>
 
