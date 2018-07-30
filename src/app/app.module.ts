@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { routes } from './app.routes';
 import { FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -52,6 +52,9 @@ import { ActividadComponent } from './eventos/actividad/actividad.component';
 import { ParticipantComponent } from './perfil/participant/participant.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
 import { RegistrationComponent } from './login/registration/registration.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RefreshTokenInterceptor } from './login/refresh-token.interceptor';
+import { AplicationErrorHandle } from './app.error-handle';
 
 
 @NgModule({
@@ -106,6 +109,8 @@ import { RegistrationComponent } from './login/registration/registration.compone
     FileServiceService,
     PreviousRouteService,
     MCoffeeService,
+    {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
+    {provide: ErrorHandler, useClass: AplicationErrorHandle }
   ],
   bootstrap: [AppComponent]
 })
