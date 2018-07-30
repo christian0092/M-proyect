@@ -3,6 +3,7 @@ export class Socials {
     public id: string,
     public name: string,
     public enabled: string,
-    public image_name: string    
+    public image_name: string,
+    public url: string
   ) { }
 }

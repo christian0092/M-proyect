@@ -5,6 +5,7 @@ export class Account implements Deserializable {
   public name: string
   public image_name: string
   public enabled: string
+  public url: string
   public pivot: {
     event_id: string,
     account_id: string,
