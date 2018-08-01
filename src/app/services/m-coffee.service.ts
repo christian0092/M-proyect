@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 import { LoginService } from './login.service';
 
 @Injectable()
-export class MCoffeeService {  
+export class MCoffeeService {
     private participantList: Participant[]
     private participantListObservable$ = new Subject<Participant[]>();
     private participantInvitationsList: ParticipantInvitations[]
@@ -18,7 +18,7 @@ export class MCoffeeService {
       /*  this.subscriptionTimer = Observable.interval(1000 * 60).subscribe(x => {
             this.refreshLists(1);
         });*/
-        this.subscriptionTimer = Observable.interval(5000).subscribe(x => {
+        this.subscriptionTimer = Observable.interval(1000 * 15).subscribe(x => {
             this.refreshLists(1);
         });
         this.loginServices.isLogin$().subscribe(
@@ -131,7 +131,7 @@ export class MCoffeeService {
             this.subscriptionTimer.unsubscribe();
         }
     }
-   
+
 
     hasInvitationSent() {
         if (this.participantInvitationsList == null) {
