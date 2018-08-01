@@ -20,6 +20,7 @@ export class AplicationErrorHandle extends ErrorHandler {
       }*/
 
       if (errorResponse.status === 401 ) {
+        localStorage.clear();
         this.goToLogin();
       }/*
 
