@@ -2,8 +2,8 @@
   margin-top:20px;
 }
 #instruccion p{
-  font-size: 14px;
-}
+  font-size: 16px;
+}/*
 #participantes p{
   font-size: 16px;
 }
@@ -16,4 +16,8 @@
 
   height:35px;
   padding:5px;
+}*/
+.titulo h4{
+  margin-top: 15px;
+  color: #2057a2;
 }

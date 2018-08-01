@@ -1,8 +1,12 @@
 #participantes button{
   font-size: 12px;
   height:23px;
-  padding:0.3px;
+  padding:1px;
+  margin-bottom: 3px;
+  float:right;
 }
+
+/*
 .titulo p{
   font-size: 18px;
   text-align: justify;
@@ -12,13 +16,11 @@
   font-size: 15px;
   margin-top: 15px;
 }
-.titulo h2{
-  margin-top: 15px; color: #2057a2;
-}
+
 .titulo h6{
   margin-top: 15px;  color: #2057a2;
-}
-#imagen_patrocinador{
+}*/
+/*#imagen_patrocinador{
   height:80px;
   margin-top:10px;
 }
@@ -33,7 +35,7 @@
 #imagen_organizan{
   width:100%;
   margin-top: 10px;
-}
+}*/
 .fa {
   padding: 0px;
   font-size: 33px;
@@ -48,7 +50,7 @@
 .fa_perfil{
     color:#2057a2;
 }
-.titulo_divisor{
+/*.titulo_divisor{
   text-align: center;
   position: relative;
   height: 40px;
@@ -65,17 +67,29 @@
 }
 #instruccion p{
   font-size: 14px;
-}
+}*/
 #participantes p{
-  font-size: 16px;
+  font-size: 15px;
+  /*border:1px solid red;*/
+  margin:3px;
+  text-align: left;
 }
 #participantes {
-
-  height:35px;
-  padding:5px;
+padding:0;
+  /*height:31px;*/
+  text-align: left;
+  /*border:1px solid red*/
+/*display:flex;
+align-items: center;*/
 }
 
-#agenda_descripcion{
+/*.avatar{
+  position: relative;
+
+  margin: 0px;
+  padding: 0px;
+}*/
+/*#agenda_descripcion{
   font-size: 16px;
 }
 #agenda_titulo{
@@ -85,4 +99,14 @@
 #agenda_horario{
   font-size: 18px;
   color: #2057a2;
+}*/
+#imagen_logo{
+  width:100%;
+  margin-bottom: 3px;
+  /*border:2px solid white;*/
+  -webkit-box-shadow:0 0 12px rgba(0,0,0,0.8);
+  -moz-box-shadow:0 0 12px rgba(0,0,0,0.8);
+  box-shadow:0 0 12px rgba(0,0,0,0.8);
+/*border:1px solid red*/
+margin:3px;
 }

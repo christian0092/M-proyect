@@ -275,7 +275,7 @@ export class MCoffeeService {
         //this.participantInvitationsListChange(this.dummyRes3.data.map((participantInvitations: ParticipantInvitations) => new ParticipantInvitations().deserialize(participantInvitations)))
 
     }
-    
+
     acceptInvitation(invitation_id: number): Observable<any> {
         const header = new Headers({
             'Content-Type': 'application/json',
@@ -292,11 +292,11 @@ export class MCoffeeService {
     }
 
     refreshLists(coffeeId: number) {
-        console.log("timer load")
+        //console.log("timer load")
         this.loadParticipantList(coffeeId).subscribe(data => { })
         this.loadParticipantInvitationsList(coffeeId).subscribe(data => { })
         if(this.hasInvitationAccepted()){
-            console.log("timer off")
+            //console.log("timer off")
             this.subscriptionTimer.unsubscribe();
         }
     }

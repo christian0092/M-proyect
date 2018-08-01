@@ -1,16 +1,38 @@
 
 <li *ngIf="participant"  class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
-	<p>{{participant.name}} {{participant.surname}} </p>	
-	<div *ngIf="disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="No se puede invitar otra persona mientras tengas una solicitud pendiente">Invitar</button></div>
-	<div *ngIf="acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="¡Ya tienes una solicitud aceptada!">Invitar</button></div>
-	<div *ngIf="!disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button></div>
-	<button *ngIf="participant.status_id==2" type="button" class="btn btn-danger disabled">No disponible</button>
 
+	<div class="avatar" style="width:8%;float:left">
+		<img *ngIf="participant?.avatar!=null"  [src]="'http://services.mwork.com.ar/storage/app/'+participant.avatar" id="imagen_logo">
+		<img *ngIf="participant?.avatar==null" [src]="'assets/icon/avatar.png'" id="imagen_logo">
+	</div>
+	<div class="avatar_text" style="width:90%;float:left">
+		<div style="float:left;width:87%;">
+			<p>{{participant.name}} {{participant.surname}} </p>
+		</div>
+		<div style="float:left;width:12%;">
+			<div *ngIf="disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="No se puede invitar otra persona mientras tengas una solicitud pendiente">Invitar</button></div>
+			<div *ngIf="acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" disabled class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="¡Ya tienes una solicitud aceptada!">Invitar</button></div>
+			<div *ngIf="!disabledInvitar && !acceptedInvitation"><button *ngIf="participant.status_id==1" type="button" (click)="sendInvitation()" class="btn btn-primary">Invitar</button></div>
+			<button *ngIf="participant.status_id==2" type="button" class="btn btn-danger disabled">No disponible</button>
+		</div>
+	</div>
 </li>
+
 <li *ngIf="participantInvitations" class="list-group-item d-flex justify-content-between align-items-center" id="participantes" >
-	<p>{{participantInvitations.name}} {{participantInvitations.surname}}</p>	
-	<button *ngIf="participantInvitations.sent==1 && participantInvitations.status_id==3" type="button" class="btn btn-info disabled">Esperando respuesta</button>
-	<div *ngIf="acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" disabled class="btn btn-primary">Aceptar invitación</button></div>
-	<div *ngIf="!acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitación</button></div>
-	<button *ngIf="participantInvitations.status_id==4" type="button" class="btn btn-success disabled">Solicitud aceptada!</button>
+	<div class="avatar" style="width:8%;float:left">
+		<img *ngIf="participantInvitations.avatar!=null"  [src]="'http://services.mwork.com.ar/storage/app/'+participantInvitations.avatar" id="imagen_logo">
+		<img *ngIf="participantInvitations.avatar==null" [src]="'assets/icon/avatar.png'" id="imagen_logo">
+	</div>
+	<div class="avatar_text" style="width:90%;float:left">
+		<div style="float:left;width:68%;">
+
+			<p>{{participantInvitations.name}} {{participantInvitations.surname}} </p>
+		</div>
+		<div style="float:left;width:30%;">
+			<button *ngIf="participantInvitations.sent==1 && participantInvitations.status_id==3" type="button" class="btn btn-info disabled">Esperando respuesta</button>
+			<div *ngIf="acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" disabled class="btn btn-primary">Aceptar invitación</button></div>
+			<div *ngIf="!acceptedInvitation"><button type="button" *ngIf="participantInvitations.sent==0 && participantInvitations.status_id==3" (click)="acceptInvitation()" class="btn btn-primary">Aceptar invitación</button></div>
+			<button *ngIf="participantInvitations.status_id==4" type="button" class="btn btn-success disabled">Solicitud aceptada!</button>
+		</div>
+	</div>
 </li>

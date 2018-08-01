@@ -1,26 +1,35 @@
+
 <div class="row">
-	<div class="col-md-6" >
-		<h1>Invitar:</h1>
-		<ul class="list-group" style="overflow-y:auto;">
+	<div class="col-md-1" >
+	</div>
+	<div class="col-md-10" id="instruccion">
+		<p>Tienes la opción de generar un contacto "Persona a Persona" para dialogar en privado con alguno de los participantes, café mediante.
+		<li>Elige una Persona que se encuentre disponible en la lista "Invitar".
+		<li>En la lista "Mis Invitaciones" puedes corroborar si la persona aceptó la invitación o aceptar alguna de las invitaciones recibidas.
+		<li>48 hs luego de enviada la invitación, si aún no ha sido aceptada, queda sin efecto y podrás elegir otra persona.</p>
+	</div>
+	<div class="col-md-1" >
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-1" >
+	</div>
+	<div class="col-md-5 titulo text-center">
+		<h4>Invitar</h4>
+		<ul class="list-group"  style="height:260px;overflow-y:auto;">
 			<ng-container *ngFor="let participant of ParticipantList">
-		<app-participant  [participant]="participant" [coffeeId]="coffeeId" [disabledInvitar]="disabledInvitar"></app-participant>
+				<app-participant  [participant]="participant" [coffeeId]="coffeeId" [disabledInvitar]="disabledInvitar"></app-participant>
+			</ng-container>
+		</ul>
+	</div>
+	<div class="col-md-5 titulo  text-center" 	>
+		<h4>Mis invitaciones</h4>
+		<ul class="list-group" style="overflow-y:auto;">
+			<ng-container *ngFor="let participantInvitations of ParticipantInvitationsList">
+		<app-participant [participantInvitations]="participantInvitations" [coffeeId]="coffeeId"></app-participant>
 		</ng-container>
 	</ul>
-</div>
-<div class="col-md-6" >
-	<h1>Mis invitaciones:</h1>
-	<ul class="list-group" style="overflow-y:auto;">
-		<ng-container *ngFor="let participantInvitations of ParticipantInvitationsList">
-	<app-participant [participantInvitations]="participantInvitations" [coffeeId]="coffeeId"></app-participant>
-	</ng-container>
-</ul>
-</div>
-</div>
-<div class="row">
-<div class="col-md-12" id="instruccion">
-<p>Ud. tiene la opción de generar un contacto "Persona a Persona" para dialogar en privado con alguno de los participantes, café mediante.</p>
-<p>1. Elija una Persona que se encuentre disponible (en azul) y oprima el botón "invitar".</p>
-<p>2. Corrobore "aquí" si la persona aceptó la invitación.</p>
-<p>3. 72 hs luego de enviada la invitación, si aún no ha sido aceptada, queda sin efecto y Ud. puede elegir otra Persona.</p>
-</div>
+	</div>
+	<div class="col-md-1" >
+	</div>
 </div>
