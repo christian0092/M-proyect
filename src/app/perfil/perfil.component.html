@@ -1,4 +1,5 @@
 <div id="main">
+<div class="contenido" >
 	<div class="contenido" >
 		<div class="container" style="margin-bottom:0px;">
 			<div class="row " [hidden]="myProfile!=null">
@@ -228,7 +229,7 @@
 		<div class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M-SUMMIT</h2></div>
+					<div class="titulo_texto_divisor"><h2>M_SUMMIT</h2></div>
 				</div>
 			</div>
 		</div>
@@ -239,12 +240,12 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div>
 		<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M-COFEE</h2></div>
+					<div class="titulo_texto_divisor"><h2>M_COFFEE</h2></div>
 				</div>
 			</div>
 		</div>
@@ -254,7 +255,8 @@
 			</div>
 		</div>
 	</div>
-
+	  <app-footer></app-footer>
+</div>
 </div>
 <app-register></app-register>
 <app-actividad [subscripto]="true"></app-actividad>
