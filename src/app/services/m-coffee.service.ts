@@ -4,196 +4,27 @@ import { ParticipantInvitations } from '../models/ParticipantInvitations';
 import { Headers, Http, Response } from '@angular/http';
 import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
+import { LoginService } from './login.service';
 
 @Injectable()
-export class MCoffeeService {
-  /*  private dummyRes = {
-        "success": true, "data": [{
-            "user_id": 1, "avatar": null, "name": "Juan",
-            "surname": "Perez",
-            "status_id": 1,
-            "status": "No disponible"
-        },
-        {
-            "user_id": 46,
-            "avatar": "avatar_default.gif",
-            "name": "Maria",
-            "surname": "Torres",
-            "status_id": 1,
-            "status": "Disponible"
-        },
-        {
-            "user_id": 8,
-            "avatar": "avatar_default.gif",
-            "name": "Matias",
-            "surname": "Pavon",
-            "status_id": 2,
-            "status": "Disponible"
-        },
-        {
-            "user_id": 8,
-            "avatar": "avatar_default.gif",
-            "name": "Matias",
-            "surname": "Pavon",
-            "status_id": 1,
-            "status": "Disponible"
-        }, {
-            "user_id": 8,
-            "avatar": "avatar_default.gif",
-            "name": "Matias",
-            "surname": "Pavon",
-            "status_id": 2,
-            "status": "Disponible"
-        }
-        ],
-        "message": "Lista recuperada correctamente"
-    }
-    private dummyRes2 = {
-        "success": true,
-        "data": [
-            {
-                "invitation_id": 2,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 3,
-                "user_id": 8,
-                "avatar": "avatar_default.gif",
-                "name": "Matias",
-                "surname": "Pavon",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 14,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 1
-            },
-            {
-                "invitation_id": 14,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 4,
-                "status": "Pendiente",
-                "sent": 1
-            },
-            {
-                "invitation_id": 14,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 5,
-                "status": "Pendiente",
-                "sent": 1
-            }
-        ],
-        "message": "Lista recuperada correctamente"
-    }
-    private dummyRes3 = {
-        "success": true,
-        "data": [
-            {
-                "invitation_id": 2,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 3,
-                "user_id": 8,
-                "avatar": "avatar_default.gif",
-                "name": "Matias",
-                "surname": "Pavon",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 14,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 1
-            }
-        ],
-        "message": "Lista recuperada correctamente"
-    }
-
-    private dummyRes4 = {
-        "success": true,
-        "data": [
-            {
-                "invitation_id": 2,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 3,
-                "user_id": 8,
-                "avatar": "avatar_default.gif",
-                "name": "Matias",
-                "surname": "Pavon",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 0
-            },
-            {
-                "invitation_id": 14,
-                "user_id": 46,
-                "avatar": "avatar_default.gif",
-                "name": "Maria",
-                "surname": "Torres",
-                "status_id": 3,
-                "status": "Pendiente",
-                "sent": 1
-            }
-        ],
-        "message": "Lista recuperada correctamente"
-    }*/
-
+export class MCoffeeService {  
     private participantList: Participant[]
     private participantListObservable$ = new Subject<Participant[]>();
     private participantInvitationsList: ParticipantInvitations[]
     private participantInvitationsListObservable$ = new Subject<ParticipantInvitations[]>();
-    private isAvailable: boolean;
     private subscriptionTimer;
     private acceptedInvitation$ = new Subject<boolean>();
-    constructor(private http: Http) {
+    constructor(private http: Http, private loginServices: LoginService) {
       /*  this.subscriptionTimer = Observable.interval(1000 * 60).subscribe(x => {
             this.refreshLists(1);
         });*/
         this.subscriptionTimer = Observable.interval(5000).subscribe(x => {
             this.refreshLists(1);
         });
+        this.loginServices.isLogin$().subscribe(
+            login => { if(!login) this.subscriptionTimer.unsubscribe(); }
+        );
     }
-
 
     /////////////////////////////participantes//////////////////////////////////////////////
     getParticipantList(coffeeId: number) {
@@ -300,6 +131,7 @@ export class MCoffeeService {
             this.subscriptionTimer.unsubscribe();
         }
     }
+   
 
     hasInvitationSent() {
         if (this.participantInvitationsList == null) {
