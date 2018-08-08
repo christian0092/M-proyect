@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, NgModule } from '@angular/core';
 import { Participant } from '../models/participant';
 import { Actividad } from '../models/actividad';
 import { Interests } from '../models/interests';
@@ -9,6 +9,8 @@ import { ParticipantComponent } from '../perfil/participant/participant.componen
 import { Profile } from '../models/profile';
 import { LoginService } from '../services/login.service'
 import { Router, NavigationEnd } from '@angular/router';
+import * as jspdf from 'jspdf'
+import * as html2canvas from "html2canvas"
 
 
 import { EventosService } from '../eventos/eventos.service';
@@ -21,6 +23,7 @@ import { Organizer } from '../models/organizer';
 import { Account } from '../models/account';
 import { Speaker } from '../models/speaker';
 import { Event_format } from '../models/event_format';
+import { QRCodeModule } from 'angularx-qrcode';
 
 import { Person } from '../models/person';
 import { Organization } from '../models/organization';
@@ -31,7 +34,16 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { maxFileSize, fileType } from '../customValidators/customValidators'
 import { FileUploadClientServiceService } from '../services/file-upload-client-service.service'
 
-
+/////////////////////////////////qr///////////////////////
+@NgModule({
+  declarations: [
+  ],
+  imports: [
+    QRCodeModule,
+  ],
+  providers: [],
+})
+//////////////////////////////////////////////////////////////////
 
 @Component({
   selector: 'app-perfil',
@@ -81,6 +93,12 @@ export class PerfilComponent implements OnInit {
   public coffeeLogged
   public coffeeId
   ////////////////////////////////////////////////////////////////////////////////
+
+  ///////////////////////////////variables para qr////////////////////////////
+  myAngularxQrCode: string=''
+  @ViewChild("descargaQr", { read: ElementRef }) descargaQr: ElementRef;
+  ////////////////////////////////////////////////////////////////////////////////
+
   constructor(
     private userService: UserService,
     private loginService: LoginService,
@@ -119,6 +137,8 @@ export class PerfilComponent implements OnInit {
   loadProfile(profile: Profile) {
     if (profile != null) {
       this.myProfile = profile;
+      this.myAngularxQrCode="id:"+this.myProfile.id
+      console.log(this.myAngularxQrCode)
       if (profile.organization != null) {
         this.organization = profile.organization
         this.personLogged = false
@@ -302,7 +322,7 @@ export class PerfilComponent implements OnInit {
     }
 
   }
-  
+
   clearFile() {
     this.formAvatar.reset()
     this.avatarFile = null;
@@ -320,4 +340,16 @@ export class PerfilComponent implements OnInit {
     this.buttonEditAvatar = !this.buttonEditAvatar
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////Funciones para descarga de qr/////////////////////////////////////////
+
+  downloadPdf() {
+    var imgData
+    html2canvas(this.descargaQr.nativeElement).then(canvas => {
+      imgData = canvas.toDataURL("image/png");
+      let doc = new jspdf('portrait', 'pt', 'a4', 1);
+      doc.addImage(imgData, 50, 0, 1037 * 1.5, 404 * 1.5)
+      doc.save('test.pdf')
+    });
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////
 }

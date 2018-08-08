@@ -4,6 +4,7 @@ import { routes } from './app.routes';
 import { FormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ReactiveFormsModule } from "@angular/forms";
+import {QRCodeModule} from 'angularx-qrcode'
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -79,11 +80,11 @@ import { AplicationErrorHandle } from './app.error-handle';
     PartnerRequestFormComponent,
     MSummitComponent,
     MSummit2Component,
-
     ActividadComponent,
     ParticipantComponent,
     VerificarCorreoComponent,
-    RegistrationComponent
+    RegistrationComponent,
+  
   ],
   imports: [
     routes,
@@ -91,6 +92,7 @@ import { AplicationErrorHandle } from './app.error-handle';
     HttpModule,
     BrowserModule,
     ReactiveFormsModule,
+      QRCodeModule
   ],
   providers: [
     LoginService,

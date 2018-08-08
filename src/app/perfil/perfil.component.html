@@ -1,261 +1,266 @@
 <div id="main">
-<div class="contenido" >
 	<div class="contenido" >
-		<div class="container" style="margin-bottom:0px;">
-			<div class="row " [hidden]="myProfile!=null">
-				<div class="col-lg text-center">
-					<i class="fa fa-circle-o-notch fa-spin " style="font-size:48px;color:#0a5686;"></i>
-					<p>Cargando Perfil..</p>
+		<div class="contenido" >
+			<div class="container" style="margin-bottom:0px;">
+				<div class="row " [hidden]="myProfile!=null">
+					<div class="col-lg text-center">
+						<i class="fa fa-circle-o-notch fa-spin " style="font-size:48px;color:#0a5686;"></i>
+						<p>Cargando Perfil..</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="contenido" >
-		<div class="container" [hidden]="myProfile==null" style="margin-bottom: 0px;">
-			<div class="row" >
-				<div class="col-md-2" >
-					<div class="row" >
-						<div class="col-lg" >
-							<div class="avatar">
-								<img *ngIf="person?.avatar!=null"  [src]="imageSrc || 'http://services.mwork.com.ar/storage/app/'+person.avatar" id="imagen_logo">
-
-								<img *ngIf="person?.avatar==null" [src]="imageSrc || 'assets/icon/avatar.png'" id="imagen_logo">
-
-							</div>
-							<div class="text_avatar">
-								<span class="fa fa-edit fa_perfil" style="color:white;" (click)="editAdvatar()"></span>
-							</div>
-						</div>
-					</div>
-					<div [hidden]=buttonEditAvatar>
+		<div class="contenido" >
+			<div class="container" [hidden]="myProfile==null" style="margin-bottom: 0px;">
+				<div class="row" >
+					<div class="col-md-2" >
 						<div class="row" >
 							<div class="col-lg" >
-								<span class="nuestroinput">
-									<input type="file" name="nuestroinput" id="nuestroinput" (change)="onFileChange($event)"  #avatarInput>
-								</span>
-								<label for="nuestroinput">
-									<span >
-										Elige tu Imagen<i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading" style="color:white;font-size:12px"></i>
-									</span>
-								</label>
+								<div class="avatar">
+									<img *ngIf="person?.avatar!=null"  [src]="imageSrc || 'http://services.mwork.com.ar/storage/app/'+person.avatar" id="imagen_logo">
+									<img *ngIf="person?.avatar==null" [src]="imageSrc || 'assets/icon/avatar.png'" id="imagen_logo">
+								</div>
+								<div class="text_avatar">
+									<span class="fa fa-edit fa_perfil" style="color:white;" (click)="editAdvatar()"></span>
+								</div>
 							</div>
 						</div>
-						<div class="row" >
-							<div class="col-lg" >
-								<button type="submit"  [disabled]="formAvatar.invalid || loading" class="btn btn-success boton_chico" style="width:48%;float:left" (click)="changeAvatar()"> <span class="fa fa-check fa-boton" style="color:white;font-size: 20px;"></span> <!--<i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>--></button>
-								<button type="button"  class="btn btn-danger  boton_chico" style="width:48%;float:right" (click)="clearFile()"><span class="fa fa-close fa-boton" style="color:white;font-size: 20px;"></span></button>
-							</div>
-						</div>
-						<div class="row" style="margin-top:10px">
-							<div class="col-lg" >
-								<div *ngIf="checkSize()" class="alert alert-danger" >{{errorSize}}</div>
-								<div *ngIf="checkType()" class="alert alert-danger">{{errorType}}</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-10" >
-					<div class="row" >
-						<div class="col-lg " >
+						<div [hidden]=buttonEditAvatar>
 							<div class="row" >
-								<div class="col-lg" *ngIf="personLogged" >
-									<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
+								<div class="col-lg" >
+									<span class="nuestroinput">
+										<input type="file" name="nuestroinput" id="nuestroinput" (change)="onFileChange($event)"  #avatarInput>
+									</span>
+									<label for="nuestroinput">
+										<span >
+											Elige tu Imagen<i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading" style="color:white;font-size:12px"></i>
+										</span>
+									</label>
 								</div>
-								<div class="col-lg" *ngIf="!personLogged">
-									<div class="titulo" style="float:left">{{organization?.name}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
+							</div>
+							<div class="row" >
+								<div class="col-lg" >
+									<button type="submit"  [disabled]="formAvatar.invalid || loading" class="btn btn-success boton_chico" style="width:48%;float:left" (click)="changeAvatar()"> <span class="fa fa-check fa-boton" style="color:white;font-size: 20px;"></span> <!--<i class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>--></button>
+									<button type="button"  class="btn btn-danger  boton_chico" style="width:48%;float:right" (click)="clearFile()"><span class="fa fa-close fa-boton" style="color:white;font-size: 20px;"></span></button>
+								</div>
+							</div>
+							<div class="row" style="margin-top:10px">
+								<div class="col-lg" >
+									<div *ngIf="checkSize()" class="alert alert-danger" >{{errorSize}}</div>
+									<div *ngIf="checkType()" class="alert alert-danger">{{errorType}}</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-4 " style="margin-top:15px" *ngIf="personLogged">
-							<div class="dato"><div class="titulo_dato">Email:</div> {{person?.email}}</div>
-							<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
-							<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
-							<div class="dato"><div class="titulo_dato">Profesión:</div> {{person?.profession.name}}</div>
-							<div class="dato"><div class="titulo_dato">Estudios:</div> {{person?.study_level.name}}</div>
-							<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
-						</div>
-						<div class="col-md-4 " style="margin-top:15px" *ngIf="!personLogged">
-							<div class="dato"><div class="titulo_dato">Email:</div> {{organization?.email}}</div>
-							<div class="dato"><div class="titulo_dato">Teléfono:</div> {{organization?.phone}}</div>
-							<div class="dato"><div class="titulo_dato">Contacto:</div> {{organization?.contact_name}}</div>
-							<div class="dato"><div class="titulo_dato">Teléfono de Contacto:</div> {{organization?.contact_phone}}</div>
-						</div>
-						<div class="col-md-3" style="margin-top:15px" *ngIf="personLogged">
-							<div class="dato"><div class="titulo_dato">País:</div> {{person?.country?.name}}</div>
-							<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
-							<div class="dato"><div class="titulo_dato">Localidad:</div> {{person?.city}} </div>
-							<div class="dato"><div class="titulo_dato">Código Postal:</div> {{person?.postal_code}} </div>
-							<div class="dato"><div class="titulo_dato">Calle:</div>{{person?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
-							<div class="dato"><div class="titulo_dato">Piso:</div> {{person?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
-						</div>
-						<div class="col-md-3" style="margin-top:15px" *ngIf="!personLogged">
-							<div class="dato"><div class="titulo_dato">País:</div> {{organization?.country?.name}}</div>
-							<div class="dato"><div class="titulo_dato">Provincia:</div> {{organization?.province}}</div>
-							<div class="dato"><div class="titulo_dato">Localidad:</div> {{organization?.city}} </div>
-							<div class="dato"><div class="titulo_dato">Código Postal:</div> {{organization?.postal_code}} </div>
-							<div class="dato"><div class="titulo_dato">Calle:</div>{{organization?.street}} <div class="titulo_dato"> N°:</div> {{organization?.number}}</div>
-							<div class="dato"><div class="titulo_dato">Piso:</div> {{organization?.floor}} <div class="titulo_dato"> Dto:</div> {{organization?.dept}}</div>
-						</div>
-						<div class="col-md-3 datos" style="margin-top:15px">
-							<div class="dato"><div class="titulo_dato">Intereses</div></div>
-							<div style="clear:left">
-								<ul class="list-group">
-									<li style="border:none" class="list-group-item d-flex justify-content-between align-items-center" id="intereses" *ngFor="let interes of listaIntereses">
-										<p>{{interes.name}}</p>
-									</li>
-								</ul>
+					<div class="col-md-10" >
+						<div class="row" >
+							<div class="col-lg " >
+								<div class="row" >
+									<div class="col-lg" *ngIf="personLogged" >
+										<div class="titulo" style="float:left">{{person?.name}} {{person?.surname}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
+									</div>
+									<div class="col-lg" *ngIf="!personLogged">
+										<div class="titulo" style="float:left">{{organization?.name}}</div><div style="float:left;margin-left:10px"><span class="fa fa-edit fa_perfil" data-toggle="modal" data-target="#modalRegistro"></span></div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-2 " style="margin-top:15px">
-
-							<div class="dato"><div class="titulo_dato ">Redes Sociales</div></div>
-							<div style="clear:left">
-								<div style="float:left" *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil2"></span></a></div>
+						<div class="row">
+							<div class="col-md-4 " style="margin-top:15px" *ngIf="personLogged">
+								<div class="dato"><div class="titulo_dato">Email:</div> {{person?.email}}</div>
+								<div class="dato"><div class="titulo_dato">DNI:</div> {{person?.document_number}}</div>
+								<div class="dato"><div class="titulo_dato">Fecha Nacimiento:</div> {{person?.birth_date}}</div>
+								<div class="dato"><div class="titulo_dato">Profesión:</div> {{person?.profession.name}}</div>
+								<div class="dato"><div class="titulo_dato">Estudios:</div> {{person?.study_level.name}}</div>
+								<div class="dato"><div class="titulo_dato">Teléfono:</div> {{person?.phone}}</div>
 							</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="contenido" >
-		<div class="container" style="margin-bottom:0px;">
-			<div class="row " [hidden]="this.evento != null || ocultar">
-				<div class="col-lg text-center">
-					<i class="fa fa-circle-o-notch fa-spin " style="font-size:48px;color:#0a5686;"></i>
-					<p>Cargando Evento..</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div *ngIf ="this.evento != null" class="contenido" id="diagonal_centro">
-		<div class="container"  >
-			<div class="titulo_divisor">
-				<div class="titulo_texto_divisor"><h2>MIS EVENTOS</h2></div>
-			</div>
-		</div>
-	</div>
-	<div class="contenido" *ngIf="this.evento !=null">
-		<div class="container" >
-			<div class="row">
-				<div class="col-md-1"  >
-					<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
-				</div>
-				<div class="col-md-3 float-left" >
-					<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
-
-				</div>
-				<div class="col-md-7 titulo" >
-					<h2>{{evento?.name}}</h2>
-					<h6>{{evento?.start_date}} | {{evento?.event_place}}, Valparaíso, CHILE.</h6>
-					<p style="color:black">
-						{{evento?.description}}
-					</p>
-					<div class="row">
-						<div class="col" *ngFor="let organizer of eventoOrganizers">
-							<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-1"  >
-					<div class="row" style="margin-top:20px">
-						<div class="col-lg">
-							<div *ngFor="let account of eventoAccounts">
-								<a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
+							<div class="col-md-4 " style="margin-top:15px" *ngIf="!personLogged">
+								<div class="dato"><div class="titulo_dato">Email:</div> {{organization?.email}}</div>
+								<div class="dato"><div class="titulo_dato">Teléfono:</div> {{organization?.phone}}</div>
+								<div class="dato"><div class="titulo_dato">Contacto:</div> {{organization?.contact_name}}</div>
+								<div class="dato"><div class="titulo_dato">Teléfono de Contacto:</div> {{organization?.contact_phone}}</div>
+							</div>
+							<div class="col-md-3" style="margin-top:15px" *ngIf="personLogged">
+								<div class="dato"><div class="titulo_dato">País:</div> {{person?.country?.name}}</div>
+								<div class="dato"><div class="titulo_dato">Provincia:</div> {{person?.province}}</div>
+								<div class="dato"><div class="titulo_dato">Localidad:</div> {{person?.city}} </div>
+								<div class="dato"><div class="titulo_dato">Código Postal:</div> {{person?.postal_code}} </div>
+								<div class="dato"><div class="titulo_dato">Calle:</div>{{person?.street}} <div class="titulo_dato"> N°:</div> {{person?.number}}</div>
+								<div class="dato"><div class="titulo_dato">Piso:</div> {{person?.floor}} <div class="titulo_dato"> Dto:</div> {{person?.dept}}</div>
+							</div>
+							<div class="col-md-3" style="margin-top:15px" *ngIf="!personLogged">
+								<div class="dato"><div class="titulo_dato">País:</div> {{organization?.country?.name}}</div>
+								<div class="dato"><div class="titulo_dato">Provincia:</div> {{organization?.province}}</div>
+								<div class="dato"><div class="titulo_dato">Localidad:</div> {{organization?.city}} </div>
+								<div class="dato"><div class="titulo_dato">Código Postal:</div> {{organization?.postal_code}} </div>
+								<div class="dato"><div class="titulo_dato">Calle:</div>{{organization?.street}} <div class="titulo_dato"> N°:</div> {{organization?.number}}</div>
+								<div class="dato"><div class="titulo_dato">Piso:</div> {{organization?.floor}} <div class="titulo_dato"> Dto:</div> {{organization?.dept}}</div>
+							</div>
+							<div class="col-md-3 datos" style="margin-top:15px">
+								<div class="dato"><div class="titulo_dato">Intereses</div></div>
+								<div style="clear:left">
+									<ul class="list-group">
+										<li style="border:none" class="list-group-item d-flex justify-content-between align-items-center" id="intereses" *ngFor="let interes of listaIntereses">
+											<p>{{interes.name}}</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md-2 " style="margin-top:15px">
+								<div class="dato"><div class="titulo_dato ">Redes Sociales</div></div>
+								<div style="clear:left">
+									<div style="float:left" *ngFor="let account of listaAccounts"><a href={{account.pivot.name}}><span class="{{account.image_name}} fa_perfil2"></span></a></div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
 				</div>
 			</div>
 		</div>
-	</div>
-	<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="contenido" id="diagonal_centro">
-		<div class="container"  >
-			<div class="titulo_divisor">
-				<div class="titulo_texto_divisor"><h2>MI AGENDA</h2></div>
-			</div>
-		</div>
-	</div>
-	<div class="contenido" style="margin-bottom:20px">
-		<div class="container" style="margin-top:0px;margin-bottom:0px">
-			<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
-				<div class="col-md-1">
-				</div>
-				<div class="col-md-1">
-					<div id="agenda_horario">
-						{{listaAgenda.start_time}} hs
+		<div class="contenido" #descargaQr (click)="downloadPdf()">
+			<div class="container" style="margin-bottom:0px;">
+				<div class="row ">
+					<div>
+						<p class="text-center">fecha:##/##/####</p>
+						<p class="text-center">Evento:info necesaria</p>
+						<p class="text-center">Nombre: info aqui</p>
+						<qrcode #qr id="asd" *ngIf="myAngularxQrCode!=''" [qrdata]="myAngularxQrCode" [size]="256" [level]="'M'"></qrcode>
 					</div>
-				</div>
-				<div class="col-md-3" >
-					<div id="agenda_titulo">
-						{{listaAgenda.event_format.name}}
-					</div>
-					<div id="agenda_descripcion">
-						{{listaAgenda.event_format.description}}
-					</div>
-				</div>
-				<div class="col-md-5" >
-					<div  id="agenda_titulo">
-						{{listaAgenda.name}}
-					</div>
-					<div id="agenda_descripcion">
-						<div *ngFor="let listaSpeaker of listaAgenda.speakers" style="float:left;margin-right:5px">{{listaSpeaker.name}}</div>
-					</div>
-				</div>
-				<div class="col-md-1" >
-					<span class="fa fa-plus-circle" id="boton-ver" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal"></span>
-					<!--<button type="button" class="btn btn-primary boton_grande"  *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>-->
-				</div>
-				<div class="col-md-1" >
 				</div>
 			</div>
 		</div>
-		<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="row">
-			<div class="col-md-5"   >
-			</div>
-			<div class="col-md-2"  >
-				<button type="button" class="btn btn-primary boton_grande"  (click)="verAgendaCompleta()" >Ver Agenda Completa</button>
-			</div>
-			<div class="col-md-5"  >
+		<div class="contenido" >
+			<div class="container" style="margin-bottom:0px;">
+				<div class="row " [hidden]="this.evento != null || ocultar">
+					<div class="col-lg text-center">
+						<i class="fa fa-circle-o-notch fa-spin " style="font-size:48px;color:#0a5686;"></i>
+						<p>Cargando Evento..</p>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div *ngIf="summitLogged">
-		<div class="contenido" id="diagonal_centro">
+		<div *ngIf ="this.evento != null" class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M_SUMMIT</h2></div>
+					<div class="titulo_texto_divisor"><h2>MIS EVENTOS</h2></div>
 				</div>
 			</div>
 		</div>
-		<div class="contenido">
-			<div class="container">
-				<m-summitDisplay ></m-summitDisplay>
-				<msummit></msummit>
+		<div class="contenido" *ngIf="this.evento !=null">
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-1"  >
+						<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
+					</div>
+					<div class="col-md-3 float-left" >
+						<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
+					</div>
+					<div class="col-md-7 titulo" >
+						<h2>{{evento?.name}}</h2>
+						<h6>{{evento?.start_date}} | {{evento?.event_place}}, Valparaíso, CHILE.</h6>
+						<p style="color:black">
+							{{evento?.description}}
+						</p>
+						<div class="row">
+							<div class="col" *ngFor="let organizer of eventoOrganizers">
+								<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-1"  >
+						<div class="row" style="margin-top:20px">
+							<div class="col-lg">
+								<div *ngFor="let account of eventoAccounts">
+									<a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
+								</div>
+							</div>
+						</div>
+						<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<div>
-		<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido" id="diagonal_centro">
+		<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">
-					<div class="titulo_texto_divisor"><h2>M_COFFEE</h2></div>
+					<div class="titulo_texto_divisor"><h2>MI AGENDA</h2></div>
 				</div>
 			</div>
 		</div>
-		<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido">
-			<div class="container">
-				<modal-coffee [coffeeId]="coffeeId"></modal-coffee>
+		<div class="contenido" style="margin-bottom:20px">
+			<div class="container" style="margin-top:0px;margin-bottom:0px">
+				<div class="row" *ngFor="let listaAgenda of agenda" style="padding:10px;border-bottom:1px solid grey;">
+					<div class="col-md-1">
+					</div>
+					<div class="col-md-1">
+						<div id="agenda_horario">
+							{{listaAgenda.start_time}} hs
+						</div>
+					</div>
+					<div class="col-md-3" >
+						<div id="agenda_titulo">
+							{{listaAgenda.event_format.name}}
+						</div>
+						<div id="agenda_descripcion">
+							{{listaAgenda.event_format.description}}
+						</div>
+					</div>
+					<div class="col-md-5" >
+						<div  id="agenda_titulo">
+							{{listaAgenda.name}}
+						</div>
+						<div id="agenda_descripcion">
+							<div *ngFor="let listaSpeaker of listaAgenda.speakers" style="float:left;margin-right:5px">{{listaSpeaker.name}}</div>
+						</div>
+					</div>
+					<div class="col-md-1" >
+						<span class="fa fa-plus-circle" id="boton-ver" *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal"></span>
+						<!--<button type="button" class="btn btn-primary boton_grande"  *ngIf="getVer(listaAgenda.event_format.id)" data-toggle="modal" (click)=getActividad(listaAgenda) data-target="#actividadModal">Ver</button>-->
+					</div>
+					<div class="col-md-1" >
+					</div>
+				</div>
+			</div>
+			<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="row">
+				<div class="col-md-5"   >
+				</div>
+				<div class="col-md-2"  >
+					<button type="button" class="btn btn-primary boton_grande"  (click)="verAgendaCompleta()" >Ver Agenda Completa</button>
+				</div>
+				<div class="col-md-5"  >
+				</div>
 			</div>
 		</div>
-	</div>
-	  <app-footer></app-footer>
+		<div *ngIf="summitLogged">
+			<div class="contenido" id="diagonal_centro">
+				<div class="container"  >
+					<div class="titulo_divisor">
+						<div class="titulo_texto_divisor"><h2>M_SUMMIT</h2></div>
+					</div>
+				</div>
+			</div>
+			<div class="contenido">
+				<div class="container">
+					<m-summitDisplay ></m-summitDisplay>
+					<msummit></msummit>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido" id="diagonal_centro">
+				<div class="container"  >
+					<div class="titulo_divisor">
+						<div class="titulo_texto_divisor"><h2>M_COFFEE</h2></div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="coffeeLogged && coffeeId!=null" class="contenido">
+				<div class="container">
+					<modal-coffee [coffeeId]="coffeeId"></modal-coffee>
+				</div>
+			</div>
+		</div>
+	<app-footer></app-footer>
 </div>
 </div>
 <app-register></app-register>
