@@ -138,7 +138,7 @@ export class PerfilComponent implements OnInit {
     if (profile != null) {
       this.myProfile = profile;
       this.myAngularxQrCode="id:"+this.myProfile.id
-      console.log(this.myAngularxQrCode)
+      //console.log(this.myAngularxQrCode)
       if (profile.organization != null) {
         this.organization = profile.organization
         this.personLogged = false
@@ -331,8 +331,8 @@ export class PerfilComponent implements OnInit {
     this.noError = true;
     this.imageSrc = null
     this.avatarInput.nativeElement.value = ""
-    console.log(this.formAvatar)
-    console.log(this.avatarFile)
+    //console.log(this.formAvatar)
+    //console.log(this.avatarFile)
     this.editAdvatar()
   }
 
