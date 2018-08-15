@@ -5,7 +5,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://services.mwork.com.ar/',
+  //apiUrl: 'http://services.mwork.com.ar/',
+  apiUrl: 'http://test.mwork.com.ar/test_services/',
   //apiUrl: 'http://127.0.0.1:8000/',
   clientId: '1',
   clientSecret: 'eudaqO1iymV1Oo9AsMudvrm08GYvmbExAbzD3IRj',
