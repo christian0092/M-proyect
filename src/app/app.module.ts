@@ -56,6 +56,7 @@ import { RegistrationComponent } from './login/registration/registration.compone
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RefreshTokenInterceptor } from './login/refresh-token.interceptor';
 import { AplicationErrorHandle } from './app.error-handle';
+import { ResponsePasswordResetComponent } from './login/response-password-reset/response-password-reset.component';
 
 
 @NgModule({
@@ -84,7 +85,8 @@ import { AplicationErrorHandle } from './app.error-handle';
     ParticipantComponent,
     VerificarCorreoComponent,
     RegistrationComponent,
-  
+    ResponsePasswordResetComponent,
+
   ],
   imports: [
     routes,
