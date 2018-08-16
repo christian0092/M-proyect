@@ -343,13 +343,42 @@ export class PerfilComponent implements OnInit {
   ///////////////////////////////Funciones para descarga de qr/////////////////////////////////////////
 
   downloadPdf() {
-    var imgData
+
+
+    /*var imgData
     html2canvas(this.descargaQr.nativeElement).then(canvas => {
       imgData = canvas.toDataURL("image/png");
       let doc = new jspdf('portrait', 'pt', 'a4', 1);
       doc.addImage(imgData, 50, 0, 1037 * 1.5, 404 * 1.5)
       doc.save('test.pdf')
+    });*/
+
+    var imgData
+    html2canvas(this.descargaQr.nativeElement).then(canvas => {
+      imgData = canvas.toDataURL("image/png");
+      let doc = new jspdf('portrait', 'pt', 'a6', 1);
+      doc.setDrawColor( 10 , 86 , 134 );
+      doc.setFillColor( 10 , 86 , 134 );
+      doc.rect( 7 , 12 , 285 , 90 , 'FD' );
+
+      doc.setFontSize(12);
+      doc.setTextColor(255,255,255);
+      doc.setFontType("bold");
+      doc.text(this.person.name+" "+this.person.surname, 10,30)
+      doc.text(this.evento.name, 10,50)
+      doc.text('Fecha: '+this.evento.start_date, 10,70)
+      doc.text('Lugar: '+this.evento.event_place+ ', Valparaíso, CHILE', 10,90)
+      doc.addImage(imgData, 10, 110,300,300);
+
+
+
+
+      doc.save('QR-'+this.evento.name);
     });
+
+    /*let doc = new jspdf();
+    doc.text('hola', 10,10)
+    doc.save('test.pdf')*/
   }
   /////////////////////////////////////////////////////////////////////////////////////////////
 }
