@@ -76,7 +76,7 @@ export class LoginService {
     this.dbLogOut().subscribe(response => {
       localStorage.clear();
       this.changeLoginValue(false);
-      this.router.navigate(['home']);      
+      this.router.navigate(['home']);
     })
   }
 
@@ -106,6 +106,15 @@ export class LoginService {
   }
 
   sendResetPassword(data) {
+    const header = new Headers({ 'Content-Type': 'application/json' });
+    return this.http.post(
+      environment.apiUrl + 'sendPasswordResetLink',
+      data,
+      { headers: header }
+    ).map((response: Response) => response.json())
+      .catch((Error: any) => Observable.throw(Error.json()));
+  }
+  resetPassword(data) {
     const header = new Headers({ 'Content-Type': 'application/json' });
     return this.http.post(
       environment.apiUrl + 'resetPassword',
