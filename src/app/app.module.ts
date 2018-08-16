@@ -34,6 +34,7 @@ import {FileUploadClientServiceService} from "./services/file-upload-client-serv
 import {FileServiceService} from "./services/file-service.service"
 import {PreviousRouteService} from "./services/previous-route.service"
 import {MCoffeeService} from "./services/m-coffee.service"
+import {SnackBarServicesService} from "./services/snack-bar-services.service"
 /////////////////////////////////////////////////////////////////////////////
 
 import { LoginComponent } from './login/login/login.component';
@@ -56,7 +57,54 @@ import { RegistrationComponent } from './login/registration/registration.compone
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RefreshTokenInterceptor } from './login/refresh-token.interceptor';
 import { AplicationErrorHandle } from './app.error-handle';
+
 import { ResponsePasswordResetComponent } from './login/response-password-reset/response-password-reset.component';
+
+////////////////////////////Dependencias de Material///////////////
+import {CdkTableModule} from '@angular/cdk/table';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+} from '@angular/material';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { SnackBarNotificationComponent } from './snack-bar-notification/snack-bar-notification.component';
+import { SuccessfulComponent } from './snack-bar-notification/successful/successful.component';
+import { WarningComponent } from './snack-bar-notification/warning/warning.component';
+import { ErrorComponent } from './snack-bar-notification/error/error.component';
+import { InfoComponent } from './snack-bar-notification/info/info.component';
+//////////////////////////////////////////////////////////
+
 
 
 @NgModule({
@@ -87,6 +135,13 @@ import { ResponsePasswordResetComponent } from './login/response-password-reset/
     RegistrationComponent,
     ResponsePasswordResetComponent,
 
+    SnackBarNotificationComponent,
+    SuccessfulComponent,
+    WarningComponent,
+    ErrorComponent,
+    InfoComponent,
+
+
   ],
   imports: [
     routes,
@@ -94,7 +149,51 @@ import { ResponsePasswordResetComponent } from './login/response-password-reset/
     HttpModule,
     BrowserModule,
     ReactiveFormsModule,
-      QRCodeModule
+      QRCodeModule,
+      MatButtonModule,
+    MatCardModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatExpansionModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    CdkTableModule,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [
     LoginService,
@@ -113,9 +212,16 @@ import { ResponsePasswordResetComponent } from './login/response-password-reset/
     FileServiceService,
     PreviousRouteService,
     MCoffeeService,
+    SnackBarServicesService,
     {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
     {provide: ErrorHandler, useClass: AplicationErrorHandle }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+   entryComponents: [
+        SuccessfulComponent,
+        WarningComponent,
+        ErrorComponent,
+        InfoComponent
+    ]
 })
 export class AppModule { }

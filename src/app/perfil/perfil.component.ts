@@ -11,6 +11,7 @@ import { LoginService } from '../services/login.service'
 import { Router, NavigationEnd } from '@angular/router';
 import * as jspdf from 'jspdf'
 import * as html2canvas from "html2canvas"
+import {SnackBarServicesService} from '../services/snack-bar-services.service'
 
 
 import { EventosService } from '../eventos/eventos.service';
@@ -106,7 +107,8 @@ export class PerfilComponent implements OnInit {
     private eventosServices: EventosService,
     private actividadServices: ActividadService,
     private fb: FormBuilder,
-    private fileUploadClientService: FileUploadClientServiceService
+    private fileUploadClientService: FileUploadClientServiceService,
+    private snack:SnackBarServicesService
   ) {
     this.createAvatarForm()
   }
@@ -354,6 +356,7 @@ export class PerfilComponent implements OnInit {
     });*/
 
     var imgData
+    this.snack.notificationChange(["successful","Creando pdf"])
     html2canvas(this.descargaQr.nativeElement).then(canvas => {
       imgData = canvas.toDataURL("image/png");
       let doc = new jspdf('portrait', 'pt', 'a6', 1);
@@ -381,4 +384,9 @@ export class PerfilComponent implements OnInit {
     doc.save('test.pdf')*/
   }
   /////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////Notificacion///////////////////////////////////////////////
+createNotification(){
+ //this.snack.notificationChange("hola")
+}
+////////////////////////////////////////////////////////////////////////////////
 }
