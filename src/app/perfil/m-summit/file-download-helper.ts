@@ -20,6 +20,6 @@ export const saveFile = (blobContent: Blob, fileName: string) => {
 export const getFileNameFromResponseContentDisposition = (res: Response) => {
     const contentDisposition = res.headers.get('content-disposition') || '';
     const matches = /filename=([^;]+)/ig.exec(contentDisposition);
-    const fileName = ((matches && matches[1]) || 'summit_movilidad_futura.pptx').trim();   
+    const fileName = ('summit_movilidad_futura.pptx').trim();
     return fileName;
 };
