@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://services.mwork.com.ar/',
+  apiUrl: 'http://test.mwork.com.ar/test_services/',
   clientId: '1',
   clientSecret: 'eudaqO1iymV1Oo9AsMudvrm08GYvmbExAbzD3IRj',
   scope: '*',
