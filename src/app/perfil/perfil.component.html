@@ -17,7 +17,7 @@
 						<div class="row" >
 							<div class="col-lg" >
 								<div class="avatar">
-									<img *ngIf="person?.avatar!=null"  [src]="imageSrc || 'http://services.mwork.com.ar/storage/app/'+person.avatar" id="imagen_logo">
+									<img *ngIf="person?.avatar!=null"  [src]="imageSrc || Url+'storage/app/'+person.avatar" id="imagen_logo">
 									<img *ngIf="person?.avatar==null" [src]="imageSrc || 'assets/icon/avatar.png'" id="imagen_logo">
 								</div>
 								<div class="text_avatar">
@@ -180,15 +180,15 @@
 					<div class="col-md-2"  >
 
 
-						<div class="row " style="margin-top:20px;margin-left:1px" #descargaQr >
-							<div  >
-								<qrcode #qr id="asd" *ngIf="myAngularxQrCode!=''" [qrdata]="myAngularxQrCode" [size]="160" [level]="'M'"></qrcode>
+						<div class="row " style="margin-top:20px;margin-left:1px">
+							<div   >
+								<qrcode  #descargaQr id="asd" *ngIf="myAngularxQrCode!=''" [qrdata]="myAngularxQrCode" [size]="160" [level]="'M'"></qrcode>
 							</div>
 						</div>
 
 						<div class="row" style="margin-top:10px">
 							<div class="col-lg">
-								<button  type="button" class="btn btn-primary boton_grande"  (click)="downloadPdf()" >Descargar QR</button>
+								<button  type="button" class="btn btn-primary boton_grande"  (click)="downloadPdf()" >Entrada</button>
 
 							</div>
 						</div>
