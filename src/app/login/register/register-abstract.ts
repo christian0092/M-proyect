@@ -18,6 +18,8 @@ import { onSubmitAbstract, resetAbstract } from '../register/registerDecorator';
 import { Observable } from 'rxjs/Observable'
 import { getLocaleDateFormat } from '@angular/common';
 import { Profile } from '../../models/profile'
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
+
 
 export class RegisterAbstract implements OnInit {
   items: any[] = [];
@@ -66,7 +68,8 @@ export class RegisterAbstract implements OnInit {
     private accountService: AccountsService,
     private userService: UserService,
     private professionLevelsService: ProfessionLevelsService,
-    private countriesService: CountriesService
+    private countriesService: CountriesService,
+    private snack:SnackBarServicesService
   ) {
     this.createFormRegistro();
   }
@@ -315,6 +318,7 @@ export class RegisterAbstract implements OnInit {
     if (this.formulario.valid) {
       this.send = true;
       this.error = false;
+      this.snack.notificationChange(["info","Enviando formulario"])
       if (!this.isLogged) {//registra si no esta logueado
         this.loginServices.register(this.formulario.value).subscribe(
           data => {
@@ -353,6 +357,7 @@ export class RegisterAbstract implements OnInit {
           data => {
             if (data['success'] === true) {
               this.errorInfo=data['message']
+              this.snack.notificationChange(["successful","Perfil modificado exitosamente!"])
               this.send = false
               this.error = false;
               this.success = true;
@@ -365,6 +370,7 @@ export class RegisterAbstract implements OnInit {
           },
           error => {
            // console.log(error)
+           this.snack.notificationChange(["error",error['message']])              
             this.send = false;
             this.error = true;
             //console.log(error)

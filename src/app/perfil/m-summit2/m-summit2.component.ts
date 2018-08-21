@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import {isFieldValidation} from '../../login/register/registerDecorator'
 import { MSummitService} from '../../services/m-summit.service'
 import {FileServiceService}from'../../services/file-service.service'
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
 
 
 
@@ -20,7 +21,11 @@ export class MSummit2Component implements OnInit {
 	errorData:string=''
 	ok:boolean=false
 
-  constructor(private fb:FormBuilder, private mSummitServices:MSummitService, private fileServices:FileServiceService) {
+  constructor(private fb:FormBuilder,
+   private mSummitServices:MSummitService,
+    private fileServices:FileServiceService,
+    private snack:SnackBarServicesService
+    ) {
   	this.queryForm=fb.group({
       	event_id:['',Validators.required],
       	query:['',Validators.required]})
@@ -28,7 +33,9 @@ export class MSummit2Component implements OnInit {
 
   	}
     download(){
+      this.snack.notificationChange(["info","Descargando Template.."])
       this.fileServices.downloadFile()
+
     }
   ngOnInit() {
 
@@ -53,15 +60,17 @@ export class MSummit2Component implements OnInit {
       if (this.queryForm.valid) {
       	 this.send=true;
       	 this.error=false;
+         this.snack.notificationChange(["info","Enviando.."])
       this.mSummitServices.send(this.queryForm.value).subscribe(
           data => {
 
             if(data['success']){
-
+               this.snack.notificationChange(["successful","Su consulta se ha enviado!"])
              	this.setQueryForm()
                this.ok=true
                //console.log(data['message'])
              } else{
+               this.snack.notificationChange(["error",data['message']])
             this.error=true
       		this.errorData=data['message']
             }
@@ -69,12 +78,14 @@ export class MSummit2Component implements OnInit {
           error =>{ this.send=false
                     this.error=true
                     this.errorData=error['message']
+                    this.snack.notificationChange(["error",error['message']])
                     //console.log(error)
                     }
           );
       }else if(this.queryForm.valid==false){
       	this.error=true
       	this.errorData="Compruebe que esta logueado y que relleno la consulta"
+        this.snack.notificationChange(["error","Compruebe que esta logueado y que relleno la consulta"])
       }
     }
 

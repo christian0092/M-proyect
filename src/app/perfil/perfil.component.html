@@ -117,7 +117,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="contenido" #descargaQr (click)="downloadPdf()">
+		<!--<div class="contenido" #descargaQr (click)="downloadPdf()">
 			<div class="container" style="margin-bottom:0px;">
 				<div class="row ">
 					<div>
@@ -128,7 +128,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		<div class="contenido" >
 			<div class="container" style="margin-bottom:0px;">
 				<div class="row " [hidden]="this.evento != null || ocultar">
@@ -149,11 +149,18 @@
 		<div class="contenido" *ngIf="this.evento !=null">
 			<div class="container" >
 				<div class="row">
-					<div class="col-md-1"  >
-						<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
-					</div>
+					<!--<div class="col-md-1"  >
+						<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>
+					</div>-->
 					<div class="col-md-3 float-left" >
 						<img src="assets/eventos/{{this.evento?.logo}}" id="imagen_logo">
+						<div class="row" style="margin-top:10px">
+							<div class="col-lg">
+								<div *ngFor="let account of eventoAccounts">
+									<a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-7 titulo" >
 						<h2>{{evento?.name}}</h2>
@@ -166,20 +173,34 @@
 								<a href="{{organizer.link_page}}" target="_blank"><img src="assets/eventos/{{organizer.logo}}" id="imagen_organizan"></a>
 							</div>
 						</div>
+
+
+
 					</div>
-					<div class="col-md-1"  >
-						<div class="row" style="margin-top:20px">
-							<div class="col-lg">
-								<div *ngFor="let account of eventoAccounts">
-									<a href="{{account.pivot.name}}" target="_blank"><span class="{{account.image_name}}"></span></a>
-								</div>
+					<div class="col-md-2"  >
+
+
+						<div class="row " style="margin-top:20px;margin-left:1px" #descargaQr >
+							<div  >
+								<qrcode #qr id="asd" *ngIf="myAngularxQrCode!=''" [qrdata]="myAngularxQrCode" [size]="160" [level]="'M'"></qrcode>
 							</div>
 						</div>
+
+						<div class="row" style="margin-top:10px">
+							<div class="col-lg">
+								<button  type="button" class="btn btn-primary boton_grande"  (click)="downloadPdf()" >Descargar QR</button>
+
+							</div>
+						</div>
+
+
+
 						<!--<button  type="button" class="btn btn-danger boton_grande" (click)="onAbandonar(evento?.id)">No Asistiré</button>-->
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div *ngIf ="this.agenda != null && this.agenda.length != 0" class="contenido" id="diagonal_centro">
 			<div class="container"  >
 				<div class="titulo_divisor">

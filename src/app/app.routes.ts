@@ -8,10 +8,10 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { VerificarCorreoComponent } from './verificar-correo/verificar-correo.component';
 import { LoginComponent } from './login/login/login.component';
 import { RegistrationComponent } from './login/registration/registration.component';
+import { ResponsePasswordResetComponent } from './login/response-password-reset/response-password-reset.component';
 
 const appRoutes: Routes=[
   {path:'',redirectTo:'/home', pathMatch: 'full'},
-
   {path:'home',component:HomeComponent},
   {path:'nosotros',component:NosotrosComponent},
   {path:'eventos',component:EventosComponent},
@@ -19,7 +19,8 @@ const appRoutes: Routes=[
   {path:'perfil',component:PerfilComponent},
   {path:'verificar-correo/:code',component:VerificarCorreoComponent},
   {path:'login',component:LoginComponent},
-  {path:'registration',component:RegistrationComponent}
+  {path:'registration',component:RegistrationComponent},
+  {path:'response-password-reset',component:ResponsePasswordResetComponent}
 ];
 
 export const routes:ModuleWithProviders=RouterModule.forRoot(appRoutes);

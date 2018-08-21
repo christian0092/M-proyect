@@ -57,6 +57,9 @@ import { RegistrationComponent } from './login/registration/registration.compone
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RefreshTokenInterceptor } from './login/refresh-token.interceptor';
 import { AplicationErrorHandle } from './app.error-handle';
+
+import { ResponsePasswordResetComponent } from './login/response-password-reset/response-password-reset.component';
+
 ////////////////////////////Dependencias de Material///////////////
 import {CdkTableModule} from '@angular/cdk/table';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
@@ -103,6 +106,7 @@ import { InfoComponent } from './snack-bar-notification/info/info.component';
 //////////////////////////////////////////////////////////
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -129,13 +133,15 @@ import { InfoComponent } from './snack-bar-notification/info/info.component';
     ParticipantComponent,
     VerificarCorreoComponent,
     RegistrationComponent,
+    ResponsePasswordResetComponent,
+
     SnackBarNotificationComponent,
     SuccessfulComponent,
     WarningComponent,
     ErrorComponent,
     InfoComponent,
-    
-  
+
+
   ],
   imports: [
     routes,

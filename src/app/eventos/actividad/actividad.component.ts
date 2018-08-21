@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { LoginService } from '../../services/login.service';
 import { Activity } from '../../models/activity';
 import { ActividadService } from './actividad.service';
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
 
 @Component({
   selector: 'app-actividad',
@@ -31,7 +32,8 @@ export class ActividadComponent implements OnInit {
   //actividades;
   constructor(
     private loginService: LoginService,
-    private actividadServices: ActividadService
+    private actividadServices: ActividadService,
+    private snack:SnackBarServicesService
   ) { }
 
   ngOnInit() {
@@ -84,6 +86,7 @@ export class ActividadComponent implements OnInit {
       this.actividadServices.addActivityUser(data).subscribe(
         data => {
           if (data['success']) {
+            this.snack.notificationChange(["successful","Estas participando de la Actividad"])
             this.participaActividad = true;
             this.send = true;
             this.error = false;
@@ -92,10 +95,14 @@ export class ActividadComponent implements OnInit {
           else {
             //console.log(data['message']);
           }
+        },
+        error=>{
+          this.snack.notificationChange(["warning",error.message])
         }
       );
     }
     else {
+      this.snack.notificationChange(["warning","Debe Inscribirse al Evento para Participar de una Acividad"])
       this.send = false;
       this.error = true;
     }
@@ -106,6 +113,7 @@ export class ActividadComponent implements OnInit {
     this.actividadServices.deleteActivityUser(data).subscribe(
       data => {
         if (data['success']) {
+          this.snack.notificationChange(["info","Has dejado la actividad"])
           this.participaActividad = false;
           this.send = false;
           this.refreshMyActivities();

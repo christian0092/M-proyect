@@ -12,6 +12,8 @@ import { StudyLevelsService } from '../../../services/study-levels.service';
 import { ProfessionLevelsService } from '../../../services/profession-levels.service';
 import { AccountsService } from '../../../services/accounts.service';
 import { CountriesService } from '../../../services/countries.service';
+import {SnackBarServicesService} from '../../../services/snack-bar-services.service'
+
 
 @Component({
   selector: 'app-register-empresa',
@@ -55,11 +57,12 @@ export class RegisterEmpresaComponent extends RegisterAbstract implements OnInit
     accountService: AccountsService,
     userService: UserService,
     professionLevelsService: ProfessionLevelsService,
-    countriesService: CountriesService
+    countriesService: CountriesService,    
+     snack:SnackBarServicesService
   ) {
     super(fp, loginServices, registerServices, studyLevelsService,
       accountService,
-      userService, professionLevelsService, countriesService)
+      userService, professionLevelsService, countriesService, snack)
 
   }
 

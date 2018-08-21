@@ -12,6 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import * as jspdf from 'jspdf'
 import * as html2canvas from "html2canvas"
 import {SnackBarServicesService} from '../services/snack-bar-services.service'
+import {environment} from '../../environments/environment'
 
 
 import { EventosService } from '../eventos/eventos.service';
@@ -299,6 +300,7 @@ export class PerfilComponent implements OnInit {
         this.avatarFile,
         this.formAvatar).subscribe(
           event => {
+            this.snack.notificationChange(["successful","Imagen guardada correctamente"])
             this.send = false
             this.success = true
             this.loading = false
@@ -309,6 +311,7 @@ export class PerfilComponent implements OnInit {
             this.formAvatar.reset()
           },
           error => {
+            this.snack.notificationChange(["error",error.message])
             this.send = false
             this.success = false
             this.noError = false;
@@ -320,6 +323,7 @@ export class PerfilComponent implements OnInit {
       this.success = true
       this.loading = false
       this.noError = false
+      this.snack.notificationChange(["warning","Compruebe que el archivo cumple con los requisitos"])
       this.errorInfo = "Se produjo un error, compruebe que esta logueado y los campos estan completos"
     }
 
@@ -345,14 +349,40 @@ export class PerfilComponent implements OnInit {
   ///////////////////////////////Funciones para descarga de qr/////////////////////////////////////////
 
   downloadPdf() {
-    this.snack.notificationChange(["successful","Creando pdf"])
-    var imgData
+
+
+    /*var imgData
     html2canvas(this.descargaQr.nativeElement).then(canvas => {
       imgData = canvas.toDataURL("image/png");
       let doc = new jspdf('portrait', 'pt', 'a4', 1);
       doc.addImage(imgData, 50, 0, 1037 * 1.5, 404 * 1.5)
       doc.save('test.pdf')
+    });*/
+
+    var imgData
+    
+    html2canvas(this.descargaQr.nativeElement).then(canvas => {
+      imgData = canvas.toDataURL("image/png");
+      let doc = new jspdf('portrait', 'pt', 'a6', 1);
+      doc.setDrawColor( 10 , 86 , 134 );
+      doc.setFillColor( 10 , 86 , 134 );
+      doc.rect( 7 , 12 , 285 , 90 , 'FD' );
+
+      doc.setFontSize(12);
+      doc.setTextColor(255,255,255);
+      doc.setFontType("bold");
+      doc.text(this.person.name+" "+this.person.surname, 10,30)
+      doc.text(this.evento.name, 10,50)
+      doc.text('Fecha: '+this.evento.start_date, 10,70)
+      doc.text('Lugar: '+this.evento.event_place+ ', Valparaíso, CHILE', 10,90)
+      doc.addImage(imgData, 10, 110,300,300);
+      doc.save('QR-'+this.evento.name);
+      this.snack.notificationChange(["successful","Creando pdf"])
     });
+
+    /*let doc = new jspdf();
+    doc.text('hola', 10,10)
+    doc.save('test.pdf')*/
   }
   /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////Notificacion///////////////////////////////////////////////

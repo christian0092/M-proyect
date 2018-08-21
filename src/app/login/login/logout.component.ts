@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { Profile } from '../../models/profile'
 import { Observable, Subject } from 'rxjs';
 import { RegisterService } from '../../login/register/register.service';
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
 
 declare var jQuery:any;
 declare var $:any;
@@ -25,7 +26,8 @@ export class LogoutComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private userService: UserService,
-    private registerServices:RegisterService
+    private registerServices:RegisterService,
+    private snack:SnackBarServicesService
   ) {
     this.isLogged = this.loginService.isLogin()
     if (this.isLogged == true) {
@@ -53,7 +55,7 @@ export class LogoutComponent implements OnInit {
 
     this.loginService.logout();
     this.registerServices.pushClose();
-
+    this.snack.notificationChange(["info","Sesion cerrada"])
     //CIERRA EL MENU
     this.btnLogin()
 

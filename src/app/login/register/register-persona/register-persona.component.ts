@@ -14,6 +14,8 @@ import { onSubmitAbstract, resetAbstract } from '../registerDecorator';
 import { RegisterAbstract } from '../register-abstract';
 import { ProfessionLevelsService } from '../../../services/profession-levels.service';
 import { CountriesService } from '../../../services/countries.service';
+import {SnackBarServicesService} from '../../../services/snack-bar-services.service'
+
 
 
 @Component({
@@ -60,11 +62,12 @@ export class RegisterPersonaComponent extends RegisterAbstract implements OnInit
     accountService: AccountsService,
     userService: UserService,
     professionLevelsService: ProfessionLevelsService,
-    countriesServices: CountriesService
+    countriesServices: CountriesService,
+     snack:SnackBarServicesService
   ) {
     super(fp, loginServices, registerServices, studyLevelsService,
       accountService,
-      userService, professionLevelsService, countriesServices)
+      userService, professionLevelsService, countriesServices, snack)
   }
 
   onSiguiente() {

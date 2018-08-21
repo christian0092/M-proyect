@@ -5,7 +5,7 @@ import {FileUploadClientServiceService} from "../../services/file-upload-client-
 import { HttpClient, HttpHeaders, HttpEventType, HttpRequest, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { trueCheck, maxFileSize,fileType } from '../../customValidators/customValidators';
 import { checkSize, checkFileType } from '../../Decorators/fileUploadDecorator';
-
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
 
 
 @Component({
@@ -27,7 +27,9 @@ export class MSummitComponent implements OnInit {
   errorSize:string
 
  @ViewChild('fileInput') fileInput: ElementRef;
-  constructor(private fb: FormBuilder, private fileUploadService:FileUploadClientServiceService) {
+  constructor(private fb: FormBuilder,
+   private fileUploadService:FileUploadClientServiceService,
+   private snack:SnackBarServicesService) {
    this.formTemplate=fb.group({
      title: ['', Validators.compose([Validators.required])],
       description: ['', Validators.compose([Validators.required])],
@@ -80,12 +82,14 @@ export class MSummitComponent implements OnInit {
   	this.send=true;
     this.noError=true
     this.success=false
+    this.snack.notificationChange(["info","Enviando"])
    //const formModel = this.formTemplate.value;
     this.loading = true;
        this.fileUploadService.addfile(
                 this.file,
                 this.formTemplate).subscribe(
                     event=>{
+                      this.snack.notificationChange(["successful","Archivo enviado correctamente!"])
                       this.send=false
                       this.success=true
                       this.loading=false
@@ -93,6 +97,7 @@ export class MSummitComponent implements OnInit {
                       this.fileInput.nativeElement.value=""
                       this.formTemplate.reset()},
                     error=>{
+                      this.snack.notificationChange(["error",error.message])
                        this.send=false
                       this.success=false
                       this.noError=false;
@@ -103,6 +108,7 @@ export class MSummitComponent implements OnInit {
                     this.success=true
                     this.loading=false
                     this.noError=false
+                     this.snack.notificationChange(["warning","Se produjo un error, compruebe que esta logueado y los campos estan completos"])
                     this.errorInfo="Se produjo un error, compruebe que esta logueado y los campos estan completos"
                 }
 
