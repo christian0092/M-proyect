@@ -35,7 +35,6 @@ import { onFileChange, checkSize, checkFileType } from '../Decorators/fileUpload
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { maxFileSize, fileType } from '../customValidators/customValidators'
 import { FileUploadClientServiceService } from '../services/file-upload-client-service.service'
-
 /////////////////////////////////qr///////////////////////
 @NgModule({
   declarations: [
@@ -91,6 +90,7 @@ export class PerfilComponent implements OnInit {
   errorInfo: string = ''
   buttonEditAvatar: boolean = true
   imageSrc
+  Url:string;
   ///////////////////////////////variables para coffee////////////////////////////
   public coffeeLogged
   public coffeeId
@@ -111,6 +111,7 @@ export class PerfilComponent implements OnInit {
     private fileUploadClientService: FileUploadClientServiceService,
     private snack:SnackBarServicesService
   ) {
+    this.Url=environment.apiUrl;
     this.createAvatarForm()
   }
 
@@ -366,16 +367,14 @@ export class PerfilComponent implements OnInit {
       let doc = new jspdf('portrait', 'pt', 'a6', 1);
       doc.setDrawColor( 10 , 86 , 134 );
       doc.setFillColor( 10 , 86 , 134 );
-      doc.rect( 7 , 12 , 285 , 90 , 'FD' );
+      doc.rect( 7 , 12 , 285 , 110 , 'FD' );
 
       doc.setFontSize(12);
       doc.setTextColor(255,255,255);
       doc.setFontType("bold");
-      doc.text(this.person.name+" "+this.person.surname, 10,30)
-      doc.text(this.evento.name, 10,50)
-      doc.text('Fecha: '+this.evento.start_date, 10,70)
-      doc.text('Lugar: '+this.evento.event_place+ ', Valparaíso, CHILE', 10,90)
-      doc.addImage(imgData, 10, 110,300,300);
+      doc.text('Lugar: '+this.evento.event_place, 10,90)
+      doc.text('Valparaíso, CHILE', 10,110)
+      doc.addImage(imgData, 10, 130,280,280);
       doc.save('QR-'+this.evento.name);
       this.snack.notificationChange(["successful","Creando pdf"])
     });

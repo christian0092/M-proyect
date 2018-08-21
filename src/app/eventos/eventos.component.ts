@@ -184,6 +184,8 @@ export class EventosComponent implements OnInit {
     this.eventosServices.getEvent().subscribe(events => {
       this.evento = events[0];
 
+      //console.log(this.evento);
+
       this.eventoAccounts = this.evento.accounts
       this.eventoPartners = this.evento.partners
       this.eventoOrganizers = this.evento.organizers
