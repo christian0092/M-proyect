@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/activity';
 import { Actividad } from '../models/actividad';
-
+import {SnackBarServicesService} from '../services/snack-bar-services.service'
 import { Event } from '../models/event';
 import { Partner } from '../models/partner';
 import { Organizer } from '../models/organizer';
@@ -60,7 +60,8 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventosServices: EventosService,
     private actividadServices: ActividadService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private snack:SnackBarServicesService
   ) { }
 
   ngOnInit() {
@@ -244,6 +245,7 @@ export class EventosComponent implements OnInit {
       this.eventosServices.addEventUser(data).subscribe(
         data => {
           if (data['success']) {
+            this.snack.notificationChange(["successful","Estás inscripto en el Evento"])
             this.subscripto = true;
             this.error = false;
             this.send = true;
@@ -253,6 +255,7 @@ export class EventosComponent implements OnInit {
       );
     }
     else {
+      this.snack.notificationChange(["warning","Debe Loguearse para Inscribirse al Evento"])
       this.error = true;
       this.send = false;
     }

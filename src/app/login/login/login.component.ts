@@ -5,6 +5,7 @@ import {UserService} from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray, NG_ASYNC_VALIDATORS, AbstractControl } from '@angular/forms';
 import {PreviousRouteService} from '../../services/previous-route.service';
 import { Router } from '@angular/router';
+import {SnackBarServicesService} from '../../services/snack-bar-services.service'
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ logForm:FormGroup
     private userService:UserService,
     private fp: FormBuilder,
     private previousRouteService: PreviousRouteService,
-    private router: Router
+    private router: Router,
+    private snack:SnackBarServicesService
   ) { }
 
   ngOnInit() {
@@ -49,6 +51,7 @@ logForm:FormGroup
         this.error=false
         this.loginService.setLogin(data);
         //this.addProfile();
+        this.snack.notificationChange(["successful","Login correcto, Bienvenido!"])
 
         this.prev=this.previousRouteService.getPreviousUrl();
         if(this.prev=='/login')
@@ -62,6 +65,8 @@ logForm:FormGroup
          this.send=false
         this.error=true
         this.errorInfo=error.message
+        this.snack.notificationChange(["error",error.message])
+
         this.logForm.get('password').patchValue('')
       });
   }

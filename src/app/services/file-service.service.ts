@@ -24,7 +24,7 @@ export class FileServiceService {
         // Process the file downloaded
         this.http.get(environment.apiUrl + 'summit/summit_movilidad_futura.pptx', options).subscribe(res => {
             const fileName = getFileNameFromResponseContentDisposition(res);
-            saveFile(res.blob(), fileName);
+            saveFile(res.blob(), "pepito.pptx");
         });
     }
   }

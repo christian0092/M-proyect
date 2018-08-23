@@ -12,6 +12,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import * as jspdf from 'jspdf'
 import * as html2canvas from "html2canvas"
 import {SnackBarServicesService} from '../services/snack-bar-services.service'
+import {environment} from '../../environments/environment'
 
 
 import { EventosService } from '../eventos/eventos.service';
@@ -34,8 +35,6 @@ import { onFileChange, checkSize, checkFileType } from '../Decorators/fileUpload
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { maxFileSize, fileType } from '../customValidators/customValidators'
 import { FileUploadClientServiceService } from '../services/file-upload-client-service.service'
-
-import { environment } from '../../environments/environment';
 /////////////////////////////////qr///////////////////////
 @NgModule({
   declarations: [
@@ -302,6 +301,7 @@ export class PerfilComponent implements OnInit {
         this.avatarFile,
         this.formAvatar).subscribe(
           event => {
+            this.snack.notificationChange(["successful","Imagen guardada correctamente"])
             this.send = false
             this.success = true
             this.loading = false
@@ -312,6 +312,7 @@ export class PerfilComponent implements OnInit {
             this.formAvatar.reset()
           },
           error => {
+            this.snack.notificationChange(["error",error.message])
             this.send = false
             this.success = false
             this.noError = false;
@@ -323,6 +324,7 @@ export class PerfilComponent implements OnInit {
       this.success = true
       this.loading = false
       this.noError = false
+      this.snack.notificationChange(["warning","Compruebe que el archivo cumple con los requisitos"])
       this.errorInfo = "Se produjo un error, compruebe que esta logueado y los campos estan completos"
     }
 
@@ -359,7 +361,7 @@ export class PerfilComponent implements OnInit {
     });*/
 
     var imgData
-    this.snack.notificationChange(["successful","Creando pdf"])
+
     html2canvas(this.descargaQr.nativeElement).then(canvas => {
       imgData = canvas.toDataURL("image/png");
       let doc = new jspdf('portrait', 'pt', 'a4', 1);
@@ -392,6 +394,7 @@ export class PerfilComponent implements OnInit {
 
 
       doc.save('QR-'+this.evento.name);
+      this.snack.notificationChange(["successful","Creando pdf"])
     });
 
     /*let doc = new jspdf();
