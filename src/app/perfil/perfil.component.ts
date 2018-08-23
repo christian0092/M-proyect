@@ -141,7 +141,7 @@ export class PerfilComponent implements OnInit {
   loadProfile(profile: Profile) {
     if (profile != null) {
       this.myProfile = profile;
-      this.myAngularxQrCode=this.myProfile.id
+      this.myAngularxQrCode="id:"+this.myProfile.id
       //console.log(this.myAngularxQrCode)
       if (profile.organization != null) {
         this.organization = profile.organization
