@@ -142,7 +142,7 @@ export class PerfilComponent implements OnInit {
   loadProfile(profile: Profile) {
     if (profile != null) {
       this.myProfile = profile;
-      this.myAngularxQrCode="id:"+this.myProfile.id
+      this.myAngularxQrCode=this.myProfile.id
       //console.log(this.myAngularxQrCode)
       if (profile.organization != null) {
         this.organization = profile.organization
@@ -362,20 +362,31 @@ export class PerfilComponent implements OnInit {
     this.snack.notificationChange(["successful","Creando pdf"])
     html2canvas(this.descargaQr.nativeElement).then(canvas => {
       imgData = canvas.toDataURL("image/png");
-      let doc = new jspdf('portrait', 'pt', 'a6', 1);
+      let doc = new jspdf('portrait', 'pt', 'a4', 1);
+
+      /*var doc = new jspdf({
+          orientation:"P",
+          unit:"pt",
+          format:{
+            width:1000,
+            height:1000
+          }
+      });*/
+
+
       doc.setDrawColor( 10 , 86 , 134 );
       doc.setFillColor( 10 , 86 , 134 );
-      doc.rect( 7 , 12 , 285 , 110 , 'FD' );
+      doc.rect( 180 , 102 , 240 , 110 , 'FD' );
 
-      doc.setFontSize(12);
+      doc.setFontSize(10);
       doc.setTextColor(255,255,255);
       doc.setFontType("bold");
-      doc.text(this.person.name+" "+this.person.surname, 10,30)
-      doc.text(this.evento.name, 10,50)
-      doc.text('Fecha: '+this.evento.start_date, 10,70)
-      doc.text('Lugar: '+this.evento.event_place, 10,90)
-      doc.text('Valparaíso, CHILE', 10,110)
-      doc.addImage(imgData, 10, 130,280,280);
+      doc.text(this.person.name+" "+this.person.surname, 185,120)
+      doc.text(this.evento.name, 185,140)
+      doc.text('Fecha: '+this.evento.start_date, 185,160)
+      doc.text('Lugar: '+this.evento.event_place, 185,180)
+      doc.text('Valparaíso, CHILE', 185,200)
+      doc.addImage(imgData, 180, 220,240,240);
 
 
 
