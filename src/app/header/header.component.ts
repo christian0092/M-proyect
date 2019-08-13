@@ -9,6 +9,9 @@ declare var $:any;
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
   //changeDetection: ChangeDetectionStrategy.OnPush
+  //kjsdfhdsjfh
+  //svdsvsdv
+
 })
 export class HeaderComponent implements OnInit {
   isLogged : boolean;
