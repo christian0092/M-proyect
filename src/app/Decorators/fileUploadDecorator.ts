@@ -1,7 +1,7 @@
 import { Component, OnInit,  ViewChild , ElementRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {FileUploadClientServiceService} from "../services/file-upload-client-service.service"
-
+/*los jaja*/
  export function onFileChange(event, file:File,form:FormGroup) {
     let reader = new FileReader();
     if(event.target.files && event.target.files.length > 0) {
